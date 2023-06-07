@@ -11,8 +11,14 @@
         <RippleButton :buttonText="'Login'" />
       </div>
     </div>
-    <HScroll>
-      <img v-for="i in 30" style="height:55px;" src="icons/awa_logo.svg" />
+    <HScroll class="p-4 gap-4 bg-gray-400 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14">
+      <div><a href="">Spotlight</a></div>
+      <div><a href="">AWAtv</a></div>
+      <div><a href="">Reviews</a></div>
+      <div><a href="">Challenge</a></div>
+      <div><a href="">Magazine</a></div>
+      <div><a href="">Foundation</a></div>
+      <div v-for="i in 5"><a href="">Other link</a></div>
     </HScroll>
 
   </header>
