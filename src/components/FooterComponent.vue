@@ -191,8 +191,7 @@
 
         <!-- Copyright section -->
         <div class="p-4 text-center" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2023 Copyright:
-            <a class="text-white" href="https://tailwind-elements.com/">Tailwind Elements</a>
+            © 2023 | AWA - All rights reserved. No part of this site may be reproduced without prior permission.
         </div>
     </footer>
 </template>

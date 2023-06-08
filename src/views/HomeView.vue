@@ -14,7 +14,7 @@
     <section>
         <div class="grid grid-cols-2 bg-gray-400 pt-16 pb-10 px-7">
             <div>
-                <img class="w-full" src="https://i.imgur.com/1gUzvyh.png" />
+                <img class="w-full" src="https://i.imgur.com/SLPdRb2.jpg" />
             </div>
             <div class="grid grid-rows-3 bg-gray-500 p-3 gap-x-8 gap-y-6" style="grid-template-columns: 1fr 2fr;">
                 <div class="bg-pink-500"></div>
