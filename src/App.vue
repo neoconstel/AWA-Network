@@ -4,7 +4,7 @@
 
   <header>
     <div class="grid grid-cols-2 p-3 bg-gray-800" style="grid-template-columns: 1fr 1fr;">
-      <div><img style="height:55px;" src="icons/awa_logo.svg" /></div>
+      <div><img style="height:55px;" src="/icons/awa_logo.svg" /></div>
       <div class="flex justify-center gap-2 [&>*]:my-auto">
         <Input :placeholderText="'Search'" />
         <RippleButton :buttonText="'Sign Up'" />
