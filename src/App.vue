@@ -11,7 +11,8 @@
         <RippleButton :buttonText="'Login'" />
       </div>
     </div>
-    <HScroll class="p-4 gap-4 bg-gray-400 mb-16 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14">
+    <HScroll
+      class="p-4 gap-4 bg-gray-400 mb-16 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400">
       <div><a href="">Spotlight</a></div>
       <div><a href="">AWAtv</a></div>
       <div><a href="">Reviews</a></div>

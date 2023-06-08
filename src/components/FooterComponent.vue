@@ -191,7 +191,7 @@
 
         <!-- Copyright section -->
         <div class="p-4 text-center" style="background-color: rgba(0, 0, 0, 0.2)">
-            <img class="inline" style="height:55px;" src="public/icons/AWA_logo_white.svg" />
+            <img class="inline" style="height:55px;" src="/icons/AWA_logo_white.svg" />
             <span>© 2023 | AWA - All rights reserved. No part of this site may be reproduced without prior
                 permission.</span>
         </div>
