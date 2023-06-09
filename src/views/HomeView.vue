@@ -1,5 +1,13 @@
 <template>
-    <Carousel class="mb-16" />
+    <div class="grid mb-16" style="grid-template-columns: 40fr 11fr;">
+        <div>
+            <Carousel />
+        </div>
+        <div class="grid bg-gray-400" style="grid-template-rows: 1fr 9fr;">
+            <p class="text-center my-auto">Spotlight Art</p>
+            <img class="mx-auto h-full" src="https://i.imgur.com/40qCewV.jpg" alt="spotlight art">
+        </div>
+    </div>
     <section class="gallery">
         <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900">
             <div v-for="i in 30" class="bg-gray-300 h-44 grid grid-rows-1 grid-cols-1"

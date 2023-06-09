@@ -19,17 +19,17 @@
             <!--First item-->
             <div class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
                 data-te-carousel-item data-te-carousel-active>
-                <img src="https://i.imgur.com/orjLbu5.jpg" class="block w-full" alt="Spotlight art" />
+                <img src="https://i.imgur.com/lyMkjWn.jpg" class="block w-full" alt="awa banner" />
             </div>
             <!--Second item-->
             <div class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
                 data-te-carousel-item>
-                <img src="https://i.imgur.com/lCaqRZB.jpg" class="block w-full" alt="Fantasy art" />
+                <img src="https://i.imgur.com/6A8sUfX.jpg" class="block w-full" alt="carousel placeholder" />
             </div>
             <!--Third item-->
             <div class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
                 data-te-carousel-item>
-                <img src="https://i.imgur.com/JzSBQ0l.jpg" class="block w-full" alt="Portrait art" />
+                <img src="https://i.imgur.com/zCTIQBt.jpg" class="block w-full" alt="carousel placeholder2" />
             </div>
         </div>
 
