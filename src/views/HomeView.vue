@@ -10,12 +10,17 @@
     </div>
     <section class="gallery">
         <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900">
-            <div v-for="i in 30" class="bg-gray-300 h-44 grid grid-rows-1 grid-cols-1"
-                style="grid-template-rows: 1fr 2fr; grid-template-columns: 2fr 1fr;">
-                <div class="bg-pink-500"></div>
-                <div class="bg-cyan-500"></div>
-                <div class="bg-yellow-500"></div>
-                <div class="bg-orange-500"></div>
+
+            <!-- user portfolio -->
+            <div v-for="(portfolio, index) in portfolios.slice(0, 15)" :key="index"
+                class="bg-gray-300 h-44 grid grid-rows-1 grid-cols-1"
+                :style="`grid-template-rows: ${binaryChoice() + 2}fr ${binaryChoice() + 2}fr; grid-template-columns: ${binaryChoice() + 2}fr ${binaryChoice() + 2}fr;`">
+                <!-- works by this user -->
+                <div class="bg-pink-500">{{ index }}<img src="https://picsum.photos/200/300"
+                        :alt="portfolio.works[0].title"></div>
+                <div class="bg-cyan-500">{{ index }}</div>
+                <div class="bg-yellow-500">{{ index }}</div>
+                <div class="bg-orange-500">{{ index }}</div>
             </div>
         </div>
     </section>
@@ -54,6 +59,31 @@ export default {
     name: 'Home',
     components: {
         Carousel
+    },
+    data() {
+        return {
+            "portfolios": [],
+        }
+    },
+    methods: {
+        binaryChoice() {
+            let decimal = Math.random() * 10;
+            let num = Math.floor(decimal)
+            let isEven = num % 2 != 0;
+            let binaryOutput = isEven ? 0 : 1;
+            return binaryOutput;
+        }
+    },
+    async mounted() {
+        console.log('home view mounted')
+
+        const res = await fetch('/src/sample_portfolios.json')
+        let data = await res.json()
+        this.portfolios = data
+        console.log(this.portfolios)
+        console.log(`portfolios: ${this.portfolios.length}`)
+        console.log(this.portfolios[1].user)
+        console.log(this.portfolios[1].works.title)
     }
 }
 </script>

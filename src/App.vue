@@ -42,7 +42,7 @@ export default {
     Footer
   },
   mounted() {
-
+    alert("Site still in development\n Working on the cyclic navigation and the gallery")
   }
 }
 </script>

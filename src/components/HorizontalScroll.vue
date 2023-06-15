@@ -40,11 +40,6 @@ export default {
         }
     },
     mounted() {
-
-        alert("Site still in development\n Working on the cyclic navigation")
-
-
-
         /**
          * $nextTick -- function called when the DOM has updated. Pass in a
          * callback function controlling what should happen in that moment.
