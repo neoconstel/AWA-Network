@@ -54,7 +54,7 @@
             </div>
         </div>
     </section>
-    <section class="gallery pb-4">
+    <section class="gallery">
         <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900">
             <div v-for="i in 15" class="bg-gray-300 h-44 grid grid-rows-1 grid-cols-1"
                 style="grid-template-rows: 1fr 2fr; grid-template-columns: 2fr 1fr;">
@@ -62,6 +62,30 @@
                 <div class="bg-cyan-500"></div>
                 <div class="bg-yellow-500"></div>
                 <div class="bg-orange-500"></div>
+            </div>
+        </div>
+    </section>
+    <section class="jobs">
+        <div class="bg-gray-400 p-4">
+            <p>
+            <h3 class="inline">Featured Jobs</h3>
+            <a class="absolute right-4" href="">All Jobs</a>
+            </p>
+            <div class="grid grid-cols-3 gap-4">
+                <template v-for="i in 6">
+                    <div class="grid bg-gray-300 p-3" style="grid-template-columns: 2fr 7fr; aspect-ratio: 5/1;">
+                        <div><img style="width:100%; height:100%;" src="/public/icons/awa_logo.svg" /></div>
+                        <div>
+                            <p>Bungle</p>
+                            <h3 class="mb-4">VFX Lead</h3>
+                            <p>Bellevue, WA, United States</p>
+                            <p class="flex gap-2">
+                                <RippleButton class="h-9 text-gray-900" :buttonText="'Permanent'" />
+                                <RippleButton class="h-9 text-gray-900" :buttonText="'Relocation'" />
+                            </p>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
     </section>

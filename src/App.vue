@@ -30,14 +30,12 @@
 
 <script>
 import Input from "@/components/TextInput.vue"
-import RippleButton from "@/components/RippleButton.vue"
 import HScroll from "@/components/HorizontalScroll.vue"
 import Footer from "@/components/FooterComponent.vue"
 
 export default {
   components: {
     Input,
-    RippleButton,
     HScroll,
     Footer
   },
