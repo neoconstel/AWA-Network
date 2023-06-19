@@ -22,15 +22,15 @@
                         <div class="text-center grid grid-cols-3">
 
                             <p>
-                                <img class="h-5 inline mr-1" src="/public/icons/iconmonstr-eye-lined.svg" alt="">
+                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-eye-lined.svg" alt="">
                                 <span class="text-xs">{{ portfolio.views }}</span>
                             </p>
                             <p>
-                                <img class="h-5 inline mr-1" src="/public/icons/iconmonstr-thumb-10.svg" alt="">
+                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-thumb-10.svg" alt="">
                                 <span class="text-xs">{{ portfolio.likes }}</span>
                             </p>
                             <p>
-                                <img class="h-5 inline mr-1" src="/public/icons/iconmonstr-speech-bubble-thin.svg" alt="">
+                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-speech-bubble-thin.svg" alt="">
                                 <span class="text-xs">{{ portfolio.comments }}</span>
                             </p>
                         </div>
@@ -68,15 +68,15 @@
                         <div class="text-center grid grid-cols-3">
 
                             <p>
-                                <img class="h-5 inline mr-1" src="/public/icons/iconmonstr-eye-lined.svg" alt="">
+                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-eye-lined.svg" alt="">
                                 <span class="text-xs">{{ portfolio.views }}</span>
                             </p>
                             <p>
-                                <img class="h-5 inline mr-1" src="/public/icons/iconmonstr-thumb-10.svg" alt="">
+                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-thumb-10.svg" alt="">
                                 <span class="text-xs">{{ portfolio.likes }}</span>
                             </p>
                             <p>
-                                <img class="h-5 inline mr-1" src="/public/icons/iconmonstr-speech-bubble-thin.svg" alt="">
+                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-speech-bubble-thin.svg" alt="">
                                 <span class="text-xs">{{ portfolio.comments }}</span>
                             </p>
                         </div>
@@ -94,7 +94,7 @@
             <div class="grid grid-cols-3 gap-4">
                 <template v-for="i in 6">
                     <div class="grid bg-gray-300 p-3" style="grid-template-columns: 2fr 7fr; aspect-ratio: 5/1;">
-                        <div><img style="width:100%; height:100%;" src="/public/icons/awa_logo.svg" /></div>
+                        <div><img style="width:100%; height:100%;" src="/icons/awa_logo.svg" /></div>
                         <div>
                             <p>Bungle</p>
                             <h3 class="mb-4">VFX Lead</h3>
@@ -123,15 +123,15 @@
                         <div class="text-center grid grid-cols-3">
 
                             <p>
-                                <img class="h-5 inline mr-1" src="/public/icons/iconmonstr-eye-lined.svg" alt="">
+                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-eye-lined.svg" alt="">
                                 <span class="text-xs">{{ portfolio.views }}</span>
                             </p>
                             <p>
-                                <img class="h-5 inline mr-1" src="/public/icons/iconmonstr-thumb-10.svg" alt="">
+                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-thumb-10.svg" alt="">
                                 <span class="text-xs">{{ portfolio.likes }}</span>
                             </p>
                             <p>
-                                <img class="h-5 inline mr-1" src="/public/icons/iconmonstr-speech-bubble-thin.svg" alt="">
+                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-speech-bubble-thin.svg" alt="">
                                 <span class="text-xs">{{ portfolio.comments }}</span>
                             </p>
                         </div>
