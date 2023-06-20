@@ -9,14 +9,7 @@
         </div>
     </div>
     <section class="gallery">
-        <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900">
-
-            <!-- user portfolio -->
-            <div v-for="(portfolio, index) in portfolios.slice(0, 15)" :key="index" class="bg-gray-300 h-44 ">
-                <!-- works by this user -->
-                <PortfolioCard :portfolio=portfolio />
-            </div>
-        </div>
+        <PortfolioGallery :portfolios="portfolios.slice(0, 15)" />
     </section>
     <section>
         <div class="grid grid-cols-2 bg-gray-400 pt-16 pb-10 px-7">
@@ -37,7 +30,7 @@
         <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900">
 
             <!-- user portfolio -->
-            <div v-for="(portfolio, index) in portfolios.slice(15, 30)" :key="index" class="bg-gray-300 h-44 ">
+            <div v-for="( portfolio, index ) in  portfolios.slice(15, 30) " :key="index" class="bg-gray-300 h-44 ">
                 <!-- works by this user -->
                 <div class="bg-gray-700" style="aspect-ratio: 3/2;">
                     <div class="grid grid-rows-2 grid-cols-2 gap-1"
@@ -88,7 +81,7 @@
             <a class="absolute right-4" href="">All Jobs</a>
             </p>
             <div class="grid grid-cols-3 gap-4">
-                <template v-for="i in 6">
+                <template v-for=" i  in  6">
                     <div class="grid bg-gray-300 p-3" style="grid-template-columns: 2fr 7fr; aspect-ratio: 5/1;">
                         <div><img style="width:100%; height:100%;" src="/icons/awa_logo.svg" /></div>
                         <div>
@@ -109,7 +102,7 @@
         <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900">
 
             <!-- user portfolio -->
-            <div v-for="(portfolio, index) in portfolios.slice(30, 70)" :key="index" class="bg-gray-300 h-44 ">
+            <div v-for="( portfolio, index ) in  portfolios.slice(30, 70) " :key="index" class="bg-gray-300 h-44 ">
                 <!-- works by this user -->
                 <div class="bg-gray-700" style="aspect-ratio: 3/2;">
                     <div class="grid grid-rows-2 grid-cols-2 gap-1"
@@ -158,12 +151,14 @@
 <script>
 import Carousel from "@/components/CarouselComponent.vue"
 import PortfolioCard from "@/components/PortfolioCard.vue"
+import PortfolioGallery from "@/components/PortfolioGallery.vue"
 
 export default {
     name: 'Home',
     components: {
         Carousel,
-        PortfolioCard
+        PortfolioCard,
+        PortfolioGallery
     },
     data() {
         return {
