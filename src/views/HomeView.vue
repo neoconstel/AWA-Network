@@ -27,52 +27,7 @@
         </div>
     </section>
     <section class="gallery">
-        <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900">
-
-            <!-- user portfolio -->
-            <div v-for="( portfolio, index ) in  portfolios.slice(15, 30) " :key="index" class="bg-gray-300 h-44 ">
-                <!-- works by this user -->
-                <div class="bg-gray-700" style="aspect-ratio: 3/2;">
-                    <div class="grid grid-rows-2 grid-cols-2 gap-1"
-                        style="grid-template-rows: 10fr 15fr; grid-template-columns: 15fr 10fr;">
-                        <div class="bg-red-600 h-16">
-                            <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/06RgauK.jpg"
-                                :alt="portfolio.works[0].title">
-                        </div>
-                        <div class="bg-green-600 h-16">
-                            <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/T1Bo0Gm.jpg"
-                                :alt="portfolio.works[0].title">
-                        </div>
-                        <div class="bg-violet-600 h-24">
-                            <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/snnOesr.jpg"
-                                :alt="portfolio.works[0].title">
-                        </div>
-                        <div class="bg-cyan-600 h-24">
-                            <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/VNuySlL.jpg"
-                                :alt="portfolio.works[0].title">
-                        </div>
-                    </div>
-                    <div class="text-gray-200">
-                        <p class="text-center"><b>{{ portfolio.user }}</b></p>
-                        <div class="text-center grid grid-cols-3">
-
-                            <p>
-                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-eye-lined.svg" alt="">
-                                <span class="text-xs">{{ portfolio.views }}</span>
-                            </p>
-                            <p>
-                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-thumb-10.svg" alt="">
-                                <span class="text-xs">{{ portfolio.likes }}</span>
-                            </p>
-                            <p>
-                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-speech-bubble-thin.svg" alt="">
-                                <span class="text-xs">{{ portfolio.comments }}</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <PortfolioGallery :portfolios="portfolios.slice(15, 30)" />
     </section>
     <section class="jobs">
         <div class="bg-gray-400 p-4">
@@ -99,52 +54,7 @@
         </div>
     </section>
     <section class="gallery">
-        <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900">
-
-            <!-- user portfolio -->
-            <div v-for="( portfolio, index ) in  portfolios.slice(30, 70) " :key="index" class="bg-gray-300 h-44 ">
-                <!-- works by this user -->
-                <div class="bg-gray-700" style="aspect-ratio: 3/2;">
-                    <div class="grid grid-rows-2 grid-cols-2 gap-1"
-                        style="grid-template-rows: 10fr 15fr; grid-template-columns: 15fr 10fr;">
-                        <div class="bg-red-600 h-16">
-                            <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/06RgauK.jpg"
-                                :alt="portfolio.works[0].title">
-                        </div>
-                        <div class="bg-green-600 h-16">
-                            <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/T1Bo0Gm.jpg"
-                                :alt="portfolio.works[0].title">
-                        </div>
-                        <div class="bg-violet-600 h-24">
-                            <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/snnOesr.jpg"
-                                :alt="portfolio.works[0].title">
-                        </div>
-                        <div class="bg-cyan-600 h-24">
-                            <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/VNuySlL.jpg"
-                                :alt="portfolio.works[0].title">
-                        </div>
-                    </div>
-                    <div class="text-gray-200">
-                        <p class="text-center"><b>{{ portfolio.user }}</b></p>
-                        <div class="text-center grid grid-cols-3">
-
-                            <p>
-                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-eye-lined.svg" alt="">
-                                <span class="text-xs">{{ portfolio.views }}</span>
-                            </p>
-                            <p>
-                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-thumb-10.svg" alt="">
-                                <span class="text-xs">{{ portfolio.likes }}</span>
-                            </p>
-                            <p>
-                                <img class="h-5 inline mr-1" src="/icons/iconmonstr-speech-bubble-thin.svg" alt="">
-                                <span class="text-xs">{{ portfolio.comments }}</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <PortfolioGallery :portfolios="portfolios.slice(30, 70)" />
     </section>
 </template>
 
