@@ -54,7 +54,7 @@
         </div>
     </section>
     <section class="gallery">
-        <PortfolioGallery :portfolios="portfolios.slice(30, 70)" />
+        <PortfolioGallery :infiniteScroll="true" :portfolios="portfolios.slice(30, 70)" />
     </section>
 </template>
 

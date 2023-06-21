@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900">
+    <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900" ref="galleryContainer">
 
         <!-- user portfolio -->
         <div v-for="(portfolio, index) in portfolios" :key="index" class="bg-gray-300 h-44 ">
@@ -18,7 +18,8 @@ export default {
         PortfolioCard
     },
     props: {
-        'portfolios': Object
+        'portfolios': Object,
+        'infiniteScroll': Boolean
     },
     data() {
         return {
@@ -26,7 +27,32 @@ export default {
         }
     },
     methods: {
+        requestMorePortfolios() {
+            /**this should be called when the bottom part enters the screen,
+             * signifying all the portfolios have been scrolled across and more
+             * need to be loaded to the infinite gallery.
+             */
 
+        }
+    },
+    mounted() {
+
+        this.$nextTick(() => {
+            /**
+             * use $refs instead of querySelector for selecting elements. This
+             * is because they're VirtualDom elements, not regular DOM elements.
+             */
+            const galleryContainer = this.$refs.galleryContainer;
+            window.addEventListener('scroll', () => {
+                // console.log('window scrolled')
+                const galleryBounds = galleryContainer.getBoundingClientRect();
+                if (galleryBounds.bottom < window.innerHeight && this.infiniteScroll == true) {
+                    // console.log('gallery bottom reached')
+
+                }
+
+            })
+        });
     }
 }
 </script>
