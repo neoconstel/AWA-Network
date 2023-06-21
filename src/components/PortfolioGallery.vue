@@ -27,11 +27,12 @@ export default {
         }
     },
     methods: {
-        requestMorePortfolios() {
+        onBottomReached() {
             /**this should be called when the bottom part enters the screen,
              * signifying all the portfolios have been scrolled across and more
              * need to be loaded to the infinite gallery.
              */
+            this.$emit("bottom-reached");
 
         }
     },
@@ -46,9 +47,9 @@ export default {
             window.addEventListener('scroll', () => {
                 // console.log('window scrolled')
                 const galleryBounds = galleryContainer.getBoundingClientRect();
-                if (galleryBounds.bottom < window.innerHeight && this.infiniteScroll == true) {
+                if (galleryBounds.bottom - 200 < window.innerHeight && this.infiniteScroll == true) {
                     // console.log('gallery bottom reached')
-
+                    this.onBottomReached()
                 }
 
             })

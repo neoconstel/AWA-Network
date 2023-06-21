@@ -54,7 +54,8 @@
         </div>
     </section>
     <section class="gallery">
-        <PortfolioGallery :infiniteScroll="true" :portfolios="portfolios.slice(30, 70)" />
+        <PortfolioGallery @bottom-reached="addMorePortfolios" :infiniteScroll="true"
+            :portfolios="portfolios.slice(30, this.portfoliosUpperLimit)" />
     </section>
 </template>
 
@@ -73,6 +74,8 @@ export default {
     data() {
         return {
             "portfolios": [],
+            "portfoliosUpperLimit": 40,
+            "portfoliosIncrementAmount": 10
         }
     },
     methods: {
@@ -82,6 +85,14 @@ export default {
             let isEven = num % 2 != 0;
             let binaryOutput = isEven ? 0 : 1;
             return binaryOutput;
+        },
+        addMorePortfolios() {
+            /** these first 2 lines are for simulating more data. replace with
+             * fetch API or similar for the real application */
+            let portfoliosMiddleIndex = Math.ceil(this.portfolios.length / 2)
+            this.portfolios.push(this.portfolios[portfoliosMiddleIndex])
+
+            this.portfoliosUpperLimit += this.portfoliosIncrementAmount;
         }
     },
     async mounted() {
