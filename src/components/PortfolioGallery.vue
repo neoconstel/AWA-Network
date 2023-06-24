@@ -19,7 +19,8 @@ export default {
     },
     props: {
         'portfolios': Object,
-        'infiniteScroll': Boolean
+        'infiniteScroll': Boolean,
+        'maxPortfolios': Number
     },
     data() {
         return {
@@ -33,25 +34,28 @@ export default {
              * need to be loaded to the infinite gallery.
              */
             this.$emit("bottom-reached");
-
         }
     },
     mounted() {
 
         this.$nextTick(() => {
+
             /**
              * use $refs instead of querySelector for selecting elements. This
              * is because they're VirtualDom elements, not regular DOM elements.
              */
             const galleryContainer = this.$refs.galleryContainer;
+
             window.addEventListener('scroll', () => {
-                // console.log('window scrolled')
                 const galleryBounds = galleryContainer.getBoundingClientRect();
-                if (galleryBounds.bottom - 200 < window.innerHeight && this.infiniteScroll == true) {
+                let galleryBottomReached = galleryBounds.bottom < window.innerHeight
+                if (
+                    (this.portfolios.length < this.maxPortfolios && galleryBottomReached)
+                    || (this.infiniteScroll == true && galleryBottomReached)
+                ) {
                     // console.log('gallery bottom reached')
                     this.onBottomReached()
                 }
-
             })
         });
     }
