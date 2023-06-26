@@ -1,8 +1,8 @@
 <template>
     <!-- card displaying an artist name, sample works and brief profile stats -->
     <div v-if="this.isMounted" class="bg-gray-700" style="aspect-ratio: 3/2;">
-        <div class="grid grid-rows-2 grid-cols-2 gap-1"
-            style="grid-template-rows: 10fr 15fr; grid-template-columns: 15fr 10fr;">
+        <div :class="layoutClass" :style="layoutStyle">
+            <!-- works in this portfolio -->
             <div class="bg-red-600 h-16">
                 <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/06RgauK.jpg"
                     :alt="portfolio.works[0].title">
@@ -53,6 +53,16 @@ export default {
     },
     methods: {
 
+    },
+    computed: {
+        layoutClass() {
+            if (this.portfolio.works.length >= 4)
+                return 'grid grid-rows-2 grid-cols-2 gap-1'
+        },
+        layoutStyle() {
+            if (this.portfolio.works.length >= 4)
+                return { 'grid-template-rows': '10fr 15fr', 'grid-template-columns': '15fr 10fr' }
+        }
     },
     mounted() {
 
