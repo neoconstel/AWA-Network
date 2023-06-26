@@ -2,7 +2,8 @@
     <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900" ref="galleryContainer">
 
         <!-- user portfolio -->
-        <div v-for="(portfolio, index) in portfolios" :key="index" class="bg-gray-300 h-44 ">
+        <div v-for="(portfolio, index) in portfolios.slice(this.startIndex, this.stopIndex)" :key="index"
+            class="bg-gray-300 h-44 ">
             <!-- works by this user -->
             <PortfolioCard :portfolio=portfolio />
         </div>
@@ -19,8 +20,10 @@ export default {
     },
     props: {
         'portfolios': Object,
-        'infiniteScroll': Boolean,
-        'maxPortfolios': Number
+        'infiniteScroll': Boolean,  // override maxPortfolios and add to portfolios infinitely
+        'maxPortfolios': Number,   // max portfolios length beyond which this gallery instance stops adding to it when further scrolling is done
+        'startIndex': Number,
+        'stopIndex': Number
     },
     data() {
         return {
@@ -48,12 +51,15 @@ export default {
 
             window.addEventListener('scroll', () => {
                 const galleryBounds = galleryContainer.getBoundingClientRect();
-                let galleryBottomReached = galleryBounds.bottom < window.innerHeight
+                const bottomOffset = 400
+                let galleryBottomReached = galleryBounds.bottom - bottomOffset < window.innerHeight
+
                 if (
-                    (this.portfolios.length < this.maxPortfolios && galleryBottomReached)
-                    || (this.infiniteScroll == true && galleryBottomReached)
+                    (galleryBottomReached && this.portfolios.length < this.maxPortfolios)
+                    || (galleryBottomReached && this.infiniteScroll == true)
                 ) {
                     // console.log('gallery bottom reached')
+                    console.log(`${this.portfolios.length}/max ${this.maxPortfolios} -- ${galleryBounds.bottom} < ${window.innerHeight} = ${galleryBounds.bottom < window.innerHeight} and top: ${galleryBounds.top}`)
                     this.onBottomReached()
                 }
             })

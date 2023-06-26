@@ -9,7 +9,8 @@
         </div>
     </div>
     <section class="gallery">
-        <PortfolioGallery :maxPortfolios="15" :portfolios="portfolios.slice(0, 15)" @bottom-reached="addMorePortfolios" />
+        <PortfolioGallery :portfolios="portfolios" :startIndex="0" :stopIndex="15" :maxPortfolios="15"
+            @bottom-reached="addMorePortfolios" />
     </section>
     <section>
         <div class="grid grid-cols-2 bg-gray-400 pt-16 pb-10 px-7">
@@ -27,7 +28,8 @@
         </div>
     </section>
     <section class="gallery">
-        <PortfolioGallery :maxPortfolios="30" :portfolios="portfolios.slice(15, 30)" @bottom-reached="addMorePortfolios" />
+        <PortfolioGallery :portfolios="portfolios" :startIndex="15" :stopIndex="30" :maxPortfolios="30"
+            @bottom-reached="addMorePortfolios" />
     </section>
     <section class="jobs">
         <div class="bg-gray-400 p-4">
@@ -54,8 +56,8 @@
         </div>
     </section>
     <section class="gallery">
-        <PortfolioGallery :maxPortfolios="-1" @bottom-reached="addMorePortfolios" :infiniteScroll="true"
-            :portfolios="portfolios.slice(30, this.portfoliosUpperLimit)" />
+        <PortfolioGallery :portfolios="portfolios" :startIndex="30" :stopIndex="this.portfoliosUpperLimit"
+            @bottom-reached="addMorePortfolios" :infiniteScroll="true" />
     </section>
 </template>
 
