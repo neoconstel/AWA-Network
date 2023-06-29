@@ -81,12 +81,10 @@ export default {
         }
     },
     methods: {
-        binaryChoice() {
-            let decimal = Math.random() * 10;
-            let num = Math.floor(decimal)
-            let isEven = num % 2 != 0;
-            let binaryOutput = isEven ? 0 : 1;
-            return binaryOutput;
+        randomIntInclusive(a, b) {
+            a = Math.ceil(a);
+            b = Math.floor(b);
+            return Math.floor(Math.random() * (b - a + 1) + a);
         },
         addMorePortfolios() {
             /** these first part is for simulating more data. replace with
@@ -113,9 +111,11 @@ export default {
         }
         // experimental -- assign number of works in portfolios for testing purposes
         this.portfoliosDatabase.forEach(portfolio => {
-            let isSingleWork = this.binaryChoice()
+            let isSingleWork = this.randomIntInclusive(0, 1)
             if (isSingleWork)
                 portfolio.works = portfolio.works.slice(0, 1)
+            else
+                portfolio.works = portfolio.works.slice(0, this.randomIntInclusive(2, 4))
         })
 
 
