@@ -3,21 +3,21 @@
     <div v-if="this.isMounted" class="bg-gray-700" style="aspect-ratio: 3/2;">
         <div :class="layoutClass" :style="layoutStyle">
             <!-- works in this portfolio -->
-            <div class="bg-red-600 h-16">
+            <div v-if="portfolio.works.length > 0" :class="['bg-red-600', firstWorkHeight]">
                 <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/06RgauK.jpg"
                     :alt="portfolio.works[0].title">
             </div>
-            <div class="bg-green-600 h-16">
+            <div v-if="portfolio.works.length > 1" class="bg-green-600 h-16">
                 <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/T1Bo0Gm.jpg"
-                    :alt="portfolio.works[0].title">
+                    :alt="portfolio.works[1].title">
             </div>
-            <div class="bg-violet-600 h-24">
+            <div v-if="portfolio.works.length > 2" class="bg-violet-600 h-24">
                 <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/snnOesr.jpg"
-                    :alt="portfolio.works[0].title">
+                    :alt="portfolio.works[2].title">
             </div>
-            <div class="bg-cyan-600 h-24">
+            <div v-if="portfolio.works.length > 3" class="bg-cyan-600 h-24">
                 <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/VNuySlL.jpg"
-                    :alt="portfolio.works[0].title">
+                    :alt="portfolio.works[3].title">
             </div>
         </div>
         <div class="text-gray-200">
@@ -56,12 +56,22 @@ export default {
     },
     computed: {
         layoutClass() {
-            if (this.portfolio.works.length >= 4)
+            if (this.portfolio.works.length > 1)
                 return 'grid grid-rows-2 grid-cols-2 gap-1'
+            else
+                return 'grid grid-rows-1 grid-cols-1 gap-1'
         },
         layoutStyle() {
-            if (this.portfolio.works.length >= 4)
+            if (this.portfolio.works.length > 1)
                 return { 'grid-template-rows': '10fr 15fr', 'grid-template-columns': '15fr 10fr' }
+            else
+                return { 'grid-template-rows': '1fr', 'grid-template-columns': '1fr' }
+        },
+        firstWorkHeight() {
+            if (this.portfolio.works.length > 1)
+                return 'h-16'
+            else
+                return 'h-40'
         }
     },
     mounted() {
