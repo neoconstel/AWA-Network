@@ -4,19 +4,19 @@
         <div :class="layoutClass" :style="layoutStyle">
             <!-- works in this portfolio -->
             <div v-if="portfolio.works.length > 0" :class="['bg-red-600', firstWorkHeight]">
-                <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/06RgauK.jpg"
+                <img class="" style="height: 100%; width: 100%;" :src="portfolio.works[0].thumbnail"
                     :alt="portfolio.works[0].title">
             </div>
             <div v-if="portfolio.works.length > 1" class="bg-green-600 h-16">
-                <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/T1Bo0Gm.jpg"
+                <img class="" style="height: 100%; width: 100%;" :src="portfolio.works[1].thumbnail"
                     :alt="portfolio.works[1].title">
             </div>
             <div v-if="portfolio.works.length > 2" class="bg-violet-600 h-24">
-                <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/snnOesr.jpg"
+                <img class="" style="height: 100%; width: 100%;" :src="portfolio.works[2].thumbnail"
                     :alt="portfolio.works[2].title">
             </div>
             <div v-if="portfolio.works.length > 3" class="bg-cyan-600 h-24">
-                <img class="" style="height: 100%; width: 100%;" src="https://i.imgur.com/VNuySlL.jpg"
+                <img class="" style="height: 100%; width: 100%;" :src="portfolio.works[3].thumbnail"
                     :alt="portfolio.works[3].title">
             </div>
         </div>
