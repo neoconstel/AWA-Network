@@ -3,21 +3,18 @@
     <div v-if="this.isMounted" class="bg-gray-700" style="aspect-ratio: 3/2;">
         <div :class="layoutClass" :style="layoutStyle">
             <!-- works in this portfolio -->
-            <div v-if="portfolio.works.length > 0" :class="['bg-red-600', firstWorkHeight]">
-                <img class="" style="height: 100%; width: 100%;" :src="portfolio.works[0].thumbnail"
+            <div :class="['bg-red-600', firstWorkHeight]">
+                <img class="" style="height: 100%; width: 100%;" :src="thumbnailIndexElseNull(0)"
                     :alt="portfolio.works[0].title">
             </div>
-            <div v-if="portfolio.works.length > 1" class="bg-green-600 h-16">
-                <img class="" style="height: 100%; width: 100%;" :src="portfolio.works[1].thumbnail"
-                    :alt="portfolio.works[1].title">
+            <div :class="['bg-green-600 h-16', hiddenIfSingle]">
+                <img class="" style="height: 100%; width: 100%;" :src="thumbnailIndexElseNull(1)" :alt="''">
             </div>
-            <div v-if="portfolio.works.length > 2" class="bg-violet-600 h-24">
-                <img class="" style="height: 100%; width: 100%;" :src="portfolio.works[2].thumbnail"
-                    :alt="portfolio.works[2].title">
+            <div :class="['bg-violet-600 h-24', hiddenIfSingle]">
+                <img class="" style="height: 100%; width: 100%;" :src="thumbnailIndexElseNull(2)" :alt="''">
             </div>
-            <div v-if="portfolio.works.length > 3" class="bg-cyan-600 h-24">
-                <img class="" style="height: 100%; width: 100%;" :src="portfolio.works[3].thumbnail"
-                    :alt="portfolio.works[3].title">
+            <div :class="['bg-cyan-600 h-24', hiddenIfSingle]">
+                <img class="" style="height: 100%; width: 100%;" :src="thumbnailIndexElseNull(3)" :alt="''">
             </div>
         </div>
         <div class="text-gray-200">
@@ -52,7 +49,12 @@ export default {
         }
     },
     methods: {
-
+        thumbnailIndexElseNull(index) {
+            if (this.portfolio.works.length > index)
+                return this.portfolio.works[index].thumbnail
+            else
+                return ""
+        }
     },
     computed: {
         layoutClass() {
@@ -72,6 +74,12 @@ export default {
                 return 'h-16'
             else
                 return 'h-40'
+        },
+        hiddenIfSingle() {
+            if (this.portfolio.works.length > 1)
+                return ''
+            else
+                return 'hidden'
         }
     },
     mounted() {
