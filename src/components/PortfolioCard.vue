@@ -3,18 +3,22 @@
     <div v-if="this.isMounted" class="bg-gray-700" style="aspect-ratio: 3/2;">
         <div :class="layoutClass" :style="layoutStyle">
             <!-- works in this portfolio -->
+            <!-- the orders of the thumbnailIndex 0,1,2,3 determine the sequential filling of the quadrants -->
             <div :class="['bg-red-600', firstWorkHeight]">
                 <img class="" style="height: 100%; width: 100%;" :src="thumbnailIndexElseNull(0)"
                     :alt="portfolio.works[0].title">
             </div>
             <div :class="['bg-green-600 h-16', hiddenIfSingle]">
-                <img class="" style="height: 100%; width: 100%;" :src="thumbnailIndexElseNull(1)" :alt="''">
+                <img v-if="this.portfolio.works.length > 3" class="" style="height: 100%; width: 100%;"
+                    :src="thumbnailIndexElseNull(3)" :alt="''">
             </div>
             <div :class="['bg-violet-600 h-24', hiddenIfSingle]">
-                <img class="" style="height: 100%; width: 100%;" :src="thumbnailIndexElseNull(2)" :alt="''">
+                <img v-if="this.portfolio.works.length > 2" class="" style="height: 100%; width: 100%;"
+                    :src="thumbnailIndexElseNull(2)" :alt="''">
             </div>
             <div :class="['bg-cyan-600 h-24', hiddenIfSingle]">
-                <img class="" style="height: 100%; width: 100%;" :src="thumbnailIndexElseNull(3)" :alt="''">
+                <img v-if="this.portfolio.works.length > 1" class="" style="height: 100%; width: 100%;"
+                    :src="thumbnailIndexElseNull(1)" :alt="''">
             </div>
         </div>
         <div class="text-gray-200">
