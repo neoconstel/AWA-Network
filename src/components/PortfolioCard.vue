@@ -4,21 +4,26 @@
         <div :class="layoutClass" :style="layoutStyle">
             <!-- works in this portfolio -->
             <!-- the orders of the thumbnailIndex 0,1,2,3 determine the sequential filling of the quadrants -->
+            <!-- getSeededRandomThumbnailIndex(0/1/2) returns a random number which can be 1/2/3-->
+            <!-- NOTE that first quadrant uses a fixed thumbnailIndex (0), while others use a seededRandomIndex -->
             <div :class="['bg-red-600', firstWorkHeight]">
-                <img class="" style="height: 100%; width: 100%;" :src="thumbnailIndexElseNull(0)"
+                <img class="" style="height: 100%; width: 100%;" :src="getThumbnailAtIndex(0)"
                     :alt="portfolio.works[0].title">
             </div>
-            <div :class="['bg-green-600 h-16', hiddenIfSingle]">
-                <img v-if="this.portfolio.works.length > 3" class="" style="height: 100%; width: 100%;"
-                    :src="thumbnailIndexElseNull(3)" :alt="''">
+            <div :class="['bg-green-600 h-16', hiddenIfSingleLayout]">
+                <img v-if="this.portfolio.works.length > getSeededRandomThumbnailIndex(2)" class=""
+                    style="height: 100%; width: 100%;" :src="getThumbnailAtIndex(getSeededRandomThumbnailIndex(2))"
+                    :alt="''">
             </div>
-            <div :class="['bg-violet-600 h-24', hiddenIfSingle]">
-                <img v-if="this.portfolio.works.length > 2" class="" style="height: 100%; width: 100%;"
-                    :src="thumbnailIndexElseNull(2)" :alt="''">
+            <div :class="['bg-violet-600 h-24', hiddenIfSingleLayout]">
+                <img v-if="this.portfolio.works.length > getSeededRandomThumbnailIndex(1)" class=""
+                    style="height: 100%; width: 100%;" :src="getThumbnailAtIndex(getSeededRandomThumbnailIndex(1))"
+                    :alt="''">
             </div>
-            <div :class="['bg-cyan-600 h-24', hiddenIfSingle]">
-                <img v-if="this.portfolio.works.length > 1" class="" style="height: 100%; width: 100%;"
-                    :src="thumbnailIndexElseNull(1)" :alt="''">
+            <div :class="['bg-cyan-600 h-24', hiddenIfSingleLayout]">
+                <img v-if="this.portfolio.works.length > getSeededRandomThumbnailIndex(0)" class=""
+                    style="height: 100%; width: 100%;" :src="getThumbnailAtIndex(getSeededRandomThumbnailIndex(0))"
+                    :alt="''">
             </div>
         </div>
         <div class="text-gray-200">
@@ -49,15 +54,23 @@ export default {
     },
     data() {
         return {
-            'isMounted': false
+            'isMounted': false,
+            'randomSeed': Math.floor(Math.random() * 10)
         }
     },
     methods: {
-        thumbnailIndexElseNull(index) {
+        getThumbnailAtIndex(index) {
             if (this.portfolio.works.length > index)
                 return this.portfolio.works[index].thumbnail
             else
                 return ""
+        },
+        getSeededRandomThumbnailIndex(index) {
+            const indexArray = [1, 2, 3]
+            for (let i = 0; i < this.randomSeed; i++) {
+                indexArray.splice(0, 0, indexArray.pop())
+            }
+            return indexArray[index]
         }
     },
     computed: {
@@ -79,7 +92,7 @@ export default {
             else
                 return 'h-40'
         },
-        hiddenIfSingle() {
+        hiddenIfSingleLayout() {
             if (this.portfolio.works.length > 1)
                 return ''
             else
