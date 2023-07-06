@@ -11,8 +11,10 @@
         <RippleButton :buttonText="'Login'" />
       </div>
     </div>
+    <button class="bg-green-600" @click="this.$refs.scroll.leftmostToRightmost(16)">Leftmost To Rightmost</button>
     <HScroll
-      class="p-4 gap-4 bg-gray-400 mb-16 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 [&>div]:relative">
+      class="p-4 gap-4 bg-gray-400 mb-16 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 [&>div]:relative"
+      ref="scroll">
       <div><a href="">Spotlight</a></div>
       <div><a href="">AWAtv</a></div>
       <div><a href="">Reviews</a></div>

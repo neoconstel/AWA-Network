@@ -13,6 +13,11 @@ export default {
         return {
             scrollHeldByMouse: false,
             scrollBeingDragged: false,
+            currentLeft: null,
+            currentRight: null,
+            totalElementWidths: 0,
+            currentLeftIndex: 0,
+            currentRightIndex: null
         };
     },
     methods: {
@@ -29,14 +34,31 @@ export default {
         shiftRight() {
             const scrollContainer = this.$refs.scrollContainer;
             const slotElements = scrollContainer.children;
-            // const firstChild = scrollContainer.firstChild;
-            // let firstChildWidth = firstChild.style.width;
-            // let firstChildHeight = firstChild.style.height;
+
             Array.from(slotElements).forEach((el) => {
-                let leftPos = el.style.left == '' ? '0px' : el.style.left;
-                el.style.left = `${parseInt(leftPos) + el.clientWidth}px`;
+
             });
-            console.log('shifted right')
+        },
+        leftmostToRightmost(gap) {
+            /** make current leftmost element become the current rightmost 
+             * via relative positioning
+             * 
+             * - gap: the gap (in pixels) between each element
+            */
+            const scrollContainer = this.$refs.scrollContainer;
+            const slotElements = scrollContainer.children;
+            let leftStyle = this.currentLeft.style.left == '' ? '0px' : this.currentLeft.style.left
+            let leftStyleNumeric = parseFloat(leftStyle)
+            leftStyleNumeric += this.totalElementWidths + (gap * slotElements.length)
+            this.currentLeft.style.left = `${leftStyleNumeric}px`
+
+            //now set the element after it as the new currentLeft
+            if (this.currentLeftIndex < slotElements.length - 1)
+                this.currentLeftIndex++
+            else
+                this.currentLeftIndex = 0
+
+            this.currentLeft = slotElements[this.currentLeftIndex]
         }
     },
     mounted() {
@@ -51,11 +73,14 @@ export default {
              */
             const scrollContainer = this.$refs.scrollContainer;
             const slotElements = scrollContainer.children;
+            this.currentLeft = slotElements[0];
+            this.currentRight = Array.from(slotElements).slice(-1)[0];
+
             if (slotElements) {
-                // scrollContainer.appendChild(scrollContainer.children[0])
                 Array.from(slotElements).forEach((el) => {
+                    this.totalElementWidths += el.getBoundingClientRect().width
+                    this.currentRightIndex = slotElements.length - 1
                     observer.observe(el);
-                    // el.style.left = `${el.clientWidth}px`;
                 });
             }
         });
@@ -75,8 +100,6 @@ export default {
                     } else {
                         // do something when the element leaves the viewport
                         console.log(`${entry.target.textContent} element left viewport`);
-                        this.shiftRight()
-                        entry.target.parentElement.appendChild(entry.target);
                     }
                 });
             }
