@@ -1,7 +1,5 @@
 <template>
-    <div class="flex" style="overflow: hidden;" v-dragscroll.x="true" ref="scrollContainer"
-        @mousedown="this.scrollHeldByMouse = true"
-        @mouseup="this.scrollHeldByMouse = false; this.scrollBeingDragged = false;" @mousemove="updateScrollingState">
+    <div class="flex" style="overflow: hidden;" v-dragscroll.x="true" ref="scrollContainer">
         <slot></slot>
     </div>
 </template>
@@ -17,12 +15,25 @@ export default {
             currentRight: null,
             totalElementWidths: 0,
             currentLeftIndex: 0,
-            currentRightIndex: null
+            currentRightIndex: null,
+            cursorStartPosition: null,
+            cursorCurrentPosition: null,
+            scrollDirection: ''
         };
     },
     methods: {
-        updateScrollingState() {
-            this.scrollBeingDragged = this.scrollHeldByMouse;
+        updateScrollDirection() {
+            if (this.scrollBeingDragged) {
+                if (this.cursorCurrentPosition > this.cursorStartPosition)
+                    this.scrollDirection = 'right'
+                else if (this.cursorCurrentPosition < this.cursorStartPosition)
+                    this.scrollDirection = 'left'
+                else
+                    this.scrollDirection = ''
+            }
+            else {
+                this.scrollDirection = ''
+            }
         },
         cyclicScroll() {
             /**
@@ -83,6 +94,32 @@ export default {
                     observer.observe(el);
                 });
             }
+
+
+            scrollContainer.addEventListener('mousedown', ($event) => {
+                this.scrollHeldByMouse = true;
+                this.cursorStartPosition = $event.clientX;
+            })
+
+            window.addEventListener('mouseup', ($event) => {
+                this.scrollHeldByMouse = false;
+                this.scrollBeingDragged = false;
+                this.cursorStartPosition = null
+                this.cursorCurrentPosition = null
+            })
+
+            window.addEventListener('mousemove', ($event) => {
+                this.cursorCurrentPosition = $event.clientX;
+
+                // scroll is being dragged only if mousedown was made on it
+                // before the current mouse movement
+                this.scrollBeingDragged = this.scrollHeldByMouse;
+                this.updateScrollDirection();
+
+                // if (this.scrollBeingDragged)
+                //     console.log(`Scroll direction: ${this.scrollDirection}`)
+            })
+
         });
 
 
