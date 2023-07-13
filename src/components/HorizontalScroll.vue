@@ -73,6 +73,10 @@ export default {
                 this.currentLeftIndex = 0
 
             this.currentLeft = slotElements[this.currentLeftIndex]
+        },
+        elementOnscreen(el) {
+            const bounds = el.getBoundingClientRect()
+            return (bounds.right > 0) && (bounds.bottom > 0) && (bounds.left < window.innerWidth) && (bounds.top < window.innerHeight)
         }
     },
     mounted() {
@@ -125,6 +129,10 @@ export default {
                 // logic to detect that last element at right has 'fully' entered in
                 if (this.currentRight.getBoundingClientRect().right < window.innerWidth) {
                     console.log('end of right')
+
+                    if (this.scrollDirection == 'left' && !this.elementOnscreen(this.currentLeft)) {
+                        this.leftmostToRightmost(16)
+                    }
                 }
                 else {
                     console.log('inside current right')
