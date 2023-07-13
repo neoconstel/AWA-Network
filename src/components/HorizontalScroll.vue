@@ -63,6 +63,9 @@ export default {
             leftStyleNumeric += this.totalElementWidths + (gap * slotElements.length)
             this.currentLeft.style.left = `${leftStyleNumeric}px`
 
+            // currentLeft will become currentRight in the next step, so set currentRight now
+            this.currentRight = this.currentLeft
+
             //now set the element after it as the new currentLeft
             if (this.currentLeftIndex < slotElements.length - 1)
                 this.currentLeftIndex++
@@ -118,6 +121,14 @@ export default {
 
                 // if (this.scrollBeingDragged)
                 //     console.log(`Scroll direction: ${this.scrollDirection}`)
+
+                // logic to detect that last element at right has 'fully' entered in
+                if (this.currentRight.getBoundingClientRect().right < window.innerWidth) {
+                    console.log('end of right')
+                }
+                else {
+                    console.log('inside current right')
+                }
             })
 
         });
