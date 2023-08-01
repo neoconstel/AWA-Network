@@ -7,6 +7,9 @@
 <script>
 export default {
     name: "HorizontalScroll",
+    props: {
+        "gap": Number
+    },
     data() {
         return {
             scrollHeldByMouse: false,
@@ -50,17 +53,15 @@ export default {
 
             });
         },
-        leftmostToRightmost(gap) {
+        leftmostToRightmost() {
             /** make current leftmost element become the current rightmost 
              * via relative positioning
-             * 
-             * - gap: the gap (in pixels) between each element
             */
             const scrollContainer = this.$refs.scrollContainer;
             const slotElements = scrollContainer.children;
             let leftStyle = this.currentLeft.style.left == '' ? '0px' : this.currentLeft.style.left
             let leftStyleNumeric = parseFloat(leftStyle)
-            leftStyleNumeric += this.totalElementWidths + (gap * slotElements.length)
+            leftStyleNumeric += this.totalElementWidths + (this.gap * slotElements.length)
             this.currentLeft.style.left = `${leftStyleNumeric}px`
 
             // currentLeft will become currentRight in the next step, so set currentRight now
@@ -73,6 +74,27 @@ export default {
                 this.currentLeftIndex = 0
 
             this.currentLeft = slotElements[this.currentLeftIndex]
+        }, rightmostToLeftmost() {
+            /** make current rightmost element become the current leftmost 
+             * via relative positioning
+            */
+            const scrollContainer = this.$refs.scrollContainer;
+            const slotElements = scrollContainer.children;
+            let leftStyle = this.currentRight.style.left == '' ? '0px' : this.currentRight.style.left
+            let leftStyleNumeric = parseFloat(leftStyle)
+            leftStyleNumeric -= this.totalElementWidths + (this.gap * slotElements.length)
+            this.currentRight.style.left = `${leftStyleNumeric}px`
+
+            // currentRight will become currentLeft in the next step, so set currentLeft now
+            this.currentLeft = this.currentRight
+
+            //now set the new currentRight
+            if (this.currentRightIndex > 0)
+                this.currentRightIndex--
+            else
+                this.currentRightIndex = slotElements.length - 1
+
+            this.currentRight = slotElements[this.currentRightIndex]
         },
         elementOnscreen(el) {
             const bounds = el.getBoundingClientRect()
@@ -126,12 +148,13 @@ export default {
                 // if (this.scrollBeingDragged)
                 //     console.log(`Scroll direction: ${this.scrollDirection}`)
 
-                // logic to detect that last element at right has 'fully' entered in
+                // if currentRight has 'fully' entered in
                 if (this.currentRight.getBoundingClientRect().right < window.innerWidth) {
                     console.log('end of right')
 
+                    // if scrolling left AND currentLeft is off-screen
                     if (this.scrollDirection == 'left' && !this.elementOnscreen(this.currentLeft)) {
-                        this.leftmostToRightmost(16)
+                        this.leftmostToRightmost(this.gap)
                     }
                 }
                 else {
