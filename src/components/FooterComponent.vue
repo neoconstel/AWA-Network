@@ -1,6 +1,6 @@
 <template>
     <!-- Footer section with social media icons and newsletter sign-up -->
-    <footer class="bg-neutral-900 text-center text-white">
+    <footer class="fixed bg-neutral-900 text-center text-white w-full" style="bottom: 0px;">
         <div class="container px-6 pt-6">
             <!-- Social media icons container -->
             <div class="mb-6 flex justify-center">
@@ -193,7 +193,8 @@
         <div class="p-4 text-center" style="background-color: rgba(0, 0, 0, 0.2)">
             <img class="inline" style="height:55px;" src="/icons/AWA_logo_white.svg" />
             <span>© 2023 | AWA - All rights reserved. No part of this site may be reproduced without prior
-                permission.</span>
+                permission.</span> <img class="h-12 inline-block ml-48 mr-5 bg-gray-900"
+                src="/icons/iconmonstr-angel-down-circle-thin.svg" alt="" @click="toggleFooter">
         </div>
     </footer>
 </template>
@@ -208,6 +209,7 @@ import {
 
 export default {
     name: 'FooterComponent',
+    props: { 'toggleFooter': Function },
     data() {
         return {
 

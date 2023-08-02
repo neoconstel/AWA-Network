@@ -38,7 +38,7 @@
             <a class="absolute right-4" href="">All Jobs</a>
             </p>
             <div class="grid grid-cols-3 gap-4">
-                <template v-for=" i  in  6">
+                <template v-for="   i    in    6  ">
                     <div class="grid bg-gray-300 p-3" style="grid-template-columns: 2fr 7fr; aspect-ratio: 5/1;">
                         <div><img style="width:100%; height:100%;" src="/icons/awa_logo.svg" /></div>
                         <div>

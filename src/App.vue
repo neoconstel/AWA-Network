@@ -2,7 +2,7 @@
   <!-- <RouterLink to="/">Home</RouterLink>
   <RouterLink to="/about">About</RouterLink> -->
 
-  <header>
+  <header class="sticky" style="top: -150px; z-index: 1;">
     <div class="grid grid-cols-2 p-3 bg-gray-800" style="grid-template-columns: 1fr 1fr;">
       <div><img style="height:55px;" src="/icons/awa_logo.svg" /></div>
       <div class="flex justify-center gap-2 [&>*]:my-auto">
@@ -11,10 +11,10 @@
         <RippleButton :buttonText="'Login'" />
       </div>
     </div>
-    <button class="bg-green-600" @click="this.$refs.scroll.leftmostToRightmost">Leftmost To Rightmost</button>
-    <button class="bg-pink-600" @click="this.$refs.scroll.rightmostToLeftmost">Rightmost To Leftmost</button>
+    <!-- <button class="bg-green-600" @click="this.$refs.scroll.leftmostToRightmost">Leftmost To Rightmost</button>
+    <button class="bg-pink-600" @click="this.$refs.scroll.rightmostToLeftmost">Rightmost To Leftmost</button> -->
     <HScroll
-      class="p-4 gap-4 bg-gray-400 mb-16 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 [&>div]:relative"
+      class="sticky p-4 gap-4 bg-gray-400 mb-16 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 [&>div]:relative"
       :gap="16" ref="scroll">
       <div><a href="">Spotlight</a></div>
       <div><a href="">AWAtv</a></div>
@@ -28,7 +28,10 @@
 
   <RouterView />
 
-  <Footer />
+  <Footer v-if="showFooter" :toggleFooter="toggleFooter" />
+  <div v-else class="fixed w-full bg-gray-400 opacity-60" style="bottom: 0px; z-index: 1;">
+    <img class="h-12 ml-auto mr-5" src="/icons/iconmonstr-angel-up-circle-thin.svg" alt="" @click="toggleFooter">
+  </div>
 </template>
 
 <script>
@@ -37,13 +40,24 @@ import HScroll from "@/components/HorizontalScroll.vue"
 import Footer from "@/components/FooterComponent.vue"
 
 export default {
+  name: 'App',
   components: {
     Input,
     HScroll,
     Footer
   },
+  data() {
+    return {
+      'showFooter': false,
+    }
+  },
+  methods: {
+    toggleFooter() {
+      this.showFooter = !this.showFooter;
+    }
+  },
   mounted() {
-    alert("Site still in development\n Working on the cyclic navigation and the gallery")
+    alert("Site still in development\n --> Still working on the cyclic navigation")
   }
 }
 </script>
