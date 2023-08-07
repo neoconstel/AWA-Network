@@ -2,7 +2,7 @@
   <!-- <RouterLink to="/">Home</RouterLink>
   <RouterLink to="/about">About</RouterLink> -->
 
-  <header class="sticky" style="top: -150px; z-index: 1;">
+  <header class="sticky" style="top: 0px; z-index: 1;">
     <div class="grid grid-cols-2 p-3 bg-gray-800" style="grid-template-columns: 1fr 1fr;">
       <div><img style="height:55px;" src="/icons/awa_logo.svg" /></div>
       <div class="flex justify-center gap-2 [&>*]:my-auto">
@@ -14,7 +14,7 @@
     <!-- <button class="bg-green-600" @click="this.$refs.scroll.leftmostToRightmost">Leftmost To Rightmost</button>
     <button class="bg-pink-600" @click="this.$refs.scroll.rightmostToLeftmost">Rightmost To Leftmost</button> -->
     <HScroll
-      class="sticky p-4 gap-4 bg-gray-400 mb-16 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 [&>div]:relative"
+      class="relative p-4 gap-4 bg-gray-400 mb-16 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 [&>div]:relative"
       :gap="16" ref="scroll">
       <div><a href="">Spotlight</a></div>
       <div><a href="">AWAtv</a></div>
