@@ -29,8 +29,12 @@
   <RouterView />
 
   <Footer v-if="showFooter" :toggleFooter="toggleFooter" />
-  <div v-else class="fixed w-full bg-gray-400 opacity-60" style="bottom: 0px; z-index: 1;">
-    <img class="h-12 ml-auto mr-5" src="/icons/iconmonstr-angel-up-circle-thin.svg" alt="" @click="toggleFooter">
+  <div class="fixed w-full" style="bottom: 60px;">
+    <img @click.prevent="scrollToTop" class="h-12 ml-auto mr-5" src="/icons/iconmonstr-angel-up-circle-thin.svg"
+      alt="scroll to top">
+  </div>
+  <div class="fixed h-12 w-full bg-gray-400 hover:bg-gray-600 opacity-60" style="bottom: 0px; z-index: 1;"
+    @click.prevent="toggleFooter">
   </div>
 </template>
 
@@ -54,6 +58,9 @@ export default {
   methods: {
     toggleFooter() {
       this.showFooter = !this.showFooter;
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
     }
   },
   mounted() {
