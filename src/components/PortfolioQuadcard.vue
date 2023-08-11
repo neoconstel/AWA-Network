@@ -48,7 +48,7 @@
 </template>
 <script>
 export default {
-    name: 'PortfolioCard',
+    name: 'PortfolioQuadcard',
     props: {
         'portfolio': Object // an array
     },

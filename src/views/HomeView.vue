@@ -63,14 +63,14 @@
 
 <script>
 import Carousel from "@/components/CarouselComponent.vue"
-import PortfolioCard from "@/components/PortfolioCard.vue"
+import PortfolioQuadcard from "@/components/PortfolioQuadcard.vue"
 import PortfolioGallery from "@/components/PortfolioGallery.vue"
 
 export default {
     name: 'Home',
     components: {
         Carousel,
-        PortfolioCard,
+        PortfolioQuadcard: PortfolioQuadcard,
         PortfolioGallery
     },
     data() {
