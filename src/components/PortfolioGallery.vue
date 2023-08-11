@@ -5,18 +5,18 @@
         <div v-for="(portfolio, index) in portfolios.slice(this.startIndex, this.stopIndex)" :key="index"
             class="bg-gray-300 h-44">
             <!-- works by this user -->
-            <PortfolioQuadcard :portfolio=portfolio />
+            <PortfolioCard :portfolio=portfolio />
         </div>
     </div>
 </template>
 
 <script>
-import PortfolioQuadcard from "@/components/PortfolioQuadcard.vue"
+import PortfolioCard from "@/components/PortfolioCard.vue"
 
 export default {
     name: 'PortfolioGallery',
     components: {
-        PortfolioQuadcard
+        PortfolioCard
     },
     props: {
         'portfolios': Object,
