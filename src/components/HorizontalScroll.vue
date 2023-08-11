@@ -150,7 +150,7 @@ export default {
 
                 // if currentRight has 'fully' entered in
                 if (this.currentRight.getBoundingClientRect().right < window.innerWidth) {
-                    console.log('end of right')
+                    // console.log('end of right')
 
                     // if scrolling left AND currentLeft is off-screen
                     if (this.scrollDirection == 'left' && !this.elementOnscreen(this.currentLeft)) {
@@ -158,7 +158,7 @@ export default {
                     }
                 }
                 else {
-                    console.log('inside current right')
+                    // console.log('inside current right')
                 }
             })
 
