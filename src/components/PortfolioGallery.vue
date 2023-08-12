@@ -1,9 +1,9 @@
 <template>
-    <div class="grid grid-cols-5 gap-x-3 gap-y-14 px-4 py-14 bg-gray-900" ref="galleryContainer">
+    <div class="grid grid-cols-5 gap-x-4 gap-y-32 px-4 py-14 pb-44 bg-gray-900" ref="galleryContainer">
 
         <!-- user portfolio -->
         <div v-for="(portfolio, index) in portfolios.slice(this.startIndex, this.stopIndex)" :key="index"
-            class="bg-gray-300 h-44">
+            class="bg-green-300 h-44">
             <!-- works by this user -->
             <PortfolioCard :portfolio=portfolio />
         </div>

@@ -1,14 +1,14 @@
 <template>
     <!-- card displaying an artist name, sample works and brief profile stats -->
-    <div v-if="this.isMounted" class="bg-gray-700" style="aspect-ratio: 3/2;">
-        <div class="grid grid-rows-1 grid-cols-1 gap-1" style="grid-template-rows: 1fr, grid-template-columns: 1fr">
+    <div v-if="this.isMounted" @mouseenter="toggleStats" @mouseleave="toggleStats">
+        <div class="bg-cyan-600" style="aspect-ratio: 1/1;">
             <!-- sample work (just one) from this portfolio -->
-            <div class="bg-red-600, h-40">
-                <img class="" style="height: 100%; width: 100%;" :src="getThumbnailAtIndex(randomIndex)"
-                    :alt="portfolio.works[randomIndex].title">
-            </div>
+            <a href="">
+                <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;"
+                    :src="getThumbnailAtIndex(randomIndex)" :alt="portfolio.works[randomIndex].title">
+            </a>
         </div>
-        <div class="text-gray-200">
+        <div v-if="showStats" class="bg-gray-700 text-gray-200">
             <p class="text-center"><b>{{ portfolio.user }}</b></p>
             <div class="text-center grid grid-cols-3">
 
@@ -37,7 +37,8 @@ export default {
     data() {
         return {
             'isMounted': false,
-            'randomIndex': Math.floor(Math.random() * this.portfolio.works.length)
+            'randomIndex': Math.floor(Math.random() * this.portfolio.works.length),
+            'showStats': false
         }
     },
     methods: {
@@ -46,6 +47,9 @@ export default {
                 return this.portfolio.works[index].thumbnail
             else
                 return ""
+        },
+        toggleStats() {
+            this.showStats = !this.showStats;
         }
     },
     computed: {
