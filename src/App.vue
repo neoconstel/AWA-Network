@@ -65,6 +65,12 @@ export default {
   },
   mounted() {
     alert("Site still in development\n --> Still working on the cyclic navigation")
+
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.scrollToTop();
+      }, 1000)
+    })
   }
 }
 </script>
