@@ -1,11 +1,16 @@
 <template>
-    <div class="grid mb-16" style="grid-template-columns: 40fr 11fr;">
+    <div class="grid mb-16" style="grid-template-columns: 4fr 1fr;">
         <div>
             <Carousel />
         </div>
-        <div class="grid bg-gray-400" style="grid-template-rows: 1fr 9fr;">
+        <div class="bg-gray-400 grid" style="grid-template-rows: 30px 1fr;">
             <p class="text-center my-auto">Spotlight Art</p>
-            <img class="mx-auto h-full" src="https://i.imgur.com/40qCewV.jpg" alt="spotlight art">
+            <div>
+                <a href="">
+                    <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;"
+                        src="https://i.imgur.com/40qCewV.jpg" alt="spotlight art">
+                </a>
+            </div>
         </div>
     </div>
     <section class="gallery">
