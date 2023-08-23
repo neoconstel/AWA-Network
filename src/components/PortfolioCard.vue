@@ -4,12 +4,12 @@
         <div class="bg-cyan-600" style="aspect-ratio: 1/1;">
             <!-- sample work (just one) from this portfolio -->
             <a href="">
-                <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;"
-                    :src="getThumbnailAtIndex(randomIndex)" :alt="portfolio.works[randomIndex].title">
+                <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="portfolio.thumbnail"
+                    :alt="portfolio.title">
             </a>
         </div>
         <div class="bg-gray-700 text-gray-200">
-            <p class="text-center"><b>{{ portfolio.works[randomIndex].title }}</b></p>
+            <p class="text-center"><b>{{ portfolio.title }}</b></p>
             <p class="text-gray-300"><img class="inline w-3 mx-2" src="/icons/iconmonstr-user-6.svg" alt="">{{
                 portfolio.user }}</p>
         </div>
@@ -24,17 +24,10 @@ export default {
     data() {
         return {
             'isMounted': false,
-            'randomIndex': Math.floor(Math.random() * this.portfolio.works.length),
             'showStats': false
         }
     },
     methods: {
-        getThumbnailAtIndex(index) {
-            if (this.portfolio.works.length > index)
-                return this.portfolio.works[index].thumbnail
-            else
-                return ""
-        },
         toggleStats() {
             this.showStats = !this.showStats;
         }
