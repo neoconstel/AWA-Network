@@ -90,16 +90,23 @@
             </div>
         </div>
     </section>
-    <div class="stuff h-72 bg-gray-700">More stuff</div>
+    <div class="stuff h-72 bg-gray-700">
+        Artist works
+    </div>
 </template>
 
 <script>
+
 export default {
+
     name: 'ArtistPortfolio',
     data() {
         return {
             'tab': 'projects'
         }
+    },
+    components: {
+
     },
     methods: {
         projectTabColor(tabName) {

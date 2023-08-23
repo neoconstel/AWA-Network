@@ -8,23 +8,10 @@
                     :src="getThumbnailAtIndex(randomIndex)" :alt="portfolio.works[randomIndex].title">
             </a>
         </div>
-        <div v-if="showStats" class="bg-gray-700 text-gray-200">
-            <p class="text-center"><b>{{ portfolio.user }}</b></p>
-            <div class="text-center grid grid-cols-3">
-
-                <p>
-                    <img class="h-5 inline mr-1" src="/icons/iconmonstr-eye-lined.svg" alt="">
-                    <span class="text-xs">{{ portfolio.views }}</span>
-                </p>
-                <p>
-                    <img class="h-5 inline mr-1" src="/icons/iconmonstr-thumb-10.svg" alt="">
-                    <span class="text-xs">{{ portfolio.likes }}</span>
-                </p>
-                <p>
-                    <img class="h-5 inline mr-1" src="/icons/iconmonstr-speech-bubble-thin.svg" alt="">
-                    <span class="text-xs">{{ portfolio.comments }}</span>
-                </p>
-            </div>
+        <div class="bg-gray-700 text-gray-200">
+            <p class="text-center"><b>{{ portfolio.works[randomIndex].title }}</b></p>
+            <p class="text-gray-300"><img class="inline w-3 mx-2" src="/icons/iconmonstr-user-6.svg" alt="">{{
+                portfolio.user }}</p>
         </div>
     </div>
 </template>
