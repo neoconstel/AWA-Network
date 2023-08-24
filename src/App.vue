@@ -1,10 +1,8 @@
 <template>
-  <!-- <RouterLink to="/">Home</RouterLink>
-  <RouterLink to="/about">About</RouterLink> -->
-
   <header class="sticky" style="top: 0px; z-index: 1;">
     <div class="grid grid-cols-2 p-3 bg-gray-800" style="grid-template-columns: 1fr 1fr;">
-      <div><img style="height:55px;" src="/icons/awa_logo.svg" /></div>
+      <div><img style="height:55px;" src="/icons/awa_logo.svg" />
+      </div>
       <div class="flex justify-center gap-2 [&>*]:my-auto">
         <Input :placeholderText="'Search'" />
         <RippleButton :buttonText="'Sign Up'" />
@@ -24,7 +22,27 @@
       <div><a href="">Foundation</a></div>
       <div v-for="i in 5"><a href="">Other link</a></div>
     </HScroll>
+
+    <!-- for testing links (remove later) -->
+    <div class="link-test-only inline">
+      <h3 class="inline text-cyan-300 opacity-40">Link Test</h3>
+      <ul
+        class="[&>li]:inline-block [&>li]:p-1 [&>li]:bg-green-300 space-x-1 [&>li]:text-xs [&>li]:rounded-2xl [&>li]:opacity-30">
+        <li>
+          <RouterLink to="/">Home</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/about">About</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/artist_portfolio">Artist Portfolio</RouterLink>
+        </li>
+      </ul>
+    </div>
+
   </header>
+
+
 
   <RouterView />
 
