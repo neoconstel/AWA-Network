@@ -94,7 +94,22 @@
     <section class="gallery stuff bg-gray-700">
         <WorksGallery v-show="this.tab == 'projects'" :works="works" :startIndex="0" :stopIndex="this.worksUpperLimit"
             @bottom-reached="addMoreWorks" :infiniteScroll="true" />
+        <div v-show="this.tab == 'followers'" class="h-72 bg-purple-950 text-pink-400">followers content</div>
+        <div v-show="this.tab == 'following'" class="h-72 bg-amber-700 text-yellow-400">following content</div>
+        <div v-show="this.tab == 'likes'" class="h-72 bg-blue-950 text-green-400">likes content</div>
     </section>
+
+    <!-- <section class="followers bg-gray-700">
+        <div class="h-72 bg-purple-950 text-pink-400">followers content</div>
+    </section>
+
+    <section class="following bg-gray-700">
+        <div class="h-72 bg-amber-700 text-yellow-400">following content</div>
+    </section>
+
+    <section class="likes bg-gray-700">
+        <div class="h-72 bg-blue-950 text-green-400">likes content</div>
+    </section> -->
 </template>
 
 <script>
