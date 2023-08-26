@@ -109,6 +109,7 @@ export default {
     },
     async mounted() {
         console.log('home view mounted')
+        this.dataStore.currentView = this.$options.name
 
         this.$nextTick(() => {
             setTimeout(() => {

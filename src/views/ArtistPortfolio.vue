@@ -148,6 +148,7 @@ export default {
     },
     async mounted() {
         console.log('artistPortfolio view mounted')
+        this.dataStore.currentView = this.$options.name
 
         // scroll to top
         this.$nextTick(() => {

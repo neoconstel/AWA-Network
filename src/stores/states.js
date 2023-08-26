@@ -5,5 +5,6 @@ export default defineStore("data", {
   state: () => ({
     artist: "",
     worksDatabase: [],
+    currentView: "",
   }),
 });
