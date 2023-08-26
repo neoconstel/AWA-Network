@@ -2,10 +2,14 @@
     <!-- card displaying an artist's sample work -->
     <div v-if="this.isMounted" @mouseenter="toggleStats" @mouseleave="toggleStats">
         <div class="bg-cyan-600" style="aspect-ratio: 1/1;">
-            <a href="">
+            <RouterLink @click="storeArtist" to="/artist_portfolio">
                 <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.thumbnail"
                     :alt="work.title">
-            </a>
+            </RouterLink>
+            <!-- <a href="">
+                <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.thumbnail"
+                    :alt="work.title">
+            </a> -->
         </div>
         <div v-if="showStats" class="bg-gray-700 text-gray-200">
             <p class="text-center"><b>{{ work.title }}</b></p>
@@ -15,6 +19,11 @@
     </div>
 </template>
 <script>
+
+// state management
+import { mapStores } from 'pinia'; // mapStores gives us access to the state
+import useDataStore from '@/stores/states'; // convention: use<storeID>Store
+
 export default {
     name: 'WorkSample',
     props: {
@@ -29,10 +38,13 @@ export default {
     methods: {
         toggleStats() {
             this.showStats = !this.showStats;
+        },
+        storeArtist() {
+            this.dataStore.artist = this.work.user
         }
     },
     computed: {
-
+        ...mapStores(useDataStore)
     },
     mounted() {
 
