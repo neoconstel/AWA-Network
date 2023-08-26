@@ -101,6 +101,10 @@
 
 import WorksGallery from "@/components/WorksGallery.vue"
 
+// state management
+import { mapStores } from 'pinia'; // mapStores gives us access to the state
+import usePortfolioStore from '@/stores/states'; // convention: use<storeID>Store
+
 export default {
 
     name: 'ArtistPortfolio',
@@ -113,6 +117,9 @@ export default {
             "works": [],
             "worksUpperLimit": 5
         }
+    },
+    computed: {
+        ...mapStores(usePortfolioStore)
     },
     methods: {
         projectTabColor(tabName) {
