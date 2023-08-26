@@ -110,6 +110,12 @@ export default {
     async mounted() {
         console.log('home view mounted')
 
+        this.$nextTick(() => {
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 100)
+        })
+
         // const res = await fetch('/src/sample_works.json')
         // let data = await res.json()
         {

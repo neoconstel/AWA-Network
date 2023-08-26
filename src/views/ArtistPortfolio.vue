@@ -149,12 +149,30 @@ export default {
     async mounted() {
         console.log('artistPortfolio view mounted')
 
+        // scroll to top
+        this.$nextTick(() => {
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 100)
+        })
+
         let artist = this.dataStore.artist
 
         // filter database to simulate backend filter on artist-specific portfolio
         this.worksDatabase = this.dataStore.worksDatabase.filter((work) => {
             return work.user == artist
         })
+
+        // pre-load few works before scrolling begins
+        let worksCount = 5
+        let interval
+        interval = setInterval(() => {
+            if (worksCount-- > 0) {
+                this.addMoreWorks()
+            }
+            else
+                clearInterval(interval)
+        }, 100)
 
         console.log(this.works)
         console.log(`works: ${this.works.length}`)
