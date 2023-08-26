@@ -1,5 +1,5 @@
 <template>
-    <div class="grid mb-16" style="grid-template-columns: 4fr 1fr;">
+    <div class="grid my-16" style="grid-template-columns: 4fr 1fr;">
         <div>
             <Carousel />
         </div>
@@ -77,8 +77,7 @@ export default {
     data() {
         return {
             "works": [],
-            "worksUpperLimit": 40,
-            "worksIncrementAmount": 10
+            "worksUpperLimit": 40
         }
     },
     methods: {
@@ -98,8 +97,7 @@ export default {
                 this.works.push(this.works[worksMiddleIndex])
             }
 
-
-            this.worksUpperLimit += this.worksIncrementAmount;
+            this.worksUpperLimit++;
         }
     },
     async mounted() {
