@@ -66,14 +66,12 @@
 
 <script>
 import Carousel from "@/components/CarouselComponent.vue"
-import WorkSample from "@/components/WorkSample.vue"
 import WorksGallery from "@/components/WorksGallery.vue"
 
 export default {
     name: 'Home',
     components: {
         Carousel,
-        WorkSample: WorkSample,
         WorksGallery
     },
     data() {

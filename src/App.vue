@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky" style="top: 0px; z-index: 1;">
+  <header class="sticky w-full" style="top: 0px; z-index: 1;">
     <div class="grid grid-cols-2 p-3 bg-gray-800" style="grid-template-columns: 1fr 1fr;">
       <div><img style="height:55px;" src="/icons/awa_logo.svg" />
       </div>
@@ -12,7 +12,7 @@
     <!-- <button class="bg-green-600" @click="this.$refs.scroll.leftmostToRightmost">Leftmost To Rightmost</button>
     <button class="bg-pink-600" @click="this.$refs.scroll.rightmostToLeftmost">Rightmost To Leftmost</button> -->
     <HScroll
-      class="relative p-4 gap-4 bg-gray-400 mb-16 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 [&>div]:relative"
+      class="relative p-4 gap-4 bg-gray-400 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 [&>div]:relative"
       :gap="16" ref="scroll">
       <div><a href="">Spotlight</a></div>
       <div><a href="">AWAtv</a></div>
@@ -22,25 +22,25 @@
       <div><a href="">Foundation</a></div>
       <div v-for="i in 5"><a href="">Other link</a></div>
     </HScroll>
-
-    <!-- for testing links (remove later) -->
-    <div class="link-test-only inline">
-      <h3 class="inline text-cyan-300 opacity-40">Link Test</h3>
-      <ul
-        class="[&>li]:inline-block [&>li]:p-1 [&>li]:bg-green-300 space-x-1 [&>li]:text-xs [&>li]:rounded-2xl [&>li]:opacity-30">
-        <li>
-          <RouterLink to="/">Home</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/about">About</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/artist_portfolio">Artist Portfolio</RouterLink>
-        </li>
-      </ul>
-    </div>
-
   </header>
+
+  <!-- for testing links (remove later) -->
+  <div class="link-test-only inline w-100 fixed" style="bottom: 100px; z-index: 1">
+    <h3 class="inline text-cyan-300 opacity-40">Link Test</h3>
+    <ul
+      class="[&>li]:inline-block [&>li]:p-1 [&>li]:bg-green-300 space-x-1 [&>li]:text-xs [&>li]:rounded-2xl [&>li]:opacity-30">
+      <li>
+        <RouterLink to="/">Home</RouterLink>
+      </li>
+      <li>
+        <RouterLink to="/about">About</RouterLink>
+      </li>
+      <li>
+        <RouterLink to="/artist_portfolio">Artist Portfolio
+        </RouterLink>
+      </li>
+    </ul>
+  </div>
 
 
 

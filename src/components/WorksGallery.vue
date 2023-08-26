@@ -21,8 +21,8 @@ export default {
         'works': Object,
         'infiniteScroll': Boolean,  // override maxWorks and add to works infinitely
         'maxWorks': Number,   // max works length beyond which this gallery instance stops adding to it when further scrolling is done
-        'startIndex': Number,
-        'stopIndex': Number
+        'startIndex': Number, // index (inclusive) of works array to start from in this gallery instance
+        'stopIndex': Number   // index (exclusive) of works array for this gallery instance to stop
     },
     data() {
         return {
