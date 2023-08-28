@@ -35,10 +35,10 @@
       <li>
         <RouterLink to="/about">About</RouterLink>
       </li>
-      <li>
+      <!-- <li>
         <RouterLink to="/artist_portfolio">Artist Portfolio
         </RouterLink>
-      </li>
+      </li> -->
     </ul>
   </div>
 

@@ -172,11 +172,10 @@ export default {
             }, 100)
         })
 
-        let artist = this.dataStore.artist
 
         // filter database to simulate backend filter on artist-specific portfolio
         this.worksDatabase = this.dataStore.worksDatabase.filter((work) => {
-            return work.user == artist
+            return work.user.username == this.$route.params.username
         })
 
         // pre-load few works before scrolling begins

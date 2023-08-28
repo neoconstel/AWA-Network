@@ -2,19 +2,15 @@
     <!-- card displaying an artist's sample work -->
     <div v-if="this.isMounted" @mouseenter="toggleStats" @mouseleave="toggleStats">
         <div class="bg-cyan-600" style="aspect-ratio: 1/1;">
-            <RouterLink @click="storeArtist" to="/artist_portfolio">
+            <RouterLink @click="storeUser" :to="{ path: `/artist_portfolio/${work.user.username}` }">
                 <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.thumbnail"
                     :alt="work.title">
             </RouterLink>
-            <!-- <a href="">
-                <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.thumbnail"
-                    :alt="work.title">
-            </a> -->
         </div>
         <div v-if="showStats" class="bg-gray-700 text-gray-200">
             <p class="text-center"><b>{{ work.title }}</b></p>
             <p class="text-gray-300"><img class="inline w-3 mx-2" src="/icons/iconmonstr-user-6.svg" alt="">{{
-                work.user }}</p>
+                work.user.name }}</p>
         </div>
     </div>
 </template>
@@ -39,8 +35,8 @@ export default {
         toggleStats() {
             this.showStats = !this.showStats;
         },
-        storeArtist() {
-            this.dataStore.artist = this.work.user
+        storeUser() {
+            this.dataStore.artist = this.work.user.name
         }
     },
     computed: {

@@ -18,7 +18,7 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
-      path: "/artist_portfolio",
+      path: "/artist_portfolio/:username",
       name: "artist_portfolio",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
