@@ -62,7 +62,7 @@
             </div>
         </div>
     </section>
-    <section class="tabs text-gray-300 sticky top-48">
+    <section class="tabs text-gray-300 sticky top-16">
         <div class="grid gap-x-1" style="grid-template-columns: 2fr 1fr 1fr 5fr">
             <div class="relative">
                 <a @click.prevent="this.tab = 'projects'"

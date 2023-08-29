@@ -36,10 +36,10 @@
       <li>
         <RouterLink to="/about">About</RouterLink>
       </li>
-      <!-- <li>
-        <RouterLink to="/artist_portfolio">Artist Portfolio
+      <li>
+        <RouterLink :to="`/artwork/${33}`">ArtDetail
         </RouterLink>
-      </li> -->
+      </li>
     </ul>
   </div>
 
