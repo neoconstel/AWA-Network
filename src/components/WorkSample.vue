@@ -2,7 +2,7 @@
     <!-- card displaying an artist's sample work -->
     <div v-if="this.isMounted" @mouseenter="toggleStats" @mouseleave="toggleStats">
         <div class="bg-cyan-600" style="aspect-ratio: 1/1;">
-            <RouterLink @click="storeUser" :to="{ path: `/artist_portfolio/${work.user.username}` }">
+            <RouterLink @click="storeUser" :to="`/artist_portfolio/${work.user.username}`">
                 <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.thumbnail"
                     :alt="work.title">
             </RouterLink>

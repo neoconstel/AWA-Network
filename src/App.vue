@@ -1,14 +1,15 @@
 <template>
-  <header class="sticky w-full" style="top: 0px; z-index: 1;">
-    <div class="grid grid-cols-2 p-3 bg-gray-800" style="grid-template-columns: 1fr 1fr;">
-      <div><img style="height:55px;" src="/icons/awa_logo.svg" />
-      </div>
-      <div class="flex justify-center gap-2 [&>*]:my-auto">
-        <Input :placeholderText="'Search'" />
-        <RippleButton :buttonText="'Sign Up'" />
-        <RippleButton :buttonText="'Login'" />
-      </div>
+  <div class="sticky top-0 z-10 grid grid-cols-2 p-3 bg-gray-800" style="grid-template-columns: 1fr 1fr;">
+    <div><img style="height:55px;" src="/icons/awa_logo.svg" />
     </div>
+    <div class="flex justify-center gap-2 [&>*]:my-auto">
+      <Input :placeholderText="'Search'" />
+      <RippleButton :buttonText="'Sign Up'" />
+      <RippleButton :buttonText="'Login'" />
+    </div>
+  </div>
+  <header class="w-full">
+
     <!-- <button class="bg-green-600" @click="this.$refs.scroll.leftmostToRightmost">Leftmost To Rightmost</button>
     <button class="bg-pink-600" @click="this.$refs.scroll.rightmostToLeftmost">Rightmost To Leftmost</button> -->
     <HScroll

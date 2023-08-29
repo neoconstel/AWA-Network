@@ -62,7 +62,7 @@
             </div>
         </div>
     </section>
-    <section class="tabs text-gray-300 sticky top-64">
+    <section class="tabs text-gray-300 sticky top-48">
         <div class="grid gap-x-1" style="grid-template-columns: 2fr 1fr 1fr 5fr">
             <div class="relative">
                 <a @click.prevent="this.tab = 'projects'"
@@ -98,18 +98,6 @@
         <div v-show="this.tab == 'following'" class="h-72 bg-amber-700 text-yellow-400">following content</div>
         <div v-show="this.tab == 'likes'" class="h-72 bg-blue-950 text-green-400">likes content</div>
     </section>
-
-    <!-- <section class="followers bg-gray-700">
-        <div class="h-72 bg-purple-950 text-pink-400">followers content</div>
-    </section>
-
-    <section class="following bg-gray-700">
-        <div class="h-72 bg-amber-700 text-yellow-400">following content</div>
-    </section>
-
-    <section class="likes bg-gray-700">
-        <div class="h-72 bg-blue-950 text-green-400">likes content</div>
-    </section> -->
 </template>
 
 <script>
