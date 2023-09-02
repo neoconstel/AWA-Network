@@ -1,7 +1,4 @@
 <template>
-    <!-- <h1>Work Detail</h1>
-    <p>Artwork ID: {{ $route.params.id }}</p>
-    <img :src="this.work.thumbnail" alt=""> -->
     <div class="grid text-gray-100" style="grid-template-columns: 5fr 2fr">
         <main class="grid grid-cols-1">
             <div><img class="px-16 py-8 mx-auto" :src="this.work.thumbnail" alt=""></div>
@@ -24,7 +21,6 @@
             <section>
                 <div>
                     <img class="inline-block w-14 h-14 rounded-full m-4" src="https://i.imgur.com/40qCewV.jpg" alt="">
-                    <!-- <h3 v-if="this.work.user" class="inline">{{ this.work.user.name }}</h3> -->
                     <RouterLink v-if="this.work.user" @click="storeWork"
                         :to="`/artistPortfolio/${this.work.user.username}`">
                         <h3 class="inline hover:text-cyan-500">{{ this.work.user.name }}</h3>
