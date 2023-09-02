@@ -7,7 +7,7 @@
                         <img class="w-full h-full rounded-full" src="https://i.imgur.com/40qCewV.jpg" alt="">
                     </div>
                     <div class="pl-20 text-gray-200">
-                        <h3>{{ this.dataStore.artist }}</h3>
+                        <h3>{{ this.dataStore.work.user.name }}</h3>
                         <p><img class="inline w-4 mr-1" src="/icons/iconmonstr-location-19.svg" alt=""><span
                                 class="text-sm text-gray-400">Wysteria Lane, California</span></p>
                         <p class="mt-3">Tech support and Analyst, Visual Artist, Animator and 3D Generalist</p>

@@ -24,7 +24,11 @@
             <section>
                 <div>
                     <img class="inline-block w-14 h-14 rounded-full m-4" src="https://i.imgur.com/40qCewV.jpg" alt="">
-                    <h3 v-if="this.work.user" class="inline">{{ this.work.user.name }}</h3>
+                    <!-- <h3 v-if="this.work.user" class="inline">{{ this.work.user.name }}</h3> -->
+                    <RouterLink v-if="this.work.user" @click="storeWork"
+                        :to="`/artistPortfolio/${this.work.user.username}`">
+                        <h3 class="inline hover:text-cyan-500">{{ this.work.user.name }}</h3>
+                    </RouterLink>
                 </div>
                 <div>
                     <h3 class="mb-2">Flying Pink Unicorn</h3>
@@ -80,14 +84,16 @@ export default {
     },
     data() {
         return {
-            work: []
+            work: {}
         }
     },
     computed: {
         ...mapStores(useDataStore)
     },
     methods: {
-
+        storeWork() {
+            this.dataStore.work = this.work
+        }
     },
     async mounted() {
         console.log('workdetail view mounted')
