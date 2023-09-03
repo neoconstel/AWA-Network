@@ -2,7 +2,7 @@
     <section class="header dashboard">
         <div class="grid grid-cols-2 pb-16">
             <div class="grid pl-16 pr-24" style="grid-template-rows: 5fr 3fr;">
-                <div class="grid" style="grid-template-columns: 2fr 5fr;">
+                <div class="grid pt-10" style="grid-template-columns: 2fr 5fr;">
                     <div class="" style="aspect-ratio: 1/1;">
                         <img class="w-full h-full rounded-full" src="https://i.imgur.com/40qCewV.jpg" alt="">
                     </div>
@@ -21,7 +21,7 @@
                     <RippleButton class="text-gray-900" :buttonText="'Message'" />
                 </div>
             </div>
-            <div class="grid grid-rows-3 pl-24 pr-16 text-gray-300">
+            <div class="grid grid-rows-3 pl-24 pr-16 pt-10 text-gray-300">
                 <div class="grid grid-cols-4 [&>*]:space-y-1 border-b-gray-500" style="border-bottom-width: 1px;">
                     <div>
                         <p class="text-2xl">435251</p>
@@ -91,18 +91,23 @@
         </div>
     </section>
 
-    <section class="gallery stuff bg-gray-700">
-        <WorksGallery v-show="this.tab == 'projects'" :works="works" :startIndex="0" :stopIndex="this.worksUpperLimit"
-            @bottom-reached="addMoreWorks" :infiniteScroll="true" />
-        <div v-show="this.tab == 'followers'" class="h-72 bg-purple-950 text-pink-400">followers content</div>
-        <div v-show="this.tab == 'following'" class="h-72 bg-amber-700 text-yellow-400">following content</div>
-        <div v-show="this.tab == 'likes'" class="h-72 bg-blue-950 text-green-400">likes content</div>
+    <section class="gallery stuff bg-gray-700 [&>div]:h-screen">
+        <div v-show="this.tab == 'projects'">
+            <WorksGallery :works="works" :startIndex="0" :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks"
+                :infiniteScroll="true" />
+        </div>
+        <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16 justify-items-center">
+            <ArtistCard v-for="artist in 19" />
+        </div>
+        <div v-show="this.tab == 'following'" class="bg-amber-700 text-yellow-400">following content</div>
+        <div v-show="this.tab == 'likes'" class="bg-blue-950 text-green-400">likes content</div>
     </section>
 </template>
 
 <script>
 
 import WorksGallery from "@/components/WorksGallery.vue"
+import ArtistCard from "@/components/ArtistCard.vue"
 
 // state management
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
@@ -112,7 +117,8 @@ export default {
 
     name: 'ArtistPortfolio',
     components: {
-        WorksGallery
+        WorksGallery,
+        ArtistCard
     },
     data() {
         return {

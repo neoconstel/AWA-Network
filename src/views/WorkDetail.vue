@@ -23,7 +23,7 @@
                     <img class="inline-block w-14 h-14 rounded-full m-4" src="https://i.imgur.com/40qCewV.jpg" alt="">
                     <RouterLink v-if="this.work.user" @click="storeWork"
                         :to="`/artistPortfolio/${this.work.user.username}`">
-                        <h3 class="inline hover:text-cyan-500">{{ this.work.user.name }}</h3>
+                        <h3 class="inline text-cyan-500 hover:text-gray-100">{{ this.work.user.name }}</h3>
                     </RouterLink>
                 </div>
                 <div>
