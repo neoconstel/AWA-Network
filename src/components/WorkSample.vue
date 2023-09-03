@@ -1,14 +1,13 @@
 <template>
     <!-- card displaying an artist's sample work -->
-    <div v-if="this.isMounted" class="relative" :style="{ bottom: bottom }" @mouseenter="toggleStats"
-        @mouseleave="toggleStats">
+    <div v-if="this.isMounted" class="relative" @mouseenter="toggleStats" @mouseleave="toggleStats">
         <div class="bg-cyan-600" style="aspect-ratio: 1/1;">
             <RouterLink :to="`/artwork/${work.id}`">
                 <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.thumbnail"
                     :alt="work.title">
             </RouterLink>
         </div>
-        <div v-if="showInfo" :class="['text-gray-200', infoBgCol]">
+        <div :class="['text-gray-200', infoBgCol]">
             <p class="text-center"><b>{{ work.title }}</b></p>
             <p class="text-gray-300"><img class="inline w-3 mx-2" src="/icons/iconmonstr-user-6.svg" alt="">
                 <RouterLink v-if="work.user" @click="storeWork" :to="`/artistPortfolio/${work.user.username}`">
