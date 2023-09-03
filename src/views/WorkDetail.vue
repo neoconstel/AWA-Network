@@ -12,7 +12,7 @@
                 </div>
                 <form class="flex flex-col space-y-2" action="">
                     <label id="comment" for="comment">Add a new comment</label>
-                    <Textarea rows="5" name="comment"></Textarea>
+                    <Textarea class="text-gray-800" rows="5" name="comment"></Textarea>
                     <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
                 </form>
             </div>
