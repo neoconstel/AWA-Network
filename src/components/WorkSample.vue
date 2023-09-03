@@ -10,8 +10,11 @@
         </div>
         <div v-if="showInfo" :class="['text-gray-200', infoBgCol]">
             <p class="text-center"><b>{{ work.title }}</b></p>
-            <p class="text-gray-300"><img class="inline w-3 mx-2" src="/icons/iconmonstr-user-6.svg" alt="">{{
-                work.user.name }}</p>
+            <p class="text-gray-300"><img class="inline w-3 mx-2" src="/icons/iconmonstr-user-6.svg" alt="">
+                <RouterLink v-if="work.user" @click="storeWork" :to="`/artistPortfolio/${work.user.username}`">
+                    <span class="inline text-cyan-500 hover:text-gray-100">{{ this.work.user.name }}</span>
+                </RouterLink>
+            </p>
         </div>
     </div>
 </template>
@@ -36,6 +39,9 @@ export default {
     methods: {
         toggleStats() {
             this.showInfo = !this.showInfo;
+        },
+        storeWork() {
+            this.dataStore.work = this.work
         }
     },
     computed: {
