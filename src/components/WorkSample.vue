@@ -7,7 +7,7 @@
                     :alt="work.title">
             </RouterLink>
         </div>
-        <div v-if="showStats" class="bg-gray-700 text-gray-200">
+        <div v-if="showInfo" :class="['text-gray-200', infoBgCol]">
             <p class="text-center"><b>{{ work.title }}</b></p>
             <p class="text-gray-300"><img class="inline w-3 mx-2" src="/icons/iconmonstr-user-6.svg" alt="">{{
                 work.user.name }}</p>
@@ -23,17 +23,18 @@ import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 export default {
     name: 'WorkSample',
     props: {
-        'work': Object // an array
+        'work': Object, // an array
+        'infoBgCol': String // background color of the info panel
     },
     data() {
         return {
             'isMounted': false,
-            'showStats': false
+            'showInfo': false
         }
     },
     methods: {
         toggleStats() {
-            this.showStats = !this.showStats;
+            this.showInfo = !this.showInfo;
         }
     },
     computed: {
