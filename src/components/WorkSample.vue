@@ -1,6 +1,7 @@
 <template>
     <!-- card displaying an artist's sample work -->
-    <div v-if="this.isMounted" @mouseenter="toggleStats" @mouseleave="toggleStats">
+    <div v-if="this.isMounted" class="relative" :style="{ bottom: bottom }" @mouseenter="toggleStats"
+        @mouseleave="toggleStats">
         <div class="bg-cyan-600" style="aspect-ratio: 1/1;">
             <RouterLink :to="`/artwork/${work.id}`">
                 <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.thumbnail"
@@ -38,7 +39,13 @@ export default {
         }
     },
     computed: {
-        ...mapStores(useDataStore)
+        ...mapStores(useDataStore),
+        bottom: function () {
+            if (this.showInfo)
+                return '42px'
+            else
+                return '0px'
+        }
     },
     mounted() {
 
