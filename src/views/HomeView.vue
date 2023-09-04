@@ -1,5 +1,5 @@
 <template>
-    <div class="grid my-16" style="grid-template-columns: 4fr 1fr;">
+    <div class="grid my-16 gap-x-4" style="grid-template-columns: 4fr 1fr;">
         <div>
             <Carousel />
         </div>
