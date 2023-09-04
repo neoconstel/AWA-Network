@@ -1,7 +1,7 @@
 <template>
     <!-- card displaying an artist's sample work -->
     <div v-if="this.isMounted" class="relative" @mouseenter="toggleStats" @mouseleave="toggleStats">
-        <div class="bg-cyan-600" style="aspect-ratio: 1/1;">
+        <div class="bg-violet-600 aspect-square">
             <RouterLink :to="`/artwork/${work.id}`">
                 <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.thumbnail"
                     :alt="work.title">
