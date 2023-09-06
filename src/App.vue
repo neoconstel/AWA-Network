@@ -64,10 +64,14 @@
   <!-- MODALS (popups) -->
 
   <!-- signup modal -->
-  <Modal :tag="'signupModal'" :title="'Signup Content'" />
+  <Modal :tag="'signupModal'" :title="'Signup Content'" :confirmText="'Accept'" :cancelText="'Cancel'">
+    content inside signup modal
+  </Modal>
 
   <!-- login modal -->
-  <Modal :tag="'loginModal'" :title="'Login Content'" />
+  <Modal :tag="'loginModal'" :title="'Login Content'" :confirmText="'Accept'" :cancelText="'Cancel'">
+    content inside login modal
+  </Modal>
 </template>
 
 <script>
