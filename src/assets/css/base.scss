@@ -27,3 +27,10 @@
     @apply text-xs font-medium;
   }
 }
+
+@layer utilities {
+  // disable whatever causes the toggle eye in password input to show by default in edge browser
+  input::-ms-reveal {
+    display: none;
+  }
+}
