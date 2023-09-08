@@ -1,3 +1,13 @@
+<!-- this modal component, by default, is structured to display a title, bodyText,
+and two buttons captioned with a confirmText and a cancelText accordingly. All
+that is needed is to provide these values via binding and they will be received
+as props by the component and displayed.
+
+Besides the default structure however, custom html can be placed inside the
+component's tags and it would be received as slot content and displayed instead
+of the default structure. The confirm and cancel buttons would still show unless
+there is no confirmText and/or cancelText value passed in via binding. -->
+
 <template>
     <div data-te-modal-init
         class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
@@ -26,7 +36,7 @@
                     </div>
                     <!--Modal body-->
                     <div class="relative flex-auto p-4" data-te-modal-body-ref>
-                        Modal body text goes here.
+                        {{ this.bodyText }}
                     </div>
                 </slot>
                 <!--Modal footer-->
@@ -63,6 +73,7 @@ export default {
     props: {
         'tag': String,   // tag which the trigger (e.g a button) uses to identify its target (the modal meant for it)
         'title': String, // title of modal if the default modal in the slot is used
+        'bodyText': String, // text in the body of the modal
         'confirmText': String, // text on confirm button
         'cancelText': String // text on cancel button
     },
