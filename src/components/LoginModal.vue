@@ -75,12 +75,18 @@
 
                             <!-- Password input -->
                             <div class="relative mb-6" data-te-input-wrapper-init>
-                                <input type="password"
+                                <input ref="password" type="password"
                                     class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                                    id="exampleFormControlInput22" placeholder="Password" />
-                                <img class="inline h-5 absolute right-1 top-1/3" src="/icons/iconmonstr-eye-lined.svg"
-                                    alt="">
-                                <label for="exampleFormControlInput22"
+                                    id="loginFormControlInput" placeholder="Password" />
+                                <a @click.prevent="togglePassword" href="">
+                                    <img v-if="!passwordReveal" class="inline h-5 absolute right-1 top-1/3"
+                                        src="/icons/iconmonstr-eye-lined.svg" alt="">
+                                </a>
+                                <a @click.prevent="togglePassword" href="">
+                                    <img v-if="passwordReveal" class="inline h-5 absolute right-1 top-1/3"
+                                        src="public/icons/iconmonstr-eye-off-thin.svg" alt="">
+                                </a>
+                                <label for="loginFormControlInput"
                                     class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Password
                                 </label>
                             </div>
@@ -135,11 +141,19 @@ export default {
     },
     data() {
         return {
-
+            'passwordReveal': false
         }
     },
     methods: {
+        togglePassword() {
+            const passwordField = this.$refs.password
 
+            this.passwordReveal = !this.passwordReveal
+            if (passwordField.getAttribute('type') == 'password')
+                passwordField.setAttribute('type', 'text')
+            else
+                passwordField.setAttribute('type', 'password')
+        }
     },
     mounted() {
     }
