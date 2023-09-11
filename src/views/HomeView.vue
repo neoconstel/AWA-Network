@@ -1,5 +1,5 @@
 <template>
-    <div class="grid my-16 gap-x-4" style="grid-template-columns: 4fr 1fr;">
+    <div class="grid mt-16 mb-4 gap-x-4" style="grid-template-columns: 4fr 1fr;">
         <div>
             <Carousel />
         </div>
@@ -12,6 +12,10 @@
                 </a>
             </div>
         </div>
+    </div>
+    <div v-if="this.dataStore.allowTestUser" class="sticky inline top-36 z-10 ml-5">
+        <a data-te-toggle="modal" data-te-target="#addWorkModal" @click.prevent="" href=""><img class="h-16 inline"
+                src="/icons/iconmonstr-plus-circle-lined.svg" alt=""></a>
     </div>
     <section class="gallery">
         <WorksGallery :works="works" :infoBgCol="'bg-gray-700'" :startIndex="0" :stopIndex="15" :maxWorks="15"
