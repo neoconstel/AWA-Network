@@ -17,8 +17,9 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-x-3 [&>*]:mt-auto">
-                    <RippleButton class="bg-yellow-300 text-gray-900" :buttonText="'Follow'" />
-                    <RippleButton class="text-gray-900" :buttonText="'Message'" />
+                    <RippleButton class="bg-yellow-300 hover:bg-yellow-600 text-gray-900" :buttonText="'Follow'" />
+                    <RippleButton class="bg-primary-300 hover:bg-primary-600 text-gray-900" :buttonText="'Message'"
+                        style="background-image: url('/icons/iconmonstr-mail-thin.svg'); background-repeat: no-repeat; background-position: 34% 50%; background-size: 7%;" />
                 </div>
             </div>
             <div class="grid grid-rows-3 pl-24 pr-16 pt-10 text-gray-300">
