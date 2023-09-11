@@ -13,7 +13,12 @@
                 <form class="flex flex-col space-y-2" action="">
                     <label id="comment" for="comment">Add a new comment</label>
                     <Textarea class="text-gray-800" rows="5" name="comment"></Textarea>
-                    <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
+                    <div class="relative">
+                        <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
+                        <button class="ml-10 mr-2" type="button"><img class="inline h-14"
+                                src="/icons/iconmonstr-thumb-10.svg" alt=""></button>
+                        <span class="absolute bottom-0">9.5k</span>
+                    </div>
                 </form>
             </div>
         </main>
