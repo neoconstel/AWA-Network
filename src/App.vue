@@ -1,5 +1,21 @@
 <template>
   <div class="sticky top-0 z-10 grid grid-cols-2 p-3 bg-gray-800" style="grid-template-columns: 1fr 1fr;">
+
+    <!-- test code -->
+    <button v-if="!this.dataStore.allowTestUser"
+      @click.prevent="this.dataStore.allowTestUser = !this.dataStore.allowTestUser"
+      class="absolute top-0 left-1/3 z-20 text-cyan text-lg p-2 bg-pink-500 rounded-lg"><a href="">
+        Test: Switch to logged-in mode
+      </a></button>
+    <button v-if="this.dataStore.allowTestUser"
+      @click.prevent="this.dataStore.allowTestUser = !this.dataStore.allowTestUser"
+      class="absolute top-0 left-1/3 z-20 text-cyan text-lg p-2 bg-green-500 rounded-lg"><a href="">
+        Test: Switch to anonymous
+        user
+        mode
+      </a></button>
+    <!-- test code ends -->
+
     <div><img style="height:55px;" src="/icons/awa_logo.svg" />
     </div>
     <div class="flex justify-center gap-2 [&>*]:my-auto">
@@ -13,6 +29,7 @@
     </div>
   </div>
   <header class="w-full">
+
 
     <!-- <button class="bg-green-600" @click="this.$refs.scroll.leftmostToRightmost">Leftmost To Rightmost</button>
     <button class="bg-pink-600" @click="this.$refs.scroll.rightmostToLeftmost">Rightmost To Leftmost</button> -->
@@ -74,6 +91,10 @@ import Footer from "@/components/FooterComponent.vue"
 import SignupModal from "@/components/SignupModal.vue"
 import LoginModal from "@/components/LoginModal.vue"
 
+// state management
+import { mapStores } from 'pinia'; // mapStores gives us access to the state
+import useDataStore from '@/stores/states'; // convention: use<storeID>Store
+
 import {
   Input as TailwindInput,
   Ripple,
@@ -92,8 +113,11 @@ export default {
   },
   data() {
     return {
-      'showFooter': false,
+      'showFooter': false
     }
+  },
+  computed: {
+    ...mapStores(useDataStore)
   },
   methods: {
     toggleFooter() {
