@@ -18,6 +18,12 @@
                         <button class="ml-10 mr-2" type="button"><img class="inline h-14"
                                 src="/icons/iconmonstr-thumb-10.svg" alt=""></button>
                         <span class="absolute bottom-0">9.5k</span>
+                        <span
+                            v-if="this.dataStore.allowTestUser && this.work.user && this.work.user.username == this.dataStore.testUser.username"
+                            class="absolute right-0">
+                            <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300"
+                                :buttonText="'Delete'" />
+                        </span>
                     </div>
                 </form>
             </div>
