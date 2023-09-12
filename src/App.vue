@@ -16,7 +16,7 @@
 
     <div><img style="height:55px;" src="/icons/awa_logo.svg" />
     </div>
-    <div class="flex justify-center gap-2 [&>*]:my-auto">
+    <div class="flex relative justify-center gap-2 [&>*]:my-auto">
       <Input :placeholderText="'Search'" />
       <span v-if="!this.dataStore.allowTestUser" class="flex gap-2">
         <RippleButton :buttonText="'Sign Up'" type="button"
@@ -27,8 +27,21 @@
           data-te-toggle="modal" data-te-target="#loginModal" data-te-ripple-init data-te-ripple-color="light" />
       </span>
       <span v-else class="ml-4">
-        <a @click.prevent="" href=""><img src="/icons/iconmonstr-user-6.svg" alt=""></a>
+        <a @click.prevent="" href=""><img @click="showUserMenu = !showUserMenu" src="/icons/iconmonstr-user-6.svg"
+            alt=""></a>
       </span>
+      <div v-if="this.dataStore.allowTestUser && showUserMenu"
+        class="bg-gray-800 opacity-90 text-gray-300 h-72 w-1/3 absolute right-20 top-full px-5">
+        <img class="w-1/4 aspect-square rounded-full mx-auto my-5" src="https://i.imgur.com/40qCewV.jpg" alt="">
+        <h3 class="text-center">{{ this.dataStore.testUser.name }}</h3>
+        <p class="text-xs text-center">{{ this.dataStore.testUser.email }}</p>
+        <hr class="my-2" />
+        <div>
+          <h5>Your Profile</h5>
+          <h5>Settings</h5>
+          <h5 class="mt-4">Sign Out</h5>
+        </div>
+      </div>
     </div>
   </div>
   <header class="w-full">
@@ -152,7 +165,8 @@ export default {
   },
   data() {
     return {
-      'showFooter': false
+      'showFooter': false,
+      'showUserMenu': false
     }
   },
   computed: {
