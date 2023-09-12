@@ -37,7 +37,9 @@
         <p class="text-xs text-center">{{ this.dataStore.testUser.email }}</p>
         <hr class="my-2" />
         <div>
-          <h5>Your Profile</h5>
+          <RouterLink v-if="this.dataStore.allowTestUser" :to="`/artistPortfolio/${this.dataStore.testUser.username}`">
+            <h5>Your Profile</h5>
+          </RouterLink>
           <h5>Settings</h5>
           <h5 class="mt-4">Sign Out</h5>
         </div>

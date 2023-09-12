@@ -16,7 +16,8 @@
 
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-x-3 [&>*]:mt-auto">
+                <div v-if="this.dataStore.work.user.username != this.dataStore.testUser.username"
+                    class="grid grid-cols-2 gap-x-3 [&>*]:mt-auto">
                     <RippleButton class="bg-yellow-300 hover:bg-yellow-600 text-gray-900" :buttonText="'Follow'" />
                     <RippleButton class="bg-primary-300 hover:bg-primary-600 text-gray-900" :buttonText="'Message'"
                         style="background-image: url('/icons/iconmonstr-mail-thin.svg'); background-repeat: no-repeat; background-position: 34% 50%; background-size: 7%;" />
