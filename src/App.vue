@@ -31,7 +31,7 @@
             alt=""></a>
       </span>
       <div v-if="this.dataStore.allowTestUser && showUserMenu"
-        class="bg-gray-800 opacity-90 text-gray-300 h-72 w-1/3 absolute right-20 top-full px-5">
+        class="bg-gray-700 opacity-90 text-gray-300 h-72 w-1/3 absolute right-20 top-full px-5">
         <img class="w-1/4 aspect-square rounded-full mx-auto my-5" src="https://i.imgur.com/40qCewV.jpg" alt="">
         <h3 class="text-center">{{ this.dataStore.testUser.name }}</h3>
         <p class="text-xs text-center">{{ this.dataStore.testUser.email }}</p>
