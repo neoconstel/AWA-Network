@@ -4,7 +4,7 @@
         <!-- works from multiple users (some works can have same user) -->
         <div v-for="(work, index) in works.slice(this.startIndex, this.stopIndex)" :key="index">
             <!-- single work sample -->
-            <WorkSample :work=work :infoBgCol="infoBgCol" />
+            <WorkSample :work=work :workType="galleryType" :showDelete="showDelete" :infoBgCol="infoBgCol" />
         </div>
     </div>
 </template>
@@ -23,7 +23,9 @@ export default {
         'maxWorks': Number,   // max works length beyond which this gallery instance stops adding to it when further scrolling is done
         'startIndex': Number, // index (inclusive) of works array to start from in this gallery instance
         'stopIndex': Number,   // index (exclusive) of works array for this gallery instance to stop
-        'infoBgCol': String       // background color of the info panel for each workSample instance in this gallery
+        'infoBgCol': String,       // background color of the info panel for each workSample instance in this gallery
+        'galleryType': String, // gallery type ("projects" or "likes"). Helps distinguish for each work instance when carrying out CRUD operations such as DELETE from the UI
+        'showDelete': false // specifies if the DELETE button for each work instance should be shown
     },
     data() {
         return {

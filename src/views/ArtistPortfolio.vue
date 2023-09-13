@@ -16,7 +16,7 @@
 
                     </div>
                 </div>
-                <div v-if="this.dataStore.work.user.username != this.dataStore.testUser.username"
+                <div v-if="this.dataStore.allowTestUser && this.dataStore.work.user.username != this.dataStore.testUser.username"
                     class="grid grid-cols-2 gap-x-3 [&>*]:mt-auto">
                     <RippleButton class="bg-yellow-300 hover:bg-yellow-600 text-gray-900" :buttonText="'Follow'" />
                     <RippleButton class="bg-primary-300 hover:bg-primary-600 text-gray-900" :buttonText="'Message'"
@@ -96,7 +96,8 @@
     <section class="gallery stuff bg-gray-700 [&>div]:min-h-screen [&>div]:place-content-start">
         <div v-show="this.tab == 'projects'">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-800'" :startIndex="0" :stopIndex="this.worksUpperLimit"
-                @bottom-reached="addMoreWorks" :infiniteScroll="true" />
+                @bottom-reached="addMoreWorks" :infiniteScroll="true" :galleryType="'projects'"
+                :showDelete="this.dataStore.allowTestUser && this.dataStore.work.user.username == this.dataStore.testUser.username" />
         </div>
         <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
             <ArtistCard v-for="artist in 19" />
@@ -106,7 +107,8 @@
         </div>
         <div v-show="this.tab == 'likes'">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-800'" :startIndex="0" :stopIndex="this.worksUpperLimit"
-                @bottom-reached="addMoreWorks" :infiniteScroll="true" />
+                @bottom-reached="addMoreWorks" :infiniteScroll="true" :galleryType="'likes'"
+                :showDelete="this.dataStore.allowTestUser && this.dataStore.work.user.username == this.dataStore.testUser.username" />
         </div>
     </section>
 </template>

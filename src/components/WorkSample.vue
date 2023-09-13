@@ -1,7 +1,9 @@
 <template>
     <!-- card displaying an artist's sample work -->
     <div v-if="this.isMounted" class="relative" @mouseenter="toggleStats" @mouseleave="toggleStats">
-        <div class="bg-violet-600 aspect-square">
+        <div class="relative bg-violet-600 aspect-square">
+            <img v-if="showDelete" @click="deleteByType" class="absolute top-0 right-0"
+                src="/icons/iconmonstr-x-mark-thin.svg" alt="">
             <RouterLink :to="`/artwork/${work.id}`">
                 <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.thumbnail"
                     :alt="work.title">
@@ -27,12 +29,15 @@ export default {
     name: 'WorkSample',
     props: {
         'work': Object, // an array
-        'infoBgCol': String // background color of the info panel
+        'infoBgCol': String, // background color of the info panel
+        'workType': String, // work type ("projects" or "likes"). Helps distinguish when carrying out CRUD operations such as DELETE from the UI
+        'showDelete': false // specifies if the DELETE button should be shown
     },
     data() {
         return {
             'isMounted': false,
-            'showInfo': false
+            'showInfo': false,
+            'workTypes': { 'projects': 'projects', 'likes': 'likes' }
         }
     },
     methods: {
@@ -41,6 +46,9 @@ export default {
         },
         storeWork() {
             this.dataStore.work = this.work
+        },
+        deleteByType() {
+            alert('this would delete artwork with title: ' + this.work.title + ' and ID: ' + this.work.id + ' from workType: ' + this.workType)
         }
     },
     computed: {
