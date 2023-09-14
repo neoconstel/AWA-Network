@@ -37,11 +37,13 @@
         <p class="text-xs text-center">{{ this.dataStore.testUser.email }}</p>
         <hr class="my-2" />
         <div>
-          <RouterLink v-if="this.dataStore.allowTestUser" :to="`/artistPortfolio/${this.dataStore.testUser.username}`">
+          <RouterLink
+            @click=' showUserMenu = false; this.dataStore.work = { "id": 11, "user": { "name": "Harry Potter", "username": "wandhero", "views": 60040, "likes": 21268 }, "title": "canvas", "views": 6372, "likes": 3684, "thumbnail": "https://i.imgur.com/06RgauK.jpg" };'
+            v-if="this.dataStore.allowTestUser" :to="`/artistPortfolio/${this.dataStore.testUser.username}`">
             <h5>Your Profile</h5>
           </RouterLink>
-          <h5>Settings</h5>
-          <h5 class="mt-4">Sign Out</h5>
+          <h5 @click="showUserMenu = false">Settings</h5>
+          <h5 @click="showUserMenu = false" class="mt-4">Sign Out</h5>
         </div>
       </div>
     </div>
