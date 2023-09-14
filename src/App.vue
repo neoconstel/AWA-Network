@@ -87,10 +87,8 @@
   <RouterView />
 
   <Footer v-if="showFooter" :toggleFooter="toggleFooter" />
-  <div class="fixed w-full" style="bottom: 60px;">
-    <img @click.prevent="scrollToTop" class="h-12 ml-auto mr-5" src="/icons/iconmonstr-angel-up-circle-thin.svg"
-      alt="scroll to top">
-  </div>
+  <img class="fixed inline-block h-12 right-0 mr-5" style="bottom: 60px;" @click.prevent="scrollToTop"
+    src="/icons/iconmonstr-angel-up-circle-thin.svg" alt="scroll to top">
   <div class="fixed h-12 w-full bg-gray-400 hover:bg-gray-600 opacity-60" style="bottom: 0px; z-index: 1;"
     @click.prevent="toggleFooter">
   </div>
