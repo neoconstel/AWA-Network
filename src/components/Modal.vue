@@ -1,12 +1,21 @@
-<!-- this modal component, by default, is structured to display a title, bodyText,
+<!-- This modal component, by default, is structured to display a title, bodyText,
 and two buttons captioned with a confirmText and a cancelText accordingly. All
 that is needed is to provide these values via binding and they will be received
 as props by the component and displayed.
 
+
 Besides the default structure however, custom html can be placed inside the
 component's tags and it would be received as slot content and displayed instead
 of the default structure. The confirm and cancel buttons would still show unless
-there is no confirmText and/or cancelText value passed in via binding. -->
+there is no confirmText and/or cancelText value passed in via binding.
+
+
+The modal must be hooked up to a triggering element (e.g button) via its 'tag' prop, for example:
+    <Modal :tag="'loginModal'">
+
+and then the triggering element must have this in its tag:
+    data-te-toggle="modal" data-te-target="#loginModal"
+-->
 
 <template>
     <div data-te-modal-init
