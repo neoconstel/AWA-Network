@@ -21,8 +21,8 @@
                         <span
                             v-if="this.dataStore.allowTestUser && this.work.user && this.work.user.username == this.dataStore.testUser.username"
                             class="absolute right-0">
-                            <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300"
-                                :buttonText="'Delete'" />
+                            <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300" :buttonText="'Delete'"
+                                data-te-toggle="modal" data-te-target="#deleteProjectModal" />
                         </span>
                     </div>
                 </form>
@@ -120,6 +120,8 @@ export default {
         this.work = this.worksDatabase.find((work) => {
             return work.id == this.$route.params.id
         })
+
+        this.dataStore.work = this.work
     }
 }
 
