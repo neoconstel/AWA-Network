@@ -100,6 +100,7 @@
   <SignupModal />
   <LoginModal />
   <AddworkModal />
+  <DeleteprojectModal />
 </template>
 
 <script>
@@ -111,6 +112,7 @@ import Modal from "@/components/Modal.vue"
 import SignupModal from "@/components/SignupModal.vue"
 import LoginModal from "@/components/LoginModal.vue"
 import AddworkModal from "@/components/AddworkModal.vue"
+import DeleteprojectModal from "@/components/DeleteprojectModal.vue"
 
 
 // state management
@@ -133,7 +135,8 @@ export default {
     Modal,
     SignupModal,
     LoginModal,
-    AddworkModal
+    AddworkModal,
+    DeleteprojectModal
   },
   data() {
     return {
