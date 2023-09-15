@@ -100,6 +100,7 @@
   <SignupModal />
   <LoginModal />
   <AddworkModal />
+  <EditworkModal />
   <DeleteprojectModal />
 </template>
 
@@ -112,6 +113,7 @@ import Modal from "@/components/Modal.vue"
 import SignupModal from "@/components/SignupModal.vue"
 import LoginModal from "@/components/LoginModal.vue"
 import AddworkModal from "@/components/AddworkModal.vue"
+import EditworkModal from "@/components/EditworkModal.vue"
 import DeleteprojectModal from "@/components/DeleteprojectModal.vue"
 
 
@@ -136,6 +138,7 @@ export default {
     SignupModal,
     LoginModal,
     AddworkModal,
+    EditworkModal,
     DeleteprojectModal
   },
   data() {

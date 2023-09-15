@@ -10,7 +10,9 @@
                     <span>Character Modelling</span>
                     <span>Sculpting</span>
                 </div>
-                <form class="flex flex-col space-y-2" action="">
+                <form
+                    v-if="this.dataStore.allowTestUser && this.work.user && this.work.user.username == this.dataStore.testUser.username"
+                    class="flex flex-col space-y-2" action="">
                     <label id="comment" for="comment">Add a new comment</label>
                     <Textarea class="text-gray-800" rows="5" name="comment"></Textarea>
                     <div class="relative">
@@ -18,9 +20,10 @@
                         <button class="ml-10 mr-2" type="button"><img class="inline h-14"
                                 src="/icons/iconmonstr-thumb-10.svg" alt=""></button>
                         <span class="absolute bottom-0">9.5k</span>
-                        <span
-                            v-if="this.dataStore.allowTestUser && this.work.user && this.work.user.username == this.dataStore.testUser.username"
-                            class="absolute right-0">
+                        <span class="absolute right-0">
+                            <a @click.prevent="storeWork" href="" data-te-toggle="modal"
+                                data-te-target="#editWorkModal"><img class="inline h-12 mr-5"
+                                    src="/icons/iconmonstr-pencil-line-lined.svg" alt=""></a>
                             <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300" :buttonText="'Delete'"
                                 data-te-toggle="modal" data-te-target="#deleteProjectModal" />
                         </span>
