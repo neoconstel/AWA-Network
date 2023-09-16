@@ -18,8 +18,8 @@
                 src="/icons/iconmonstr-plus-circle-lined.svg" alt=""></a>
     </div>
     <section class="gallery">
-        <WorksGallery :works="works" :infoBgCol="'bg-gray-700'" :startIndex="0" :stopIndex="15" :maxWorks="15"
-            @bottom-reached="addMoreWorks" />
+        <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="15"
+            :maxWorks="15" @bottom-reached="addMoreWorks" />
     </section>
     <section>
         <div class="grid grid-cols-2 bg-gray-400 pt-16 pb-10 px-7">
@@ -37,8 +37,8 @@
         </div>
     </section>
     <section class="gallery">
-        <WorksGallery :works="works" :infoBgCol="'bg-gray-700'" :startIndex="15" :stopIndex="30" :maxWorks="30"
-            @bottom-reached="addMoreWorks" />
+        <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="15" :stopIndex="30"
+            :maxWorks="30" @bottom-reached="addMoreWorks" />
     </section>
     <section class="jobs">
         <div class="bg-gray-400 p-4">
@@ -65,8 +65,8 @@
         </div>
     </section>
     <section class="gallery">
-        <WorksGallery :works="works" :infoBgCol="'bg-gray-700'" :startIndex="30" :stopIndex="this.worksUpperLimit"
-            @bottom-reached="addMoreWorks" :infiniteScroll="true" />
+        <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="30"
+            :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks" :infiniteScroll="true" />
     </section>
 </template>
 

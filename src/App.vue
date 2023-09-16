@@ -1,5 +1,6 @@
 <template>
-  <div class="sticky top-0 z-10 grid grid-cols-2 p-3 bg-gray-800" style="grid-template-columns: 1fr 1fr;">
+  <div class="sticky top-0 z-10 grid grid-cols-2 p-3 bg-gray-500 dark:bg-gray-900"
+    style="grid-template-columns: 1fr 1fr;">
 
     <!-- test code -->
     <button v-if="!this.dataStore.allowTestUser" @click.prevent="this.dataStore.allowTestUser = true"
@@ -25,6 +26,12 @@
         <RippleButton :buttonText="'Login'" type="button"
           class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
           data-te-toggle="modal" data-te-target="#loginModal" data-te-ripple-init data-te-ripple-color="light" />
+      </span>
+      <span v-else class="ml-4">
+        <a @click.prevent="" href=""><img @click="showUserMenu = !showUserMenu" src="/icons/iconmonstr-user-6.svg"
+            alt=""></a>
+      </span>
+      <span class="ml-3">
         <svg v-if="this.darkTheme" name="moon-icon" @click="toggleTheme" xmlns="http://www.w3.org/2000/svg"
           class="fill-gray-300" width="24" height="24" viewBox="0 0 24 24">
           <path
@@ -35,10 +42,6 @@
           <path
             d="M12 9c1.654 0 3 1.346 3 3s-1.346 3-3 3-3-1.346-3-3 1.346-3 3-3zm0-2c-2.762 0-5 2.238-5 5s2.238 5 5 5 5-2.238 5-5-2.238-5-5-5zm-4.184-.599l-3.593-3.594-1.415 1.414 3.595 3.595c.401-.537.876-1.013 1.413-1.415zm4.184-1.401c.34 0 .672.033 1 .08v-5.08h-2v5.08c.328-.047.66-.08 1-.08zm5.598 2.815l3.595-3.595-1.414-1.414-3.595 3.595c.537.402 1.012.878 1.414 1.414zm-12.598 4.185c0-.34.033-.672.08-1h-5.08v2h5.08c-.047-.328-.08-.66-.08-1zm11.185 5.598l3.594 3.593 1.415-1.414-3.594-3.593c-.403.536-.879 1.012-1.415 1.414zm-9.784-1.414l-3.593 3.593 1.414 1.414 3.593-3.593c-.536-.402-1.011-.877-1.414-1.414zm12.519-5.184c.047.328.08.66.08 1s-.033.672-.08 1h5.08v-2h-5.08zm-6.92 8c-.34 0-.672-.033-1-.08v5.08h2v-5.08c-.328.047-.66.08-1 .08z" />
         </svg>
-      </span>
-      <span v-else class="ml-4">
-        <a @click.prevent="" href=""><img @click="showUserMenu = !showUserMenu" src="/icons/iconmonstr-user-6.svg"
-            alt=""></a>
       </span>
       <div v-if="this.dataStore.allowTestUser && showUserMenu"
         class="bg-gray-700 opacity-90 text-gray-300 h-72 w-1/3 absolute right-20 top-full px-5">
@@ -64,14 +67,14 @@
     <!-- <button class="bg-green-600" @click="this.$refs.scroll.leftmostToRightmost">Leftmost To Rightmost</button>
     <button class="bg-pink-600" @click="this.$refs.scroll.rightmostToLeftmost">Rightmost To Leftmost</button> -->
     <HScroll
-      class="relative p-4 gap-4 bg-gray-400 [&>div]:bg-gray-300 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 [&>div]:relative"
+      class="relative p-4 gap-4 bg-gray-400 dark:bg-gray-600 [&>div]:bg-gray-300 [&>div]:dark:bg-gray-700 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 [&>div]:relative"
       :gap="16" ref="scroll">
-      <div><a href="">Spotlight</a></div>
-      <div><a href="">AWAtv</a></div>
-      <div><a href="">Reviews</a></div>
-      <div><a href="">Challenge</a></div>
-      <div><a href="">Magazine</a></div>
-      <div><a href="">Foundation</a></div>
+      <div><a class="text-gray-800 dark:text-gray-200" href="">Spotlight</a></div>
+      <div><a class="text-gray-800 dark:text-gray-200" href="">AWAtv</a></div>
+      <div><a class="text-gray-800 dark:text-gray-200" href="">Reviews</a></div>
+      <div><a class="text-gray-800 dark:text-gray-200" href="">Challenge</a></div>
+      <div><a class="text-gray-800 dark:text-gray-200" href="">Magazine</a></div>
+      <div><a class="text-gray-800 dark:text-gray-200" href="">Foundation</a></div>
       <div v-for="i in 5"><a href="">Other link</a></div>
     </HScroll>
   </header>
@@ -155,7 +158,7 @@ export default {
     return {
       'showFooter': false,
       'showUserMenu': false,
-      'darkTheme': false
+      'darkTheme': true
     }
   },
   computed: {
@@ -183,6 +186,11 @@ export default {
       setTimeout(() => {
         this.scrollToTop();
       }, 1000)
+
+      // set initial theme state
+      const html = document.querySelector("html")
+      if (this.darkTheme)
+        html.classList.add('dark')
     })
   }
 }
