@@ -75,7 +75,7 @@
       <div><a class="text-gray-800 dark:text-gray-200" href="">Challenge</a></div>
       <div><a class="text-gray-800 dark:text-gray-200" href="">Magazine</a></div>
       <div><a class="text-gray-800 dark:text-gray-200" href="">Foundation</a></div>
-      <div v-for="i in 5"><a href="">Other link</a></div>
+      <div v-for="i in 5"><a class="text-gray-800 dark:text-gray-200" href="">Other link</a></div>
     </HScroll>
   </header>
 
