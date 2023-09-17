@@ -3,8 +3,8 @@
         <div>
             <Carousel />
         </div>
-        <div class="bg-gray-400 grid" style="grid-template-rows: 30px 1fr;">
-            <p class="text-center my-auto">Spotlight Art</p>
+        <div class="bg-gray-400 dark:bg-gray-600 grid" style="grid-template-rows: 30px 1fr;">
+            <p class="text-center my-auto text-gray-800 dark:text-gray-200">Spotlight Art</p>
             <div>
                 <a href="">
                     <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;"
@@ -14,8 +14,13 @@
         </div>
     </div>
     <div v-if="this.dataStore.allowTestUser" class="sticky inline top-36 z-10 ml-5">
-        <a data-te-toggle="modal" data-te-target="#addWorkModal" @click.prevent="" href=""><img class="h-16 inline"
-                src="/icons/iconmonstr-plus-circle-lined.svg" alt=""></a>
+        <a data-te-toggle="modal" data-te-target="#addWorkModal" @click.prevent="" href=""><svg
+                class="h-16 inline fill-gray-800 dark:fill-gray-200" clip-rule="evenodd" fill-rule="evenodd"
+                stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="m12.002 2c5.518 0 9.998 4.48 9.998 9.998 0 5.517-4.48 9.997-9.998 9.997-5.517 0-9.997-4.48-9.997-9.997 0-5.518 4.48-9.998 9.997-9.998zm0 1.5c-4.69 0-8.497 3.808-8.497 8.498s3.807 8.497 8.497 8.497 8.498-3.807 8.498-8.497-3.808-8.498-8.498-8.498zm-.747 7.75h-3.5c-.414 0-.75.336-.75.75s.336.75.75.75h3.5v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5h3.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-3.5v-3.5c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"
+                    fill-rule="nonzero" />
+            </svg></a>
     </div>
     <section class="gallery">
         <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="15"
