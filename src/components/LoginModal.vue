@@ -111,7 +111,10 @@
                                 </div>
 
                                 <!--Forgot password link-->
-                                <a href="#!">Forgot password?</a>
+                                <span data-te-modal-dismiss>
+                                    <a data-te-toggle="modal" data-te-target="#forgotPasswordModal" href="#!">Forgot
+                                        password?</a>
+                                </span>
                             </div>
 
                             <!-- Login button -->
