@@ -27,6 +27,11 @@ const router = createRouter({
       name: "artistPortfolio",
       component: () => import("../views/ArtistPortfolio.vue"),
     },
+    {
+      path: "/verify_email",
+      name: "verifyEmail",
+      component: () => import("../views/VerifyEmail.vue"),
+    },
   ],
 });
 
