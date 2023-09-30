@@ -165,14 +165,14 @@ export default {
                 passwordField.setAttribute('type', 'password')
         },
         async submit() {
-            var myHeaders = new Headers();
+            let myHeaders = new Headers();
 
-            var raw = JSON.stringify({
+            let raw = JSON.stringify({
                 "username": this.loginID,
                 "password": this.password
             });
 
-            var requestOptions = {
+            let requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw,
