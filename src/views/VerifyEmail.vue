@@ -1,6 +1,5 @@
 <template>
     <h1>Email Verification</h1>
-    <p>xtoken: {{ $route.query.xtoken }}</p>
 </template>
 
 <script>

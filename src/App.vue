@@ -84,7 +84,7 @@
   </header>
 
   <!-- for testing links (remove later) -->
-  <div class="link-test-only inline w-100 fixed" style="bottom: 100px; z-index: 1">
+  <!-- <div class="link-test-only inline w-100 fixed" style="bottom: 100px; z-index: 1">
     <h3 class="inline text-cyan-300 opacity-40">Link Test</h3>
     <ul
       class="[&>li]:inline-block [&>li]:p-1 [&>li]:bg-green-300 space-x-1 [&>li]:text-xs [&>li]:rounded-2xl [&>li]:opacity-30">
@@ -99,7 +99,7 @@
         </RouterLink>
       </li>
     </ul>
-  </div>
+  </div> -->
 
 
 
