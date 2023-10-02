@@ -191,18 +191,21 @@ export default {
                 passwordField.setAttribute('type', 'password')
         },
         async submit() {
-            let myHeaders = new Headers();
+            const headers = {
+                'Content-Type': 'application/json'
+            }
 
-            let raw = JSON.stringify({
+            const data = JSON.stringify({
                 "email": this.email,
                 "username": this.username,
-                "password": this.password1
+                "password": this.password1,
+                "password2": this.password2
             });
 
-            let requestOptions = {
+            const requestOptions = {
                 method: 'POST',
-                headers: myHeaders,
-                body: raw,
+                headers: headers,
+                body: data,
                 redirect: 'follow'
             };
 
