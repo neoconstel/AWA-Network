@@ -1,5 +1,11 @@
 <template>
     <h1>Email Verification</h1>
+    <div v-if="this.success == true">
+        <p>You have been verified, <span>{{ this.verified_user }}!</span></p>
+        <p>You may <span class="text-cyan-500" data-te-toggle="modal" data-te-target="#loginModal">
+                <a @click.prevent="" href="">login</a></span> now</p>
+    </div>
+    <p v-if="!this.success">Invalid or Expired Verification Token</p>
 </template>
 
 <script>
@@ -8,7 +14,8 @@ export default {
     name: 'verifyEmail',
     data() {
         return {
-
+            'success': null,
+            'verified_user': '',
         }
     },
     methods: {
@@ -31,8 +38,20 @@ export default {
             }
 
             fetch(url, requestOptions)
-                .then(response => response.text())
-                .then(result => console.log(result))
+                .then((response) => {
+                    if (response.status.toString()[0] == '2')
+                        this.success = true
+                    else
+                        this.success = false
+
+                    return response.json()
+                })
+                .then((data) => {
+                    console.log(data)
+                    if (this.success == true)
+                        this.verified_user = data['verified_user']
+                }
+                )
                 .catch(error => console.log('error', error))
         }
     },
