@@ -1,6 +1,6 @@
 <template>
     <!-- login modal -->
-    <Modal :tag="'loginModal'">
+    <Modal :tag="'loginModal'" ref="loginModal">
         <!-- content inside login modal -->
         <section class="">
             <div>
@@ -154,7 +154,8 @@ export default {
         return {
             'passwordReveal': false,
             'loginID': '',
-            'password': ''
+            'password': '',
+            'success': null
         }
     },
     methods: {
@@ -168,24 +169,41 @@ export default {
                 passwordField.setAttribute('type', 'password')
         },
         async submit() {
-            let myHeaders = new Headers();
+            const url = "http://127.0.0.1:8000/auth/login/"
 
-            let raw = JSON.stringify({
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+
+            const data = JSON.stringify({
                 "username": this.loginID,
                 "password": this.password
             });
 
-            let requestOptions = {
+            const requestOptions = {
                 method: 'POST',
-                headers: myHeaders,
-                body: raw,
+                headers: headers,
+                body: data,
                 redirect: 'follow'
             };
 
-            fetch("http://127.0.0.1:8000/auth/login/", requestOptions)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
+            fetch(url, requestOptions)
+                .then((response) => {
+                    if (response.status.toString()[0] == '2')
+                        this.success = true
+                    else
+                        this.success = false
+
+                    return response.json()
+                })
+                .then((data) => {
+                    console.log(data)
+                    if (this.success == true)
+                        // dismiss login modal automatically
+                        this.$refs.loginModal.close()
+                }
+                )
+                .catch(error => console.log('error', error))
         }
     },
     mounted() {
