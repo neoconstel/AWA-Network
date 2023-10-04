@@ -135,6 +135,8 @@
                                 </p>
                             </div>
                         </form>
+                        <p class="text-red-600 bg-yellow-300">
+                            {{ this.errorMessage }}</p>
                     </div>
                 </div>
             </div>
@@ -155,7 +157,8 @@ export default {
             'passwordReveal': false,
             'loginID': '',
             'password': '',
-            'success': null
+            'success': null,
+            'errorMessage': ''
         }
     },
     methods: {
@@ -201,9 +204,15 @@ export default {
                     if (this.success == true)
                         // dismiss login modal automatically
                         this.$refs.loginModal.close()
+                    else {
+                        this.errorMessage = data['error']
+                    }
                 }
                 )
-                .catch(error => console.log('error', error))
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
         }
     },
     mounted() {
