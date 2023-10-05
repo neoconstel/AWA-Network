@@ -187,6 +187,7 @@ export default {
                 method: 'POST',
                 headers: headers,
                 body: data,
+                credentials: 'include',
                 redirect: 'follow'
             };
 
