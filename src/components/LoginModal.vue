@@ -204,9 +204,13 @@ export default {
                 })
                 .then((data) => {
                     console.log(data)
-                    if (this.success == true)
+                    if (this.success == true) {
                         // dismiss login modal automatically
-                        this.$refs.loginModal.close()
+                        // this.$refs.loginModal.close()
+
+                        // refresh page
+                        this.$router.go()
+                    }
                     else {
                         this.errorMessage = data['error']
                     }
