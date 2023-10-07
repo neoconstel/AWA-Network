@@ -1,6 +1,6 @@
 <template>
     <!-- signup modal -->
-    <Modal :tag="'signupModal'">
+    <Modal :tag="'signupModal'" ref="signupModal">
         <!-- content inside signup modal -->
         <section>
             <div>
@@ -147,6 +147,8 @@
                                 </p>
                             </div>
                         </form>
+                        <p class="text-red-600 bg-yellow-300">
+                            {{ this.errorMessage }}</p>
                     </div>
                 </div>
             </div>
@@ -169,7 +171,9 @@ export default {
             'email': '',
             'username': '',
             'password1': '',
-            'password2': ''
+            'password2': '',
+            'success': null,
+            'errorMessage': ''
         }
     },
     methods: {
@@ -210,9 +214,37 @@ export default {
             };
 
             fetch("http://127.0.0.1:8000/auth/register/", requestOptions)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
+                .then((response) => {
+                    if (response.status.toString()[0] == '2')
+                        this.success = true
+                    else
+                        this.success = false
+
+                    return response.json()
+                })
+                .then((data) => {
+                    console.log(data)
+                    if (this.success == true) {
+                        // dismiss login modal automatically
+                        this.$refs.signupModal.close()
+
+                        setTimeout(() => {
+                            alert("Registration Successful. Check your email for "
+                                + "a verification link to activate your account.")
+                        }, 2000)
+
+                        // refresh page
+                        // this.$router.go()
+                    }
+                    else {
+                        this.errorMessage = data['error']
+                    }
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
         }
     },
     mounted() {
