@@ -206,10 +206,14 @@ export default {
                     console.log(data)
                     if (this.success == true) {
                         // dismiss login modal automatically
-                        // this.$refs.loginModal.close()
+                        this.$refs.loginModal.close()
 
-                        // refresh page
-                        this.$router.go()
+                        if (this.$route.name == 'verifyEmail')
+                            // go to home path
+                            this.$router.push('/')
+                        else
+                            // refresh page
+                            this.$router.go()
                     }
                     else {
                         this.errorMessage = data['error']

@@ -10,6 +10,10 @@
 
 <script>
 
+// state management
+import { mapStores } from 'pinia'; // mapStores gives us access to the state
+import useDataStore from '@/stores/states'; // convention: use<storeID>Store
+
 export default {
     name: 'verifyEmail',
     data() {
@@ -17,6 +21,9 @@ export default {
             'success': null,
             'verified_user': '',
         }
+    },
+    computed: {
+        ...mapStores(useDataStore)
     },
     methods: {
         async verify() {
@@ -56,6 +63,7 @@ export default {
         }
     },
     mounted() {
+        this.dataStore.currentView = this.$options.name
         this.verify()
     }
 }
