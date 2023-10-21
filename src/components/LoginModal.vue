@@ -147,6 +147,10 @@
 <script>
 import Modal from "@/components/Modal.vue"
 
+// state management
+import { mapStores } from 'pinia'; // mapStores gives us access to the state
+import useDataStore from '@/stores/states'; // convention: use<storeID>Store
+
 export default {
     name: 'LoginModal',
     components: {
@@ -161,6 +165,9 @@ export default {
             'success': null,
             'errorMessage': ''
         }
+    },
+    computed: {
+        ...mapStores(useDataStore)
     },
     methods: {
         togglePassword() {
@@ -208,6 +215,10 @@ export default {
                         // dismiss login modal automatically
                         this.$refs.loginModal.close()
 
+                        // save user data
+                        this.dataStore.user = data['user']
+
+                        // redirect or refresh
                         if (this.$route.name == 'verifyEmail')
                             // go to home path
                             this.$router.push('/')
