@@ -128,7 +128,8 @@ export default {
             const url = `http://localhost:8000/api/artworks/?page_size=50`
 
             const headers = {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
             }
 
             const requestOptions = {

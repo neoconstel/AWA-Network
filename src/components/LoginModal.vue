@@ -183,7 +183,8 @@ export default {
             const url = "http://localhost:8000/auth/login/"
 
             const headers = {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
             }
 
             const data = JSON.stringify({
