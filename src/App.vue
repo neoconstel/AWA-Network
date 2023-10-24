@@ -50,16 +50,15 @@
             d="M12 9c1.654 0 3 1.346 3 3s-1.346 3-3 3-3-1.346-3-3 1.346-3 3-3zm0-2c-2.762 0-5 2.238-5 5s2.238 5 5 5 5-2.238 5-5-2.238-5-5-5zm-4.184-.599l-3.593-3.594-1.415 1.414 3.595 3.595c.401-.537.876-1.013 1.413-1.415zm4.184-1.401c.34 0 .672.033 1 .08v-5.08h-2v5.08c.328-.047.66-.08 1-.08zm5.598 2.815l3.595-3.595-1.414-1.414-3.595 3.595c.537.402 1.012.878 1.414 1.414zm-12.598 4.185c0-.34.033-.672.08-1h-5.08v2h5.08c-.047-.328-.08-.66-.08-1zm11.185 5.598l3.594 3.593 1.415-1.414-3.594-3.593c-.403.536-.879 1.012-1.415 1.414zm-9.784-1.414l-3.593 3.593 1.414 1.414 3.593-3.593c-.536-.402-1.011-.877-1.414-1.414zm12.519-5.184c.047.328.08.66.08 1s-.033.672-.08 1h5.08v-2h-5.08zm-6.92 8c-.34 0-.672-.033-1-.08v5.08h2v-5.08c-.328.047-.66.08-1 .08z" />
         </svg>
       </span>
-      <div v-if="this.dataStore.allowTestUser && showUserMenu"
+      <div v-if="this.dataStore.user.id && showUserMenu"
         class="bg-gray-700 opacity-90 text-gray-300 h-72 w-1/3 absolute right-20 top-full px-5">
         <img class="w-1/4 aspect-square rounded-full mx-auto my-5" src="https://i.imgur.com/40qCewV.jpg" alt="">
-        <h3 class="text-center">{{ this.dataStore.testUser.name }}</h3>
-        <p class="text-xs text-center">{{ this.dataStore.testUser.email }}</p>
+        <h3 class="text-center">{{ this.dataStore.user.name }}</h3>
+        <p class="text-xs text-center">{{ this.dataStore.user.username }}</p>
         <hr class="my-2" />
         <div>
-          <RouterLink
-            @click=' showUserMenu = false; this.dataStore.work = { "id": 11, "user": { "name": "Harry Potter", "username": "wandhero", "views": 60040, "likes": 21268 }, "title": "canvas", "views": 6372, "likes": 3684, "thumbnail": "https://i.imgur.com/06RgauK.jpg" };'
-            v-if="this.dataStore.allowTestUser" :to="`/artistPortfolio/${this.dataStore.testUser.username}`">
+          <RouterLink v-if="this.dataStore.user.id" @click='showUserMenu = false;'
+            :to="`/artistPortfolio/${this.dataStore.user.username}`">
             <h5>Your Profile</h5>
           </RouterLink>
           <h5 @click="showUserMenu = false">Settings</h5>
