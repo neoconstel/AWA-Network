@@ -127,7 +127,18 @@ export default {
         async fetchWorks() {
             const url = `http://localhost:8000/api/artworks/?page_size=50`
 
-            fetch(url)
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+
+            const requestOptions = {
+                method: 'GET',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
                 .then((response) => {
                     return response.json()
                 })
