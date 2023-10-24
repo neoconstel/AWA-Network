@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <div v-if="this.dataStore.allowTestUser" class="sticky inline top-36 z-10 ml-5">
+    <div v-if="this.dataStore.user.id" class="sticky inline top-36 z-10 ml-5">
         <a data-te-toggle="modal" data-te-target="#addWorkModal" @click.prevent="" href=""><svg
                 class="h-16 inline fill-gray-800 dark:fill-gray-200" clip-rule="evenodd" fill-rule="evenodd"
                 stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
