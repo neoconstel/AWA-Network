@@ -180,7 +180,7 @@ export default {
                 passwordField.setAttribute('type', 'password')
         },
         async submit() {
-            const url = "http://127.0.0.1:8000/auth/login/"
+            const url = "http://localhost:8000/auth/login/"
 
             const headers = {
                 'Content-Type': 'application/json'

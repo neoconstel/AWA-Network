@@ -119,6 +119,7 @@
   <!-- MODALS (popups) -->
   <SignupModal />
   <LoginModal />
+  <LogoutModal />
   <AddworkModal />
   <EditworkModal />
   <DeleteprojectModal />
@@ -133,6 +134,7 @@ import Footer from "@/components/FooterComponent.vue"
 import Modal from "@/components/Modal.vue"
 import SignupModal from "@/components/SignupModal.vue"
 import LoginModal from "@/components/LoginModal.vue"
+import LogoutModal from "@/components/LogoutModal.vue"
 import AddworkModal from "@/components/AddworkModal.vue"
 import EditworkModal from "@/components/EditworkModal.vue"
 import DeleteprojectModal from "@/components/DeleteprojectModal.vue"
@@ -159,6 +161,7 @@ export default {
     Modal,
     SignupModal,
     LoginModal,
+    LogoutModal,
     AddworkModal,
     EditworkModal,
     DeleteprojectModal,
