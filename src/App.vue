@@ -39,7 +39,7 @@
           </svg></a>
       </span>
       <span class="ml-3">
-        <svg v-if="this.darkTheme" name="moon-icon" @click="toggleTheme" xmlns="http://www.w3.org/2000/svg"
+        <svg v-if="this.dataStore.darkTheme" name="moon-icon" @click="toggleTheme" xmlns="http://www.w3.org/2000/svg"
           class="fill-gray-300" width="24" height="24" viewBox="0 0 24 24">
           <path
             d="M0 12c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12zm2 0c0-5.514 4.486-10 10-10v20c-5.514 0-10-4.486-10-10z" />
@@ -169,8 +169,7 @@ export default {
   data() {
     return {
       'showFooter': false,
-      'showUserMenu': false,
-      'darkTheme': true
+      'showUserMenu': false
     }
   },
   computed: {
@@ -184,10 +183,9 @@ export default {
       window.scrollTo(0, 0);
     },
     toggleTheme() {
-
       const html = document.querySelector("html")
       html.classList.toggle('dark')
-      this.darkTheme = !this.darkTheme
+      this.dataStore.darkTheme = !this.dataStore.darkTheme
     }
   },
   mounted() {
@@ -201,7 +199,7 @@ export default {
 
       // set initial theme state
       const html = document.querySelector("html")
-      if (this.darkTheme)
+      if (this.dataStore.darkTheme)
         html.classList.add('dark')
     })
   }

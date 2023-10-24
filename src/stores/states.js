@@ -20,5 +20,6 @@ export default defineStore("data", {
       following: 318,
     },
     allowTestUser: useLocalStorage("allowTestUser", false),
+    darkTheme: useLocalStorage("darkTheme", true),
   }),
 });
