@@ -7,7 +7,7 @@
             <fieldset class="border-2 p-1">
                 <legend class="text-xs">Title</legend>
                 <input class="outline-none w-full focus:outline-none" type="text" id="title" placeholder=""
-                    :value="this.dataStore.work.title" />
+                    :value="this.work.title" />
             </fieldset>
 
             <div>
@@ -54,13 +54,19 @@ export default {
     },
     data() {
         return {
-
+            "work": {}
         }
     },
     methods: {
 
     },
     mounted() {
+        // add event listener for when this modal is shown
+        const myModalEl = document.getElementById("editWorkModal");
+        myModalEl.addEventListener("shown.te.modal", (e) => {
+            this.work = this.dataStore.work
+            console.log("EditworkModal initialized")
+        });
     }
 }
 </script>

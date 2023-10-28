@@ -44,13 +44,13 @@ export default {
         const myModalEl = document.getElementById("deleteProjectModal");
         myModalEl.addEventListener("shown.te.modal", (e) => {
             this.work = this.dataStore.work
-            console.log("Deleteprojectmodal initialized")
+            console.log("DeleteprojectModal initialized")
         });
 
         // add event listener for when this modal is dismissed
         myModalEl.addEventListener("hidden.te.modal", (e) => {
             this.work = {}
-            console.log("Deleteprojectmodal dismissed")
+            console.log("DeleteprojectModal dismissed")
         });
     }
 }
