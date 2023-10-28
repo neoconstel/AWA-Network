@@ -2,11 +2,11 @@
     <!-- deleteProject modal -->
     <Modal :tag="'deleteProjectModal'">
         <!-- content inside deleteProject modal -->
-        <div class="space-y-4 p-10">
+        <div v-if="this.work.id" class="space-y-4 p-10">
             <h3 class="text-center">Delete artwork:
-                <b>"{{ this.dataStore.work.title }}"</b> to trash?
+                <b>"{{ this.work.title }}"</b> to trash?
             </h3>
-            <img class="w-32 aspect-square object-cover mx-auto" :src="this.dataStore.work.thumbnail" alt="">
+            <img class="w-32 aspect-square object-cover mx-auto" :src="this.work.file_url" alt="">
             <flex class="flex justify-center gap-10">
                 <RippleButton data-te-modal-dismiss class="w-24 inline" :buttonText="'Cancel'"></RippleButton>
                 <RippleButton data-te-modal-dismiss class="w-24 inline bg-red-600 hover:bg-red-700 text-yellow-300"
@@ -33,13 +33,25 @@ export default {
     },
     data() {
         return {
-
+            "work": {}
         }
     },
     methods: {
 
     },
     mounted() {
+        // add event listener for when this modal is shown
+        const myModalEl = document.getElementById("deleteProjectModal");
+        myModalEl.addEventListener("shown.te.modal", (e) => {
+            this.work = this.dataStore.work
+            console.log("Deleteprojectmodal initialized")
+        });
+
+        // add event listener for when this modal is dismissed
+        myModalEl.addEventListener("hidden.te.modal", (e) => {
+            this.work = {}
+            console.log("Deleteprojectmodal dismissed")
+        });
     }
 }
 </script>

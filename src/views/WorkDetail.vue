@@ -126,6 +126,7 @@ export default {
                 .then((data) => {
                     // console.log(data)
                     this.work = data
+                    this.dataStore.work = data
                     console.log(this.work)
                 }
                 )
@@ -153,7 +154,6 @@ export default {
         // })
 
         this.fetchWork(this.$route.params.id)
-        this.dataStore.work = this.work
     }
 }
 
