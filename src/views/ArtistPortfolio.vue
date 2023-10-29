@@ -195,7 +195,7 @@ export default {
                 })
         },
         async fetchWorks() {
-            const url = `http://localhost:8000/api/artworks/?page_size=50`
+            const url = `http://localhost:8000/api/artworks/?page_size=50&search=${this.$route.params.username}&filter=artist`
 
             const headers = {
                 'Content-Type': 'application/json',
