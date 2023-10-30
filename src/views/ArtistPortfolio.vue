@@ -165,7 +165,7 @@ export default {
             this.worksUpperLimit++;
         },
         async fetchArtist() {
-            const url = `http://localhost:8000/api/artist/${this.$route.params.username}/`
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artist/${this.$route.params.username}/`
 
             const headers = {
                 'Content-Type': 'application/json',
@@ -195,7 +195,7 @@ export default {
                 })
         },
         async fetchWorks() {
-            const url = `http://localhost:8000/api/artworks/?page_size=50&search=${this.$route.params.username}&filter=artist`
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artworks/?page_size=50&search=${this.$route.params.username}&filter=artist`
 
             const headers = {
                 'Content-Type': 'application/json',

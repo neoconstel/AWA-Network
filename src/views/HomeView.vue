@@ -125,7 +125,7 @@ export default {
             this.worksUpperLimit++;
         },
         async fetchWorks() {
-            const url = `http://localhost:8000/api/artworks/?page_size=50`
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artworks/?page_size=50`
 
             const headers = {
                 'Content-Type': 'application/json',

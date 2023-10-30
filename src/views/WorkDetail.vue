@@ -105,7 +105,7 @@ export default {
             this.dataStore.work = this.work
         },
         async fetchWork(id) {
-            const url = `http://localhost:8000/api/artwork/${id}/`
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artwork/${id}/`
 
             const headers = {
                 'Content-Type': 'application/json',
