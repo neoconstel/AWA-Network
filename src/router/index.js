@@ -1,6 +1,23 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
+function getExtraRoutes() {
+  /**
+   * this function is just a placeholder for now, before the real functional
+   * implementation which would be about fetching the wagtail page routes from
+   * the django backend.
+   */
+  console.log("Getting routes");
+  return [
+    {
+      path: "/extra",
+      name: "extra_routes",
+      component: () => import("../views/ExtraView.vue"),
+    },
+  ];
+}
+const extraRoutes = getExtraRoutes();
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -42,7 +59,7 @@ const router = createRouter({
       name: "userInfo",
       component: () => import("../views/UserInfo.vue"),
     },
-  ],
+  ].concat(extraRoutes),
 });
 
 export default router;
