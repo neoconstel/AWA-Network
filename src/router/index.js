@@ -1,65 +1,99 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
-function getExtraRoutes() {
+async function getExtraRoutes() {
   /**
-   * this function is just a placeholder for now, before the real functional
-   * implementation which would be about fetching the wagtail page routes from
+   * this function fetches the wagtail page routes from
    * the django backend.
    */
-  console.log("Getting routes");
-  return [
-    {
-      path: "/extra",
-      name: "extra_routes",
-      component: () => import("../views/ExtraView.vue"),
-    },
-  ];
+  console.log("Getting wagtail-cms routes");
+
+  const wagtailPageRoutes = [];
+  const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/`;
+  let pages = await fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      data.items.forEach((page) => {
+        let title = page.title;
+        let htmlUrl = page.meta.html_url;
+        let type = page.meta.type;
+        let slug = page.meta.slug;
+
+        // get the relative path e.g "/animals/cats"
+        let routePath = htmlUrl
+          .replace(import.meta.env.VITE_BACKEND_DOMAIN, "")
+          .replace("%5E.", "");
+
+        // get the component based on standard naming format of the page Type
+        // main.AnimationChallengePage => AnimationChallenge
+        // (remove "main." app name at the beginning and "Page" at the end)
+        //TODO: improve to handle app names of different lengths
+        let routeComponent = type.slice(5, -4);
+
+        let pageRoute = {
+          path: routePath.slice(0, -1),
+          name: slug,
+          component: () => import(`../views/${routeComponent}.vue`),
+        };
+
+        wagtailPageRoutes.push(pageRoute);
+      });
+    });
+  return wagtailPageRoutes;
 }
-const extraRoutes = getExtraRoutes();
+
+const extraRoutes = await getExtraRoutes();
+console.log("WagtailPageRoutes:");
+console.log(extraRoutes);
+
+const fixedRoutes = [
+  {
+    path: "/",
+    name: "home",
+    component: HomeView,
+  },
+  {
+    path: "/about",
+    name: "about",
+    // route level code-splitting
+    // this generates a separate chunk (About.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import("../views/AboutView.vue"),
+  },
+  {
+    path: "/artwork/:id",
+    name: "workDetail",
+    component: () => import("../views/WorkDetail.vue"),
+  },
+  {
+    path: "/artistPortfolio/:username",
+    name: "artistPortfolio",
+    component: () => import("../views/ArtistPortfolio.vue"),
+  },
+  {
+    path: "/verify_email",
+    name: "verifyEmail",
+    component: () => import("../views/VerifyEmail.vue"),
+  },
+  {
+    path: "/reset_password",
+    name: "resetPassword",
+    component: () => import("../views/ResetPassword.vue"),
+  },
+  {
+    path: "/user_info",
+    name: "userInfo",
+    component: () => import("../views/UserInfo.vue"),
+  },
+];
+
+const mergedRoutes = fixedRoutes.concat(extraRoutes);
+console.log("merged routes:");
+console.log(mergedRoutes);
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: "/",
-      name: "home",
-      component: HomeView,
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
-    },
-    {
-      path: "/artwork/:id",
-      name: "workDetail",
-      component: () => import("../views/WorkDetail.vue"),
-    },
-    {
-      path: "/artistPortfolio/:username",
-      name: "artistPortfolio",
-      component: () => import("../views/ArtistPortfolio.vue"),
-    },
-    {
-      path: "/verify_email",
-      name: "verifyEmail",
-      component: () => import("../views/VerifyEmail.vue"),
-    },
-    {
-      path: "/reset_password",
-      name: "resetPassword",
-      component: () => import("../views/ResetPassword.vue"),
-    },
-    {
-      path: "/user_info",
-      name: "userInfo",
-      component: () => import("../views/UserInfo.vue"),
-    },
-  ].concat(extraRoutes),
+  routes: mergedRoutes,
 });
 
 export default router;
