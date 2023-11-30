@@ -213,7 +213,7 @@ export default {
                 redirect: 'follow'
             };
 
-            fetch("http://127.0.0.1:8000/auth/register/", requestOptions)
+            fetch(`${import.meta.env.VITE_BACKEND_DOMAIN}/auth/register/`, requestOptions)
                 .then((response) => {
                     if (response.status.toString()[0] == '2')
                         this.success = true

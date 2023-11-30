@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         async verify() {
-            const url = `http://127.0.0.1:8000/auth/verify/`
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/auth/verify/`
 
             const headers = {
                 'Content-Type': 'application/json'

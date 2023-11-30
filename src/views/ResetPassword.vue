@@ -116,7 +116,7 @@ export default {
                 passwordField.setAttribute('type', 'password')
         },
         async reset_password() {
-            const url = `http://127.0.0.1:8000/auth/reset_password/`
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/auth/reset_password/`
 
             const headers = {
                 'Content-Type': 'application/json'
