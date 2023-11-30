@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
-async function getExtraRoutes() {
+async function getWagtailPagesRoutes() {
   /**
    * this function fetches the wagtail page routes from
    * the django backend.
@@ -10,41 +10,41 @@ async function getExtraRoutes() {
 
   const wagtailPageRoutes = [];
   const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/`;
-  let pages = await fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      data.items.forEach((page) => {
-        let title = page.title;
-        let htmlUrl = page.meta.html_url;
-        let type = page.meta.type;
-        let slug = page.meta.slug;
+  let pages = await fetch(url).then((response) => response.json());
 
-        // get the relative path e.g "/animals/cats"
-        let routePath = htmlUrl
-          .replace(import.meta.env.VITE_BACKEND_DOMAIN, "")
-          .replace("%5E.", "");
+  pages.items.forEach((page) => {
+    let title = page.title;
+    let htmlUrl = page.meta.html_url;
+    let type = page.meta.type;
+    let slug = page.meta.slug;
 
-        // get the component based on standard naming format of the page Type
-        // main.AnimationChallengePage => AnimationChallenge
-        // (remove "main." app name at the beginning and "Page" at the end)
-        //TODO: improve to handle app names of different lengths
-        let routeComponent = type.slice(5, -4);
+    // get the relative path e.g "/animals/cats"
+    let routePath = htmlUrl
+      .replace(import.meta.env.VITE_BACKEND_DOMAIN, "")
+      .replace("%5E.", "");
 
-        let pageRoute = {
-          path: routePath.slice(0, -1),
-          name: slug,
-          component: () => import(`../views/${routeComponent}.vue`),
-        };
+    // get the component based on standard naming format of the page Type
+    // main.AnimationChallengePage => AnimationChallenge
+    // (remove "main." app name at the beginning and "Page" at the end)
+    //TODO: improve to handle app names of different lengths
+    let routeComponent = type.slice(5, -4);
 
-        wagtailPageRoutes.push(pageRoute);
-      });
-    });
+    let pageRoute = {
+      path: routePath.slice(0, -1),
+      name: slug,
+      component: () => import(`../views/${routeComponent}.vue`),
+    };
+
+    // Home is already in fixed routes so skip (lazy solution) TODO: improve
+    if (routeComponent != "Home") wagtailPageRoutes.push(pageRoute);
+  });
+
   return wagtailPageRoutes;
 }
 
-const extraRoutes = await getExtraRoutes();
+const wagtailPagesRoutes = await getWagtailPagesRoutes();
 console.log("WagtailPageRoutes:");
-console.log(extraRoutes);
+console.log(wagtailPagesRoutes);
 
 const fixedRoutes = [
   {
@@ -87,7 +87,7 @@ const fixedRoutes = [
   },
 ];
 
-const mergedRoutes = fixedRoutes.concat(extraRoutes);
+const mergedRoutes = fixedRoutes.concat(wagtailPagesRoutes);
 console.log("merged routes:");
 console.log(mergedRoutes);
 
