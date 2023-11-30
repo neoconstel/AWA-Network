@@ -5,7 +5,7 @@
         <section>
             <div>
                 <!-- <span data-te-modal-dismiss="" class="absolute right-10"><a @click.prevent="" href=""><img
-                            src="/icons/iconmonstr-x-mark-thin.svg" alt="dismiss_button"></a></span> -->
+                            src="/static/icons/iconmonstr-x-mark-thin.svg" alt="dismiss_button"></a></span> -->
                 <!-- Left column container with background-->
                 <div class="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between pb-10">
                     <div class="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">

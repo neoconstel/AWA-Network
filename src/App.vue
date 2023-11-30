@@ -15,7 +15,7 @@
       </a></button> -->
     <!-- test code ends -->
 
-    <div><img style="height:55px;" src="/icons/awa_logo.svg" />
+    <div><img style="height:55px;" src="/static/icons/awa_logo.svg" />
     </div>
     <div class="flex relative justify-center gap-2 [&>*]:my-auto">
       <Input :placeholderText="'Search'" />
@@ -109,7 +109,7 @@
 
   <Footer v-if="showFooter" :toggleFooter="toggleFooter" />
   <img class="fixed inline-block h-12 right-0 mr-5" style="bottom: 60px;" @click.prevent="scrollToTop"
-    src="/icons/iconmonstr-angel-up-circle-thin.svg" alt="scroll to top">
+    src="/static/icons/iconmonstr-angel-up-circle-thin.svg" alt="scroll to top">
   <div class="fixed h-12 w-full bg-gray-400 hover:bg-gray-600 opacity-60" style="bottom: 0px; z-index: 1;"
     @click.prevent="toggleFooter">
   </div>

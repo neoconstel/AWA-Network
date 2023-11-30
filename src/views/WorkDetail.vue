@@ -16,14 +16,14 @@
                     <div class="relative">
                         <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
                         <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button"><img
-                                class="inline h-14" src="/icons/iconmonstr-thumb-10.svg" alt=""></button>
+                                class="inline h-14" src="/static/icons/iconmonstr-thumb-10.svg" alt=""></button>
                         <span class="absolute bottom-0">9.5k</span>
                         <span
                             v-if="this.dataStore.user.id && this.work.id && this.work.artist.user.username == this.dataStore.user.username"
                             class="absolute right-0">
                             <a @click.prevent="storeWork" href="" data-te-toggle="modal"
                                 data-te-target="#editWorkModal"><img class="inline h-12 mr-5"
-                                    src="/icons/iconmonstr-pencil-line-lined.svg" alt=""></a>
+                                    src="/static/icons/iconmonstr-pencil-line-lined.svg" alt=""></a>
                             <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300" :buttonText="'Delete'"
                                 data-te-toggle="modal" data-te-target="#deleteProjectModal" />
                         </span>
@@ -48,9 +48,10 @@
                 </div>
                 <p class="mt-3">Published September 01, 2023</p>
                 <div class="py-5 mt-5 space-x-4" style="border-top-width: 1px;">
-                    <span><img class="inline w-4 mr-1" src="/icons/iconmonstr-eye-lined.svg" alt="">34.8k</span>
-                    <span><img class="inline w-4 mr-1" src="/icons/iconmonstr-thumb-10.svg" alt="">9.5k</span>
-                    <span><img class="inline w-4 mr-1" src="/icons/iconmonstr-speech-bubble-thin.svg" alt="">239</span>
+                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-eye-lined.svg" alt="">34.8k</span>
+                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-thumb-10.svg" alt="">9.5k</span>
+                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-speech-bubble-thin.svg"
+                            alt="">239</span>
                 </div>
             </section>
             <aside>
@@ -66,13 +67,13 @@
                             alt=""></a>
                 </div>
                 <div class="grid grid-cols-4">
-                    <a href=""><img class="aspect-square w-30 object-cover" src="/icons/iconmonstr-facebook-1.svg"
+                    <a href=""><img class="aspect-square w-30 object-cover" src="/static/icons/iconmonstr-facebook-1.svg"
                             alt=""></a>
-                    <a href=""><img class="aspect-square w-30 object-cover" src="/icons/iconmonstr-instagram-11.svg"
+                    <a href=""><img class="aspect-square w-30 object-cover" src="/static/icons/iconmonstr-instagram-11.svg"
                             alt=""></a>
-                    <a href=""><img class="aspect-square w-30 object-cover" src="/icons/iconmonstr-twitter-1.svg"
+                    <a href=""><img class="aspect-square w-30 object-cover" src="/static/icons/iconmonstr-twitter-1.svg"
                             alt=""></a>
-                    <a href=""><img class="aspect-square w-30 object-cover" src="/icons/iconmonstr-linkedin-1.svg"
+                    <a href=""><img class="aspect-square w-30 object-cover" src="/static/icons/iconmonstr-linkedin-1.svg"
                             alt=""></a>
                 </div>
             </aside>

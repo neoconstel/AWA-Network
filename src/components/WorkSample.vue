@@ -3,10 +3,10 @@
     <div v-if="this.isMounted" class="relative" @mouseenter="toggleStats" @mouseleave="toggleStats">
         <div class="relative bg-violet-600 aspect-square">
             <img v-if="showDelete && this.workType == this.workTypes.projects" @click="storeWork"
-                class="absolute top-0 right-0 bg-red-500 opacity-60" src="/icons/iconmonstr-x-mark-thin.svg" alt=""
+                class="absolute top-0 right-0 bg-red-500 opacity-60" src="/static/icons/iconmonstr-x-mark-thin.svg" alt=""
                 data-te-toggle="modal" data-te-target="#deleteProjectModal">
             <img v-else-if="showDelete && this.workType == this.workTypes.likes" @click="storeWork"
-                class="absolute top-0 right-0 bg-red-500 opacity-60" src="/icons/iconmonstr-x-mark-thin.svg" alt="">
+                class="absolute top-0 right-0 bg-red-500 opacity-60" src="/static/icons/iconmonstr-x-mark-thin.svg" alt="">
             <RouterLink :to="`/artwork/${work.id}`">
                 <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.file_url"
                     :alt="work.title">

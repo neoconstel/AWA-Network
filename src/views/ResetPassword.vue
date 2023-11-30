@@ -4,7 +4,7 @@
     <section>
         <div>
             <!-- <span data-te-modal-dismiss="" class="absolute right-10"><a @click.prevent="" href=""><img
-                            src="/icons/iconmonstr-x-mark-thin.svg" alt="dismiss_button"></a></span> -->
+                            src="/static/icons/iconmonstr-x-mark-thin.svg" alt="dismiss_button"></a></span> -->
             <!-- Left column container with background-->
             <div class="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between pb-10">
                 <div class="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
@@ -57,11 +57,11 @@
                                 id="signupFormControlInput2" placeholder="Confirm Password" />
                             <a @click.prevent="togglePassword(2)" href="">
                                 <img v-if="!password2Reveal" class="inline h-5 absolute right-1 top-1/3"
-                                    src="/icons/iconmonstr-eye-lined.svg" alt="">
+                                    src="/static/icons/iconmonstr-eye-lined.svg" alt="">
                             </a>
                             <a @click.prevent="togglePassword(2)" href="">
                                 <img v-if="password2Reveal" class="inline h-5 absolute right-1 top-1/3"
-                                    src="/icons/iconmonstr-eye-off-thin.svg" alt="">
+                                    src="/static/icons/iconmonstr-eye-off-thin.svg" alt="">
                             </a>
                             <label for="signupFormControlInput2"
                                 class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Confirm
