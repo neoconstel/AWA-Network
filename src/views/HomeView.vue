@@ -1,7 +1,7 @@
 <template>
     <div class="grid mt-16 mb-4 gap-x-4 px-4" style="grid-template-columns: 4fr 1fr;">
         <div>
-            <Carousel />
+            <Carousel v-if="this.carouselImages.length > 1" :images="this.carouselImages" />
         </div>
         <div class="bg-gray-400 dark:bg-gray-600 grid" style="grid-template-rows: 30px 1fr;">
             <p class="text-center my-auto text-gray-800 dark:text-gray-200">Spotlight Art</p>
@@ -93,7 +93,8 @@ export default {
         return {
             "works": [],
             "worksUpperLimit": 40,
-            "worksFetchPage": 1
+            "worksFetchPage": 1,
+            "carouselImages": [] // {url,caption}
         }
     },
     computed: {
@@ -153,6 +154,14 @@ export default {
                     this.errorMessage = error
                     console.log('error', error)
                 })
+        },
+        async fetchCarouselImages() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/?type=main.HomePage&fields=gallery_images`
+            const galleryImages = await fetch(url)
+                .then(response => response.json())
+                .then(page => page.items[0].gallery_images)
+
+            this.carouselImages = galleryImages
         }
     },
     async mounted() {
@@ -165,6 +174,7 @@ export default {
             }, 100)
         })
 
+        this.fetchCarouselImages()
         this.fetchWorks()
 
     }

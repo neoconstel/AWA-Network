@@ -19,17 +19,13 @@
             <!--First item-->
             <div class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
                 data-te-carousel-item data-te-carousel-active>
-                <img src="https://i.imgur.com/lyMkjWn.jpg" class="block w-full" alt="awa banner" />
+                <img :src="images[0].url" class="block w-full" :alt="images[0].caption" />
             </div>
-            <!--Second item-->
-            <div class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-                data-te-carousel-item>
-                <img src="https://i.imgur.com/6A8sUfX.jpg" class="block w-full" alt="carousel placeholder" />
-            </div>
-            <!--Third item-->
-            <div class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-                data-te-carousel-item>
-                <img src="https://i.imgur.com/zCTIQBt.jpg" class="block w-full" alt="carousel placeholder2" />
+            <!--Other items-->
+            <div v-if="this.images.length >= 2" v-for="(image, index) in images.slice(1)"
+                class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+                data-te-carousel-item :key="index">
+                <img :src="image.url" class="block w-full" :alt="image.caption" />
             </div>
         </div>
 
@@ -71,6 +67,9 @@ import {
 
 export default {
     name: 'CarouselComponent',
+    props: {
+        'images': Object // image/caption objects owned by carousel instance 
+    },
     data() {
         return {
 
