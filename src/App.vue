@@ -15,7 +15,10 @@
       </a></button> -->
     <!-- test code ends -->
 
-    <div><img style="height:55px;" src="/static/icons/awa_logo.svg" />
+    <div>
+      <RouterLink to="/">
+        <img style="height:55px;" src="/static/icons/awa_logo.svg" />
+      </RouterLink>
     </div>
     <div class="flex relative justify-center gap-2 [&>*]:my-auto">
       <Input :placeholderText="'Search'" />
