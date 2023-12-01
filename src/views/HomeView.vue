@@ -128,22 +128,8 @@ export default {
         async fetchWorks() {
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artworks/?page_size=70`
 
-            const headers = {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': this.$cookies.get('csrftoken')
-            }
-
-            const requestOptions = {
-                method: 'GET',
-                headers: headers,
-                credentials: 'include',
-                redirect: 'follow'
-            };
-
-            fetch(url, requestOptions)
-                .then((response) => {
-                    return response.json()
-                })
+            fetch(url)
+                .then(response => response.json())
                 .then((data) => {
                     // console.log(data)
                     this.works.splice(this.works.length, 0, ...(data['results']))
