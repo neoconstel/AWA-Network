@@ -6,10 +6,10 @@
         <div class="bg-gray-400 dark:bg-gray-600 grid" style="grid-template-rows: 30px 1fr;">
             <p class="text-center my-auto text-gray-800 dark:text-gray-200">Spotlight Art</p>
             <div>
-                <a href="">
+                <RouterLink :to="`/artwork/${this.spotlightArt.id}`">
                     <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;"
                         :src="this.spotlightArt.image_url" alt="spotlight art">
-                </a>
+                </RouterLink>
             </div>
         </div>
     </div>
