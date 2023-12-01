@@ -94,7 +94,8 @@ export default {
             "works": [],
             "worksUpperLimit": 40,
             "worksFetchPage": 1,
-            "carouselImages": [] // {url,caption}
+            "carouselImages": [], // {url,caption}
+            "spotlightArtID": null
         }
     },
     computed: {
@@ -141,14 +142,16 @@ export default {
                     console.log('error', error)
                 })
         },
-        async fetchCarouselImages() {
-            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/?type=main.HomePage&fields=gallery_images`
-            const galleryImages = await fetch(url)
+        async fetchPageCMS() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/?type=main.HomePage&fields=gallery_images,spotlight_art`
+            const homePage = await fetch(url)
                 .then(response => response.json())
-                .then(page => page.items[0].gallery_images)
+                .then(pages => pages.items[0])
 
-            this.carouselImages = galleryImages
-        }
+            this.carouselImages = homePage.gallery_images
+            this.spotlightArtID = homePage.spotlight_art
+        },
+
     },
     async mounted() {
         console.log('home view mounted')
@@ -160,7 +163,7 @@ export default {
             }, 100)
         })
 
-        this.fetchCarouselImages()
+        this.fetchPageCMS()
         this.fetchWorks()
 
     }
