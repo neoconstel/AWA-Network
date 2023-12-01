@@ -8,7 +8,7 @@
             <div>
                 <a href="">
                     <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;"
-                        src="https://i.imgur.com/40qCewV.jpg" alt="spotlight art">
+                        :src="this.spotlightArt.image_url" alt="spotlight art">
                 </a>
             </div>
         </div>
@@ -95,7 +95,7 @@ export default {
             "worksUpperLimit": 40,
             "worksFetchPage": 1,
             "carouselImages": [], // {url,caption}
-            "spotlightArtID": null
+            "spotlightArt": {} // {id, url}
         }
     },
     computed: {
@@ -149,7 +149,7 @@ export default {
                 .then(pages => pages.items[0])
 
             this.carouselImages = homePage.gallery_images
-            this.spotlightArtID = homePage.spotlight_art
+            this.spotlightArt = homePage.spotlight_art
         },
 
     },
