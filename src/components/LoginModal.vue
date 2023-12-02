@@ -180,7 +180,7 @@ export default {
                 passwordField.setAttribute('type', 'password')
         },
         async submit() {
-            const url = "http://localhost:8000/auth/login/"
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/auth/login/`
 
             const headers = {
                 'Content-Type': 'application/json',

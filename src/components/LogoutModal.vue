@@ -58,7 +58,7 @@ export default {
     },
     methods: {
         async submit() {
-            const url = "http://localhost:8000/auth/logout/"
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/auth/logout/`
 
             const headers = {
                 'Content-Type': 'application/json',

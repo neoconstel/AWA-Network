@@ -21,6 +21,7 @@ async function getWagtailPagesRoutes() {
     // get the relative path e.g "/animals/cats"
     let routePath = htmlUrl
       .replace(import.meta.env.VITE_BACKEND_DOMAIN, "")
+      .replace("http://localhost:8000", "")
       .replace("%5E.", "");
 
     // get the component based on standard naming format of the page Type
