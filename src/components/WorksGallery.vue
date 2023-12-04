@@ -61,7 +61,7 @@ export default {
                     || (galleryBottomReached && this.infiniteScroll == true)
                 ) {
                     // console.log('gallery bottom reached')
-                    console.log(`${this.works.length}/max ${this.maxWorks} -- ${galleryBounds.bottom} < ${window.innerHeight} = ${galleryBounds.bottom < window.innerHeight} and top: ${galleryBounds.top}`)
+                    // console.log(`${this.works.length}/max ${this.maxWorks} -- ${galleryBounds.bottom} < ${window.innerHeight} = ${galleryBounds.bottom < window.innerHeight} and top: ${galleryBounds.top}`)
                     this.onBottomReached()
                 }
             })
