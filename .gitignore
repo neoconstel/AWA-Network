@@ -28,7 +28,7 @@ coverage
 *.sw?
 
 # environment
-.env
+.env.*
 
 # offline files for local dev/testing purposes
 offline
