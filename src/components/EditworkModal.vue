@@ -58,7 +58,33 @@ export default {
         }
     },
     methods: {
+        saveEdit() {
+            const workID = this.work.id
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artwork/${workID}/`
 
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'PUT',
+                headers: headers,
+                credentials: 'include'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    if (response.status < 300) {
+                        const workComponent = document.getElementById("work-" + workID)
+
+                        // reload just that component
+                    }
+                })
+                .catch((error) => {
+                    alert(`Failed to delete artwork. Perhaps your internet is disconnected.`)
+                })
+        }
     },
     mounted() {
         // add event listener for when this modal is shown

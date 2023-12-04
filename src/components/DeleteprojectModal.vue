@@ -55,8 +55,13 @@ export default {
             fetch(url, requestOptions)
                 .then((response) => {
                     if (response.status < 300) {
+                        // Delete the related work component if on screen
                         const workComponent = document.getElementById("work-" + workID)
-                        workComponent.parentElement.remove()
+                        if (workComponent)
+                            workComponent.parentElement.remove()
+                        // else we are be in work detail view, so go to home
+                        else
+                            this.$router.push('/')
                     }
                 })
                 .catch((error) => {
