@@ -6,20 +6,7 @@ export default defineStore("data", {
   state: () => ({
     user: useLocalStorage("user", {}),
     work: {},
-    worksDatabase: [],
     currentView: "",
-    testUser: {
-      username: "wandhero",
-      name: "Harry Potter",
-      email: "harry@gmail.com",
-      password: "hogwarts",
-      likes: 3571,
-      views: 8596,
-      comments: 16339,
-      followers: 2174,
-      following: 318,
-    },
-    allowTestUser: useLocalStorage("allowTestUser", false),
     darkTheme: useLocalStorage("darkTheme", true),
   }),
 });
