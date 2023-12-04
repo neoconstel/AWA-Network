@@ -189,6 +189,36 @@ export default {
       const html = document.querySelector("html")
       html.classList.toggle('dark')
       this.dataStore.darkTheme = !this.dataStore.darkTheme
+    },
+    loginCheck() {
+      // to check if there are valid login credentials and set (keep/delete)
+      // the local user data (if any) accordingly
+
+      const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/auth/user_info/`
+
+      const headers = {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': this.$cookies.get('csrftoken')
+      }
+
+      const requestOptions = {
+        method: 'GET',
+        headers: headers,
+        credentials: 'include',
+      };
+
+      fetch(url, requestOptions)
+        .then(response => response.json())
+        .then((data) => {
+          if (data.user)
+            this.dataStore.user = data.user
+          else
+            this.dataStore.user = []
+        })
+        .catch(error => alert("Check internet connectivity issues"))
+
+
+
     }
   },
   mounted() {
@@ -204,7 +234,12 @@ export default {
       const html = document.querySelector("html")
       if (this.dataStore.darkTheme)
         html.classList.add('dark')
+
     })
+
+    // verify login credentials. If invalid, delete user data
+    this.loginCheck()
+
   }
 }
 </script>
