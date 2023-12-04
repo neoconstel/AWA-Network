@@ -38,7 +38,8 @@ export default {
     },
     methods: {
         deleteWork() {
-            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artwork/${this.work.id}/`
+            const workID = this.work.id
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artwork/${workID}/`
 
             const headers = {
                 'Content-Type': 'application/json',
@@ -54,11 +55,12 @@ export default {
             fetch(url, requestOptions)
                 .then((response) => {
                     if (response.status < 300) {
-                        alert(`Artwork deleted successfully`)
+                        const workComponent = document.getElementById("work-" + workID)
+                        workComponent.parentElement.remove()
                     }
-                    else {
-                        alert(`Failed to delete artwork`)
-                    }
+                })
+                .catch((error) => {
+                    alert(`Failed to delete artwork. Perhaps your internet is disconnected.`)
                 })
         }
     },

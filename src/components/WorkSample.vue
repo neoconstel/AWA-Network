@@ -1,6 +1,7 @@
 <template>
     <!-- card displaying an artist's sample work -->
-    <div v-if="this.isMounted" class="relative" @mouseenter="toggleStats" @mouseleave="toggleStats">
+    <div v-if="this.isMounted" class="relative" :id="'work-' + this.work.id" @mouseenter="toggleStats"
+        @mouseleave="toggleStats">
         <div class="relative bg-violet-600 aspect-square">
             <img v-if="showDelete && this.workType == this.workTypes.projects" @click="storeWork"
                 class="absolute top-0 right-0 bg-red-500 opacity-60" src="/static/icons/iconmonstr-x-mark-thin.svg" alt=""
