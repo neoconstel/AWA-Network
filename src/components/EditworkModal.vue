@@ -67,6 +67,12 @@ export default {
             this.work = this.dataStore.work
             console.log("EditworkModal initialized")
         });
+
+        // add event listener for when this modal is dismissed
+        myModalEl.addEventListener("hidden.te.modal", (e) => {
+            this.work = {}
+            console.log("EditworkModal dismissed")
+        });
     }
 }
 </script>
