@@ -10,11 +10,11 @@
                     :value="this.work.title" ref="title" />
             </fieldset>
 
-            <div v-if="this.artCategories.length">
+            <div v-if="this.artCategories.length && this.artCategory && this.artCategory.id">
                 <fieldset class="border-2 p-1">
                     <legend class="text-xs">Categories</legend>
-                    <input class="outline-none w-full focus:outline-none" type="text" list="sub-topics" id="categories"
-                        placeholder="" ref="categories" />
+                    <input class="outline-none w-full focus:outline-none" :value="this.artCategory.name" type="text"
+                        list="sub-topics" id="categories" placeholder="" ref="categories" />
                 </fieldset>
                 <datalist id="sub-topics">
                     <template v-for="(category, index) in this.artCategories">
@@ -26,7 +26,7 @@
             <fieldset class="border-2 p-1">
                 <legend class="text-xs">Tags</legend>
                 <textarea class="outline-none w-full focus:outline-none" rows="5" columns="5" placeholder=""
-                    ref="tags">Modelling, 3D printing, VR</textarea>
+                    ref="tags">{{ this.work.tags }}</textarea>
             </fieldset>
 
             <RippleButton @click="submit" :buttonText="'Save changes'" type="button"
@@ -55,6 +55,7 @@ export default {
         return {
             "work": {},
             "artCategories": [],
+            "artCategory": {}
         }
     },
     methods: {
@@ -64,6 +65,8 @@ export default {
                 .then(response => response.json())
 
             this.artCategories = categories
+            this.artCategory = categories.find(
+                category => category.id == this.dataStore.work.category)
         },
         async submit() {
             const title = this.$refs.title.value
