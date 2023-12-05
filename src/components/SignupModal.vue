@@ -57,7 +57,7 @@
                             <!-- Separator between social media sign in and email/password sign in -->
                             <div
                                 class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-                                <p class="mx-4 mb-0 text-center font-semibold dark:text-white">
+                                <p class="mx-4 mb-0 text-center font-semibold text-gray-800 dark:text-gray-200">
                                     Or
                                 </p>
                             </div>
@@ -179,7 +179,7 @@
                                     Already have an account?
                                     <span data-te-modal-dismiss>
                                         <a data-te-toggle="modal" data-te-target="#loginModal" href="#!"
-                                            class="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700">Login</a>
+                                            class="text-pink-800 dark:text-cyan-300 transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700">Login</a>
                                     </span>
                                 </p>
                             </div>
