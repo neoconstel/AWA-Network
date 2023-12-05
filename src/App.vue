@@ -78,13 +78,9 @@
     <HScroll
       class="relative p-4 gap-4 bg-gray-400 dark:bg-gray-600 [&>div]:bg-gray-300 [&>div]:dark:bg-gray-700 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 dark:hover:[&>div]:bg-slate-800 [&>div]:relative"
       :gap="16" ref="scroll">
-      <div><a class="text-gray-800 dark:text-gray-200" href="">Spotlight</a></div>
-      <div><a class="text-gray-800 dark:text-gray-200" href="">AWAtv</a></div>
-      <div><a class="text-gray-800 dark:text-gray-200" href="">Reviews</a></div>
-      <div><a class="text-gray-800 dark:text-gray-200" href="">Challenge</a></div>
-      <div><a class="text-gray-800 dark:text-gray-200" href="">Magazine</a></div>
-      <div><a class="text-gray-800 dark:text-gray-200" href="">Foundation</a></div>
-      <div v-for="i in 5"><a class="text-gray-800 dark:text-gray-200" href="">Other link</a></div>
+      <div v-for="(link, index) in this.navLinks" key="index">
+        <RouterLink class="text-gray-800 dark:text-gray-200" :to="link.url">{{ link.text }}</RouterLink>
+      </div>
     </HScroll>
   </header>
 
@@ -172,7 +168,8 @@ export default {
   data() {
     return {
       'showFooter': false,
-      'showUserMenu': false
+      'showUserMenu': false,
+      'navLinks': []
     }
   },
   computed: {
@@ -219,7 +216,29 @@ export default {
 
 
 
-    }
+    },
+    async fetchSiteCMS() {
+      const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/?show_in_menus=true`
+      const siteMenuPages = await fetch(url)
+        .then(response => response.json())
+        .then(pages => pages.items)
+
+      const siteLinks = []
+      siteMenuPages.forEach((page) => {
+        const link = {
+          'text': page.title,
+          'url': page.meta.html_url
+            .replace(import.meta.env.VITE_BACKEND_DOMAIN, "")
+            .replace("http://localhost:8000", "")
+            .replace("%5E.", "")
+        }
+
+        siteLinks.push(link)
+      })
+
+      this.navLinks = siteLinks
+
+    },
   },
   mounted() {
 
@@ -236,6 +255,9 @@ export default {
         html.classList.add('dark')
 
     })
+
+    // fetch site navigation links from CMS
+    this.fetchSiteCMS()
 
     // verify login credentials. If invalid, delete user data
     this.loginCheck()
