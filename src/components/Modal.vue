@@ -28,7 +28,8 @@ and then the triggering element must have this in its tag:
                 <button ref="closeBtn" type="button"
                     class="absolute top-10 right-10 box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
                     data-te-modal-dismiss aria-label="Close">
-                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                    <svg name="X-close-icon" class="fill-gray-800 dark:fill-gray-200" width="24" height="24"
+                        xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
                         <path
                             d="M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z" />
                     </svg>

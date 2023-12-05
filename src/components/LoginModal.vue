@@ -8,10 +8,10 @@
                             src="/static/icons/iconmonstr-x-mark-thin.svg" alt="dismiss_button"></a></span> -->
                 <!-- Left column container with background-->
                 <div class="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between pb-10">
-                    <div class="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
+                    <!-- <div class="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
                         <img src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                             class="w-full" alt="Sample image" />
-                    </div>
+                    </div> -->
 
                     <!-- Right column container -->
                     <div class="mb-12 md:mb-0 md:w-8/12 lg:w-5/8 xl:w-full">
