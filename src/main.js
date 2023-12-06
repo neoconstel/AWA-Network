@@ -12,6 +12,8 @@ import VueCookies from "vue-cookies";
 
 // import custom components
 import RippleButton from "@/components/RippleButton.vue";
+// >> icons
+import UserIcon from "@/components/icons/UserIcon.vue";
 
 const app = createApp(App);
 
@@ -22,5 +24,7 @@ app.use(VueCookies);
 
 // register custom components
 app.component("RippleButton", RippleButton);
+// >> icons
+app.component("UserIcon", UserIcon);
 
 app.mount("#app");

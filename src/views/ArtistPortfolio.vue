@@ -67,8 +67,8 @@
                     </div>
                     <div>
                         <p class="text-2xl">5652</p>
-                        <p><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-user-6.svg" alt=""><span
-                                class="text-xs"><b>FOLLOWING</b></span>
+                        <p>
+                            <UserIcon class="inline w-4 mr-1" /><span class="text-xs"><b>FOLLOWING</b></span>
                         </p>
                     </div>
                 </div>
