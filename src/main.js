@@ -14,6 +14,9 @@ import VueCookies from "vue-cookies";
 import RippleButton from "@/components/RippleButton.vue";
 // >> icons
 import UserIcon from "@/components/icons/UserIcon.vue";
+import ThumbupIcon from "@/components/icons/ThumbupIcon.vue";
+import EyeopenIcon from "@/components/icons/EyeopenIcon.vue";
+import EyeclosedIcon from "@/components/icons/EyeclosedIcon.vue";
 
 const app = createApp(App);
 
@@ -26,5 +29,8 @@ app.use(VueCookies);
 app.component("RippleButton", RippleButton);
 // >> icons
 app.component("UserIcon", UserIcon);
+app.component("ThumbupIcon", ThumbupIcon);
+app.component("EyeopenIcon", EyeopenIcon);
+app.component("EyeclosedIcon", EyeclosedIcon);
 
 app.mount("#app");
