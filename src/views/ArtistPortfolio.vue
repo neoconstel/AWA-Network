@@ -62,11 +62,11 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-5 [&>*]:w-8 [&>*]:h-8 gap-x-14 [&>*]:my-auto">
-                    <img src="/static/icons/iconmonstr-mail-thin.svg" alt="">
-                    <img src="/static/icons/iconmonstr-facebook-1.svg" alt="">
-                    <img src="/static/icons/iconmonstr-instagram-11.svg" alt="">
-                    <img src="/static/icons/iconmonstr-linkedin-1.svg" alt="">
-                    <img src="/static/icons/iconmonstr-twitter-1.svg" alt="">
+                    <MailIcon />
+                    <FacebookIcon />
+                    <InstagramIcon />
+                    <LinkedinIcon />
+                    <TwitterIcon />
                 </div>
                 <div class="flex items-center ali border-t-gray-500" style="border-top-width: 1px;">
                     <p class=""><b>Tools:</b> Maya, Cinema 4D, Blender, Photoshop, Illustrator, After Effects

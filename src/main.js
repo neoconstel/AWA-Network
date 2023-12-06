@@ -17,6 +17,11 @@ import UserIcon from "@/components/icons/UserIcon.vue";
 import ThumbupIcon from "@/components/icons/ThumbupIcon.vue";
 import EyeopenIcon from "@/components/icons/EyeopenIcon.vue";
 import EyeclosedIcon from "@/components/icons/EyeclosedIcon.vue";
+import MailIcon from "@/components/icons/MailIcon.vue";
+import FacebookIcon from "@/components/icons/FacebookIcon.vue";
+import InstagramIcon from "@/components/icons/InstagramIcon.vue";
+import LinkedinIcon from "@/components/icons/LinkedinIcon.vue";
+import TwitterIcon from "@/components/icons/TwitterIcon.vue";
 
 const app = createApp(App);
 
@@ -32,5 +37,10 @@ app.component("UserIcon", UserIcon);
 app.component("ThumbupIcon", ThumbupIcon);
 app.component("EyeopenIcon", EyeopenIcon);
 app.component("EyeclosedIcon", EyeclosedIcon);
+app.component("MailIcon", MailIcon);
+app.component("FacebookIcon", FacebookIcon);
+app.component("InstagramIcon", InstagramIcon);
+app.component("LinkedinIcon", LinkedinIcon);
+app.component("TwitterIcon", TwitterIcon);
 
 app.mount("#app");
