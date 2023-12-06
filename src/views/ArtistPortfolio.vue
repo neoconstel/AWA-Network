@@ -1,24 +1,25 @@
 <template class="bg-gray-800">
     <section v-if="this.artist.id" class="header dashboard">
-        <div class="grid grid-cols-2 pb-16">
+        <div class="grid grid-cols-2 pb-16 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200">
             <div class="grid pl-16 pr-24" style="grid-template-rows: 5fr 3fr;">
                 <div class="grid pt-10" style="grid-template-columns: 2fr 5fr;">
                     <div class="" style="aspect-ratio: 1/1;">
                         <img class="w-full h-full rounded-full" src="https://i.imgur.com/40qCewV.jpg" alt="">
                     </div>
-                    <div class="pl-20 text-gray-200">
+                    <div class="pl-20 text-gray-800 dark:text-gray-200">
                         <h3>{{ this.artist.user.name }}</h3>
                         <p><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-location-19.svg" alt=""><span
                                 class="text-sm text-gray-400">Wysteria Lane, California</span></p>
                         <p class="mt-3">Tech support and Analyst, Visual Artist, Animator and 3D Generalist</p>
-                        <p class="mt-2 text-yellow-300"><a
+                        <p class="mt-2 text-yellow-800 dark:text-yellow-200"><a
                                 href="http://www.animationwestafrica.com">www.animationwestafrica.com</a></p>
 
                     </div>
                 </div>
                 <div v-if="this.dataStore.user.id && this.artist.user.username != this.dataStore.user.username"
                     class="grid grid-cols-2 gap-x-3 [&>*]:mt-auto">
-                    <RippleButton class="bg-yellow-300 hover:bg-yellow-600 text-gray-900" :buttonText="'Follow'" />
+                    <RippleButton class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900"
+                        :buttonText="'Follow'" />
                     <RippleButton class="bg-primary-300 hover:bg-primary-600 text-gray-900" :buttonText="'Message'"
                         style="background-image: url('/icons/iconmonstr-mail-thin.svg'); background-repeat: no-repeat; background-position: 34% 50%; background-size: 7%;" />
                 </div>
@@ -68,7 +69,8 @@
                     <LinkedinIcon />
                     <TwitterIcon />
                 </div>
-                <div class="flex items-center ali border-t-gray-500" style="border-top-width: 1px;">
+                <div class="flex items-center ali border-t-gray-500 text-gray-800 dark:text-gray-200"
+                    style="border-top-width: 1px;">
                     <p class=""><b>Tools:</b> Maya, Cinema 4D, Blender, Photoshop, Illustrator, After Effects
                     </p>
                 </div>
@@ -79,35 +81,37 @@
         <div class="grid gap-x-1" style="grid-template-columns: 2fr 1fr 1fr 5fr">
             <div class="relative">
                 <a @click.prevent="this.tab = 'projects'"
-                    :class='["px-4 py-6 w-full bg-gray-900 hover:bg-gray-800 inline-block text-right", projectTabColor("projects")]'
+                    :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-right", projectTabColor("projects")]'
                     href="">Projects</a>
-                <p v-show="tab == 'projects'" class="bg-yellow-300 h-2 w-1/2 absolute right-0"></p>
+                <p v-show="tab == 'projects'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/2 absolute right-0"></p>
             </div>
             <div class="relative">
                 <a @click.prevent="this.tab = 'followers'"
-                    :class='["px-4 py-6 w-full bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("followers")]'
+                    :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("followers")]'
                     href="">Followers</a>
-                <p v-show="tab == 'followers'" class="bg-yellow-300 h-2 w-full absolute"></p>
+                <p v-show="tab == 'followers'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute"></p>
             </div>
             <div class="relative">
                 <a @click.prevent="this.tab = 'following'"
-                    :class='["px-4 py-6 w-full bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("following")]'
+                    :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("following")]'
                     href="">Following</a>
-                <p v-show="tab == 'following'" class="bg-yellow-300 h-2 w-full absolute"></p>
+                <p v-show="tab == 'following'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute"></p>
             </div>
             <div class="relative">
                 <a @click.prevent="this.tab = 'likes'"
-                    :class='["px-4 py-6 w-full bg-gray-900 hover:bg-gray-800 inline-block", projectTabColor("likes")]'
+                    :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block", projectTabColor("likes")]'
                     href="">Likes</a>
-                <p v-show="tab == 'likes'" class="bg-yellow-300 h-2 w-1/4 absolute"></p>
+                <p v-show="tab == 'likes'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/4 absolute"></p>
             </div>
         </div>
     </section>
 
-    <section v-if="this.artist.id" class="gallery stuff bg-gray-700 [&>div]:min-h-screen [&>div]:place-content-start">
+    <section v-if="this.artist.id"
+        class="gallery stuff bg-gray-400 dark:bg-gray-700 [&>div]:min-h-screen [&>div]:place-content-start">
         <div v-show="this.tab == 'projects'">
-            <WorksGallery :works="works" :infoBgCol="'bg-gray-800'" :startIndex="0" :stopIndex="this.worksUpperLimit"
-                @bottom-reached="addMoreWorks" :infiniteScroll="true" :galleryType="'projects'"
+            <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
+                :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks" :infiniteScroll="true"
+                :galleryType="'projects'"
                 :showDelete="this.dataStore.user.id && this.artist.user.username == this.dataStore.user.username" />
         </div>
         <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
@@ -117,8 +121,9 @@
             <ArtistCard v-for="artist in 7" />
         </div>
         <div v-show="this.tab == 'likes'">
-            <WorksGallery :works="works" :infoBgCol="'bg-gray-800'" :startIndex="0" :stopIndex="this.worksUpperLimit"
-                @bottom-reached="addMoreWorks" :infiniteScroll="true" :galleryType="'likes'"
+            <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
+                :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks" :infiniteScroll="true"
+                :galleryType="'likes'"
                 :showDelete="this.dataStore.user.id && this.artist.user.username == this.dataStore.user.username" />
         </div>
     </section>
