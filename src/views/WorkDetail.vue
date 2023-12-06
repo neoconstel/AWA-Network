@@ -3,8 +3,8 @@
         <main class="grid grid-cols-1">
             <div><img class="px-16 py-8 mx-auto" :src="this.work.file_url" alt=""></div>
             <div class="flex flex-col gap-y-5 px-12 pb-48">
-                <div class="px-10 py-8 bg-gray-600 space-x-1 [&>span]:p-1 [&>span]:bg-gray-700">
-                    <em>Tags</em>
+                <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 [&>span]:p-1 [&>span]:bg-gray-700">
+                    <em class="text-gray-800 dark:text-gray-200">Tags</em>
                     <span>Modelling</span>
                     <span>Texturing</span>
                     <span>Character Modelling</span>
@@ -31,7 +31,7 @@
                 </form>
             </div>
         </main>
-        <div class="px-10 bg-gray-700">
+        <div class="px-10 bg-gray-500 dark:bg-gray-700">
             <section>
                 <div>
                     <img class="inline-block w-14 h-14 rounded-full m-4" src="https://i.imgur.com/40qCewV.jpg" alt="">
