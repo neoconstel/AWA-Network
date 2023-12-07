@@ -65,8 +65,6 @@ export default {
                 .then(response => response.json())
 
             this.artCategories = categories
-            this.artCategory = categories.find(
-                category => category.id == this.dataStore.work.category)
         },
         async submit() {
             const title = this.$refs.title.value
@@ -118,6 +116,8 @@ export default {
         const myModalEl = document.getElementById("editWorkModal");
         myModalEl.addEventListener("shown.te.modal", (e) => {
             this.work = this.dataStore.work
+            this.artCategory = this.artCategories.find(
+                category => category.id == this.work.category)
             console.log("EditworkModal initialized")
         });
 
