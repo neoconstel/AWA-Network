@@ -1,3 +1,4 @@
+import { useDropZone } from "@vueuse/core";
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
@@ -11,6 +12,21 @@ async function getWagtailPagesRoutes() {
   const wagtailPageRoutes = [];
   const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/`;
   let pages = await fetch(url).then((response) => response.json());
+
+  // the wagtail pages API doesn't need user credentials to be accessed.
+  // However, the presence of invalid/expired credentials in the cookies would
+  // prevent it from loading the page so this must be taken care of.
+
+  // if it returns a token invalid error due to expired credentials
+  if (pages.code && pages.code == "token_not_valid") {
+    //delete all stored cookies and try again
+    pages = await fetch(`${import.meta.env.VITE_BACKEND_DOMAIN}/auth/logout/`, {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((data) => fetch(url))
+      .then((response) => response.json());
+  }
 
   pages.items.forEach((page) => {
     let title = page.title;
