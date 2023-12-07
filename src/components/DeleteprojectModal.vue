@@ -3,7 +3,7 @@
     <Modal :tag="'deleteProjectModal'">
         <!-- content inside deleteProject modal -->
         <div v-if="this.work.id" class="space-y-4 p-10">
-            <h3 class="text-center">Delete artwork:
+            <h3 class="text-center text-gray-800 dark:text-gray-200">Delete artwork:
                 <b>"{{ this.work.title }}"</b> permanently?
             </h3>
             <img class="w-32 aspect-square object-cover mx-auto" :src="this.work.file_url" alt="">
