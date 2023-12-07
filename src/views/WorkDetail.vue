@@ -13,15 +13,16 @@
                     <Textarea class="text-gray-800" rows="5" name="comment"></Textarea>
                     <div class="relative">
                         <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
-                        <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button"><img
-                                class="inline h-14" src="/static/icons/iconmonstr-thumb-10.svg" alt=""></button>
+                        <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
+                            <ThumbupIcon class="inline h-14 w-14" />
+                        </button>
                         <span class="absolute bottom-0">9.5k</span>
                         <span
                             v-if="this.dataStore.user.id && this.work.id && this.work.artist.user.username == this.dataStore.user.username"
                             class="absolute right-0">
-                            <a @click.prevent="storeWork" href="" data-te-toggle="modal"
-                                data-te-target="#editWorkModal"><img class="inline h-12 mr-5"
-                                    src="/static/icons/iconmonstr-pencil-line-lined.svg" alt=""></a>
+                            <a @click.prevent="storeWork" href="" data-te-toggle="modal" data-te-target="#editWorkModal">
+                                <PencilIcon class="inline h-12 mr-5 fill-gray-800 dark:fill-gray-200" />
+                            </a>
                             <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300" :buttonText="'Delete'"
                                 data-te-toggle="modal" data-te-target="#deleteProjectModal" />
                         </span>

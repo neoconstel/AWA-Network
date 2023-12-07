@@ -22,6 +22,7 @@ import FacebookIcon from "@/components/icons/FacebookIcon.vue";
 import InstagramIcon from "@/components/icons/InstagramIcon.vue";
 import LinkedinIcon from "@/components/icons/LinkedinIcon.vue";
 import TwitterIcon from "@/components/icons/TwitterIcon.vue";
+import PencilIcon from "@/components/icons/PencilIcon.vue";
 
 const app = createApp(App);
 
@@ -42,5 +43,6 @@ app.component("FacebookIcon", FacebookIcon);
 app.component("InstagramIcon", InstagramIcon);
 app.component("LinkedinIcon", LinkedinIcon);
 app.component("TwitterIcon", TwitterIcon);
+app.component("PencilIcon", PencilIcon);
 
 app.mount("#app");
