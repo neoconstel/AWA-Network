@@ -108,19 +108,7 @@ export default {
         async fetchWork(id) {
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artwork/${id}/`
 
-            const headers = {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': this.$cookies.get('csrftoken')
-            }
-
-            const requestOptions = {
-                method: 'GET',
-                headers: headers,
-                credentials: 'include',
-                redirect: 'follow'
-            };
-
-            fetch(url, requestOptions)
+            fetch(url)
                 .then((response) => {
                     return response.json()
                 })
