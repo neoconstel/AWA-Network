@@ -5,10 +5,8 @@
             <div class="flex flex-col gap-y-5 px-12 pb-48">
                 <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 [&>span]:p-1 [&>span]:bg-gray-700">
                     <em class="text-gray-800 dark:text-gray-200">Tags</em>
-                    <span>Modelling</span>
-                    <span>Texturing</span>
-                    <span>Character Modelling</span>
-                    <span>Sculpting</span>
+                    <span v-if="this.work.tags" v-for="(tag, index) in this.work.tags.split(',')" key="index">{{ tag
+                    }}</span>
                 </div>
                 <form v-if="this.dataStore.user.id && this.work.id" class="flex flex-col space-y-2" action="">
                     <label id="comment" for="comment">Add a new comment</label>
