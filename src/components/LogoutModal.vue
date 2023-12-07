@@ -16,7 +16,7 @@
                     <!-- Right column container -->
                     <div class="mb-12 md:mb-0 md:w-8/12 lg:w-5/8 xl:w-full">
                         <form @submit.prevent="submit">
-                            <h3 class="my-3">Are you sure you want to logout?</h3>
+                            <h3 class="my-3 text-gray-800 dark:text-gray-200">Are you sure you want to logout?</h3>
                             <!-- Logout button -->
                             <div class="text-center lg:text-left">
                                 <button type="submit"
