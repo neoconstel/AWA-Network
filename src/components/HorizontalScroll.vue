@@ -137,30 +137,30 @@ export default {
                 this.cursorCurrentPosition = null
             })
 
-            window.addEventListener('mousemove', ($event) => {
-                this.cursorCurrentPosition = $event.clientX;
+            // window.addEventListener('mousemove', ($event) => {
+            //     this.cursorCurrentPosition = $event.clientX;
 
-                // scroll is being dragged only if mousedown was made on it
-                // before the current mouse movement
-                this.scrollBeingDragged = this.scrollHeldByMouse;
-                this.updateScrollDirection();
+            //     // scroll is being dragged only if mousedown was made on it
+            //     // before the current mouse movement
+            //     this.scrollBeingDragged = this.scrollHeldByMouse;
+            //     this.updateScrollDirection();
 
-                // if (this.scrollBeingDragged)
-                //     console.log(`Scroll direction: ${this.scrollDirection}`)
+            //     // if (this.scrollBeingDragged)
+            //     //     console.log(`Scroll direction: ${this.scrollDirection}`)
 
-                // if currentRight has 'fully' entered in
-                if (this.currentRight.getBoundingClientRect().right < window.innerWidth) {
-                    // console.log('end of right')
+            //     // if currentRight has 'fully' entered in
+            //     if (this.currentRight.getBoundingClientRect().right < window.innerWidth) {
+            //         // console.log('end of right')
 
-                    // if scrolling left AND currentLeft is off-screen
-                    if (this.scrollDirection == 'left' && !this.elementOnscreen(this.currentLeft)) {
-                        this.leftmostToRightmost(this.gap)
-                    }
-                }
-                else {
-                    // console.log('inside current right')
-                }
-            })
+            //         // if scrolling left AND currentLeft is off-screen
+            //         if (this.scrollDirection == 'left' && !this.elementOnscreen(this.currentLeft)) {
+            //             this.leftmostToRightmost(this.gap)
+            //         }
+            //     }
+            //     else {
+            //         // console.log('inside current right')
+            //     }
+            // })
 
         });
 
