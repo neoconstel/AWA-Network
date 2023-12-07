@@ -2,19 +2,20 @@
     <Modal :tag="'editWorkModal'">
         <!-- content inside editWork modal -->
         <form class="flex flex-col gap-5 mb-3 p-10 text-gray-700">
-            <h3 class="">Edit Artwork</h3>
+            <h3 class="text-gray-800 dark:text-gray-200">Edit Artwork</h3>
 
-            <fieldset class="border-2 p-1">
-                <legend class="text-xs">Title</legend>
-                <input class="outline-none w-full focus:outline-none" type="text" id="title" placeholder=""
-                    :value="this.work.title" ref="title" />
+            <fieldset class="border-2 p-1 border-gray-800 dark:border-gray-200">
+                <legend class="text-xs text-gray-800 dark:text-gray-200">Title</legend>
+                <input class="outline-none w-full bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none"
+                    type="text" id="title" placeholder="" :value="this.work.title" ref="title" />
             </fieldset>
 
             <div v-if="this.artCategories.length && this.artCategory && this.artCategory.id">
-                <fieldset class="border-2 p-1">
-                    <legend class="text-xs">Categories</legend>
-                    <input class="outline-none w-full focus:outline-none" :value="this.artCategory.name" type="text"
-                        list="sub-topics" id="categories" placeholder="" ref="categories" />
+                <fieldset class="border-2 p-1 border-gray-800 dark:border-gray-200">
+                    <legend class="text-xs text-gray-800 dark:text-gray-200">Categories</legend>
+                    <input class="outline-none w-full bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none"
+                        :value="this.artCategory.name" type="text" list="sub-topics" id="categories" placeholder=""
+                        ref="categories" />
                 </fieldset>
                 <datalist id="sub-topics">
                     <template v-for="(category, index) in this.artCategories">
@@ -23,10 +24,10 @@
                 </datalist>
             </div>
 
-            <fieldset class="border-2 p-1">
-                <legend class="text-xs">Tags</legend>
-                <textarea class="outline-none w-full focus:outline-none" rows="5" columns="5" placeholder=""
-                    ref="tags">{{ this.work.tags }}</textarea>
+            <fieldset class="border-2 p-1 border-gray-800 dark:border-gray-200">
+                <legend class="text-xs text-gray-800 dark:text-gray-200">Tags</legend>
+                <textarea class="outline-none w-full bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none"
+                    rows="5" columns="5" placeholder="" ref="tags">{{ this.work.tags }}</textarea>
             </fieldset>
 
             <RippleButton @click="submit" :buttonText="'Save changes'" type="button"
@@ -101,8 +102,9 @@ export default {
             fetch(url, requestOptions)
                 .then((response) => {
                     if (response.status < 300) {
-                        const workComponent = document.getElementById("work-" + workID)
-                        alert("saved changes")
+                        // const workComponent = document.getElementById("work-" + workID)
+                        // refresh page to update the UI after saving changes
+                        this.$router.go()
 
                     }
                 })
