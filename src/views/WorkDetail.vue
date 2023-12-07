@@ -14,7 +14,7 @@
                     <div class="relative">
                         <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
                         <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
-                            <ThumbupIcon class="inline h-14 w-14" />
+                            <ThumbupIcon class="inline h-14 w-14 fill-gray-800 dark:fill-gray-200" />
                         </button>
                         <span class="absolute bottom-0">9.5k</span>
                         <span

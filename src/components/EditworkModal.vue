@@ -27,7 +27,7 @@
             <fieldset class="border-2 p-1 border-gray-800 dark:border-gray-200">
                 <legend class="text-xs text-gray-800 dark:text-gray-200">Tags</legend>
                 <textarea class="outline-none w-full bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none"
-                    rows="5" columns="5" placeholder="" ref="tags">{{ this.work.tags }}</textarea>
+                    rows="5" columns="5" placeholder="Tags (separated by commas)" ref="tags">{{ this.work.tags }}</textarea>
             </fieldset>
 
             <RippleButton @click="submit" :buttonText="'Save changes'" type="button"
