@@ -4,7 +4,7 @@
             <Carousel v-if="this.carouselImages.length > 1" :images="this.carouselImages" />
         </div>
         <div class="bg-gray-400 dark:bg-gray-600 grid" style="grid-template-rows: 30px 1fr;">
-            <p class="text-center my-auto text-gray-800 dark:text-gray-200">Spotlight Art</p>
+            <p class="text-center my-auto text-gray-800 dark:text-gray-200">{{ this.spotlightCaption }}</p>
             <div>
                 <RouterLink :to="`/artwork/${this.spotlightArt.id}`">
                     <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;"
@@ -95,7 +95,8 @@ export default {
             "worksUpperLimit": 40,
             "worksFetchPage": 1,
             "carouselImages": [], // {url,caption}
-            "spotlightArt": {} // {id, url}
+            "spotlightArt": {}, // {id, url}
+            "spotlightCaption": ""
         }
     },
     computed: {
@@ -143,13 +144,18 @@ export default {
                 })
         },
         async fetchPageCMS() {
-            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/?type=main.HomePage&fields=gallery_images,spotlight_art`
+            const url =
+                `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/?`
+                + `type=main.HomePage`
+                + `&fields=gallery_images,spotlight_art,spotlight_caption`
+
             const homePage = await fetch(url)
                 .then(response => response.json())
                 .then(pages => pages.items[0])
 
             this.carouselImages = homePage.gallery_images
             this.spotlightArt = homePage.spotlight_art
+            this.spotlightCaption = homePage.spotlight_caption
         },
 
     },
