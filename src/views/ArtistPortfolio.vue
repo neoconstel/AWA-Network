@@ -28,13 +28,13 @@
                 <div class="grid grid-cols-4 [&>*]:space-y-1 border-b-gray-500 [&>*]:text-gray-800 dark:[&>*]:text-gray-200 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200"
                     style="border-bottom-width: 1px;">
                     <div>
-                        <p class="text-2xl">435251</p>
+                        <p class="text-2xl">{{ this.artist.views }}</p>
                         <p>
                             <EyeopenIcon class="inline w-4 mr-1" /><span class="text-xs"><b>VIEWS</b></span>
                         </p>
                     </div>
                     <div>
-                        <p class="text-2xl">234890</p>
+                        <p class="text-2xl">{{ this.artist.likes }}</p>
                         <p>
                             <ThumbupIcon class="inline w-4 mr-1" /> <span class="text-xs"><b>LIKES</b></span>
                         </p>
