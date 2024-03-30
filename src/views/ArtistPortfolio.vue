@@ -45,7 +45,7 @@
 
                     </div>
                     <div>
-                        <p class="text-2xl">35465</p>
+                        <p class="text-2xl">{{ this.artist.followers }}</p>
                         <p>
                             <UserIcon class="inline w-4 mr-1" /><span class="text-xs"><b>FOLLOWERS</b></span>
                         </p>
@@ -56,7 +56,7 @@
 
                     </div>
                     <div>
-                        <p class="text-2xl">5652</p>
+                        <p class="text-2xl">{{ this.artist.following }}</p>
                         <p>
                             <UserIcon class="inline w-4 mr-1" /><span class="text-xs"><b>FOLLOWING</b></span>
                         </p>
