@@ -18,8 +18,11 @@
                 </div>
                 <div v-if="this.dataStore.user.id && this.artist.user.username != this.dataStore.user.username"
                     class="grid grid-cols-2 gap-x-3 [&>*]:mt-auto">
-                    <RippleButton class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900"
-                        :buttonText="'Follow'" />
+                    <RippleButton v-if="userFollowsArtist" @click="unfollow"
+                        class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900"
+                        :buttonText="'Unfollow'" />
+                    <RippleButton v-else @click="follow"
+                        class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900" :buttonText="'Follow'" />
                     <RippleButton class="bg-primary-300 hover:bg-primary-600 text-gray-900" :buttonText="'Message'"
                         style="background-image: url('/icons/iconmonstr-mail-thin.svg'); background-repeat: no-repeat; background-position: 34% 50%; background-size: 7%;" />
                 </div>
@@ -150,7 +153,8 @@ export default {
             'tab': 'projects',
             "works": [],
             "artist": {},
-            "worksUpperLimit": 5
+            "worksUpperLimit": 5,
+            "userFollowsArtist": false
         }
     },
     computed: {
@@ -239,7 +243,36 @@ export default {
                     this.errorMessage = error
                     console.log('error', error)
                 })
-        }
+        },
+        async follow() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/following/follow/${this.$route.params.username}/`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    this.userFollowsArtist = true
+                    console.log(data)
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
     },
     async mounted() {
         console.log('artistPortfolio view mounted')
