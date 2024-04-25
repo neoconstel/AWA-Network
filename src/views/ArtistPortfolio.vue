@@ -273,6 +273,35 @@ export default {
                     console.log('error', error)
                 })
         },
+        async unfollow() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/following/unfollow/${this.$route.params.username}/`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    this.userFollowsArtist = false
+                    console.log(data)
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
     },
     async mounted() {
         console.log('artistPortfolio view mounted')
