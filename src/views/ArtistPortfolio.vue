@@ -302,6 +302,35 @@ export default {
                     console.log('error', error)
                 })
         },
+        async updateFollowingStatus() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/following/status/${this.$route.params.username}/`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'GET',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    this.userFollowsArtist = data["user_follows_other"]
+                    console.log(data)
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
     },
     async mounted() {
         console.log('artistPortfolio view mounted')
@@ -327,6 +356,7 @@ export default {
 
         this.fetchArtist()
         this.fetchWorks()
+        this.updateFollowingStatus()
 
         // pre-load few works before scrolling begins
         let worksCount = 5
