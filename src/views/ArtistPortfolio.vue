@@ -9,10 +9,10 @@
                     <div class="pl-20 text-gray-800 dark:text-gray-200">
                         <h3>{{ this.artist.user.name }}</h3>
                         <p><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-location-19.svg" alt=""><span
-                                class="text-sm text-gray-400">Wysteria Lane, California</span></p>
-                        <p class="mt-3">Tech support and Analyst, Visual Artist, Animator and 3D Generalist</p>
-                        <p class="mt-2 text-yellow-800 dark:text-yellow-200"><a
-                                href="http://www.animationwestafrica.com">www.animationwestafrica.com</a></p>
+                                class="text-sm text-gray-400">{{ this.artist.location }}</span></p>
+                        <p class="mt-3">{{ this.artist.bio }}</p>
+                        <p class="mt-2 text-yellow-800 dark:text-yellow-200"><a href="http://www.animationwestafrica.com">{{
+                            this.artist.website }}</a></p>
 
                     </div>
                 </div>
@@ -74,8 +74,7 @@
                 </div>
                 <div class="flex items-center ali border-t-gray-500 text-gray-800 dark:text-gray-200"
                     style="border-top-width: 1px;">
-                    <p class=""><b>Tools:</b> Maya, Cinema 4D, Blender, Photoshop, Illustrator, After Effects
-                    </p>
+                    <p class=""><b>Tools:</b> {{ this.artist.tools }}</p>
                 </div>
             </div>
         </div>
