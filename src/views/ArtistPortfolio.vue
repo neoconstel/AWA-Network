@@ -117,10 +117,10 @@
                 :showDelete="this.dataStore.user.id && this.artist.user.username == this.dataStore.user.username" />
         </div>
         <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
-            <ArtistCard v-for="artist in 19" />
+            <ArtistCard v-for="followingInstance in this.followers" />
         </div>
         <div v-show="this.tab == 'following'" class="grid grid-cols-4 gap-4 py-10 px-16">
-            <ArtistCard v-for="artist in 7" />
+            <ArtistCard v-for="followingInstance in this.following" />
         </div>
         <div v-show="this.tab == 'likes'">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
@@ -153,7 +153,9 @@ export default {
             "works": [],
             "artist": {},
             "worksUpperLimit": 5,
-            "userFollowsArtist": false
+            "userFollowsArtist": false,
+            "followers": [],
+            "following": []
         }
     },
     computed: {
@@ -301,7 +303,9 @@ export default {
                     console.log('error', error)
                 })
         },
-        async updateFollowingStatus() {
+        async fetchFollowingStatus() {
+            // checks if logged-in user follows this artist and vice versa
+
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/following/status/${this.$route.params.username}/`
 
             const headers = {
@@ -323,6 +327,70 @@ export default {
                 .then((data) => {
                     this.userFollowsArtist = data["user_follows_other"]
                     console.log(data)
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
+        async fetchFollowers() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/followings/?username=${this.$route.params.username}&filter=followers&page_size=50`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'GET',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    console.log("See followers:")
+                    console.log(data.results)
+
+                    this.followers = this.followers.concat(data.results)
+
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
+        async fetchFollowing() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/followings/?username=${this.$route.params.username}&filter=following&page_size=50`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'GET',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    console.log("See following:")
+                    console.log(data.results)
+
+                    this.following = this.following.concat(data.results)
+
                 }
                 )
                 .catch((error) => {
@@ -355,7 +423,9 @@ export default {
 
         this.fetchArtist()
         this.fetchWorks()
-        this.updateFollowingStatus()
+        this.fetchFollowers()
+        this.fetchFollowing()
+        this.fetchFollowingStatus()
 
         // pre-load few works before scrolling begins
         let worksCount = 5
