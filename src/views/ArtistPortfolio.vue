@@ -117,10 +117,14 @@
                 :showDelete="this.dataStore.user.id && this.artist.user.username == this.dataStore.user.username" />
         </div>
         <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
-            <ArtistCard v-for="followingInstance in this.followers" />
+            <template v-for="(followingInstance, index) in this.followers" :key="index">
+                <ArtistCard :name="followingInstance.follower.user.name" :bio="followingInstance.follower.bio" />
+            </template>
         </div>
         <div v-show="this.tab == 'following'" class="grid grid-cols-4 gap-4 py-10 px-16">
-            <ArtistCard v-for="followingInstance in this.following" />
+            <template v-for="(followingInstance, index) in this.following" :key="index">
+                <ArtistCard :name="followingInstance.following.user.name" :bio="followingInstance.following.bio" />
+            </template>
         </div>
         <div v-show="this.tab == 'likes'">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
