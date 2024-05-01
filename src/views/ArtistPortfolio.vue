@@ -118,12 +118,12 @@
         </div>
         <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
             <template v-for="(followingInstance, index) in this.followers" :key="index">
-                <ArtistCard :name="followingInstance.follower.user.name" :bio="followingInstance.follower.bio" />
+                <ArtistCard :artist="followingInstance.follower" />
             </template>
         </div>
         <div v-show="this.tab == 'following'" class="grid grid-cols-4 gap-4 py-10 px-16">
             <template v-for="(followingInstance, index) in this.following" :key="index">
-                <ArtistCard :name="followingInstance.following.user.name" :bio="followingInstance.following.bio" />
+                <ArtistCard :artist="followingInstance.following" />
             </template>
         </div>
         <div v-show="this.tab == 'likes'">
