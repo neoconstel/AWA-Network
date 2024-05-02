@@ -26,12 +26,45 @@ export default {
     },
     data() {
         return {
-
+            'works': []
         }
     },
-    mounted() {
+    methods: {
+        async fetchWorks() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artworks/?page_size=50&search=${this.artist.user.username}&filter=artist`
 
-    }
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'GET',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    // console.log(data['results'])
+                    this.works.splice(this.works.length, 0, ...(data['results']))
+                    console.log(this.works)
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
+    },
+    mounted() {
+        this.fetchWorks()
+    },
+
 
 }
 
