@@ -152,20 +152,26 @@ export default {
         ArtistCard
     },
     data() {
-        return {
-            'tab': 'projects',
-            "works": [],
-            "artist": {},
-            "worksUpperLimit": 5,
-            "userFollowsArtist": false,
-            "followers": [],
-            "following": []
-        }
+        return this.defaultData()
     },
     computed: {
         ...mapStores(useDataStore)
     },
     methods: {
+        defaultData() {
+            return {
+                'tab': 'projects',
+                "works": [],
+                "artist": {},
+                "worksUpperLimit": 5,
+                "userFollowsArtist": false,
+                "followers": [],
+                "following": []
+            }
+        },
+        resetData() {
+            Object.assign(this.$data, this.defaultData())
+        },
         projectTabColor(tabName) {
             if (this.tab == tabName)
                 return 'text-yellow-300'
@@ -404,46 +410,48 @@ export default {
         },
     },
     async mounted() {
-        console.log('artistPortfolio view mounted')
-        this.dataStore.currentView = this.$options.name
 
-        // scroll to top
-        this.$nextTick(() => {
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-            }, 100)
-        })
+    },
+    watch: {
+        '$route.params.username': {
+            immediate: true,
+            handler(newVal) {
+                // first reset data using custom function, resetData
+                this.resetData()
+
+                //fetch data for different artist              
+                this.fetchArtist()
+                this.fetchWorks()
+                this.fetchFollowers()
+                this.fetchFollowing()
+                this.fetchFollowingStatus()
 
 
-        // filter database to simulate backend filter on artist-specific portfolio
-        // this.worksDatabase = this.dataStore.worksDatabase.filter((work) => {
-        //     return work.user.username == this.$route.params.username
-        // })
+                console.log('artistPortfolio view mounted')
 
+                // scroll to top
+                this.$nextTick(() => {
+                    setTimeout(() => {
+                        window.scrollTo(0, 0);
+                    }, 100)
+                })
 
-        // this.worksDatabase = this.worksDatabase.filter((work) => {
-        //     return work.user.username == this.$route.params.username
-        // })
+                // pre-load few works before scrolling begins
+                let worksCount = 5
+                let interval
+                interval = setInterval(() => {
+                    if (worksCount-- > 0) {
+                        this.addMoreWorks()
+                    }
+                    else
+                        clearInterval(interval)
+                }, 100)
 
-        this.fetchArtist()
-        this.fetchWorks()
-        this.fetchFollowers()
-        this.fetchFollowing()
-        this.fetchFollowingStatus()
+                console.log(this.works)
+                console.log(`works: ${this.works.length}`)
 
-        // pre-load few works before scrolling begins
-        let worksCount = 5
-        let interval
-        interval = setInterval(() => {
-            if (worksCount-- > 0) {
-                this.addMoreWorks()
             }
-            else
-                clearInterval(interval)
-        }, 100)
-
-        console.log(this.works)
-        console.log(`works: ${this.works.length}`)
+        }
     }
 }
 
