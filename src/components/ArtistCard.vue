@@ -9,7 +9,8 @@
             <template v-for="(n, index) in 4" :key="index">
                 <RouterLink v-if="this.works.length > index" :to="`/artwork/${this.works[index].id}`"><img
                         class="aspect-square object-cover" :src="this.works[index].file_url" alt=""></RouterLink>
-                <img v-else class="aspect-square object-cover" :src="this.artPlaceholder.image_url" alt="">
+                <img v-else class="aspect-square object-cover" :src="this.artPlaceholder.image_url"
+                    :alt="this.artPlaceholder.caption">
             </template>
         </div>
     </div>
