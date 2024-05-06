@@ -159,6 +159,7 @@ export default {
     },
     methods: {
         defaultData() {
+            // data such as artPlaceholder are not reset by the reset method
             return {
                 'tab': 'projects',
                 "works": [],
@@ -167,7 +168,7 @@ export default {
                 "userFollowsArtist": false,
                 "followers": [],
                 "following": [],
-                "artPlaceholder": {}
+                "artPlaceholder": this.$data.artPlaceholder != {} ? this.$data.artPlaceholder : {}
             }
         },
         resetData() {
