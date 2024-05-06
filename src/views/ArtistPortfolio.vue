@@ -168,7 +168,7 @@ export default {
                 "userFollowsArtist": false,
                 "followers": [],
                 "following": [],
-                "artPlaceholder": this.$data.artPlaceholder != {} ? this.$data.artPlaceholder : {}
+                "artPlaceholder": this.$data.artPlaceholder == null ? {} : this.$data.artPlaceholder
             }
         },
         resetData() {
