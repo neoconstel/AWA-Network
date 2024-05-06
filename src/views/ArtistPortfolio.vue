@@ -118,12 +118,12 @@
         </div>
         <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
             <template v-for="(followingInstance, index) in this.followers" :key="index">
-                <ArtistCard :artist="followingInstance.follower" />
+                <ArtistCard :artist="followingInstance.follower" :artPlaceholder="this.artPlaceholder" />
             </template>
         </div>
         <div v-show="this.tab == 'following'" class="grid grid-cols-4 gap-4 py-10 px-16">
             <template v-for="(followingInstance, index) in this.following" :key="index">
-                <ArtistCard :artist="followingInstance.following" />
+                <ArtistCard :artist="followingInstance.following" :artPlaceholder="this.artPlaceholder" />
             </template>
         </div>
         <div v-show="this.tab == 'likes'">
@@ -166,10 +166,12 @@ export default {
                 "worksUpperLimit": 5,
                 "userFollowsArtist": false,
                 "followers": [],
-                "following": []
+                "following": [],
+                "artPlaceholder": {}
             }
         },
         resetData() {
+            // reset data to values defined in default data
             Object.assign(this.$data, this.defaultData())
         },
         projectTabColor(tabName) {
@@ -408,11 +410,26 @@ export default {
                     console.log('error', error)
                 })
         },
+        async fetchPageCMS() {
+            const url =
+                `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/?`
+                + `type=main.PortfolioPage`
+                + `&fields=art_placeholder`
+
+            const portfolioPage = await fetch(url)
+                .then(response => response.json())
+                .then(pages => pages.items[0])
+
+            this.artPlaceholder = portfolioPage.art_placeholder
+        },
     },
     async mounted() {
-
+        // stuffs that should be fetched or executed once, at page load
+        this.fetchPageCMS()
     },
     watch: {
+        // stuffs that should be re-fetched or re-executed if something changes
+
         '$route.params.username': {
             immediate: true,
             handler(newVal) {

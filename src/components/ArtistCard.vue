@@ -5,11 +5,12 @@
             :to="`/artistPortfolio/${this.artist.user.username}/`">{{ this.artist.user.name }}
         </RouterLink>
         <p class="mb-2 text-sm">{{ this.artist.bio }}</p>
-        <div class="grid grid-cols-4 px-2 gap-x-2">
-            <img class="aspect-square object-cover" src="https://i.imgur.com/40qCewV.jpg" alt="">
-            <img class="aspect-square object-cover" src="https://i.imgur.com/40qCewV.jpg" alt="">
-            <img class="aspect-square object-cover" src="https://i.imgur.com/40qCewV.jpg" alt="">
-            <img class="aspect-square object-cover" src="https://i.imgur.com/40qCewV.jpg" alt="">
+        <div v-if="this.artPlaceholder" class="grid grid-cols-4 px-2 gap-x-2">
+            <template v-for="(n, index) in 4" :key="index">
+                <RouterLink v-if="this.works.length > index" :to="`/artwork/${this.works[index].id}`"><img
+                        class="aspect-square object-cover" :src="this.works[index].file_url" alt=""></RouterLink>
+                <img v-else class="aspect-square object-cover" :src="this.artPlaceholder.image_url" alt="">
+            </template>
         </div>
     </div>
 </template>
@@ -19,7 +20,8 @@ export default {
 
     name: 'ArtistCard',
     props: {
-        'artist': Object
+        'artist': Object,
+        'artPlaceholder': Object
     },
     computed: {
 
@@ -61,7 +63,7 @@ export default {
                 })
         },
     },
-    mounted() {
+    async mounted() {
         this.fetchWorks()
     },
 
