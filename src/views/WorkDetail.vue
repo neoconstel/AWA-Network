@@ -11,10 +11,12 @@
                 <form v-if="this.dataStore.user.id && this.work.id" class="flex flex-col space-y-2" action="">
                     <label id="comment" for="comment">Add a new comment</label>
                     <Textarea class="text-gray-800" rows="5" name="comment"></Textarea>
-                    <div class="relative">
+                    <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
                         <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
                         <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
-                            <ThumbupIcon class="inline h-14 w-14 fill-gray-800 dark:fill-gray-200" />
+                            <ThumbuppaintedIcon v-if="this.reactionData.user_reactions.includes('like')"
+                                class="inline h-14 w-14 fill-cyan-800 dark:fill-cyan-200" />
+                            <ThumbupIcon v-else class="inline h-14 w-14 fill-gray-800 dark:fill-gray-200" />
                         </button>
                         <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{ this.reactionData.count
                         }}</span>
@@ -101,8 +103,8 @@ export default {
     },
     data() {
         return {
-            work: {},
-            reactionData: {}
+            "work": {},
+            "reactionData": {}
         }
     },
     computed: {
