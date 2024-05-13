@@ -16,7 +16,14 @@
                         <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
                             <ThumbupIcon class="inline h-14 w-14 fill-gray-800 dark:fill-gray-200" />
                         </button>
-                        <span class="absolute bottom-0">9.5k</span>
+                        <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{ this.reactionData.count
+                        }}</span>
+                        <span v-else-if="this.reactionData.count < 1000000" class="absolute bottom-0">{{
+                            parseInt(this.reactionData.count / 1000) }}K</span>
+                        <span v-else-if="this.reactionData.count < 1000000000" class="absolute bottom-0">{{
+                            parseInt(this.reactionData.count / 1000000) }}M</span>
+                        <span v-else-if="this.reactionData.count < 1000000000000" class="absolute bottom-0">{{
+                            parseInt(this.reactionData.count / 1000000000) }}B</span>
                         <span
                             v-if="this.dataStore.user.id && this.work.id && this.work.artist.user.username == this.dataStore.user.username"
                             class="absolute right-0">
@@ -94,7 +101,8 @@ export default {
     },
     data() {
         return {
-            work: {}
+            work: {},
+            reactionData: {}
         }
     },
     computed: {
@@ -121,6 +129,22 @@ export default {
                 .catch((error) => {
                     console.log('error', error)
                 })
+        },
+        async fetchReactions(id) {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/react/list/artwork/${id}/`
+
+            fetch(url)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    // console.log(data)
+                    this.reactionData = data
+                }
+                )
+                .catch((error) => {
+                    console.log('error', error)
+                })
         }
     },
     async mounted() {
@@ -142,6 +166,7 @@ export default {
         // })
 
         this.fetchWork(this.$route.params.id)
+        this.fetchReactions(this.$route.params.id)
     }
 }
 
