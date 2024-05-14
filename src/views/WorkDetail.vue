@@ -14,9 +14,11 @@
                     <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
                         <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
                         <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
-                            <ThumbuppaintedIcon v-if="this.reactionData.user_reactions.includes('like')"
+                            <ThumbuppaintedIcon @click="unreact('like')"
+                                v-if="this.reactionData.user_reactions.includes('like')"
                                 class="inline h-14 w-14 fill-cyan-800 dark:fill-cyan-200" />
-                            <ThumbupIcon v-else class="inline h-14 w-14 fill-gray-800 dark:fill-gray-200" />
+                            <ThumbupIcon @click="react('like')" v-else
+                                class="inline h-14 w-14 fill-gray-800 dark:fill-gray-200" />
                         </button>
                         <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{ this.reactionData.count
                         }}</span>
@@ -154,6 +156,68 @@ export default {
                 .then((data) => {
                     // console.log(data)
                     this.reactionData = data
+                }
+                )
+                .catch((error) => {
+                    console.log('error', error)
+                })
+        },
+        async react(reaction) {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/react/add/${reaction}/artwork/${this.$route.params.id}/`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    // console.log(data)
+                    this.reactionData.user_reactions.push(reaction)
+                    this.reactionData.count++
+                }
+                )
+                .catch((error) => {
+                    console.log('error', error)
+                })
+        },
+        async unreact(reaction) {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/react/remove/${reaction}/artwork/${this.$route.params.id}/`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    // console.log(data)
+
+                    // find the index of the reaction and remove it from array
+                    const reactionIndex = this.reactionData.user_reactions.findIndex((x) => x == reaction)
+                    this.reactionData.user_reactions.splice(reactionIndex, 1)
+
+                    this.reactionData.count--
                 }
                 )
                 .catch((error) => {
