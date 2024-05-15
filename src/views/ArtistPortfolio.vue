@@ -127,7 +127,7 @@
             </template>
         </div>
         <div v-show="this.tab == 'likes'">
-            <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
+            <WorksGallery :works="likedWorks" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
                 :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks" :infiniteScroll="true"
                 :galleryType="'likes'"
                 :showDelete="this.dataStore.user.id && this.artist.user.username == this.dataStore.user.username" />
@@ -163,6 +163,7 @@ export default {
             return {
                 'tab': 'projects',
                 "works": [],
+                "likedWorks": [],
                 "artist": {},
                 "worksUpperLimit": 5,
                 "userFollowsArtist": false,
@@ -251,6 +252,35 @@ export default {
                     // console.log(data)
                     this.works.splice(this.works.length, 0, ...(data['results']))
                     console.log(this.works)
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
+        async fetchLikedWorks() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artworks/?page_size=50&search=${this.$route.params.username}&liked_by=${this.$route.params.username}`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'GET',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    // console.log(data)
+                    this.likedWorks.splice(this.likedWorks.length, 0, ...(data['results']))
                 }
                 )
                 .catch((error) => {
@@ -440,6 +470,7 @@ export default {
                 //fetch data for different artist              
                 this.fetchArtist()
                 this.fetchWorks()
+                this.fetchLikedWorks()
                 this.fetchFollowers()
                 this.fetchFollowing()
                 this.fetchFollowingStatus()
