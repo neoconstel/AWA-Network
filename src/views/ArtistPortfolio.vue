@@ -112,8 +112,7 @@
         class="gallery stuff bg-gray-400 dark:bg-gray-700 [&>div]:min-h-screen [&>div]:place-content-start">
         <div v-show="this.tab == 'projects'">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
-                :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks" :infiniteScroll="true"
-                :galleryType="'projects'"
+                :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true" :galleryType="'projects'"
                 :showDelete="this.dataStore.user.id && this.artist.user.username == this.dataStore.user.username" />
         </div>
         <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
@@ -128,8 +127,7 @@
         </div>
         <div v-show="this.tab == 'likes'">
             <WorksGallery :works="likedWorks" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
-                :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks" :infiniteScroll="true"
-                :galleryType="'likes'"
+                :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true" :galleryType="'likes'"
                 :showDelete="this.dataStore.user.id && this.artist.user.username == this.dataStore.user.username" />
         </div>
     </section>

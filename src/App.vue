@@ -122,6 +122,7 @@
   <EditworkModal />
   <DeleteprojectModal />
   <ForgotpasswordModal />
+  <RemovelikeModal />
 </template>
 
 <script>
@@ -136,6 +137,7 @@ import LogoutModal from "@/components/LogoutModal.vue"
 import AddworkModal from "@/components/AddworkModal.vue"
 import EditworkModal from "@/components/EditworkModal.vue"
 import DeleteprojectModal from "@/components/DeleteprojectModal.vue"
+import RemovelikeModal from "@/components/RemovelikeModal.vue"
 import ForgotpasswordModal from "@/components/ForgotpasswordModal.vue"
 
 
@@ -163,6 +165,7 @@ export default {
     AddworkModal,
     EditworkModal,
     DeleteprojectModal,
+    RemovelikeModal,
     ForgotpasswordModal
   },
   data() {
