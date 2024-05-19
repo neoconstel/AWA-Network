@@ -20,14 +20,9 @@
                             <ThumbupIcon @click="react('like')" v-else
                                 class="inline h-14 w-14 fill-gray-800 dark:fill-gray-200" />
                         </button>
-                        <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{ this.reactionData.count
+                        <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
+                            this.numberFormat(this.reactionData.count)
                         }}</span>
-                        <span v-else-if="this.reactionData.count < 1000000" class="absolute bottom-0">{{
-                            parseInt(this.reactionData.count / 1000) }}K</span>
-                        <span v-else-if="this.reactionData.count < 1000000000" class="absolute bottom-0">{{
-                            parseInt(this.reactionData.count / 1000000) }}M</span>
-                        <span v-else-if="this.reactionData.count < 1000000000000" class="absolute bottom-0">{{
-                            parseInt(this.reactionData.count / 1000000000) }}B</span>
                         <span
                             v-if="this.dataStore.user.id && this.work.id && this.work.artist.user.username == this.dataStore.user.username"
                             class="absolute right-0">
@@ -58,8 +53,10 @@
                 </div>
                 <p class="mt-3">Published September 01, 2023</p>
                 <div class="py-5 mt-5 space-x-4" style="border-top-width: 1px;">
-                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-eye-lined.svg" alt="">34.8k</span>
-                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-thumb-10.svg" alt="">9.5k</span>
+                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-eye-lined.svg" alt="">{{
+                        this.numberFormat(this.work.views) }}</span>
+                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-thumb-10.svg"
+                            alt="">{{ this.numberFormat(this.reactionData.count) }}</span>
                     <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-speech-bubble-thin.svg"
                             alt="">239</span>
                 </div>
@@ -110,7 +107,7 @@ export default {
         }
     },
     computed: {
-        ...mapStores(useDataStore)
+        ...mapStores(useDataStore),
     },
     methods: {
         storeWork() {
@@ -223,7 +220,21 @@ export default {
                 .catch((error) => {
                     console.log('error', error)
                 })
-        }
+        },
+        numberFormat(num) {
+            if (num < 1000)
+                return num
+            else if (num < 1000000)
+                return num + 'K'
+            else if (num < 1000000000)
+                return num + 'M'
+            else if (num < 1000000000000)
+                return num + 'B'
+            else if (num < 1000000000000000)
+                return num + 'T'
+            else
+                return '>trillions'
+        },
     },
     async mounted() {
         console.log('workdetail view mounted')
