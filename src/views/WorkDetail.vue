@@ -58,7 +58,7 @@
                     </RouterLink>
                 </div>
                 <div>
-                    <h3 class="mb-2">Flying Pink Unicorn</h3>
+                    <h3 class="mb-2">{{ this.work.title }}</h3>
                     <p>This description about a crazy flying pink unicorn is just a placeholder text for testing the layout
                         of this sample profile. Even though it's just a meaningless piece of text it does find a purpose of
                         its own.</p>
