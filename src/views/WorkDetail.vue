@@ -11,9 +11,9 @@
                     </div>
                 </div>
             </main>
-            <section class="comments">
+            <section class="comments-section" style="border-top-width: 1px; border-color: gray;">
                 <form v-if="this.dataStore.user.id && this.work.id" class="flex flex-col space-y-2" action="">
-                    <label id="comment" for="comment">Add a new comment</label>
+                    <label class="text-gray-800 dark:text-gray-200" id="comment" for="comment">Add a new comment</label>
                     <Textarea class="text-gray-800" rows="5" name="comment"></Textarea>
                     <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
                         <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
@@ -38,6 +38,14 @@
                         </span>
                     </div>
                 </form>
+                <div class="comments [&>.comment]:bg-gray-500 [&>.comment]:dark:bg-gray-700 space-y-5 mt-16">
+                    <div v-for="(comment, index) in this.commentData.results" :key="index"
+                        class="comment [&>p]:text-gray-800 [&>p]:dark:text-gray-200 p-3" :id="comment.id"
+                        style="border-radius: 20px;">
+                        <p><b>{{ comment.user.name }}</b></p>
+                        <p>{{ comment.content }}</p>
+                    </div>
+                </div>
             </section>
         </div>
         <div class="side-panel px-10 bg-gray-500 dark:bg-gray-700">
