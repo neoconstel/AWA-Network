@@ -55,10 +55,10 @@
                 <div class="py-5 mt-5 space-x-4" style="border-top-width: 1px;">
                     <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-eye-lined.svg" alt="">{{
                         this.numberFormat(this.work.views) }}</span>
-                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-thumb-10.svg"
-                            alt="">{{ this.numberFormat(this.reactionData.count) }}</span>
-                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-speech-bubble-thin.svg"
-                            alt="">239</span>
+                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-thumb-10.svg" alt="">{{
+                        this.numberFormat(this.reactionData.count) }}</span>
+                    <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-speech-bubble-thin.svg" alt="">{{
+                        this.numberFormat(this.commentData.count) }}</span>
                 </div>
             </section>
             <aside>
@@ -103,7 +103,8 @@ export default {
     data() {
         return {
             "work": {},
-            "reactionData": {}
+            "reactionData": {},
+            "commentData": {}
         }
     },
     computed: {
@@ -113,7 +114,7 @@ export default {
         storeWork() {
             this.dataStore.work = this.work
         },
-        async fetchWork(id) {
+        async fetchArtwork(id) {
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artwork/${id}/`
 
             fetch(url)
@@ -131,7 +132,7 @@ export default {
                     console.log('error', error)
                 })
         },
-        async fetchReactions(id) {
+        async fetchArtworkReactions(id) {
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/react/list/artwork/${id}/`
 
             const headers = {
@@ -221,6 +222,34 @@ export default {
                     console.log('error', error)
                 })
         },
+        async fetchArtworkComments(id) {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/comments/artwork/${id}/`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'GET',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    // console.log(data)
+                    this.commentData = data
+                }
+                )
+                .catch((error) => {
+                    console.log('error', error)
+                })
+        },
         numberFormat(num) {
             if (num < 1000)
                 return num
@@ -247,15 +276,9 @@ export default {
             }, 100)
         })
 
-
-
-
-        // this.work = this.worksDatabase.find((work) => {
-        //     return work.id == this.$route.params.id
-        // })
-
-        this.fetchWork(this.$route.params.id)
-        this.fetchReactions(this.$route.params.id)
+        this.fetchArtwork(this.$route.params.id)
+        this.fetchArtworkReactions(this.$route.params.id)
+        this.fetchArtworkComments(this.$route.params.id)
     }
 }
 
