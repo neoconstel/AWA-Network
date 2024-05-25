@@ -59,9 +59,7 @@
                 </div>
                 <div>
                     <h3 class="mb-2">{{ this.work.title }}</h3>
-                    <p>This description about a crazy flying pink unicorn is just a placeholder text for testing the layout
-                        of this sample profile. Even though it's just a meaningless piece of text it does find a purpose of
-                        its own.</p>
+                    <p>{{ this.work.description }}</p>
                 </div>
                 <p class="mt-3">Published September 01, 2023</p>
                 <div class="py-5 mt-5 space-x-4" style="border-top-width: 1px;">
