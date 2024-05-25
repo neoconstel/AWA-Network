@@ -1,13 +1,17 @@
 <template>
-    <div class="grid text-gray-100" style="grid-template-columns: 5fr 2fr">
-        <main class="grid grid-cols-1">
-            <div><img class="px-16 py-8 mx-auto" :src="this.work.file_url" alt=""></div>
-            <div class="flex flex-col gap-y-5 px-12 pb-48">
-                <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 [&>span]:p-1 [&>span]:bg-gray-700">
-                    <em class="text-gray-800 dark:text-gray-200">Tags</em>
-                    <span v-if="this.work.tags" v-for="(tag, index) in this.work.tags.split(',')" key="index">{{ tag
-                    }}</span>
+    <div class="entire-page grid text-gray-100" style="grid-template-columns: 5fr 2fr">
+        <div class="main-panel px-12 pb-48 space-y-14">
+            <main class="artwork-display grid">
+                <div><img class="px-16 py-8 mx-auto" :src="this.work.file_url" alt=""></div>
+                <div class="flex flex-col gap-y-5">
+                    <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 [&>span]:p-1 [&>span]:bg-gray-700">
+                        <em class="text-gray-800 dark:text-gray-200">Tags</em>
+                        <span v-if="this.work.tags" v-for="(tag, index) in this.work.tags.split(',')" key="index">{{ tag
+                        }}</span>
+                    </div>
                 </div>
+            </main>
+            <section class="comments">
                 <form v-if="this.dataStore.user.id && this.work.id" class="flex flex-col space-y-2" action="">
                     <label id="comment" for="comment">Add a new comment</label>
                     <Textarea class="text-gray-800" rows="5" name="comment"></Textarea>
@@ -34,10 +38,10 @@
                         </span>
                     </div>
                 </form>
-            </div>
-        </main>
-        <div class="px-10 bg-gray-500 dark:bg-gray-700">
-            <section>
+            </section>
+        </div>
+        <div class="side-panel px-10 bg-gray-500 dark:bg-gray-700">
+            <section class="artwork-info">
                 <div>
                     <img class="inline-block w-14 h-14 rounded-full m-4" src="https://i.imgur.com/40qCewV.jpg" alt="">
                     <RouterLink v-if="this.work.user" @click="storeWork"
@@ -61,7 +65,7 @@
                         this.numberFormat(this.commentData.count) }}</span>
                 </div>
             </section>
-            <aside>
+            <aside class="extras">
                 <h3 v-if="this.work.id">More from {{ this.work.artist.user.name }}</h3>
                 <div class="grid grid-cols-2 grid-rows-2 gap-2 my-5">
                     <a href=""><img class="aspect-square w-30 object-cover" src="https://i.imgur.com/40qCewV.jpg"
