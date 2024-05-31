@@ -25,9 +25,16 @@
             </div>
 
             <fieldset class="border-2 p-1 border-gray-800 dark:border-gray-200">
+                <legend class="text-xs text-gray-800 dark:text-gray-200">Description</legend>
+                <textarea class="outline-none w-full bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none"
+                    rows="3" columns="5" placeholder="What's the cool idea behind this stuff?"
+                    ref="description">{{ this.work.description }}</textarea>
+            </fieldset>
+
+            <fieldset class="border-2 p-1 border-gray-800 dark:border-gray-200">
                 <legend class="text-xs text-gray-800 dark:text-gray-200">Tags</legend>
                 <textarea class="outline-none w-full bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none"
-                    rows="5" columns="5" placeholder="Tags (separated by commas)" ref="tags">{{ this.work.tags }}</textarea>
+                    rows="3" columns="5" placeholder="Tags (separated by commas)" ref="tags">{{ this.work.tags }}</textarea>
             </fieldset>
 
             <RippleButton @click="submit" :buttonText="'Save changes'" type="button"
@@ -73,6 +80,7 @@ export default {
                 category => category.name == this.$refs.categories.value)
             const artCategoryID = artCategory.id
             const tags = this.$refs.tags.value
+            const description = this.$refs.description.value
 
             console.log("title: " + title)
             console.log("category ID: " + artCategoryID)
@@ -89,6 +97,7 @@ export default {
             const data = JSON.stringify({
                 'title': title,
                 'category': artCategoryID,
+                'description': description,
                 'tags': tags
             })
 
