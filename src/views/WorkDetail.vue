@@ -62,7 +62,7 @@
                     <p>{{ this.work.description }}</p>
                 </div>
                 <!-- <p class="mt-3">Published September 01, 2023</p> -->
-                <p class="mt-3">Published: {{ this.work.date_published }}</p>
+                <p class="mt-3">Published: {{ new Date(this.work.date_published).toDateString() }}</p>
                 <div class="py-5 mt-5 space-x-4" style="border-top-width: 1px;">
                     <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-eye-lined.svg" alt="">{{
                         this.numberFormat(this.work.views) }}</span>
