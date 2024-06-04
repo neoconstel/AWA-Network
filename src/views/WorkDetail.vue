@@ -308,19 +308,34 @@ export default {
         }
     },
     async mounted() {
+        // stuffs that should be executed only at page initial load
         console.log('workdetail view mounted')
         this.dataStore.currentView = this.$options.name
 
         // scroll to top
-        this.$nextTick(() => {
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-            }, 100)
-        })
+        // this.$nextTick(() => {
+        //     setTimeout(() => {
+        //         window.scrollTo(0, 0);
+        //     }, 100)
+        // })
+    },
+    watch: {
+        // stuffs that should be re-fetched or re-executed if something changes
 
-        this.fetchArtwork(this.$route.params.id)
-        this.fetchArtworkReactions(this.$route.params.id)
-        this.fetchArtworkComments(this.$route.params.id)
+        '$route.params.id': {
+            immediate: true,
+            handler(newVal) {
+                // scroll to top
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 100)
+
+                this.fetchArtwork(this.$route.params.id)
+                this.fetchArtworkReactions(this.$route.params.id)
+                this.fetchArtworkComments(this.$route.params.id)
+
+            }
+        }
     }
 }
 
