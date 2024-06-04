@@ -115,7 +115,8 @@ export default {
         return {
             "work": {},
             "reactionData": {},
-            "commentData": {}
+            "commentData": {},
+            "otherWorks": []
         }
     },
     computed: {
@@ -137,6 +138,8 @@ export default {
                     this.work = data
                     this.dataStore.work = data
                     console.log(this.work)
+
+                    this.fetchOtherWorks()
                 }
                 )
                 .catch((error) => {
@@ -275,6 +278,34 @@ export default {
             else
                 return '>trillions'
         },
+        async fetchOtherWorks() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artworks/?page_size=50&search=${this.work.artist.user.username}&filter=artist&random_sample=true&random_sample_size=4`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'GET',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    this.otherWorks = data['results']
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        }
     },
     async mounted() {
         console.log('workdetail view mounted')
