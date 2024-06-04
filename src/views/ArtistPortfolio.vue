@@ -4,7 +4,7 @@
             <div class="grid pl-16 pr-24" style="grid-template-rows: 5fr 3fr;">
                 <div class="grid pt-10" style="grid-template-columns: 2fr 5fr;">
                     <div class="" style="aspect-ratio: 1/1;">
-                        <img class="w-full h-full rounded-full" src="https://i.imgur.com/40qCewV.jpg" alt="">
+                        <img class="w-full h-full rounded-full" :src="this.artist.user.profile_image" alt="">
                     </div>
                     <div class="pl-20 text-gray-800 dark:text-gray-200">
                         <h3>{{ this.artist.user.name }}</h3>
