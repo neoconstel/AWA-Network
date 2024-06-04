@@ -51,7 +51,7 @@
         <div class="side-panel px-10 bg-gray-500 dark:bg-gray-700">
             <section class="artwork-info">
                 <div>
-                    <img class="inline-block w-14 h-14 rounded-full m-4" src="https://i.imgur.com/40qCewV.jpg" alt="">
+                    <img class="inline-block w-14 h-14 rounded-full m-4" :src="this.work.artist.user.profile_image" alt="">
                     <RouterLink v-if="this.work.user" @click="storeWork"
                         :to="`/artistPortfolio/${this.work.user.username}`">
                         <h3 class="inline text-cyan-500 hover:text-gray-100">{{ this.work.artist.user.name }}</h3>
