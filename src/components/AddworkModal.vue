@@ -18,7 +18,10 @@
                 </datalist>
             </div>
 
-            <textarea class="outline-gray-300 outline-none outline-2" rows="5" columns="5"
+            <textarea class="outline-gray-300 outline-none outline-2" rows="3" columns="5"
+                placeholder="Describe the cool idea behind this stuff" ref="description"></textarea>
+
+            <textarea class="outline-gray-300 outline-none outline-2" rows="3" columns="5"
                 placeholder="Tags (separated by commas)" ref="tags"></textarea>
 
             <input
@@ -61,6 +64,7 @@ export default {
             const artCategory = this.artCategories.find(
                 category => category.name == this.$refs.categories.value)
             const artCategoryID = artCategory.id
+            const description = this.$refs.description.value
             const tags = this.$refs.tags.value
             const file = this.$refs.fileInput.files[0]
 
@@ -73,6 +77,7 @@ export default {
             const formData = new FormData()
             formData.append('title', title)
             formData.append('category', artCategoryID)
+            formData.append('description', description)
             formData.append('tags', tags)
             formData.append('file_type', 'image') // TODO: set this from the form
             formData.append('file', file)
