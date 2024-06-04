@@ -73,16 +73,16 @@
                 </div>
             </section>
             <aside class="extras">
-                <h3 v-if="this.work.id">More from {{ this.work.artist.user.name }}</h3>
-                <div class="grid grid-cols-2 grid-rows-2 gap-2 my-5">
-                    <a href=""><img class="aspect-square w-30 object-cover" src="https://i.imgur.com/40qCewV.jpg"
-                            alt=""></a>
-                    <a href=""><img class="aspect-square w-30 object-cover" src="https://i.imgur.com/40qCewV.jpg"
-                            alt=""></a>
-                    <a href=""><img class="aspect-square w-30 object-cover" src="https://i.imgur.com/40qCewV.jpg"
-                            alt=""></a>
-                    <a href=""><img class="aspect-square w-30 object-cover" src="https://i.imgur.com/40qCewV.jpg"
-                            alt=""></a>
+                <h3 v-if="this.work.id && this.otherWorks.length > 0">More from {{ this.work.artist.user.name }}</h3>
+
+                <!-- intentionally didn't set a grid-row, so if the images are few, they 
+                fit into a single row but if they surpass the width for a single row, the
+                new ones are fitted into a new row visually-->
+                <div v-if="this.otherWorks.length > 0" class="grid grid-cols-2 gap-2 my-5">
+                    <template v-for="(otherWork, index) in this.otherWorks" :key="index">
+                        <RouterLink :to="`/artwork/${otherWork.id}`"><img class="aspect-square w-30 object-cover"
+                                :src="otherWork.file_url" alt=""></RouterLink>
+                    </template>
                 </div>
                 <div class="grid grid-cols-4">
                     <a href=""><img class="aspect-square w-30 object-cover" src="/static/icons/iconmonstr-facebook-1.svg"
