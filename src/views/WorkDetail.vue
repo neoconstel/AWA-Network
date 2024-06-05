@@ -19,7 +19,7 @@
                         <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
                         <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
                             <ThumbuppaintedIcon @click="unreact('like')"
-                                v-if="this.reactionData.user_reactions.includes('like')"
+                                v-if="this.reactionData.user_reactions && this.reactionData.user_reactions.includes('like')"
                                 class="inline h-14 w-14 fill-cyan-800 dark:fill-cyan-200" />
                             <ThumbupIcon @click="react('like')" v-else
                                 class="inline h-14 w-14 fill-gray-800 dark:fill-gray-200" />
@@ -50,10 +50,9 @@
         </div>
         <div class="side-panel px-10 bg-gray-500 dark:bg-gray-700">
             <section class="artwork-info">
-                <div>
+                <div v-if="this.work.id">
                     <img class="inline-block w-14 h-14 rounded-full m-4" :src="this.work.artist.user.profile_image" alt="">
-                    <RouterLink v-if="this.work.user" @click="storeWork"
-                        :to="`/artistPortfolio/${this.work.user.username}`">
+                    <RouterLink @click="storeWork" :to="`/artistPortfolio/${this.work.artist.user.username}`">
                         <h3 class="inline text-cyan-500 hover:text-gray-100">{{ this.work.artist.user.name }}</h3>
                     </RouterLink>
                 </div>
@@ -306,6 +305,7 @@ export default {
                     console.log('error', error)
                 })
         }
+
     },
     async mounted() {
         // stuffs that should be executed only at page initial load
