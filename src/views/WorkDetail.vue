@@ -14,9 +14,9 @@
             <section class="comments-section" style="border-top-width: 1px; border-color: gray;">
                 <form v-if="this.dataStore.user.id && this.work.id" class="flex flex-col space-y-2" action="">
                     <label class="text-gray-800 dark:text-gray-200" id="comment" for="comment">Add a new comment</label>
-                    <Textarea class="text-gray-800" rows="5" name="comment"></Textarea>
+                    <Textarea class="text-gray-800" rows="5" name="comment" ref="commentBox"></Textarea>
                     <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
-                        <RippleButton class="w-32 text-yellow-300" :buttonText="'Comment'" />
+                        <RippleButton @click.prevent="submitComment" class="w-32 text-yellow-300" :buttonText="'Comment'" />
                         <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
                             <ThumbuppaintedIcon @click="unreact('like')"
                                 v-if="this.reactionData.user_reactions && this.reactionData.user_reactions.includes('like')"
@@ -304,6 +304,55 @@ export default {
                     this.errorMessage = error
                     console.log('error', error)
                 })
+        },
+        async commentOnArtwork(content, parent_comment_id) {
+            /**
+             * this method simply handles the comment request, and is separate 
+             * from the UI. In otherwords, a UI element gets the content to be
+             * commented and passes it to this method to do the actual request.
+             */
+
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/comments/artwork/1544/?parent_comment=${parent_comment_id}&content=${content}`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    // console.log(data)
+                    this.$data.commentData.results.splice(0, 0, data)
+                }
+                )
+                .catch((error) => {
+                    console.log('error', error)
+                })
+        },
+        async submitComment(event, parent_comment_id) {
+            /** Just like python's 'SELF' conventional keyword, 'event' is used
+             * here as the first-place argument to catch event data, since this
+             * method is meant to be called by UI events (button click)
+             */
+
+            if (parent_comment_id == undefined)
+                parent_comment_id = ""
+
+            const commentBox = this.$refs.commentBox
+            let content = commentBox.value
+
+            this.commentOnArtwork(content, parent_comment_id)
+            // alert(`parent_id: ${parent_comment_id}\n content: ${content}`)
         }
 
     },
