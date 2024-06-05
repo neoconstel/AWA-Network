@@ -351,7 +351,8 @@ export default {
             const commentBox = this.$refs.commentBox
             let content = commentBox.value
 
-            this.commentOnArtwork(content, parent_comment_id)
+            if (comment.length > 0)
+                this.commentOnArtwork(content, parent_comment_id)
             // alert(`parent_id: ${parent_comment_id}\n content: ${content}`)
         }
 
