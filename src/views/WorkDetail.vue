@@ -16,7 +16,8 @@
                     <label class="text-gray-800 dark:text-gray-200" id="comment" for="comment">Add a new comment</label>
                     <Textarea class="text-gray-800" rows="5" name="comment" ref="commentBox"></Textarea>
                     <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
-                        <RippleButton @click.prevent="submitComment" class="w-32 text-yellow-300" :buttonText="'Comment'" />
+                        <RippleButton @click.prevent="submitComment" class="w-32 text-yellow-300" for="commentBox"
+                            :buttonText="'Comment'" />
                         <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
                             <ThumbuppaintedIcon @click="unreact('like')"
                                 v-if="this.reactionData.user_reactions && this.reactionData.user_reactions.includes('like')"
@@ -305,11 +306,15 @@ export default {
                     console.log('error', error)
                 })
         },
-        async commentOnArtwork(content, parent_comment_id) {
+        async commentOnArtwork(foreignEvent, content, parent_comment_id) {
             /**
              * this method simply handles the comment request, and is separate 
              * from the UI. In otherwords, a UI element gets the content to be
              * commented and passes it to this method to do the actual request.
+             * 
+             * the 'foreignEvent' argument connects this method with the UI
+             * element which initiated the event, so that it can signal back
+             * to the UI element what to do after the request is successful.
              */
 
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/comments/artwork/1544/?parent_comment=${parent_comment_id}&content=${content}`
@@ -333,6 +338,10 @@ export default {
                 .then((data) => {
                     // console.log(data)
                     this.$data.commentData.results.splice(0, 0, data)
+
+                    // clear text box associated with submit button
+                    const commentBox = this.$refs[foreignEvent.srcElement.getAttribute("for")]
+                    commentBox.value = ""
                 }
                 )
                 .catch((error) => {
@@ -340,20 +349,37 @@ export default {
                 })
         },
         async submitComment(event, parent_comment_id) {
-            /** Just like python's 'SELF' conventional keyword, 'event' is used
+            /**
+             * This method is designed to be used for any comment box (main
+             * comment or reply), so long as the comment box is linked to its
+             * submit button via a 'for' attribute on the submit button which
+             * has the same value as the 'ref' attribute of the comment box.
+             * 
+             * Just like python's 'SELF' conventional keyword, 'event' is used
              * here as the first-place argument to catch event data, since this
              * method is meant to be called by UI events (button click)
+             * 
+             * example usage of this method in @click:
+             * @click="submitComment"   // no parent_comment_id (main comment)
+             * @click="submitComment(367)"  // parent_comment_id=367 (reply)
              */
 
             if (parent_comment_id == undefined)
                 parent_comment_id = ""
 
-            const commentBox = this.$refs.commentBox
+            /** the submit button has a 'for' attribute equal to the 'ref'
+             * attribute of the comment box it is meant to submit
+             * 
+             * e.g:
+             * ref="commentBox"     // comment box
+             * for="commentBox"     // submit button for comment box
+             */
+            const commentBox = this.$refs[event.srcElement.getAttribute("for")]
             let content = commentBox.value
 
-            if (comment.length > 0)
-                this.commentOnArtwork(content, parent_comment_id)
-            // alert(`parent_id: ${parent_comment_id}\n content: ${content}`)
+            if (content.length > 0) {
+                this.commentOnArtwork(event, content, parent_comment_id)
+            }
         }
 
     },
