@@ -1,6 +1,6 @@
 <template>
     <div class="bg-gray-300 dark:bg-gray-800 text-gray-800 dark:text-gray-200 inline-block pt-4 pb-3 text-center">
-        <img class="w-14 h-14 rounded-full mx-auto" :src="this.artist.user.profile_image" alt="">
+        <img class="w-14 h-14 rounded-full mx-auto" :src="profileImage" alt="profile_pic">
         <RouterLink class="text-cyan-700 dark:text-cyan-500 hover:text-pink-700 dark:hover:text-gray-100"
             :to="`/artistPortfolio/${this.artist.user.username}/`">{{ this.artist.user.name }}
         </RouterLink>
@@ -17,6 +17,11 @@
 </template>
 <script>
 
+
+// state management
+import { mapStores } from 'pinia'; // mapStores gives us access to the state
+import useDataStore from '@/stores/states'; // convention: use<storeID>Store
+
 export default {
 
     name: 'ArtistCard',
@@ -25,7 +30,13 @@ export default {
         'artPlaceholder': Object
     },
     computed: {
-
+        ...mapStores(useDataStore),
+        profileImage() {
+            if (this.artist.user.profile_image)
+                return this.artist.user.profile_image
+            else
+                return this.dataStore.siteConfigs.default_profile_image_url
+        }
     },
     data() {
         return {
