@@ -52,7 +52,7 @@
         <div class="side-panel px-10 bg-gray-500 dark:bg-gray-700">
             <section class="artwork-info">
                 <div v-if="this.work.id">
-                    <img class="inline-block w-14 h-14 rounded-full m-4" :src="this.work.artist.user.profile_image" alt="">
+                    <img class="inline-block w-14 h-14 rounded-full m-4" :src="profileImage" alt="profile_image">
                     <RouterLink @click="storeWork" :to="`/artistPortfolio/${this.work.artist.user.username}`">
                         <h3 class="inline text-cyan-500 hover:text-gray-100">{{ this.work.artist.user.name }}</h3>
                     </RouterLink>
@@ -121,6 +121,12 @@ export default {
     },
     computed: {
         ...mapStores(useDataStore),
+        profileImage() {
+            if (this.work.artist.user.profile_image)
+                return this.work.artist.user.profile_image
+            else
+                return this.dataStore.siteConfigs.default_profile_image_url
+        }
     },
     methods: {
         storeWork() {
