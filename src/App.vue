@@ -172,8 +172,7 @@ export default {
     return {
       'showFooter': false,
       'showUserMenu': false,
-      'navLinks': [],
-      'siteConfigurations': {}
+      'navLinks': []
     }
   },
   computed: {
@@ -247,7 +246,7 @@ export default {
       const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/siteconfigs/`
       const siteConfigurations = await fetch(url)
         .then(response => response.json())
-        .then(data => this.siteConfigurations = data)
+        .then(data => this.dataStore.siteConfigs = data)
         .catch(error => console.log(error))
     }
   },
