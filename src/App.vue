@@ -172,7 +172,8 @@ export default {
     return {
       'showFooter': false,
       'showUserMenu': false,
-      'navLinks': []
+      'navLinks': [],
+      'siteConfigurations': {}
     }
   },
   computed: {
@@ -242,6 +243,13 @@ export default {
       this.navLinks = siteLinks
 
     },
+    async fetchSiteConfigurations() {
+      const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/siteconfigs/`
+      const siteConfigurations = await fetch(url)
+        .then(response => response.json())
+        .then(data => this.siteConfigurations = data)
+        .catch(error => console.log(error))
+    }
   },
   mounted() {
 
@@ -261,6 +269,9 @@ export default {
 
     // fetch site navigation links from CMS
     this.fetchSiteCMS()
+
+    // fetch site settings
+    this.fetchSiteConfigurations()
 
     // verify login credentials. If invalid, delete user data
     this.loginCheck()
