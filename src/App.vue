@@ -55,7 +55,7 @@
       </span>
       <div v-if="this.dataStore.user.id && showUserMenu"
         class="bg-gray-700 opacity-90 text-gray-300 h-72 w-1/3 absolute right-20 top-full px-5">
-        <img class="w-1/4 aspect-square rounded-full mx-auto my-5" :src="this.dataStore.user.profile_image" alt="">
+        <img class="w-1/4 aspect-square rounded-full mx-auto my-5" :src="profileImage" alt="">
         <h3 class="text-center">{{ this.dataStore.user.name }}</h3>
         <p class="text-xs text-center">{{ this.dataStore.user.username }}</p>
         <hr class="my-2" />
@@ -176,7 +176,13 @@ export default {
     }
   },
   computed: {
-    ...mapStores(useDataStore)
+    ...mapStores(useDataStore),
+    profileImage() {
+      if (this.dataStore.user.profile_image)
+        return this.dataStore.user.profile_image
+      else
+        return this.dataStore.siteConfigs.default_profile_image_url
+    }
   },
   methods: {
     toggleFooter() {
