@@ -102,6 +102,11 @@ const fixedRoutes = [
     name: "userInfo",
     component: () => import("../views/UserInfo.vue"),
   },
+  {
+    path: "/review/:id",
+    name: "reviewDetail",
+    component: () => import("../views/ReviewDetail.vue"),
+  },
 ];
 
 const mergedRoutes = fixedRoutes.concat(wagtailPagesRoutes);
