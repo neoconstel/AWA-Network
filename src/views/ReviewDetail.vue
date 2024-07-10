@@ -16,7 +16,7 @@
         </section>
         <section class="body space-y-5">
             <p class="text-center">{{ review.content }}</p>
-            <div class="body-media [&>*]:mx-auto">
+            <div v-if="review.body_media_type != null" class="body-media [&>*]:mx-auto">
                 <img v-if="review.body_media_type == 'image'" class="w-full aspect-video" width="800" height="470"
                     :src="review.body_media_url" alt="review caption image">
                 <video v-else class="" width="800" height="470" controls>
