@@ -1,33 +1,16 @@
 <template>
-    <section v-if="reviews[0]" class="main space-y-5 mx-48 text-gray-800 dark:text-gray-200 mb-36">
-        <section class="header">
-            <div class="caption my-5">
-                <h3 class="text-center">Review:</h3>
-                <h1 class="text-8xl text-center">{{ reviews[0].title }}</h1>
-                <p class="text-center text-sm">Richard Miller | June 30, 2024</p>
+    <section class="mt-10 mx-10">
+        <h1 class="text-7xl text-gray-800 dark:text-gray-300 mx-5">Our Exclusive Reviews</h1>
+        <div class="grid grid-cols-5 gap-5 mx-5 mt-5 text-gray-800 dark:text-gray-200 mb-36">
+            <div v-for="(review_, index) in reviews" class="reviews" :key="index">
+                <ReviewCard :review="review_" />
             </div>
-            <div class="caption-media [&>*]:mx-auto">
-                <img v-if="reviews[0].caption_media_type == 'image'" class="w-full aspect-video"
-                    :src="reviews[0].caption_media_url" alt="review caption image">
-                <video v-else class="" width="800" height="470" controls>
-                    <source :src="reviews[0].caption_media_url" type="video/mp4">
-                </video>
-            </div>
-        </section>
-        <section class="body space-y-5">
-            <p class="text-center">{{ reviews[0].content }}</p>
-            <div class="body-media [&>*]:mx-auto">
-                <img v-if="reviews[0].body_media_type == 'image'" class="w-full aspect-video" width="800" height="470"
-                    :src="reviews[0].body_media_url" alt="review caption image">
-                <video v-else class="" width="800" height="470" controls>
-                    <source :src="reviews[0].body_media_url" type="video/mp4">
-                </video>
-            </div>
-        </section>
+        </div>
     </section>
 </template>
 
 <script>
+import ReviewCard from "@/components/ReviewCard.vue"
 
 // state management
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
@@ -36,7 +19,7 @@ import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 export default {
     name: 'Reviews',
     components: {
-
+        ReviewCard
     },
     data() {
         return {
