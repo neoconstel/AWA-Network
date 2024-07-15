@@ -123,6 +123,7 @@
   <DeleteprojectModal />
   <ForgotpasswordModal />
   <RemovelikeModal />
+  <AddreviewModal />
 </template>
 
 <script>
@@ -139,6 +140,7 @@ import EditworkModal from "@/components/EditworkModal.vue"
 import DeleteprojectModal from "@/components/DeleteprojectModal.vue"
 import RemovelikeModal from "@/components/RemovelikeModal.vue"
 import ForgotpasswordModal from "@/components/ForgotpasswordModal.vue"
+import AddreviewModal from "@/components/AddreviewModal.vue"
 
 
 // state management
@@ -166,7 +168,8 @@ export default {
     EditworkModal,
     DeleteprojectModal,
     RemovelikeModal,
-    ForgotpasswordModal
+    ForgotpasswordModal,
+    AddreviewModal
   },
   data() {
     return {
