@@ -8,7 +8,8 @@
                 This is the body text preview This is the body text preview
             </p>
             <p class="ml-3">
-                <RouterLink class="text-gray-200 dark:text-cyan-500 hover:text-pink-700 dark:hover:text-gray-100" :to="``">
+                <RouterLink class="text-gray-200 dark:text-cyan-500 hover:text-pink-700 dark:hover:text-gray-100"
+                    :to="`/review/${review.id}/`">
                     ...See more
                 </RouterLink>
             </p>
