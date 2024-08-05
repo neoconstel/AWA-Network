@@ -24,17 +24,21 @@
             <textarea class="outline-gray-300 outline-none outline-2" rows="3" columns="5"
                 placeholder="Tags (separated by commas)" ref="tags"></textarea>
 
-            <label for="formFile" class="text-gray-700 dark:text-gray-300 outline outline-1 p-0.5">Caption
-                image*</label>
-            <input
-                class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-gray-800 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-gray-800 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-gray-800 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
-                type="file" id="formFile" accept="image/*" style="display: none" ref="fileInput" />
+            <label for="formFile1" class="text-gray-700 dark:text-gray-300 outline outline-1 p-0.5">{{
+                captionMediaLabel
+                }}</label>
 
-            <label for="formFile2" class="text-gray-700 dark:text-gray-300 outline outline-1 p-0.5">Body image/video
-                (optional)</label>
-            <input
+            <input @change="onSelectCaptionMedia"
                 class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-gray-800 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-gray-800 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-gray-800 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
-                type="file" id="formFile2" accept="image/*,video/*" style="display: none" ref="fileInput2" />
+                style="display: none" type="file" id="formFile1" accept="image/*" ref="fileInput" />
+
+            <label for="formFile2" class="text-gray-700 dark:text-gray-300 outline outline-1 p-0.5">{{
+                bodyMediaLabel
+                }}</label>
+
+            <input @change="onSelectBodyMedia"
+                class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-gray-800 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-gray-800 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-gray-800 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                style="display: none" type="file" id="formFile2" accept="image/*,video/*" ref="fileInput2" />
 
             <RippleButton @click="submit" :buttonText="'Upload'" type="button"
                 class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
@@ -56,8 +60,14 @@ export default {
     data() {
         return {
             'artCategories': [],
-            'errorMessage': ''
+            'errorMessage': '',
+            'captionMediaLabel': '',
+            'bodyMediaLabel': '',
+            'defaultCaptionMediaLabel': 'Select Caption Image*',
+            'defaultBodyMediaLabel': 'Select Body Image/Video (optional)'
         }
+    },
+    computed: {
     },
     methods: {
         async getArtCategories() {
@@ -150,9 +160,29 @@ export default {
                         this.errorMessage = 'fill in the fields and try again'
                 })
                 .catch(error => this.errorMessage = error)
+        },
+        onSelectCaptionMedia() {
+            let captionMediaFile = null
+            if (this.$refs.fileInput != undefined && this.$refs.fileInput.files.length > 0) {
+                captionMediaFile = this.$refs.fileInput.files[0]
+                this.captionMediaLabel = captionMediaFile.name
+            }
+            else
+                this.captionMediaLabel = this.defaultCaptionMediaLabel
+        },
+        onSelectBodyMedia() {
+            let bodyMediaFile = null
+            if (this.$refs.fileInput2.files.length > 0) {
+                bodyMediaFile = this.$refs.fileInput2.files[0]
+                this.bodyMediaLabel = bodyMediaFile.name
+            }
+            else
+                this.bodyMediaLabel = this.defaultBodyMediaLabel
         }
     },
     mounted() {
+        this.captionMediaLabel = this.defaultCaptionMediaLabel
+        this.bodyMediaLabel = this.defaultBodyMediaLabel
         this.getArtCategories()
     }
 }
