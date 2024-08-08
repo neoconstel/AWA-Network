@@ -1,6 +1,6 @@
 <template>
-    <h1>User Info</h1>
-    <div v-if="this.dataStore.user.id">
+    <h1 class="text-gray-800 dark:text-gray-200">User Info</h1>
+    <div v-if="this.dataStore.user.id" class="text-gray-800 dark:text-gray-200">
         <!-- <p>username: {{ this.dataStore.user.username }}</p>
         <p>userID: {{ this.dataStore.user.id }}</p> -->
         <p>User: {{ this.dataStore.user }}</p>
