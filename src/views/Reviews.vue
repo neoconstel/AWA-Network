@@ -1,6 +1,6 @@
 <template>
     <section class="mt-10 mx-10">
-        <div v-if="this.dataStore.user.is_reviewer" class="sticky inline top-36 z-10 ml-5">
+        <div v-if="this.dataStore.user.groups.includes('Reviewers')" class="sticky inline top-36 z-10 ml-5">
             <a data-te-toggle="modal" data-te-target="#addReviewModal" @click.prevent="" href=""><svg
                     class="h-16 inline fill-gray-800 dark:fill-gray-200" clip-rule="evenodd" fill-rule="evenodd"
                     stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
