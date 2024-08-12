@@ -4,11 +4,11 @@
             <div class="caption my-5">
                 <h3 class="text-center">Review:</h3>
                 <h1 class="text-8xl text-center">{{ review.title }}</h1>
-                <p class="text-center text-sm">Richard Miller | June 30, 2024</p>
+                <p class="text-center text-sm">{{ review.user.name }} | {{ review.date_published }}</p>
             </div>
             <div class="caption-media [&>*]:mx-auto">
-                <img v-if="review.caption_media_type == 'image'" class="w-full aspect-video" :src="review.caption_media_url"
-                    alt="review caption image">
+                <img v-if="review.caption_media_type == 'image'" class="w-full aspect-video"
+                    :src="review.caption_media_url" alt="review caption image">
                 <video v-else class="" width="800" height="470" controls>
                     <source :src="review.caption_media_url" type="video/mp4">
                 </video>

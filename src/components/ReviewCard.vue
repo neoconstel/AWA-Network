@@ -7,8 +7,8 @@
 
         <div class="bg-gray-500 dark:bg-gray-900 flex-grow rounded-b-3xl grid px-2"
             style="grid-template-rows: 2fr 7fr 1fr;">
-            <h2 class="text-2xl my-auto">{{ review.title }}</h2>
-            <p class="mt-3">{{ review.content.slice(0, 250) }}
+            <h2 class="text-2xl my-auto">{{ review.title.slice(0, 40) + (review.title.length > 36 ? '...' : '') }}</h2>
+            <p class="mt-3">{{ review.content.slice(0, 200) + (review.content.length > 200 ? '...' : '') }}
             </p>
             <p class="ml-3">
                 <RouterLink class="text-gray-200 dark:text-cyan-500 hover:text-pink-700 dark:hover:text-gray-100"
