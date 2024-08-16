@@ -4,8 +4,8 @@
             <div>
                 <Carousel v-if="this.carouselImages.length > 1" :images="this.carouselImages" />
             </div>
-            <div class="bg-gray-400 dark:bg-gray-600 grid" style="grid-template-rows: 30px 1fr;">
-                <p class="text-center my-auto text-gray-800 dark:text-gray-200">{{ this.spotlightCaption }}</p>
+            <div class="bg-gray-400 dark:bg-gray-600 grid" style="grid-template-rows: 50px 1fr;">
+                <p class="text-center my-auto text-gray-800 dark:text-gray-200 text-2xl">{{ this.spotlightCaption }}</p>
                 <div>
                     <RouterLink :to="`/artwork/${this.spotlightArt.id}`">
                         <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;"
