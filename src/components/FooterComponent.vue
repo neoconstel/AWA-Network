@@ -112,7 +112,7 @@
             <!-- Links section -->
             <div class="grid md:grid-cols-2 lg:grid-cols-4">
                 <div class="mb-6">
-                    <h5 class="mb-2.5 font-bold uppercase">Links</h5>
+                    <h5 class="mb-2.5 font-bold uppercase">Foundation</h5>
 
                     <ul class="mb-0 list-none">
                         <li>

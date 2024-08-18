@@ -28,8 +28,10 @@
             <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="15"
                 :maxWorks="15" @bottom-reached="addMoreWorks" />
         </section>
-        <section>
-            <div class="grid grid-cols-2 bg-gray-400 pt-16 pb-10 px-7">
+        <section class="tv">
+            <div class="grid grid-cols-2 bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-200 pt-2 pb-2 px-7">
+                <h3 class="text-right text-4xl">AWA TV</h3>
+                <a class="block text-right" href="">More</a>
                 <div>
                     <img class="w-full" src="https://i.imgur.com/SLPdRb2.jpg" />
                 </div>
@@ -47,11 +49,86 @@
             <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="15" :stopIndex="30"
                 :maxWorks="30" @bottom-reached="addMoreWorks" />
         </section>
+        <section class="reviews mb-10">
+            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                <p class="grid grid-cols-2">
+                <h3 class="">Reviews</h3>
+                <a class="block text-right" href="">More</a>
+                </p>
+                <div class="grid grid-cols-4 gap-4">
+                    <template v-for="    i in 4   ">
+                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
+
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+        <section class="spotlight mb-10">
+            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                <p class="grid grid-cols-2">
+                <h3 class="">Spotlight</h3>
+                <a class="block text-right" href="">More</a>
+                </p>
+                <div class="grid grid-cols-4 gap-4">
+                    <template v-for="    i in 4   ">
+                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
+
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+        <section class="challenges mb-10">
+            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                <p class="grid grid-cols-2">
+                <h3 class="">Challenges</h3>
+                <a class="block text-right" href="">More</a>
+                </p>
+                <div class="grid grid-cols-4 gap-4">
+                    <template v-for="    i in 4   ">
+                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
+
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+        <section class="resources mb-10">
+            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                <p class="grid grid-cols-2">
+                <h3 class="">Resources</h3>
+                <a class="block text-right" href="">More</a>
+                </p>
+                <div class="grid grid-cols-4 gap-4">
+                    <template v-for="    i in 4   ">
+                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
+
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+        <section class="meetups mb-10">
+            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                <p class="grid grid-cols-2">
+                <h3 class="">Meetups</h3>
+                <a class="block text-right" href="">More</a>
+                </p>
+                <div class="grid grid-cols-4 gap-4">
+                    <template v-for="    i in 4   ">
+                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
+
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
         <section class="jobs">
-            <div class="bg-gray-400 p-4">
-                <p>
+            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                <p class="grid grid-cols-2">
                 <h3 class="inline">Featured Jobs</h3>
-                <a class="absolute right-4" href="">All Jobs</a>
+                <a class="block text-right" href="">All Jobs</a>
                 </p>
                 <div class="grid grid-cols-3 gap-4">
                     <template v-for="    i in 6   ">
