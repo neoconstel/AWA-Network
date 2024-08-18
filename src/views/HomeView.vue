@@ -56,9 +56,13 @@
                 <a class="block text-right" href="">More</a>
                 </p>
                 <div class="grid grid-cols-4 gap-4">
-                    <template v-for="    i in 4   ">
-                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
-
+                    <template v-for="(review, index) in reviews">
+                        <div class="relative grid bg-yellow-500">
+                            <RouterLink class="w-full h-full aspect-video" :to="`/review/${review.id}/`">
+                                <img class="h-full w-full object-cover" :src="review.caption_media_url" alt="">
+                            </RouterLink>
+                            <span class="absolute left-3 top-3 font-bold text-yellow-400">{{ review.title.slice(0, 40) +
+                                (review.title.length > 36 ? '...' : '') }}</span>
                         </div>
                     </template>
                 </div>
@@ -127,7 +131,7 @@
         <section class="jobs">
             <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
                 <p class="grid grid-cols-2">
-                <h3 class="inline">Featured Jobs</h3>
+                <h3 class="inline">Jobs</h3>
                 <a class="block text-right" href="">All Jobs</a>
                 </p>
                 <div class="grid grid-cols-3 gap-4">
@@ -176,7 +180,9 @@ export default {
             "worksFetchPage": 1,
             "carouselImages": [], // {url,caption}
             "spotlightArt": {}, // {id, url}
-            "spotlightCaption": ""
+            "spotlightCaption": "",
+
+            "reviews": []
         }
     },
     computed: {
@@ -238,6 +244,23 @@ export default {
             this.spotlightCaption = homePage.spotlight_caption
         },
 
+        async fetchReviews() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/reviews/`
+
+            fetch(url)
+                .then(response => response.json())
+                .then((data) => {
+                    // console.log(data)
+                    this.reviews.splice(this.reviews.length, 0, ...(data['results']))
+                    console.log(this.reviews)
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
+
     },
     async mounted() {
         console.log('home view mounted')
@@ -251,6 +274,7 @@ export default {
 
         this.fetchPageCMS()
         this.fetchWorks()
+        this.fetchReviews()
 
     }
 }

@@ -12,8 +12,8 @@
         </div>
         <h1 class="text-7xl text-gray-800 dark:text-gray-300 mx-5">Our Exclusive Reviews</h1>
         <div class="grid grid-cols-5 gap-5 mx-5 mt-5 text-gray-800 dark:text-gray-200 mb-36">
-            <div v-for="(review_, index) in reviews" class="reviews" :key="index">
-                <ReviewCard :review="review_" />
+            <div v-for="(review, index) in reviews" class="reviews" :key="index">
+                <ReviewCard :review="review" />
             </div>
         </div>
     </section>
