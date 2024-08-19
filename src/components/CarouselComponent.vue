@@ -1,5 +1,5 @@
 <template>
-    <div id="carouselExampleIndicators" class="relative" data-twe-carousel-init data-twe-carousel-slide>
+    <div id="carouselExampleIndicators" class="relative" data-twe-carousel-init data-twe-ride="carousel">
         <!--Carousel indicators-->
         <div class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
             data-twe-carousel-indicators>
@@ -7,10 +7,11 @@
                 data-twe-carousel-active
                 class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
                 aria-current="true" aria-label="Slide 1"></button>
+
             <template v-if="this.images.length >= 2" v-for="(image, index) in images.slice(1)" :key="index">
                 <button type="button" data-twe-target="#carouselExampleIndicators" :data-twe-slide-to="index + 1"
                     class="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
-                    aria-label="Slide 2"></button>
+                    :aria-label="`Slide ${index + 2}`"></button>
             </template>
         </div>
 

@@ -34,3 +34,5 @@ coverage
 
 # offline files for local dev/testing purposes
 offline
+*_old
+*_old.vue
