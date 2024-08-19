@@ -13,7 +13,8 @@
             <div v-if="this.artCategories.length && this.artCategory && this.artCategory.id">
                 <fieldset class="border-2 p-1 border-gray-800 dark:border-gray-200">
                     <legend class="text-xs text-gray-800 dark:text-gray-200">Categories</legend>
-                    <input class="outline-none w-full bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none"
+                    <input
+                        class="outline-none w-full bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none"
                         :value="this.artCategory.name" type="text" list="sub-topics" id="categories" placeholder=""
                         ref="categories" />
                 </fieldset>
@@ -27,19 +28,20 @@
             <fieldset class="border-2 p-1 border-gray-800 dark:border-gray-200">
                 <legend class="text-xs text-gray-800 dark:text-gray-200">Description</legend>
                 <textarea class="outline-none w-full bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none"
-                    rows="3" columns="5" placeholder="What's the cool idea behind this stuff?"
-                    ref="description">{{ this.work.description }}</textarea>
+                    rows="3" columns="5" placeholder="What's the cool idea behind this stuff?" ref="description">{{ this.work.description
+        }}</textarea>
             </fieldset>
 
             <fieldset class="border-2 p-1 border-gray-800 dark:border-gray-200">
                 <legend class="text-xs text-gray-800 dark:text-gray-200">Tags</legend>
                 <textarea class="outline-none w-full bg-transparent text-gray-800 dark:text-gray-200 focus:outline-none"
-                    rows="3" columns="5" placeholder="Tags (separated by commas)" ref="tags">{{ this.work.tags }}</textarea>
+                    rows="3" columns="5" placeholder="Tags (separated by commas)"
+                    ref="tags">{{ this.work.tags }}</textarea>
             </fieldset>
 
             <RippleButton @click="submit" :buttonText="'Save changes'" type="button"
                 class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                data-te-ripple-init data-te-ripple-color="light" data-te-modal-dismiss />
+                data-twe-ripple-init data-twe-ripple-color="light" data-twe-modal-dismiss />
         </form>
     </Modal>
 </template>
@@ -125,7 +127,7 @@ export default {
     mounted() {
         // add event listener for when this modal is shown
         const myModalEl = document.getElementById("editWorkModal");
-        myModalEl.addEventListener("shown.te.modal", (e) => {
+        myModalEl.addEventListener("shown.twe.modal", (e) => {
             this.work = this.dataStore.work
             this.artCategory = this.artCategories.find(
                 category => category.id == this.work.category)
@@ -133,7 +135,7 @@ export default {
         });
 
         // add event listener for when this modal is dismissed
-        myModalEl.addEventListener("hidden.te.modal", (e) => {
+        myModalEl.addEventListener("hidden.twe.modal", (e) => {
             this.work = {}
             console.log("EditworkModal dismissed")
         });

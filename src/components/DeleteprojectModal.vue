@@ -8,8 +8,8 @@
             </h3>
             <img class="w-32 aspect-square object-cover mx-auto" :src="this.work.file_url" alt="">
             <flex class="flex justify-center gap-10">
-                <RippleButton data-te-modal-dismiss class="w-24 inline" :buttonText="'Cancel'"></RippleButton>
-                <RippleButton @click="deleteWork" data-te-modal-dismiss
+                <RippleButton data-twe-modal-dismiss class="w-24 inline" :buttonText="'Cancel'"></RippleButton>
+                <RippleButton @click="deleteWork" data-twe-modal-dismiss
                     class="w-24 inline bg-red-600 hover:bg-red-700 text-yellow-300" :buttonText="'Delete'" />
             </flex>
         </div>
@@ -72,13 +72,13 @@ export default {
     mounted() {
         // add event listener for when this modal is shown
         const myModalEl = document.getElementById("deleteProjectModal");
-        myModalEl.addEventListener("shown.te.modal", (e) => {
+        myModalEl.addEventListener("shown.twe.modal", (e) => {
             this.work = this.dataStore.work
             console.log("DeleteprojectModal initialized")
         });
 
         // add event listener for when this modal is dismissed
-        myModalEl.addEventListener("hidden.te.modal", (e) => {
+        myModalEl.addEventListener("hidden.twe.modal", (e) => {
             this.work = {}
             console.log("DeleteprojectModal dismissed")
         });
