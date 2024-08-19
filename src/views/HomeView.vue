@@ -28,27 +28,29 @@
 
         <!-- collapse start -->
         <!-- <a class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-            data-twe-collapse-init data-twe-ripple-init data-twe-ripple-color="light" href="#collapseExample"
-            role="button" aria-expanded="false" aria-controls="collapseExample">
+            data-twe-collapse-init data-twe-ripple-init data-twe-ripple-color="light" href="#highlightsCollapseElement"
+            role="button" aria-expanded="false" aria-controls="highlightsCollapseElement">
             Link with href
-        </a>
-        <button
-            class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-            type="button" data-twe-collapse-init data-twe-ripple-init data-twe-ripple-color="light"
-            data-twe-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Button with data-twe-target
-        </button>
+        </a> -->
 
-        <div class="!visible hidden text-center" id="collapseExample" data-twe-collapse-item>
-            Some placeholder content for the collapse component. This panel is
-            hidden by default but revealed when the user activates the relevant
-            trigger.
-        </div> -->
+        <div class="text-center mb-24">
+            <button
+                class="w-1/3 h-24 inline-block rounded-full px-6 pb-2 pt-2.5 text-5xl font-medium leading-normal text-gray-300 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 hover:text-gray-400 dark:hover:text-gray-500 shadow-gray-900 dark:shadow-gray-100 shadow-2xl transition duration-150 ease-in-out hover:shadow-primary-2 focus:bg-gray-600 dark:focus:bg-gray-400 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:shadow-primary-2 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                type="button" data-twe-collapse-init data-twe-ripple-init data-twe-ripple-color="light"
+                data-twe-target="#highlightsCollapseElement" aria-expanded="false"
+                aria-controls="highlightsCollapseElement">HIGHLIGHTS
+            </button>
+        </div>
+
+        <div class="!visible hidden text-center" id="highlightsCollapseElement" data-twe-collapse-item>
+            <h1 class="text-9xl text-violet-700 font-bold italic">The Highlights Are Here!!!</h1>
+        </div>
         <!-- collapse end -->
 
+        <!-- this paragraph just serves as a horizontal line with custom colour/width -->
+        <p class="border-t-gray-300 dark:border-t-gray-700 w-9/12 mx-auto border-t-2"></p>
 
-
-        <section class="gallery">
+        <section class=" gallery">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="15"
                 :maxWorks="15" @bottom-reached="addMoreWorks" />
         </section>
