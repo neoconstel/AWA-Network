@@ -150,7 +150,7 @@ import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 import {
   Input as TailwindInput,
   Ripple,
-  initTE,
+  initTWE,
 } from "tw-elements";
 
 
@@ -261,7 +261,7 @@ export default {
   },
   mounted() {
 
-    initTE({ TailwindInput, Ripple });
+    initTWE({ TailwindInput, Ripple });
 
     this.$nextTick(() => {
       setTimeout(() => {

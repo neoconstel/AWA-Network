@@ -2,7 +2,7 @@
 // tailwind-elements initialization
 import {
     Ripple,
-    initTE,
+    initTWE,
 } from "tw-elements";
 
 export default {
@@ -19,7 +19,7 @@ export default {
         }
     },
     mounted() {
-        initTE({ Ripple });
+        initTWE({ Ripple });
     }
 }
 </script>

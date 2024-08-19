@@ -24,6 +24,30 @@
                         fill-rule="nonzero" />
                 </svg></a>
         </div>
+
+
+        <!-- collapse start -->
+        <a class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+            data-twe-collapse-init data-twe-ripple-init data-twe-ripple-color="light" href="#collapseExample"
+            role="button" aria-expanded="false" aria-controls="collapseExample">
+            Link with href
+        </a>
+        <button
+            class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+            type="button" data-twe-collapse-init data-twe-ripple-init data-twe-ripple-color="light"
+            data-twe-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Button with data-twe-target
+        </button>
+
+        <div class="!visible hidden text-center" id="collapseExample" data-twe-collapse-item>
+            Some placeholder content for the collapse component. This panel is
+            hidden by default but revealed when the user activates the relevant
+            trigger.
+        </div>
+        <!-- collapse end -->
+
+
+
         <section class="gallery">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="15"
                 :maxWorks="15" @bottom-reached="addMoreWorks" />
@@ -160,6 +184,14 @@
 </template>
 
 <script>
+// Initialization for ES Users
+import {
+    Collapse,
+    Ripple,
+    initTWE,
+} from "tw-elements";
+
+
 import Carousel from "@/components/CarouselComponent.vue"
 import WorksGallery from "@/components/WorksGallery.vue"
 
@@ -263,6 +295,9 @@ export default {
 
     },
     async mounted() {
+        initTWE({ Collapse, Ripple });
+
+
         console.log('home view mounted')
         this.dataStore.currentView = this.$options.name
 

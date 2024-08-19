@@ -2,7 +2,7 @@
 // tailwind-elements initialization
 import {
     Input,
-    initTE,
+    initTWE,
 } from "tw-elements";
 
 export default {
@@ -16,7 +16,7 @@ export default {
         }
     },
     mounted() {
-        initTE({ Input });
+        initTWE({ Input });
     }
 }
 </script>

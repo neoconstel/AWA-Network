@@ -203,7 +203,7 @@
 import {
     Input,
     Ripple,
-    initTE,
+    initTWE,
 } from "tw-elements";
 
 export default {
@@ -215,7 +215,7 @@ export default {
         }
     },
     mounted() {
-        initTE({ Input, Ripple });
+        initTWE({ Input, Ripple });
     }
 }
 </script>

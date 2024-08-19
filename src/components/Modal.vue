@@ -80,7 +80,7 @@ and then the triggering element must have this in its tag:
 import {
     Modal,
     Ripple,
-    initTE,
+    initTWE,
 } from "tw-elements";
 
 export default {
@@ -109,7 +109,7 @@ export default {
 
     },
     mounted() {
-        initTE({ Modal, Ripple });
+        initTWE({ Modal, Ripple });
     }
 }
 </script>

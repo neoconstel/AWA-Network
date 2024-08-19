@@ -62,7 +62,7 @@
 // tailwind-elements initialization
 import {
     Carousel,
-    initTE,
+    initTWE,
 } from "tw-elements";
 
 export default {
@@ -76,7 +76,7 @@ export default {
         }
     },
     mounted() {
-        initTE({ Carousel });
+        initTWE({ Carousel });
     }
 }
 </script>
