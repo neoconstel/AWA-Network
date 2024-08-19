@@ -7,7 +7,7 @@
                     <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 [&>span]:p-1 [&>span]:bg-gray-700">
                         <em class="text-gray-800 dark:text-gray-200">Tags</em>
                         <span v-if="this.work.tags" v-for="(tag, index) in this.work.tags.split(',')" key="index">{{ tag
-                        }}</span>
+                            }}</span>
                     </div>
                 </div>
             </main>
@@ -27,15 +27,16 @@
                         </button>
                         <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
                             this.numberFormat(this.reactionData.count)
-                        }}</span>
+                            }}</span>
                         <span
                             v-if="this.dataStore.user.id && this.work.id && this.work.artist.user.username == this.dataStore.user.username"
                             class="absolute right-0">
-                            <a @click.prevent="storeWork" href="" data-te-toggle="modal" data-te-target="#editWorkModal">
+                            <a @click.prevent="storeWork" href="" data-twe-toggle="modal"
+                                data-twe-target="#editWorkModal">
                                 <PencilIcon class="inline h-12 mr-5 fill-gray-800 dark:fill-gray-200" />
                             </a>
-                            <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300" :buttonText="'Delete'"
-                                data-te-toggle="modal" data-te-target="#deleteProjectModal" />
+                            <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300"
+                                :buttonText="'Delete'" data-twe-toggle="modal" data-twe-target="#deleteProjectModal" />
                         </span>
                     </div>
                 </form>
@@ -85,14 +86,14 @@
                     </template>
                 </div>
                 <div class="grid grid-cols-4">
-                    <a href=""><img class="aspect-square w-30 object-cover" src="/static/icons/iconmonstr-facebook-1.svg"
-                            alt=""></a>
-                    <a href=""><img class="aspect-square w-30 object-cover" src="/static/icons/iconmonstr-instagram-11.svg"
-                            alt=""></a>
+                    <a href=""><img class="aspect-square w-30 object-cover"
+                            src="/static/icons/iconmonstr-facebook-1.svg" alt=""></a>
+                    <a href=""><img class="aspect-square w-30 object-cover"
+                            src="/static/icons/iconmonstr-instagram-11.svg" alt=""></a>
                     <a href=""><img class="aspect-square w-30 object-cover" src="/static/icons/iconmonstr-twitter-1.svg"
                             alt=""></a>
-                    <a href=""><img class="aspect-square w-30 object-cover" src="/static/icons/iconmonstr-linkedin-1.svg"
-                            alt=""></a>
+                    <a href=""><img class="aspect-square w-30 object-cover"
+                            src="/static/icons/iconmonstr-linkedin-1.svg" alt=""></a>
                 </div>
             </aside>
         </div>

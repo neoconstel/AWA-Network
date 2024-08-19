@@ -92,7 +92,7 @@ export default {
                         this.$refs.logoutModal.close()
 
                         // // redirect or refresh
-                        // if (this.$routwe.name == 'someRouteName')
+                        // if (this.$route.name == 'someRouteName')
                         //     // go to logout redirect path
                         //     this.$router.push('/')
                         // else

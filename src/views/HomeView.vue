@@ -15,7 +15,7 @@
             </div>
         </div>
         <div v-if="this.dataStore.user.id" class="sticky inline top-36 z-10 ml-5">
-            <a data-te-toggle="modal" data-te-target="#addWorkModal" @click.prevent="" href=""><svg
+            <a data-twe-toggle="modal" data-twe-target="#addWorkModal" @click.prevent="" href=""><svg
                     class="h-16 inline fill-gray-800 dark:fill-gray-200" clip-rule="evenodd" fill-rule="evenodd"
                     stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +27,7 @@
 
 
         <!-- collapse start -->
-        <a class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+        <!-- <a class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
             data-twe-collapse-init data-twe-ripple-init data-twe-ripple-color="light" href="#collapseExample"
             role="button" aria-expanded="false" aria-controls="collapseExample">
             Link with href
@@ -43,7 +43,7 @@
             Some placeholder content for the collapse component. This panel is
             hidden by default but revealed when the user activates the relevant
             trigger.
-        </div>
+        </div> -->
         <!-- collapse end -->
 
 

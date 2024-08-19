@@ -224,7 +224,7 @@ export default {
                         this.dataStore.user = data['user']
 
                         // redirect or refresh
-                        if (this.$routwe.name == 'verifyEmail')
+                        if (this.$route.name == 'verifyEmail')
                             // go to home path
                             this.$router.push('/')
                         else

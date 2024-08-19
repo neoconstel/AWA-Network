@@ -2,7 +2,7 @@
     <h1>Email Verification</h1>
     <div v-if="this.success == true">
         <p>You have been verified, <span>{{ this.verified_user }}!</span></p>
-        <p>You may <span class="text-cyan-500" data-te-toggle="modal" data-te-target="#loginModal">
+        <p>You may <span class="text-cyan-500" data-twe-toggle="modal" data-twe-target="#loginModal">
                 <a @click.prevent="" href="">login</a></span> now</p>
     </div>
     <p v-if="!this.success">Invalid or Expired Verification Token</p>
