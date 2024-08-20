@@ -26,13 +26,7 @@
         </div>
 
 
-        <!-- collapse start -->
-        <!-- <a class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-            data-twe-collapse-init data-twe-ripple-init data-twe-ripple-color="light" href="#highlightsCollapseElement"
-            role="button" aria-expanded="false" aria-controls="highlightsCollapseElement">
-            Link with href
-        </a> -->
-
+        <!-- collapse start (highlights) -->
         <div class="text-center mb-24">
             <button
                 class="w-1/3 h-24 inline-block rounded-full px-6 pb-2 pt-2.5 text-5xl font-medium leading-normal text-gray-300 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 hover:text-gray-400 dark:hover:text-gray-500 shadow-gray-900 dark:shadow-gray-100 shadow-2xl transition duration-150 ease-in-out hover:shadow-primary-2 focus:bg-gray-600 dark:focus:bg-gray-400 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:shadow-primary-2 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
@@ -42,10 +36,135 @@
             </button>
         </div>
 
-        <div class="!visible hidden text-center" id="highlightsCollapseElement" data-twe-collapse-item>
-            <h1 class="text-9xl text-violet-700 font-bold italic">The Highlights Are Here!!!</h1>
+        <div class="!visible hidden" id="highlightsCollapseElement" data-twe-collapse-item>
+            <!-- <h1 class="text-9xl text-violet-700 font-bold italic">The Highlights Are Here!!!</h1> -->
+
+            <section class="tv">
+                <div
+                    class="grid grid-cols-2 bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-200 pt-2 pb-2 px-7 mb-12">
+                    <h3 class="text-right text-4xl">AWA TV</h3>
+                    <a class="block text-right" href="">More</a>
+                    <div>
+                        <img class="w-full" src="https://i.imgur.com/SLPdRb2.jpg" />
+                    </div>
+                    <div class="grid grid-rows-3 bg-gray-500 p-3 gap-x-8 gap-y-6"
+                        style="grid-template-columns: 1fr 2fr;">
+                        <div class="bg-pink-500"></div>
+                        <div class="bg-cyan-500"></div>
+                        <div class="bg-yellow-500"></div>
+                        <div class="bg-orange-500"></div>
+                        <div class="bg-blue-500"></div>
+                        <div class="bg-violet-500"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="reviews mb-10">
+                <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                    <p class="grid grid-cols-2">
+                    <h3 class="text-right text-4xl">Reviews</h3>
+                    <a class="block text-right" href="">More</a>
+                    </p>
+                    <div class="grid grid-cols-4 gap-4">
+                        <template v-for="(review, index) in reviews">
+                            <div class="relative grid bg-yellow-500">
+                                <RouterLink class="w-full h-full aspect-video" :to="`/review/${review.id}/`">
+                                    <img class="h-full w-full object-cover" :src="review.caption_media_url" alt="">
+                                </RouterLink>
+                                <span class="absolute left-3 top-3 font-bold text-yellow-400">{{ review.title.slice(0,
+                                    40) +
+                                    (review.title.length > 36 ? '...' : '') }}</span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+            <section class="spotlight mb-10">
+                <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                    <p class="grid grid-cols-2">
+                    <h3 class="text-right text-4xl">Spotlight</h3>
+                    <a class="block text-right" href="">More</a>
+                    </p>
+                    <div class="grid grid-cols-4 gap-4">
+                        <template v-for="    i in 4   ">
+                            <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
+
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+            <section class="challenges mb-10">
+                <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                    <p class="grid grid-cols-2">
+                    <h3 class="text-right text-4xl">Challenges</h3>
+                    <a class="block text-right" href="">More</a>
+                    </p>
+                    <div class="grid grid-cols-4 gap-4">
+                        <template v-for="    i in 4   ">
+                            <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
+
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+            <section class="resources mb-10">
+                <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                    <p class="grid grid-cols-2">
+                    <h3 class="text-right text-4xl">Resources</h3>
+                    <a class="block text-right" href="">More</a>
+                    </p>
+                    <div class="grid grid-cols-4 gap-4">
+                        <template v-for="    i in 4   ">
+                            <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
+
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+            <section class="meetups mb-10">
+                <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                    <p class="grid grid-cols-2">
+                    <h3 class="text-right text-4xl">Meetups</h3>
+                    <a class="block text-right" href="">More</a>
+                    </p>
+                    <div class="grid grid-cols-4 gap-4">
+                        <template v-for="    i in 4   ">
+                            <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
+
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+            <section class="jobs">
+                <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+                    <p class="grid grid-cols-2">
+                    <h3 class="inline text-right text-4xl">Jobs</h3>
+                    <a class="block text-right" href="">All Jobs</a>
+                    </p>
+                    <div class="grid grid-cols-3 gap-4">
+                        <template v-for="    i in 6   ">
+                            <div class="grid bg-gray-300 p-3"
+                                style="grid-template-columns: 2fr 7fr; aspect-ratio: 5/1;">
+                                <div><img style="width:100%; height:100%;" src="/static/icons/awa_logo.svg" /></div>
+                                <div>
+                                    <p>Bungle</p>
+                                    <h3 class="mb-4">VFX Lead</h3>
+                                    <p>Bellevue, WA, United States</p>
+                                    <p class="flex gap-2">
+                                        <RippleButton class="h-9 text-gray-900" :buttonText="'Permanent'" />
+                                        <RippleButton class="h-9 text-gray-900" :buttonText="'Relocation'" />
+                                    </p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
         </div>
-        <!-- collapse end -->
+        <!-- collapse end (highlights) -->
 
         <!-- this paragraph just serves as a horizontal line with custom colour/width -->
         <p class="border-t-gray-300 dark:border-t-gray-700 w-9/12 mx-auto border-t-2"></p>
@@ -54,130 +173,14 @@
             <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="15"
                 :maxWorks="15" @bottom-reached="addMoreWorks" />
         </section>
-        <section class="tv">
-            <div class="grid grid-cols-2 bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-200 pt-2 pb-2 px-7">
-                <h3 class="text-right text-4xl">AWA TV</h3>
-                <a class="block text-right" href="">More</a>
-                <div>
-                    <img class="w-full" src="https://i.imgur.com/SLPdRb2.jpg" />
-                </div>
-                <div class="grid grid-rows-3 bg-gray-500 p-3 gap-x-8 gap-y-6" style="grid-template-columns: 1fr 2fr;">
-                    <div class="bg-pink-500"></div>
-                    <div class="bg-cyan-500"></div>
-                    <div class="bg-yellow-500"></div>
-                    <div class="bg-orange-500"></div>
-                    <div class="bg-blue-500"></div>
-                    <div class="bg-violet-500"></div>
-                </div>
-            </div>
-        </section>
+
+
         <section class="gallery">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="15" :stopIndex="30"
                 :maxWorks="30" @bottom-reached="addMoreWorks" />
         </section>
-        <section class="reviews mb-10">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
-                <p class="grid grid-cols-2">
-                <h3 class="">Reviews</h3>
-                <a class="block text-right" href="">More</a>
-                </p>
-                <div class="grid grid-cols-4 gap-4">
-                    <template v-for="(review, index) in reviews">
-                        <div class="relative grid bg-yellow-500">
-                            <RouterLink class="w-full h-full aspect-video" :to="`/review/${review.id}/`">
-                                <img class="h-full w-full object-cover" :src="review.caption_media_url" alt="">
-                            </RouterLink>
-                            <span class="absolute left-3 top-3 font-bold text-yellow-400">{{ review.title.slice(0, 40) +
-                                (review.title.length > 36 ? '...' : '') }}</span>
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </section>
-        <section class="spotlight mb-10">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
-                <p class="grid grid-cols-2">
-                <h3 class="">Spotlight</h3>
-                <a class="block text-right" href="">More</a>
-                </p>
-                <div class="grid grid-cols-4 gap-4">
-                    <template v-for="    i in 4   ">
-                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
 
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </section>
-        <section class="challenges mb-10">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
-                <p class="grid grid-cols-2">
-                <h3 class="">Challenges</h3>
-                <a class="block text-right" href="">More</a>
-                </p>
-                <div class="grid grid-cols-4 gap-4">
-                    <template v-for="    i in 4   ">
-                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
 
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </section>
-        <section class="resources mb-10">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
-                <p class="grid grid-cols-2">
-                <h3 class="">Resources</h3>
-                <a class="block text-right" href="">More</a>
-                </p>
-                <div class="grid grid-cols-4 gap-4">
-                    <template v-for="    i in 4   ">
-                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
-
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </section>
-        <section class="meetups mb-10">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
-                <p class="grid grid-cols-2">
-                <h3 class="">Meetups</h3>
-                <a class="block text-right" href="">More</a>
-                </p>
-                <div class="grid grid-cols-4 gap-4">
-                    <template v-for="    i in 4   ">
-                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
-
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </section>
-        <section class="jobs">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
-                <p class="grid grid-cols-2">
-                <h3 class="inline">Jobs</h3>
-                <a class="block text-right" href="">All Jobs</a>
-                </p>
-                <div class="grid grid-cols-3 gap-4">
-                    <template v-for="    i in 6   ">
-                        <div class="grid bg-gray-300 p-3" style="grid-template-columns: 2fr 7fr; aspect-ratio: 5/1;">
-                            <div><img style="width:100%; height:100%;" src="/static/icons/awa_logo.svg" /></div>
-                            <div>
-                                <p>Bungle</p>
-                                <h3 class="mb-4">VFX Lead</h3>
-                                <p>Bellevue, WA, United States</p>
-                                <p class="flex gap-2">
-                                    <RippleButton class="h-9 text-gray-900" :buttonText="'Permanent'" />
-                                    <RippleButton class="h-9 text-gray-900" :buttonText="'Relocation'" />
-                                </p>
-                            </div>
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </section>
         <section class="gallery">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="30"
                 :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks" :infiniteScroll="true" />
