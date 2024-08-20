@@ -26,16 +26,30 @@
         </div>
 
 
-        <!-- collapse start (highlights) -->
+        <!-- collapse control button -->
         <div class="text-center mb-24">
-            <button
+            <button @click="highlightsOpen = !highlightsOpen"
                 class="w-1/3 h-24 inline-block rounded-full px-6 pb-2 pt-2.5 text-5xl font-medium leading-normal text-gray-300 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 hover:text-gray-400 dark:hover:text-gray-500 shadow-gray-900 dark:shadow-gray-100 shadow-2xl transition duration-150 ease-in-out hover:shadow-primary-2 focus:bg-gray-600 dark:focus:bg-gray-400 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:shadow-primary-2 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 type="button" data-twe-collapse-init data-twe-ripple-init data-twe-ripple-color="light"
                 data-twe-target="#highlightsCollapseElement" aria-expanded="false"
-                aria-controls="highlightsCollapseElement">HIGHLIGHTS
+                aria-controls="highlightsCollapseElement" ref="highlightsOpenButton"><span class="">HIGHLIGHTS</span>
+                <svg v-if="!highlightsOpen"
+                    class="arrow-down-filled inline relative bottom-1 fill-gray-200 dark:fill-gray-800 h-24"
+                    clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z" />
+                </svg>
+                <svg v-else class="arrow-up-filled inline relative bottom-1 fill-gray-200 dark:fill-gray-800 h-24"
+                    clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="m16.843 13.789c.108.141.157.3.157.456 0 .389-.306.755-.749.755h-8.501c-.445 0-.75-.367-.75-.755 0-.157.05-.316.159-.457 1.203-1.554 3.252-4.199 4.258-5.498.142-.184.36-.29.592-.29.23 0 .449.107.591.291 1.002 1.299 3.044 3.945 4.243 5.498z" />
+                </svg>
             </button>
         </div>
 
+        <!-- collapse start (highlights) -->
         <div class="!visible hidden" id="highlightsCollapseElement" data-twe-collapse-item>
             <!-- <h1 class="text-9xl text-violet-700 font-bold italic">The Highlights Are Here!!!</h1> -->
 
@@ -138,7 +152,7 @@
                     </div>
                 </div>
             </section>
-            <section class="jobs">
+            <section class="jobs mb-8">
                 <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
                     <p class="grid grid-cols-2">
                     <h3 class="inline text-right text-4xl">Jobs</h3>
@@ -163,13 +177,23 @@
                     </div>
                 </div>
             </section>
+
+            <!-- <button @click="highlightsOpen = false" class="block mx-auto">
+                <svg class="arrow-up-filled fill-gray-800 dark:fill-gray-200 h-48" clip-rule="evenodd"
+                    fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="m16.843 13.789c.108.141.157.3.157.456 0 .389-.306.755-.749.755h-8.501c-.445 0-.75-.367-.75-.755 0-.157.05-.316.159-.457 1.203-1.554 3.252-4.199 4.258-5.498.142-.184.36-.29.592-.29.23 0 .449.107.591.291 1.002 1.299 3.044 3.945 4.243 5.498z" />
+                </svg>
+            </button> -->
         </div>
         <!-- collapse end (highlights) -->
 
         <!-- this paragraph just serves as a horizontal line with custom colour/width -->
         <p class="border-t-gray-300 dark:border-t-gray-700 w-9/12 mx-auto border-t-2"></p>
 
-        <section class=" gallery">
+        <!-- <h2>Discover Artworks</h2> -->
+        <section class="gallery">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="15"
                 :maxWorks="15" @bottom-reached="addMoreWorks" />
         </section>
@@ -219,7 +243,8 @@ export default {
             "spotlightArt": {}, // {id, url}
             "spotlightCaption": "",
 
-            "reviews": []
+            "reviews": [],
+            "highlightsOpen": false
         }
     },
     computed: {
