@@ -193,7 +193,7 @@
                 </svg></a>
         </div>
 
-        <!-- <h2>Discover Artworks</h2> -->
+        <h2 class="text-6xl text-center text-gray-700 dark:text-gray-200">Discover Artworks</h2>
         <section class="gallery">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="15"
                 :maxWorks="15" @bottom-reached="addMoreWorks" />
