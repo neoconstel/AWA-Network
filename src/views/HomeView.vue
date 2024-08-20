@@ -14,20 +14,9 @@
                 </div>
             </div>
         </div>
-        <div v-if="this.dataStore.user.id" class="sticky inline top-36 z-10 ml-5">
-            <a data-twe-toggle="modal" data-twe-target="#addWorkModal" @click.prevent="" href=""><svg
-                    class="h-16 inline fill-gray-800 dark:fill-gray-200" clip-rule="evenodd" fill-rule="evenodd"
-                    stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="m12.002 2c5.518 0 9.998 4.48 9.998 9.998 0 5.517-4.48 9.997-9.998 9.997-5.517 0-9.997-4.48-9.997-9.997 0-5.518 4.48-9.998 9.997-9.998zm0 1.5c-4.69 0-8.497 3.808-8.497 8.498s3.807 8.497 8.497 8.497 8.498-3.807 8.498-8.497-3.808-8.498-8.498-8.498zm-.747 7.75h-3.5c-.414 0-.75.336-.75.75s.336.75.75.75h3.5v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5h3.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-3.5v-3.5c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"
-                        fill-rule="nonzero" />
-                </svg></a>
-        </div>
-
 
         <!-- collapse control button -->
-        <div class="text-center mb-24">
+        <div class="text-center my-24">
             <button @click="highlightsOpen = !highlightsOpen"
                 class="w-1/3 h-24 inline-block rounded-full px-6 pb-2 pt-2.5 text-5xl font-medium leading-normal text-gray-300 dark:text-gray-700 bg-gray-700 dark:bg-gray-300 hover:text-gray-400 dark:hover:text-gray-500 shadow-gray-900 dark:shadow-gray-100 shadow-2xl transition duration-150 ease-in-out hover:shadow-primary-2 focus:bg-gray-600 dark:focus:bg-gray-400 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:shadow-primary-2 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 type="button" data-twe-collapse-init data-twe-ripple-init data-twe-ripple-color="light"
@@ -191,6 +180,18 @@
 
         <!-- this paragraph just serves as a horizontal line with custom colour/width -->
         <p class="border-t-gray-300 dark:border-t-gray-700 w-9/12 mx-auto border-t-2"></p>
+
+        <!-- Add artwork button -->
+        <div v-if="this.dataStore.user.id" class="sticky inline top-36 z-10 ml-5">
+            <a data-twe-toggle="modal" data-twe-target="#addWorkModal" @click.prevent="" href=""><svg
+                    class="h-16 inline fill-gray-800 dark:fill-gray-200" clip-rule="evenodd" fill-rule="evenodd"
+                    stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="m12.002 2c5.518 0 9.998 4.48 9.998 9.998 0 5.517-4.48 9.997-9.998 9.997-5.517 0-9.997-4.48-9.997-9.997 0-5.518 4.48-9.998 9.997-9.998zm0 1.5c-4.69 0-8.497 3.808-8.497 8.498s3.807 8.497 8.497 8.497 8.498-3.807 8.498-8.497-3.808-8.498-8.498-8.498zm-.747 7.75h-3.5c-.414 0-.75.336-.75.75s.336.75.75.75h3.5v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5h3.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-3.5v-3.5c0-.414-.336-.75-.75-.75s-.75.336-.75.75z"
+                        fill-rule="nonzero" />
+                </svg></a>
+        </div>
 
         <!-- <h2>Discover Artworks</h2> -->
         <section class="gallery">
