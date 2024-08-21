@@ -47,8 +47,6 @@
 </template>
 
 <script>
-import ReviewCard from "@/components/ReviewCard.vue"
-
 // state management
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
 import useDataStore from '@/stores/states'; // convention: use<storeID>Store
@@ -56,7 +54,6 @@ import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 export default {
     name: 'ReviewDetail',
     components: {
-        ReviewCard
     },
     data() {
         return {
@@ -92,7 +89,7 @@ export default {
                 .then((data) => {
                     // console.log(data)
                     // this.relatedReviews.splice(this.relatedReviews.length, 0, ...(data['results']))
-                    this.relatedReviews = data['results']
+                    this.relatedReviews = data["results"]
                     console.log(this.relatedReviews)
                 }
                 )
