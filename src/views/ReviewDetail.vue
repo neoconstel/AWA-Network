@@ -91,7 +91,8 @@ export default {
                 .then(response => response.json())
                 .then((data) => {
                     // console.log(data)
-                    this.relatedReviews.splice(this.relatedReviews.length, 0, ...(data['results']))
+                    // this.relatedReviews.splice(this.relatedReviews.length, 0, ...(data['results']))
+                    this.relatedReviews = data['results']
                     console.log(this.relatedReviews)
                 }
                 )
@@ -104,15 +105,28 @@ export default {
     async mounted() {
         console.log('ReviewDetail view mounted')
 
-        this.fetchReview(this.$route.params.id)
-        this.fetchRelatedReviews()
+        // this.$nextTick(() => {
+        //     setTimeout(() => {
+        //         window.scrollTo(0, 0);
+        //     }, 100)
+        // })
 
-        this.$nextTick(() => {
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-            }, 100)
-        })
+    },
+    watch: {
+        // stuffs that should be re-fetched or re-executed if something changes
 
+        '$route.params.id': {
+            immediate: true,
+            handler(newVal) {
+                // scroll to top
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 100)
+
+                this.fetchReview(this.$route.params.id)
+                this.fetchRelatedReviews()
+            }
+        }
     }
 }
 </script>
