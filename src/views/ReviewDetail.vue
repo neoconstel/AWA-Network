@@ -1,33 +1,53 @@
 <template>
-    <section v-if="review.id" class="main space-y-5 mx-48 text-gray-800 dark:text-gray-200 mb-36">
-        <section class="header">
-            <div class="caption my-5">
-                <h3 class="text-center">Review:</h3>
-                <h1 class="text-8xl text-center">{{ review.title }}</h1>
-                <p class="text-center text-sm">{{ review.user.name }} | {{ review.date_published }}</p>
+    <section v-if="review.id" class="grid" style="grid-template-columns: 5fr 1fr;">
+        <main class="main space-y-5 mx-48 text-gray-800 dark:text-gray-200 mb-36">
+            <section class="header">
+                <div class="caption my-5">
+                    <h3 class="text-center">Review:</h3>
+                    <h1 class="text-8xl text-center">{{ review.title }}</h1>
+                    <p class="text-center text-sm">{{ review.user.name }} | {{ review.date_published }}</p>
+                </div>
+                <div class="caption-media [&>*]:mx-auto">
+                    <img v-if="review.caption_media_type == 'image'" class="w-full aspect-video"
+                        :src="review.caption_media_url" alt="review caption image">
+                    <video v-else class="" width="800" height="470" controls>
+                        <source :src="review.caption_media_url" type="video/mp4">
+                    </video>
+                </div>
+            </section>
+            <section class="body space-y-5">
+                <p class="text-center">{{ review.content }}</p>
+                <div v-if="review.body_media_type != null" class="body-media [&>*]:mx-auto">
+                    <img v-if="review.body_media_type == 'image'" class="w-full aspect-video" width="800" height="470"
+                        :src="review.body_media_url" alt="review caption image">
+                    <video v-else class="" width="800" height="470" controls>
+                        <source :src="review.body_media_url" type="video/mp4">
+                    </video>
+                </div>
+            </section>
+        </main>
+        <aside class="border-l-2 border-l-gray-400 dark:border-l-gray-600 space-y-3 text-gray-800 dark:text-gray-200">
+            <!-- related reviews -->
+            <h4 class="text-center text-2xl mt-5">Related Reviews</h4>
+            <div v-for="(relatedReview, index) in relatedReviews.slice(0, 12)" class="mx-2" :key="index">
+                <div v-if="relatedReview.id != this.review.id" class="grid gap-x-1"
+                    style="grid-template-columns: 1fr 4fr;">
+                    <RouterLink class="" :to="`/review/${relatedReview.id}/`"><img class="aspect-square object-cover"
+                            :src="relatedReview.caption_media_url" alt="">
+                    </RouterLink>
+                    <RouterLink class="overflow-hidden whitespace-nowrap text-ellipsis"
+                        :to="`/review/${relatedReview.id}/`">
+                        <h4>{{ relatedReview.title }}</h4>
+                        <p class="text-sm">{{ relatedReview.content }}</p>
+                    </RouterLink>
+                </div>
             </div>
-            <div class="caption-media [&>*]:mx-auto">
-                <img v-if="review.caption_media_type == 'image'" class="w-full aspect-video"
-                    :src="review.caption_media_url" alt="review caption image">
-                <video v-else class="" width="800" height="470" controls>
-                    <source :src="review.caption_media_url" type="video/mp4">
-                </video>
-            </div>
-        </section>
-        <section class="body space-y-5">
-            <p class="text-center">{{ review.content }}</p>
-            <div v-if="review.body_media_type != null" class="body-media [&>*]:mx-auto">
-                <img v-if="review.body_media_type == 'image'" class="w-full aspect-video" width="800" height="470"
-                    :src="review.body_media_url" alt="review caption image">
-                <video v-else class="" width="800" height="470" controls>
-                    <source :src="review.body_media_url" type="video/mp4">
-                </video>
-            </div>
-        </section>
+        </aside>
     </section>
 </template>
 
 <script>
+import ReviewCard from "@/components/ReviewCard.vue"
 
 // state management
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
@@ -36,11 +56,12 @@ import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 export default {
     name: 'ReviewDetail',
     components: {
-
+        ReviewCard
     },
     data() {
         return {
-            "review": []
+            "review": [],
+            "relatedReviews": []
         }
     },
     computed: {
@@ -63,11 +84,28 @@ export default {
                     console.log('error', error)
                 })
         },
+        async fetchRelatedReviews() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/reviews/`
+
+            fetch(url)
+                .then(response => response.json())
+                .then((data) => {
+                    // console.log(data)
+                    this.relatedReviews.splice(this.relatedReviews.length, 0, ...(data['results']))
+                    console.log(this.relatedReviews)
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        }
     },
     async mounted() {
         console.log('ReviewDetail view mounted')
 
         this.fetchReview(this.$route.params.id)
+        this.fetchRelatedReviews()
 
         this.$nextTick(() => {
             setTimeout(() => {
