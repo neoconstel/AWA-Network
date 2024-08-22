@@ -154,6 +154,30 @@ export default {
                 })
                 .catch(error => this.errorMessage = error)
         },
+        async deleteReview() {
+
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/review/${this.$route.params.id}/`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'DELETE',
+                headers: headers,
+                credentials: 'include'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    if (response.status < 300) {
+                        // return to homepage
+                        this.$router.push('/')
+                    }
+                })
+                .catch(error => this.errorMessage = error)
+        }
     },
     async mounted() {
         console.log('ReviewDetail view mounted')
