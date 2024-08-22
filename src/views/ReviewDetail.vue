@@ -25,6 +25,22 @@
                     </video>
                 </div>
             </section>
+
+            <section v-if="this.dataStore.user.id && this.dataStore.user.is_superuser && this.review.approved == false"
+                class="admin-only">
+                <p class="border-y-2 border-y-red-500"></p>
+                <h3 class="text-red-500 text-center">Admin Only</h3>
+                <p class="border-y-2 border-y-red-500"></p>
+                <div class="mt-3 text-center space-x-20">
+                    <RippleButton @click="approveReview"
+                        class="bg-blue-500 dark:bg-blue-400 hover:bg-yellow-600 text-gray-300 dark:text-gray-700"
+                        :buttonText="'Approve'" />
+                    <RippleButton @click="deleteReview"
+                        class="bg-red-500 dark:bg-red-400 hover:bg-yellow-600 text-gray-300 dark:text-gray-700"
+                        :buttonText="'Delete'" />
+                </div>
+
+            </section>
         </main>
         <aside class="border-l-2 border-l-gray-400 dark:border-l-gray-600 space-y-3 text-gray-800 dark:text-gray-200">
             <!-- related reviews -->
@@ -100,7 +116,44 @@ export default {
                     this.errorMessage = error
                     console.log('error', error)
                 })
-        }
+        },
+        async approveReview() {
+
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/review/${this.$route.params.id}/`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            // COPY review object and edit it
+            let newReview = JSON.parse(JSON.stringify(this.review))
+            newReview.approved = true
+
+            const data = JSON.stringify(newReview);
+
+            const requestOptions = {
+                method: 'PUT',
+                headers: headers,
+                body: data,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    if (response.status < 300) {
+                        setTimeout(() => {
+                            alert("Review approved")
+                        }, 1500)
+                        this.review.approved = true
+                        this.$refs.addreviewModal.close()
+                    }
+                    else
+                        this.errorMessage = 'fill in the fields and try again'
+                })
+                .catch(error => this.errorMessage = error)
+        },
     },
     async mounted() {
         console.log('ReviewDetail view mounted')
