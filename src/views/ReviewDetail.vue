@@ -57,7 +57,7 @@ export default {
     },
     data() {
         return {
-            "review": [],
+            "review": {},
             "relatedReviews": []
         }
     },
@@ -67,6 +67,9 @@ export default {
     methods: {
         async fetchReview(id) {
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/review/${id}/`
+
+            // reset the review object to clear any existing review data
+            this.review = {}
 
             fetch(url)
                 .then(response => response.json())
