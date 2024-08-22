@@ -1,6 +1,6 @@
 <template>
     <section class="mt-10 mx-10">
-        <div v-if="this.dataStore.user.id && this.dataStore.user.groups.includes('Reviewers')"
+        <div v-if="this.dataStore.user.id && (this.dataStore.user.groups.includes('Reviewers') | this.dataStore.user.is_superuser)"
             class="sticky inline top-36 z-10 ml-5">
             <a data-twe-toggle="modal" data-twe-target="#addReviewModal" @click.prevent="" href=""><svg
                     class="h-16 inline fill-gray-800 dark:fill-gray-200" clip-rule="evenodd" fill-rule="evenodd"
