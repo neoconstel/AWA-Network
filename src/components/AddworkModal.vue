@@ -94,6 +94,14 @@ export default {
             fetch(url, requestOptions)
                 .then((response) => {
                     if (response.status < 300) {
+                        // clear form inputs on successful submission
+                        this.$refs.title.value = ""
+                        this.$refs.categories.value = ""
+                        this.$refs.description.value = ""
+                        this.$refs.tags.value = ""
+                        this.$refs.fileInput.value = ""
+
+
                         setTimeout(() => {
                             alert("New artwork uploaded successfully")
                         }, 1500)
