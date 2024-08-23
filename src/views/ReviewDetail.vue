@@ -30,7 +30,7 @@
                 class="admin-only">
                 <p class="border-y-2 border-y-red-500"></p>
                 <h3 class="text-red-500 text-center">Admin Only</h3>
-                <p class="text-red-500 text-center text-sm">Caution: Only click 'approve' or 'delete' after if you're
+                <p class="text-red-500 text-center text-sm">Caution: Only click 'approve' or 'delete' after you're
                     sure. There
                     will be no confirmation or retrieval after deletion.</p>
                 <p class="border-y-2 border-y-red-500"></p>
