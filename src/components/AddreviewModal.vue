@@ -151,6 +151,22 @@ export default {
             fetch(url, requestOptions)
                 .then((response) => {
                     if (response.status < 300) {
+                        /** clear form inputs after successful submission
+                         * 
+                         * (form.clear() could be used by selecting any child
+                         * of the form and doing <child.form.clear()>, and this
+                         * would make things straightforward. However, it would
+                         * also clear any event listners that could have been
+                         * attached to the form) */
+                        this.$refs.title.value = ""
+                        this.$refs.categories.value = null
+                        this.$refs.content.value = ""
+                        this.$refs.tags.value = ""
+                        this.$refs.fileInput = null
+                        this.$refs.fileInput2 = null
+                        this.captionMediaLabel = this.defaultCaptionMediaLabel
+                        this.bodyMediaLabel = this.defaultBodyMediaLabel
+
                         setTimeout(() => {
                             alert("Review uploaded successfully")
                         }, 1500)
