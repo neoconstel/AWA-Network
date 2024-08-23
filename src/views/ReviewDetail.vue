@@ -8,7 +8,7 @@
                     <p class="text-center text-sm">{{ review.user.name }} | {{ review.date_published }}</p>
                 </div>
                 <div class="caption-media [&>*]:mx-auto">
-                    <img v-if="review.caption_media_type == 'image'" class="w-full aspect-video"
+                    <img v-if="review.caption_media_type == 'image'" class="" style="max-height: 60vh"
                         :src="review.caption_media_url" alt="review caption image">
                     <video v-else class="" width="800" height="470" controls>
                         <source :src="review.caption_media_url" type="video/mp4">
@@ -18,9 +18,9 @@
             <section class="body space-y-5">
                 <p class="text-center">{{ review.content }}</p>
                 <div v-if="review.body_media_type != null" class="body-media [&>*]:mx-auto">
-                    <img v-if="review.body_media_type == 'image'" class="w-full aspect-video" width="800" height="470"
-                        :src="review.body_media_url" alt="review caption image">
-                    <video v-else class="" width="800" height="470" controls>
+                    <img v-if="review.body_media_type == 'image'" class="w-full" :src="review.body_media_url"
+                        alt="review caption image">
+                    <video v-else class="aspect-video" width="800" height="470" controls>
                         <source :src="review.body_media_url" type="video/mp4">
                     </video>
                 </div>
