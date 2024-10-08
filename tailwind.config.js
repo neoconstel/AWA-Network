@@ -9,5 +9,10 @@ module.exports = {
     extend: {},
   },
   darkMode: "class",
-  plugins: [require("tw-elements/plugin.cjs")],
+  plugins: [
+    require("tw-elements/plugin.cjs"),
+    function ({ addVariant }) {
+      addVariant("initial", "html :where(&)");
+    },
+  ],
 };

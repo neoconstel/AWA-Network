@@ -1,5 +1,16 @@
+<!-- DEPENDENCIES
+ 'initial:' => isn't usable in vue by default. It is added as a variant in
+ tailwind.config.js, and its role is to make a tailwind class in a component
+ to be overridable when the component is actively used, by lowering the CSS
+ specificity to zero. Link to the source material (solution 1):
+
+ https://dev.to/saifobeidat/override-tailwind-classes-of-a-reusable-vue-component-without-using-props-660
+
+-->
+
+
 <template>
-    <div class="grid grid-cols-5 gap-x-4 gap-y-4 px-4 py-14 pb-16 place-content-start" ref="galleryContainer">
+    <div class="grid initial:grid-cols-5 gap-x-4 gap-y-4 px-4 py-14 pb-16 place-content-start" ref="galleryContainer">
 
         <!-- works from multiple users (some works can have same user) -->
         <div v-for="(work, index) in works.slice(this.startIndex, this.stopIndex)" :key="index">

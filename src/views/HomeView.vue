@@ -49,8 +49,8 @@
 
 
         <section class="gallery">
-            <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="15"
-                :maxWorks="15" @bottom-reached="addMoreWorks" />
+            <WorksGallery class="grid-cols-5" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0"
+                :stopIndex="15" :maxWorks="15" @bottom-reached="addMoreWorks" />
         </section>
         <section class="tv">
             <div class="grid grid-cols-2 bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-200 pt-2 pb-2 px-7">
