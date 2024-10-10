@@ -80,7 +80,7 @@
                 <a class="block text-right" href="">More</a>
                 </p>
                 <div class="grid grid-cols-4 gap-4">
-                    <template v-for="(review, index) in reviews">
+                    <template v-for="(review, index) in reviews.slice(0, 4)">
                         <div class="relative grid bg-yellow-500">
                             <RouterLink class="w-full h-full aspect-video" :to="`/review/${review.id}/`">
                                 <img class="h-full w-full object-cover" :src="review.caption_media_url" alt="">
