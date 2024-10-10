@@ -49,7 +49,7 @@
 
 
         <section class="gallery">
-            <WorksGallery class="grid-cols-5" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0"
+            <WorksGallery class="grid-cols-6" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0"
                 :stopIndex="15" :maxWorks="15" @bottom-reached="addMoreWorks" />
         </section>
         <section class="tv">
@@ -70,8 +70,8 @@
             </div>
         </section>
         <section class="gallery">
-            <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="15" :stopIndex="30"
-                :maxWorks="30" @bottom-reached="addMoreWorks" />
+            <WorksGallery class="grid-cols-6" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'"
+                :startIndex="15" :stopIndex="30" :maxWorks="30" @bottom-reached="addMoreWorks" />
         </section>
         <section class="reviews mb-10">
             <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
@@ -177,8 +177,9 @@
             </div>
         </section>
         <section class="gallery">
-            <WorksGallery :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="30"
-                :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks" :infiniteScroll="true" />
+            <WorksGallery class="grid-cols-6" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'"
+                :startIndex="30" :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks"
+                :infiniteScroll="true" />
         </section>
     </div>
 </template>
