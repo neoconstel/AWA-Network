@@ -92,7 +92,7 @@
                 </div>
             </div>
         </section>
-        <section class="spotlight mb-10">
+        <!-- <section class="spotlight mb-10">
             <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
                 <p class="grid grid-cols-2">
                 <h3 class="">Spotlight</h3>
@@ -106,7 +106,7 @@
                     </template>
                 </div>
             </div>
-        </section>
+        </section> -->
         <section class="challenges mb-10">
             <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
                 <p class="grid grid-cols-2">
