@@ -1,11 +1,17 @@
 <template>
-    <div class="flex flex-col" style="aspect-ratio: 9/16;">
-        <RouterLink class="w-full h-1/3" :to="`/review/${review.id}/`">
-            <img class="h-full w-full object-cover object-top" :src="review.caption_media_url" alt="">
+    <div class="">
+        <RouterLink class="relative" :to="`/review/${review.id}/`">
+            <img class="h-full aspect-square object-cover object-top" :src="review.caption_media_url" alt="">
+            <div class="absolute flex w-full h-1/5 bottom-0 bg-gray-900 bg-opacity-50 justify-center px-2">
+                <h2 class="text-xl my-auto overflow-hidden whitespace-nowrap text-ellipsis text-gray-200">
+                    {{
+                        review.title
+                    }}</h2>
+            </div>
         </RouterLink>
         <!-- <img class="object-cover object-top h-1/3 w-full" :src="review.caption_media_url" alt=""> -->
 
-        <div class="bg-gray-500 dark:bg-gray-900 flex-grow grid px-2" style="grid-template-rows: 2fr 7fr 1fr;">
+        <!-- <div class="bg-gray-500 dark:bg-gray-900 flex-grow grid px-2" style="grid-template-rows: 2fr 7fr 1fr;">
             <h2 class="text-2xl my-auto overflow-hidden whitespace-nowrap text-ellipsis">{{ review.title }}</h2>
             <p class="mt-3">{{ review.content.slice(0, 200) + (review.content.length > 200 ? '...' : '') }}
             </p>
@@ -15,7 +21,7 @@
                     ...See more
                 </RouterLink>
             </p>
-        </div>
+        </div> -->
     </div>
 </template>
 
