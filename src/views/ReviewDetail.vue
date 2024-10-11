@@ -4,8 +4,8 @@
             <section class="header">
                 <div class="caption my-5">
                     <h3 class="text-center">Review:</h3>
-                    <h1 class="text-8xl text-center">{{ review.title }}</h1>
-                    <p class="text-center text-sm">{{ review.user.name }} | {{ review.date_published }}</p>
+                    <h1 class="text-8xl text-center mb-2">{{ review.title }}</h1>
+                    <p class="text-center text-sm">By {{ review.user.name }} | {{ review.date_published }}</p>
                 </div>
                 <div class="caption-media [&>*]:mx-auto">
                     <img v-if="review.caption_media_type == 'image'" class="" style="max-height: 60vh"
@@ -23,6 +23,18 @@
                     <video v-else class="aspect-video" width="800" height="470" controls>
                         <source :src="review.body_media_url" type="video/mp4">
                     </video>
+                </div>
+            </section>
+
+            <section class="reviewer-bio pt-24">
+                <div class="flex flex-row bg-amber-50 dark:bg-gray-700 p-4">
+                    <div class="flex"><img class="rounded-full h-20 aspect-square block my-auto justify-center mx-5"
+                            :src="profileImage" alt="reviewer photo">
+                    </div>
+                    <div class="p-3 flex-1">
+                        <h2>{{ review.user.name }}</h2>
+                        <p>{{ review.user.bio }}</p>
+                    </div>
                 </div>
             </section>
 
@@ -81,7 +93,13 @@ export default {
         }
     },
     computed: {
-        ...mapStores(useDataStore)
+        ...mapStores(useDataStore),
+        profileImage() {
+            if (this.review.user.profile_image)
+                return this.dataStore.user.profile_image
+            else
+                return this.dataStore.siteConfigs.default_profile_image_url
+        }
     },
     methods: {
         async fetchReview(id) {
