@@ -95,8 +95,8 @@ export default {
     computed: {
         ...mapStores(useDataStore),
         profileImage() {
-            if (this.review.user.profile_image)
-                return this.dataStore.user.profile_image
+            if (this.review.user && this.review.user.profile_image != null)
+                return this.review.user.profile_image
             else
                 return this.dataStore.siteConfigs.default_profile_image_url
         }
