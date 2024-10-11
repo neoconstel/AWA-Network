@@ -75,13 +75,26 @@
 
     <!-- <button class="bg-green-600" @click="this.$refs.scroll.leftmostToRightmost">Leftmost To Rightmost</button>
     <button class="bg-pink-600" @click="this.$refs.scroll.rightmostToLeftmost">Rightmost To Leftmost</button> -->
-    <HScroll
+    <!-- <HScroll
       class="relative p-4 gap-4 bg-gray-400 dark:bg-gray-600 [&>div]:bg-gray-300 [&>div]:dark:bg-gray-700 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 dark:hover:[&>div]:bg-slate-800 [&>div]:relative"
       :gap="16" ref="scroll">
       <div v-for="(link, index) in this.navLinks" key="index">
         <RouterLink class="text-gray-800 dark:text-gray-200" :to="link.url">{{ link.text }}</RouterLink>
       </div>
-    </HScroll>
+    </HScroll> -->
+
+    <nav
+      class="relative [&>div]:inline-block [&>div]:border-4 flex flex-row flex-wrap justify-evenly mx-16 p-4 gap-4 bg-gray-400 dark:bg-gray-600 [&>div]:bg-gray-300 [&>div]:dark:bg-gray-700 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 dark:hover:[&>div]:bg-slate-800 [&>div]:relative">
+      <!-- <div v-for="(link, index) in this.navLinks" key="index">
+        <RouterLink class="text-gray-800 dark:text-gray-200" :to="link.url">{{ link.text }}</RouterLink>
+      </div> -->
+
+      <RouterLink v-for="(link, index) in this.navLinks" key="index"
+        class="text-gray-800 dark:text-gray-200 inline-block flex-auto py-14 text-center border-4 bg-gray-300 dark:bg-gray-700 hover:bg-slate-400 dark:hover:bg-slate-800 relative"
+        :to="link.url">{{ link.text }}
+      </RouterLink>
+
+    </nav>
   </header>
 
   <!-- for testing links (remove later) -->
