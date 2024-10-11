@@ -91,7 +91,8 @@
 
       <RouterLink v-for="(link, index) in this.navLinks" key="index"
         class="text-gray-800 dark:text-gray-200 inline-block flex-auto py-14 text-center border-4 bg-gray-300 dark:bg-gray-700 hover:bg-slate-400 dark:hover:bg-slate-800 relative"
-        :to="link.url">{{ link.text }}
+        :to="link.url">
+        <h1>{{ link.text }}</h1>
       </RouterLink>
 
     </nav>
