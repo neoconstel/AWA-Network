@@ -5,6 +5,13 @@
                 <div class="caption my-5">
                     <h3 class="text-center">Review:</h3>
                     <h1 class="text-8xl text-center mb-2">{{ review.title }}</h1>
+                    <div class="flex flex-row justify-center">
+                        <template v-for="i in 5" :key="i">
+                            <StarIcon v-if="i > Math.ceil(review.rating)" class="w-16 h-16" />
+                            <StarhalfIcon v-else-if="i > review.rating" class="w-16 h-16" />
+                            <StarfilledIcon v-else class="w-16 h-16" />
+                        </template>
+                    </div>
                     <p class="text-center text-sm">By {{ review.user.name }} | {{ review.date_published }}</p>
                 </div>
                 <div class="caption-media [&>*]:mx-auto">
