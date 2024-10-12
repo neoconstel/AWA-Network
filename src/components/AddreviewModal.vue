@@ -1,7 +1,7 @@
 <template>
     <Modal :tag="'addReviewModal'" ref="addreviewModal">
         <!-- content inside addReview modal -->
-        <form class="flex flex-col gap-5 mb-3 p-10" enctype="multipart/form-data">
+        <form class="flex flex-col gap-5 mb-3 p-10 text-gray-700 dark:text-gray-300" enctype="multipart/form-data">
             <h3 class="text-gray-700 dark:text-gray-300">Upload new Review</h3>
 
             <input
