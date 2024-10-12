@@ -81,6 +81,7 @@
 // state management
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
 import useDataStore from '@/stores/states'; // convention: use<storeID>Store
+import StarIcon from '../components/icons/StarIcon.vue';
 
 export default {
     name: 'ReviewDetail',

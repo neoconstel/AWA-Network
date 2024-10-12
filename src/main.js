@@ -24,6 +24,9 @@ import InstagramIcon from "@/components/icons/InstagramIcon.vue";
 import LinkedinIcon from "@/components/icons/LinkedinIcon.vue";
 import TwitterIcon from "@/components/icons/TwitterIcon.vue";
 import PencilIcon from "@/components/icons/PencilIcon.vue";
+import StarIcon from "@/components/icons/StarIcon.vue";
+import StarhalfIcon from "@/components/icons/StarhalfIcon.vue";
+import StarfilledIcon from "@/components/icons/StarfilledIcon.vue";
 
 const app = createApp(App);
 
@@ -46,5 +49,8 @@ app.component("InstagramIcon", InstagramIcon);
 app.component("LinkedinIcon", LinkedinIcon);
 app.component("TwitterIcon", TwitterIcon);
 app.component("PencilIcon", PencilIcon);
+app.component("StarIcon", StarIcon);
+app.component("StarhalfIcon", StarhalfIcon);
+app.component("StarfilledIcon", StarfilledIcon);
 
 app.mount("#app");
