@@ -5,7 +5,7 @@
                 <div class="caption my-5">
                     <h3 class="text-center">Review:</h3>
                     <h1 class="text-8xl text-center mb-2">{{ review.title }}</h1>
-                    <div class="flex flex-row justify-center">
+                    <div class="flex flex-row justify-center [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200">
                         <template v-for="i in 5" :key="i">
                             <StarIcon v-if="i > Math.ceil(review.rating)" class="w-16 h-16" />
                             <StarhalfIcon v-else-if="i > review.rating" class="w-16 h-16" />
