@@ -1,5 +1,5 @@
 <template>
-    <section v-if="review.id" class="grid" style="grid-template-columns: 5fr 1fr;">
+    <article v-if="review.id" class="grid" style="grid-template-columns: 5fr 1fr;">
         <main class="main space-y-5 mx-48 text-gray-800 dark:text-gray-200 mb-36">
             <section class="header">
                 <div class="caption my-5">
@@ -81,7 +81,7 @@
                 </div>
             </div>
         </aside>
-    </section>
+    </article>
 </template>
 
 <script>
