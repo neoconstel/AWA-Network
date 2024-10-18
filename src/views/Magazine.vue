@@ -1,8 +1,8 @@
 <template>
-    <div class="text-gray-800 dark:text-gray-200">
+    <div class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
         <header>
             <div
-                class="grid grid-cols-4 mt-4 mx-16 gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-5 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
+                class="grid grid-cols-4 mt-4 gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-5 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
                 <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Art Skills <span
                         class="block text-xs text-gray-500 dark:text-gray-400">Lean & improve</span></RouterLink>
                 <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Career <span
@@ -14,19 +14,52 @@
                         class="block text-xs text-gray-500 dark:text-gray-400">Industry news & updates</span>
                 </RouterLink>
             </div>
-            <SearchInput class="mt-5 mx-16" :placeholderText="'Search Articles'" />
-        </header>
-        <main>
-        </main>
-        <aside>
 
-        </aside>
+            <SearchInput class="mt-5" :placeholderText="'Search Articles'" />
+
+            <section class="grid mt-10 gap-x-5" style="grid-template-columns: 3fr 1fr;">
+                <!-- highlighted article -->
+                <ArticleCard class="" :topToBottomRatio="3" />
+
+                <section class="space-y-5">
+                    <!-- follow-up highlights -->
+                    <ArticleCard />
+                    <ArticleCard />
+                </section>
+            </section>
+        </header>
+        <div class="grid" style="grid-template-columns: 3fr 1fr;">
+            <main class="mr-10">
+                <section class="grid grid-cols-2 gap-x-10">
+                    <!-- article gallery -->
+                    <ArticleCard v-for="index in 16" class="mt-10" :key="index" />
+                </section>
+                <div>
+                    <button>Previous</button>
+                    <button>Next</button>
+                </div>
+            </main>
+            <aside>
+                <p class="mt-10 text-center text-2xl font-light">Trending Articles</p>
+                <div class="space-y-5">
+                    <div v-for="index in 10" :key="index" class="grid" style="grid-template-columns: 1fr 3fr;">
+                        <img src="" alt="">
+                        <div>
+                            <p>categories</p>
+                            <p>title</p>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+        </div>
     </div>
 
 </template>
 
 <script>
 import SearchInput from "@/components/SearchInput.vue"
+import ArticleCard from "@/components/ArticleCard.vue"
 
 // state management
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
@@ -36,6 +69,7 @@ export default {
     name: 'Magazine',
     components: {
         SearchInput,
+        ArticleCard
     },
     data() {
         return {
