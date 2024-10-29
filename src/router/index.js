@@ -107,6 +107,14 @@ const fixedRoutes = [
     name: "reviewDetail",
     component: () => import("../views/ReviewDetail.vue"),
   },
+  {
+    path: "/magazine_editor",
+    name: "magazineEditor",
+    // route level code-splitting
+    // this generates a separate chunk (About.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import("../views/MagazineEditor.vue"),
+  },
 ];
 
 const mergedRoutes = fixedRoutes.concat(wagtailPagesRoutes);
