@@ -3,8 +3,7 @@
         <editor v-model="content" />
 
         <div class="output-group">
-            <label>Content</label>
-            <code>{{ content }}</code>
+            {{ content }}
         </div>
     </div>
 </template>
