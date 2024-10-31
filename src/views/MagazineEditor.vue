@@ -1,6 +1,7 @@
 <template>
     <div>
-        <editor v-model="content" />
+        <!-- <editor v-model="content" /> -->
+        <editor />
 
         <div class="output-group">
             {{ content }}

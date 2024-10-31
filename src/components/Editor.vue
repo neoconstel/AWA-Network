@@ -5,21 +5,26 @@
         Bold</button>
     <button class="bg-orange-600 text-gray-300 p-5 mr-2" @click="this.editor.chain().focus().undo().run()">Undo</button>
     <button class="bg-orange-600 text-gray-300 p-5 mr-2" @click="this.editor.chain().focus().redo().run()">Redo</button>
+    <button class="bg-orange-600 text-gray-300 p-5 mr-2"
+        @click="this.editor.chain().focus().setParagraph().run()">Paragraph</button>
+    <button class="bg-orange-600 text-gray-300 p-5 mr-2" @click="this.editor.commands.setHorizontalRule()">Horizontal
+        Rule</button>
+    <button class="bg-orange-600 text-gray-300 p-5 mr-2"
+        @click="this.editor.commands.setImage({ src: 'https://magazine.artstation.com/wp-content/uploads/2024/09/TWW_ArtBlast_Thumbnail-1280-x-720.jpg?resize=1024,576' })">Image</button>
+
+
+
     <hr class="my-5">
 
     <editor-content :editor="editor" class="element" />
 </template>
 
 <script>
-import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 
 // tiptap extensions
-import Document from '@tiptap/extension-document'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
-import Bold from '@tiptap/extension-bold'
-import History from '@tiptap/extension-history'
+import StarterKit from '@tiptap/starter-kit' // Document, Paragraph, Text, etc
+import Image from '@tiptap/extension-image'
 
 export default {
     components: {
@@ -52,7 +57,7 @@ export default {
         this.editor = new Editor({
             element: document.querySelector('.element'),
             // register extensions
-            extensions: [Document, Paragraph, Text, Bold, History],
+            extensions: [StarterKit, Image],
             // place the cursor in the editor after initialization
             autofocus: true,
             // make the text editable (but that’s the default anyway)
