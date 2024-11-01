@@ -14,7 +14,11 @@
                 @click="this.editor.commands.setHorizontalRule()">Horizontal
                 Rule</button>
             <button class="bg-orange-600 text-gray-300 p-5 mr-2"
-                @click="this.editor.chain().focus().setImage({ title: 'image testing', src: 'https://magazine.artstation.com/wp-content/uploads/2024/09/TWW_ArtBlast_Thumbnail-1280-x-720.jpg?resize=1024,576' }).run()">Image</button>
+                @click="this.editor.chain().focus().setImage({ title: 'image testing', src: 'https://magazine.artstation.com/wp-content/uploads/2024/09/TWW_ArtBlast_Thumbnail-1280-x-720.jpg?resize=1024,576', alt: '' }).run()">Image</button>
+            <!-- <button class="bg-orange-600 text-gray-300 p-5 mr-2" @click="">Browse Image</button> -->
+            <form enctype="multipart/form-data">
+                <input @change="onSelectImage" type="file" accept="image/*" ref="imageInput">
+            </form>
         </section>
 
         <hr class="my-5">
@@ -63,7 +67,7 @@ export default {
                 // disable the loading of the default CSS (which is not much anyway)
                 injectCSS: false,
                 // set the initial content
-                content: "Insert content here",
+                content: "",
                 onUpdate: () => {
                     // HTML
                     // this.$emit('update:modelValue', this.editor.getHTML())
@@ -72,6 +76,25 @@ export default {
                     this.$emit('update:modelValue', this.editor.getJSON())
                 },
             })
+        },
+        async onSelectImage() {
+            if (this.$refs.imageInput.files.length == 0)
+                return
+
+            // get the File object from the file input
+            const imageFile = this.$refs.imageInput.files[0]
+            // generate blobUrl from the file object, for use as src
+            const blobUrl = URL.createObjectURL(imageFile)
+            // add image in tiptap editor, using blobUrl as its src
+            this.editor.chain().focus().setImage({
+                title: imageFile.name,
+                src: blobUrl,
+                alt: imageFile.name
+            }).run()
+
+            // reset file input
+            this.$refs.imageInput.value = null
+
         }
     },
     computed: {
