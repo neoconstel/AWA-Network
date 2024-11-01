@@ -1,4 +1,7 @@
-<!-- this Editor is based on Tiptap -->
+<!-- this Editor is based on Tiptap. Useful if a single editor instance is 
+sufficient, in which case each page that needs it just imports it and uses as
+its editor instance. However, I think it's better to have a separate editor instance for
+every page that needs an editor, so as to separate properties such as styling, etc -->
 
 <template>
     <button class="bg-orange-600 text-gray-300 p-5 mr-2" @click="this.editor.chain().focus().toggleBold().run()">Toggle
@@ -10,7 +13,7 @@
     <button class="bg-orange-600 text-gray-300 p-5 mr-2" @click="this.editor.commands.setHorizontalRule()">Horizontal
         Rule</button>
     <button class="bg-orange-600 text-gray-300 p-5 mr-2"
-        @click="this.editor.commands.setImage({ src: 'https://magazine.artstation.com/wp-content/uploads/2024/09/TWW_ArtBlast_Thumbnail-1280-x-720.jpg?resize=1024,576' })">Image</button>
+        @click="this.editor.commands.setImage({ title: 'image testing', src: 'https://magazine.artstation.com/wp-content/uploads/2024/09/TWW_ArtBlast_Thumbnail-1280-x-720.jpg?resize=1024,576' })">Image</button>
 
 
 
@@ -57,7 +60,12 @@ export default {
         this.editor = new Editor({
             element: document.querySelector('.element'),
             // register extensions
-            extensions: [StarterKit, Image],
+            extensions: [StarterKit, Image.configure({
+                HTMLAttributes: {
+                    class: 'w-52 mx-auto',
+                },
+            })
+            ],
             // place the cursor in the editor after initialization
             autofocus: true,
             // make the text editable (but that’s the default anyway)
