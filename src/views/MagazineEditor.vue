@@ -1,6 +1,6 @@
 <template>
-    <div v-if="editor">
-        <section class="editor-buttons sticky top-24 text-center z-10">
+    <section v-if="editor" class="mx-16">
+        <div class="editor-buttons sticky top-24 text-center z-10">
             <button class="bg-orange-600 text-gray-300 p-5 mr-2"
                 @click="this.editor.chain().focus().toggleBold().run()">Toggle
                 Bold</button>
@@ -19,12 +19,13 @@
             <form enctype="multipart/form-data">
                 <input @change="onSelectImage" type="file" accept="image/*" ref="imageInput">
             </form>
-        </section>
+        </div>
 
         <hr class="my-5">
 
-        <EditorContent :editor="editor" class="bg-gray-300 mb-32 relative top-10" />
-    </div>
+        <EditorContent :editor="editor"
+            class="bg-gray-300 text-gray-800 dark:bg-gray-700 dark:text-gray-200 relative top-10 mb-40 text-center" />
+    </section>
 
 </template>
 
@@ -38,6 +39,7 @@ import { Editor, EditorContent } from '@tiptap/vue-3'
 // tiptap extensions
 import StarterKit from '@tiptap/starter-kit' // Document, Paragraph, Text, etc
 import Image from '@tiptap/extension-image'
+import Paragraph from '@tiptap/extension-paragraph'
 
 export default {
     name: 'MagazineEditor',
@@ -54,11 +56,18 @@ export default {
         initializeTiptapEditor() {
             this.editor = new Editor({
                 // register extensions
-                extensions: [StarterKit, Image.configure({
-                    HTMLAttributes: {
-                        class: 'w-52 py-3 mx-auto',
-                    },
-                })
+                extensions: [
+                    StarterKit,
+                    Image.configure({
+                        HTMLAttributes: {
+                            class: 'w-52 mx-auto',
+                        },
+                    }),
+                    Paragraph.configure({
+                        HTMLAttributes: {
+                            class: 'px-10 py-2',
+                        },
+                    })
                 ],
                 // place the cursor in the editor after initialization
                 autofocus: true,
