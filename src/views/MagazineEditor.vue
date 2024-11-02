@@ -67,7 +67,9 @@ export default {
             this.editor = new Editor({
                 // register extensions
                 extensions: [
-                    StarterKit,
+                    StarterKit.configure({
+                        paragraph: false,
+                    }),
                     Image.configure({
                         HTMLAttributes: {
                             class: 'w-52 mx-auto',
