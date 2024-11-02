@@ -24,8 +24,16 @@
         <hr class="my-5">
 
         <EditorContent :editor="editor"
-            class="bg-gray-300 text-gray-800 dark:bg-gray-700 dark:text-gray-200 relative top-10 mb-40 text-center" />
+            class="bg-gray-300 text-gray-800 dark:bg-gray-700 dark:text-gray-200 relative top-10 text-center mb-12" />
+
+        <button class="bg-cyan-500 py-3 px-14 mx-auto block mb-5">Submit</button>
     </section>
+
+    <div class="output pb-40">
+        {{ contentHTML }}
+        <br><br><br>
+        {{ contentJSON }}
+    </div>
 
 </template>
 
@@ -50,6 +58,8 @@ export default {
     data() {
         return {
             editor: null,
+            contentHTML: "",
+            contentJSON: ""
         }
     },
     methods: {
@@ -79,10 +89,10 @@ export default {
                 content: "",
                 onUpdate: () => {
                     // HTML
-                    // this.$emit('update:modelValue', this.editor.getHTML())
+                    this.contentHTML = this.editor.getHTML()
 
                     // JSON
-                    this.$emit('update:modelValue', this.editor.getJSON())
+                    this.contentJSON = this.editor.getJSON()
                 },
             })
         },
