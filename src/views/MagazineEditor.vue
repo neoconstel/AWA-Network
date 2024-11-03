@@ -29,10 +29,18 @@
         <button class="bg-cyan-500 py-3 px-14 mx-auto block mb-5">Submit</button>
     </section>
 
+    <h2>Editor content as HTML and JSON</h2>
     <div class="output pb-40">
         {{ contentHTML }}
         <br><br><br>
         {{ contentJSON }}
+        <br>
+        <hr>
+        <br>
+        <h2>Editor converted content as JSON and HTML respectively</h2>
+        {{ this.generatedJsonFromContentHTML }}
+        <br><br><br>
+        {{ this.generatedHtmlFromContentJSON }}
     </div>
 
 </template>
@@ -49,6 +57,10 @@ import StarterKit from '@tiptap/starter-kit' // Document, Paragraph, Text, etc
 import Image from '@tiptap/extension-image'
 import Paragraph from '@tiptap/extension-paragraph'
 
+// HTML utility
+import { generateJSON } from '@tiptap/core'
+import { generateHTML } from '@tiptap/core'
+
 export default {
     name: 'MagazineEditor',
     components: {
@@ -59,7 +71,34 @@ export default {
         return {
             editor: null,
             contentHTML: "",
-            contentJSON: ""
+            contentJSON: "",
+            generatedJsonFromContentHTML: {},
+            generatedHtmlFromContentJSON: ""
+        }
+    },
+    watch: {
+
+        'contentHTML': {
+            immediate: false,
+            handler(newVal) {
+                this.generatedJsonFromContentHTML = generateJSON(newVal, [
+                    StarterKit,
+                    Image,
+                    Paragraph,
+                ])
+
+            }
+        },
+        'contentJSON': {
+            immediate: false,
+            handler(newVal) {
+                this.generatedHtmlFromContentJSON = generateHTML(newVal, [
+                    StarterKit,
+                    Image,
+                    Paragraph,
+                ])
+
+            }
         }
     },
     methods: {
@@ -88,7 +127,7 @@ export default {
                 // disable the loading of the default CSS (which is not much anyway)
                 injectCSS: false,
                 // set the initial content
-                content: "",
+                content: ``,
                 onUpdate: () => {
                     // HTML
                     this.contentHTML = this.editor.getHTML()
