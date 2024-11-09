@@ -13,13 +13,13 @@
 
         <div class="editor-buttons sticky top-24 text-center z-10 space-x-1 mt-10">
             <h3 class="block text-center text-gray-700 dark:text-gray-200">Editor</h3>
-            <button
+            <button @click="this.editor.commands.toggleHeading({ level: 1 })"
                 class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 type="button">Heading</button>
-            <button
+            <button @click="this.editor.commands.toggleHeading({ level: 2 })"
                 class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 type="button">H2</button>
-            <button
+            <button @click="this.editor.commands.toggleHeading({ level: 3 })"
                 class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 type="button">H3</button>
             <button
@@ -209,13 +209,21 @@ export default {
             this.$refs.imageInput.value = null
         },
         async submit() {
-            const title = "Blender now the standard!"
+            // get the text inside the first h1 element
+            const title = this.contentJSON['content'].filter(
+                element => element.type == 'heading' && element.attrs.level == 1)[0]
+                .content[0].text
             const tags = "Blender, CG, Animation"
             const categories = Object.entries(this.categories)
                 .filter(([key, value]) => value == true)
                 .map(arr => arr[0])
                 .join()
             const html = this.contentHTML
+
+            console.log(title)
+            console.log(tags)
+            console.log(categories)
+            console.log(html)
 
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/magazine/articles/`
 
