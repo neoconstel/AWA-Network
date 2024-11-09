@@ -209,9 +209,12 @@ export default {
             this.$refs.imageInput.value = null
         },
         async submit() {
-            const title = "Blender now the standard!" // this.$refs.title.value
-            const tags = "Blender, CG, Animation" // this.$refs.tags.value
-            const categories = "News" //TODO: make this selectable
+            const title = "Blender now the standard!"
+            const tags = "Blender, CG, Animation"
+            const categories = Object.entries(this.categories)
+                .filter(([key, value]) => value == true)
+                .map(arr => arr[0])
+                .join()
             const html = this.contentHTML
 
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/magazine/articles/`
