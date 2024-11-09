@@ -59,7 +59,6 @@
                     </path>
                 </svg></label>
 
-
             <input class="hidden" @change="onSelectImage" type="file" id="image" accept="image/*" ref="imageInput">
 
         </div>
@@ -69,7 +68,14 @@
         <EditorContent :editor="editor"
             class="bg-gray-300 text-gray-800 dark:bg-gray-400 dark:text-gray-200 relative top-10 text-center mb-12" />
 
-        <button @click="submit" class="bg-cyan-500 py-3 px-14 mx-auto block mb-5">Submit</button>
+        <div class="text-center">
+            <input
+                class="outline-double outline-2 outline-gray-500 w-1/3 my-5 bg-transparent px-1 text-gray-800 dark:text-gray-200 py-1"
+                type="text" placeholder="Tags" ref="tags">
+        </div>
+
+        <button @click="submit"
+            class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-5">Submit</button>
     </section>
 
     <h2>Editor content as HTML and JSON</h2>
@@ -80,9 +86,7 @@
         <br>
         <hr>
         <br>
-        <h2>Editor converted content as JSON and HTML respectively</h2>
-        {{ this.generatedJsonFromContentHTML }}
-        <br><br><br>
+        <h2>Raw HTML without CSS</h2>
         {{ this.generatedHtmlFromContentJSON }}
     </div>
 
@@ -135,7 +139,9 @@ export default {
             immediate: false,
             handler(newVal) {
                 this.generatedJsonFromContentHTML = generateJSON(newVal, [
-                    StarterKit,
+                    StarterKit.configure({
+                        paragraph: false,
+                    }),
                     Image,
                     Paragraph,
                 ])
@@ -146,7 +152,9 @@ export default {
             immediate: false,
             handler(newVal) {
                 this.generatedHtmlFromContentJSON = generateHTML(newVal, [
-                    StarterKit,
+                    StarterKit.configure({
+                        paragraph: false,
+                    }),
                     Image,
                     Paragraph,
                 ])
@@ -213,12 +221,20 @@ export default {
             const title = this.contentJSON['content'].filter(
                 element => element.type == 'heading' && element.attrs.level == 1)[0]
                 .content[0].text
-            const tags = "Blender, CG, Animation"
+            const tags = this.$refs.tags.value
             const categories = Object.entries(this.categories)
                 .filter(([key, value]) => value == true)
                 .map(arr => arr[0])
                 .join()
-            const html = this.contentHTML
+
+            // get raw html without any css
+            const html = generateHTML(this.editor.getJSON(), [
+                StarterKit.configure({
+                    paragraph: false,
+                }),
+                Image,
+                Paragraph,
+            ])
 
             console.log(title)
             console.log(tags)
