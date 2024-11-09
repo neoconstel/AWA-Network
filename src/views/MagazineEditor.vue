@@ -1,32 +1,71 @@
 <template>
     <section v-if="editor" class="mx-16">
-        <div class="editor-buttons sticky top-24 text-center z-10">
-            <button class="bg-orange-600 text-gray-300 p-5 mr-2"
-                @click="this.editor.chain().focus().toggleBold().run()">Toggle
-                Bold</button>
-            <button class="bg-orange-600 text-gray-300 p-5 mr-2"
-                @click="this.editor.chain().focus().undo().run()">Undo</button>
-            <button class="bg-orange-600 text-gray-300 p-5 mr-2"
-                @click="this.editor.chain().focus().redo().run()">Redo</button>
-            <button class="bg-orange-600 text-gray-300 p-5 mr-2"
+        <div class="categories text-center mt-4">
+            <h3 class="block text-center">Categories</h3>
+            <button v-for="(key, value, index) in categories" @click="toggleCategory($event)"
+                class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                type="button" :key="index">{{ value }}</button>
+        </div>
+
+        <div class="editor-buttons sticky top-24 text-center z-10 space-x-1 mt-10">
+            <h3 class="block text-center">Editor</h3>
+            <button
+                class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                type="button">Heading</button>
+            <button
+                class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                type="button">H2</button>
+            <button
+                class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                type="button">H3</button>
+            <button
+                class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                @click="this.editor.chain().focus().toggleBold().run()">B</button>
+            <button
+                class="w-16 inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                @click="this.editor.chain().focus().undo().run()"><svg xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z">
+                    </path>
+                </svg></button>
+            <button
+                class="w-16 inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                @click="this.editor.chain().focus().redo().run()"><svg xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M18.1716 6.99955H11C7.68629 6.99955 5 9.68584 5 12.9996C5 16.3133 7.68629 18.9996 11 18.9996H20V20.9996H11C6.58172 20.9996 3 17.4178 3 12.9996C3 8.58127 6.58172 4.99955 11 4.99955H18.1716L15.636 2.46402L17.0503 1.0498L22 5.99955L17.0503 10.9493L15.636 9.53509L18.1716 6.99955Z">
+                    </path>
+                </svg></button>
+            <button
+                class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 @click="this.editor.chain().focus().setParagraph().run()">Paragraph</button>
-            <button class="bg-orange-600 text-gray-300 p-5 mr-2"
+            <button
+                class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 @click="this.editor.commands.setHorizontalRule()">Horizontal
                 Rule</button>
-            <button class="bg-orange-600 text-gray-300 p-5 mr-2"
-                @click="this.editor.chain().focus().setImage({ title: 'image testing', src: 'https://magazine.artstation.com/wp-content/uploads/2024/09/TWW_ArtBlast_Thumbnail-1280-x-720.jpg?resize=1024,576', alt: '' }).run()">Image</button>
-            <!-- <button class="bg-orange-600 text-gray-300 p-5 mr-2" @click="">Browse Image</button> -->
-            <form enctype="multipart/form-data">
-                <input @change="onSelectImage" type="file" accept="image/*" ref="imageInput">
-            </form>
+            <!-- <button
+                class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                @click="this.editor.chain().focus().setImage({ title: 'image testing', src: 'https://magazine.artstation.com/wp-content/uploads/2024/09/TWW_ArtBlast_Thumbnail-1280-x-720.jpg?resize=1024,576', alt: '' }).run()">Image</button> -->
+            <label for="image"
+                class="w-16 inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"><svg
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M2.9918 21C2.44405 21 2 20.5551 2 20.0066V3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918ZM20 15V5H4V19L14 9L20 15ZM20 17.8284L14 11.8284L6.82843 19H20V17.8284ZM8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11Z">
+                    </path>
+                </svg></label>
+
+
+            <input class="hidden" @change="onSelectImage" type="file" id="image" accept="image/*" ref="imageInput">
+
         </div>
 
         <hr class="my-5">
 
         <EditorContent :editor="editor"
-            class="bg-gray-300 text-gray-800 dark:bg-gray-700 dark:text-gray-200 relative top-10 text-center mb-12" />
+            class="bg-gray-300 text-gray-800 dark:bg-gray-400 dark:text-gray-200 relative top-10 text-center mb-12" />
 
-        <button class="bg-cyan-500 py-3 px-14 mx-auto block mb-5">Submit</button>
+        <button @click="submit" class="bg-cyan-500 py-3 px-14 mx-auto block mb-5">Submit</button>
     </section>
 
     <h2>Editor content as HTML and JSON</h2>
@@ -60,6 +99,7 @@ import Paragraph from '@tiptap/extension-paragraph'
 // HTML utility
 import { generateJSON } from '@tiptap/core'
 import { generateHTML } from '@tiptap/core'
+import { categories } from '@vueuse/core/metadata.cjs';
 
 export default {
     name: 'MagazineEditor',
@@ -70,6 +110,15 @@ export default {
     data() {
         return {
             editor: null,
+            categories: {
+                'Art Skills': false,
+                'Career': false,
+                'Inspiration': false,
+                'News': false,
+                'Ads': false,
+                'Challenges': false,
+                'Updates': false
+            },
             contentHTML: "",
             contentJSON: "",
             generatedJsonFromContentHTML: {},
@@ -154,7 +203,47 @@ export default {
 
             // reset file input
             this.$refs.imageInput.value = null
+        },
+        async submit() {
+            const title = "Blender now the standard!" // this.$refs.title.value
+            const tags = "Blender, CG, Animation" // this.$refs.tags.value
+            const categories = "News" //TODO: make this selectable
+            const html = this.contentHTML
 
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/magazine/articles/`
+
+            const headers = {
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const formData = new FormData()
+            formData.append('title', title)
+            formData.append('tags', tags)
+            formData.append('categories', categories)
+            formData.append('html', html)
+
+            const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: formData,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    if (response.status < 300) {
+                        setTimeout(() => {
+                            alert("Article uploaded successfully")
+                        }, 1500)
+                    }
+                    else
+                        ;
+                })
+                .catch(error => this.errorMessage = error)
+        },
+        toggleCategory(event) {
+            console.log(event.target)
         }
     },
     computed: {
