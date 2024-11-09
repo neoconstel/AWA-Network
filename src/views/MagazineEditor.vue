@@ -1,14 +1,18 @@
 <template>
     <section v-if="editor" class="mx-16">
         <div class="categories text-center mt-4">
-            <h3 class="block text-center">Categories</h3>
-            <button v-for="(key, value, index) in categories" @click="toggleCategory($event)"
-                class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                type="button" :key="index">{{ value }}</button>
+            <h3 class="block text-center text-gray-700 dark:text-gray-200">Categories</h3>
+            <!-- class bindings applied to category buttons below -->
+            <button v-for="(value, key, index) in categories" @click="this.categories[key] = !this.categories[key]"
+                class="inline-block rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 motion-reduce:transition-none dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                :class="{
+                    'bg-neutral-300 dark:bg-neutral-700  text-neutral-700 dark:text-neutral-300': !this.categories[key],
+                    'bg-neutral-800 dark:bg-neutral-200  text-neutral-50 dark:text-neutral-900  hover:bg-neutral-700 dark:hover:bg-neutral-400  focus:bg-neutral-700 dark:focus:bg-neutral-300  active:bg-neutral-900 dark:active:bg-neutral-100  dark:shadow-black/30 ': this.categories[key]
+                }" type="button" :key="index">{{ key }}</button>
         </div>
 
         <div class="editor-buttons sticky top-24 text-center z-10 space-x-1 mt-10">
-            <h3 class="block text-center">Editor</h3>
+            <h3 class="block text-center text-gray-700 dark:text-gray-200">Editor</h3>
             <button
                 class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 type="button">Heading</button>
@@ -243,7 +247,8 @@ export default {
                 .catch(error => this.errorMessage = error)
         },
         toggleCategory(event) {
-            console.log(event.target)
+            // const buttonText = event.target.innerText
+            // this.categories[buttonText]
         }
     },
     computed: {
