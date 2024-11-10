@@ -78,8 +78,8 @@
             class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-5">Submit</button>
     </section>
 
-    <h2>Editor content as HTML and JSON</h2>
-    <div class="output pb-40">
+    <h2 class="dark:text-gray-200">Editor content as HTML and JSON</h2>
+    <div class="output pb-40 dark:text-gray-200">
         {{ contentHTML }}
         <br><br><br>
         {{ contentJSON }}
@@ -87,7 +87,7 @@
         <hr>
         <br>
         <h2>Raw HTML without CSS</h2>
-        {{ this.generatedHtmlFromContentJSON }}
+        {{ this.rawHTML }}
     </div>
 
 </template>
@@ -129,36 +129,21 @@ export default {
             },
             contentHTML: "",
             contentJSON: "",
-            generatedJsonFromContentHTML: {},
-            generatedHtmlFromContentJSON: ""
+            rawHTML: "", // No CSS
         }
     },
     watch: {
-
-        'contentHTML': {
-            immediate: false,
-            handler(newVal) {
-                this.generatedJsonFromContentHTML = generateJSON(newVal, [
-                    StarterKit.configure({
-                        paragraph: false,
-                    }),
-                    Image,
-                    Paragraph,
-                ])
-
-            }
-        },
         'contentJSON': {
             immediate: false,
             handler(newVal) {
-                this.generatedHtmlFromContentJSON = generateHTML(newVal, [
+                // generate pure HTML
+                this.rawHTML = generateHTML(newVal, [
                     StarterKit.configure({
                         paragraph: false,
                     }),
                     Image,
                     Paragraph,
                 ])
-
             }
         }
     },
@@ -217,29 +202,49 @@ export default {
             this.$refs.imageInput.value = null
         },
         async submit() {
-            // get the text inside the first h1 element
+            // get the text inside the first H1 element
             const title = this.contentJSON['content'].filter(
                 element => element.type == 'heading' && element.attrs.level == 1)[0]
                 .content[0].text
+
             const tags = this.$refs.tags.value
             const categories = Object.entries(this.categories)
                 .filter(([key, value]) => value == true)
                 .map(arr => arr[0])
                 .join()
 
-            // get raw html without any css
-            const html = generateHTML(this.editor.getJSON(), [
-                StarterKit.configure({
-                    paragraph: false,
-                }),
-                Image,
-                Paragraph,
-            ])
+            // get the raw html without any css
+            const html = this.rawHTML
 
-            console.log(title)
-            console.log(tags)
-            console.log(categories)
-            console.log(html)
+
+            // NEW IMAGE UPLOADS
+
+            // currently this is for only img elements
+            const blobElements = this.contentJSON.content.filter(
+                element => element.type == 'image'
+                    && element.attrs.src.startsWith('blob:'))
+
+            // an array to map file data entries of the form: {blobUrl:file}
+            const fileMappings = []
+
+            // NEVER USE FOREACH (or any other higher-order function) with
+            // ASYNC/AWAIT! Use for..of with ASYNC/AWAIT instead!
+            for (let element of blobElements) {
+                let url = element.attrs.src
+                let title = element.attrs.title
+                let file = await fetch(url)
+                    .then(response => response.blob())
+                    .then((blobObject) => {
+                        let fileObject = new File([blobObject], title, {
+                            type: blobObject.type,
+                        });
+                        return fileObject
+                    })
+                fileMappings.push({
+                    [url]: file
+                })
+            }
+
 
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/magazine/articles/`
 
@@ -252,6 +257,13 @@ export default {
             formData.append('tags', tags)
             formData.append('categories', categories)
             formData.append('html', html)
+
+            // add file mappings each of form: [blobUrl, file]
+            for (let mapping of fileMappings) {
+                let blobUrl = Object.keys(mapping)[0]
+                let file = Object.values(mapping)[0]
+                formData.append(blobUrl, file)
+            }
 
             const requestOptions = {
                 method: 'POST',
@@ -272,10 +284,6 @@ export default {
                         ;
                 })
                 .catch(error => this.errorMessage = error)
-        },
-        toggleCategory(event) {
-            // const buttonText = event.target.innerText
-            // this.categories[buttonText]
         }
     },
     computed: {
