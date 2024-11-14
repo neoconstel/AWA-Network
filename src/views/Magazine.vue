@@ -77,16 +77,40 @@ export default {
     },
     data() {
         return {
-
+            articles: []
         }
     },
     computed: {
         ...mapStores(useDataStore),
     },
     methods: {
+        async fetchArticles() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/magazine/articles/`
+
+            fetch(url)
+                .then(response => response.json())
+                .then((data) => {
+                    // console.log(data)
+                    this.articles.splice(this.articles.length, 0, ...(data['results']))
+                    console.log(this.articles)
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
     },
     mounted() {
+        console.log('Magazine view mounted')
 
+        this.fetchArticles()
+
+        this.$nextTick(() => {
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 100)
+        })
     }
 }
 
