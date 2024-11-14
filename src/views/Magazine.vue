@@ -17,7 +17,8 @@
 
             <SearchInput class="mt-5" :placeholderText="'Search Articles'" />
 
-            <a class="p-3 mt-5 block text-center w-32 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700"
+            <a v-if="this.dataStore.user.id && (this.dataStore.user.groups.includes('ArticleCreators') | this.dataStore.user.is_superuser)"
+                class="p-3 mt-5 block text-center w-32 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700"
                 href="/magazine_editor" target="_blank">Create Article</a>
 
             <section class="grid mt-10 gap-x-5" style="grid-template-columns: 3fr 1fr;">
