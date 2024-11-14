@@ -1,9 +1,17 @@
 <template>
-    <div class="grid" :style="layout">
-        <div class="bg-pink-500">image</div>
-        <div class="bg-yellow-500">info</div>
+    <div v-if="article">
+        <div class="grid">
+            <div class="bg-pink-500">
+                <RouterLink class=""><img class="aspect-video object-cover w-full" :src="article.thumbnail_url" alt="">
+                </RouterLink>
+            </div>
+            <div class="grid grid-rows-3 px-3 max-h-24 bg-yellow-500">
+                <p>{{ article.tags }}</p>
+                <h3>{{ article.title }}</h3>
+                <p>By AWA Team</p>
+            </div>
+        </div>
     </div>
-
 </template>
 
 <script>

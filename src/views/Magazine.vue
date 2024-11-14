@@ -36,7 +36,7 @@
             <main class="mr-10">
                 <section class="grid grid-cols-2 gap-x-10">
                     <!-- article gallery -->
-                    <ArticleCard v-for="index in 16" class="mt-10" :key="index" />
+                    <ArticleCard v-for="article in this.articles" class="mt-10" :article="article" :key="index" />
                 </section>
                 <div>
                     <button>Previous</button>
