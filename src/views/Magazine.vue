@@ -1,5 +1,5 @@
 <template>
-    <div class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
+    <div v-if="this.articles.length" class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
         <header>
             <div
                 class="grid grid-cols-4 mt-4 gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-5 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
@@ -23,12 +23,12 @@
 
             <section class="grid mt-10 gap-x-5" style="grid-template-columns: 3fr 1fr;">
                 <!-- highlighted article -->
-                <ArticleCard class="" :topToBottomRatio="3" />
+                <ArticleCard class="h-full" :article="articles.slice(-1)[0]" :topToBottomRatio="3" />
 
                 <section class="space-y-5">
                     <!-- follow-up highlights -->
-                    <ArticleCard />
-                    <ArticleCard />
+                    <ArticleCard :article="articles.slice(-2)[0]" />
+                    <ArticleCard :article="articles.slice(-3)[0]" />
                 </section>
             </section>
         </header>
@@ -36,7 +36,8 @@
             <main class="mr-10">
                 <section class="grid grid-cols-2 gap-x-10">
                     <!-- article gallery -->
-                    <ArticleCard v-for="article in this.articles" class="mt-10" :article="article" :key="index" />
+                    <ArticleCard v-for="(article, index) in this.articles" class="mt-10" :article="article"
+                        :key="index" />
                 </section>
                 <div>
                     <button>Previous</button>
@@ -46,11 +47,15 @@
             <aside>
                 <p class="mt-10 text-center text-2xl font-light">Trending Articles</p>
                 <div class="space-y-5">
-                    <div v-for="index in 10" :key="index" class="grid" style="grid-template-columns: 1fr 3fr;">
-                        <img src="" alt="">
-                        <div>
-                            <p>categories</p>
-                            <p>title</p>
+                    <div v-for="(article, index) in this.articles.slice(3, 13)" :key="index" class="grid"
+                        style="grid-template-columns: 1fr 3fr;">
+                        <RouterLink :to="``"><img class="w-full h-full object-cover" :src="article.thumbnail_url"
+                                alt=""></RouterLink>
+                        <div class="text-sm ml-2">
+                            <p>{{ article.categories }}</p>
+                            <RouterLink>
+                                <p>{{ article.title }}</p>
+                            </RouterLink>
                         </div>
                     </div>
                 </div>
@@ -77,7 +82,10 @@ export default {
     },
     data() {
         return {
-            articles: []
+            articles: [],
+            trendingArticles: [],
+            highlightedArticle: null,
+            followUpHighlights: []
         }
     },
     computed: {
@@ -105,6 +113,12 @@ export default {
         console.log('Magazine view mounted')
 
         this.fetchArticles()
+
+        // TODO: fetch these from backend
+        this.trendingArticles = this.articles.slice(3, 13)
+        this.followUpHighlights = this.articles.slice(1, 3)
+        this.highlightedArticle = this.articles[0]
+
 
         this.$nextTick(() => {
             setTimeout(() => {

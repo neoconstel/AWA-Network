@@ -5,10 +5,13 @@
                 <RouterLink class=""><img class="aspect-video object-cover w-full" :src="article.thumbnail_url" alt="">
                 </RouterLink>
             </div>
-            <div class="grid grid-rows-3 px-3 max-h-24 bg-yellow-500">
-                <p>{{ article.tags }}</p>
-                <h3>{{ article.title }}</h3>
-                <p>By AWA Team</p>
+            <div class="grid grid-rows-3 px-3 max-h-24 bg-yellow-500 dark:bg-yellow-700">
+                <p class="overflow-hidden whitespace-nowrap text-ellipsis">{{ article.categories.split(',').join(' ') }}
+                </p>
+                <RouterLink>
+                    <h3 class="overflow-hidden whitespace-nowrap text-ellipsis">{{ article.title }}</h3>
+                </RouterLink>
+                <p class="overflow-hidden whitespace-nowrap text-ellipsis">By AWA Team</p>
             </div>
         </div>
     </div>
