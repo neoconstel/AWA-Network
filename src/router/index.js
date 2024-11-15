@@ -115,6 +115,11 @@ const fixedRoutes = [
     // which is lazy-loaded when the route is visited.
     component: () => import("../views/MagazineEditor.vue"),
   },
+  {
+    path: "/article/:id",
+    name: "articleDetail",
+    component: () => import("../views/ArticleDetail.vue"),
+  },
 ];
 
 const mergedRoutes = fixedRoutes.concat(wagtailPagesRoutes);
