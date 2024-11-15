@@ -71,7 +71,7 @@
         <div class="text-center">
             <input
                 class="outline-double outline-2 outline-gray-500 w-1/3 my-5 bg-transparent px-1 text-gray-800 dark:text-gray-200 py-1"
-                type="text" placeholder="Tags" ref="tags">
+                type="text" placeholder="Tags (optional)" ref="tags">
         </div>
 
         <button @click="submit"
@@ -202,16 +202,50 @@ export default {
             this.$refs.imageInput.value = null
         },
         async submit() {
-            // get the text inside the first H1 element
-            const title = this.contentJSON['content'].filter(
-                element => element.type == 'heading' && element.attrs.level == 1)[0]
-                .content[0].text
+            // EDITOR VALIDATION
+
+            // check if article is empty
+            if (this.contentJSON['content'] == undefined) {
+                alert("You can't submit an empty article!")
+                return
+            }
+
+            // ensure there is at least one NON-EMPTY H1 (Article heading/title)
+            const nonEmptyH1Elements = this.contentJSON['content'].filter(
+                element => element.type == 'heading'
+                    && element.attrs.level == 1
+                    && element.content != undefined
+                    && element.content[0].text.trim().length > 0
+            )
+            if (nonEmptyH1Elements.length == 0) {
+                alert("Add an article HEADING!")
+                return
+            }
+
+            // ensure there is at least one image (Article thumbnail)
+            const imageElements = this.contentJSON['content'].filter(
+                element => element.type == 'image')
+            if (imageElements.length == 0) {
+                alert("Add at least one IMAGE!")
+                return
+            }
+
+
+
+            // get the text inside the first non-empty H1 element
+            const title = nonEmptyH1Elements[0].content[0].text
 
             const tags = this.$refs.tags.value
             const categories = Object.entries(this.categories)
                 .filter(([key, value]) => value == true)
                 .map(arr => arr[0])
                 .join()
+
+            // categories validation
+            if (!categories) {
+                alert("Select AT LEAST one category!")
+                return
+            }
 
             // get the raw html without any css
             const html = this.rawHTML
