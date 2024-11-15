@@ -1,5 +1,5 @@
 <template>
-    <div v-if="this.article.id" class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
+    <div v-if="this.article.id && this.htmlText" class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
         <header>
             <div
                 class="grid grid-cols-4 mt-4 gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-2 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
@@ -9,8 +9,12 @@
                 <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">News</RouterLink>
             </div>
         </header>
-        <div class="grid" style="grid-template-columns: 3fr 1fr;">
+        <div class="" style="grid-template-columns: 3fr 1fr;">
+            <!-- if an <aside> is needed, just add a 'grid' class to the
+                container div above -->
             <main class="mr-10">
+                <!-- style module used instead of style scoped -->
+                <div v-html="htmlText" :id="$style.htmlContainer"></div>
             </main>
             <aside>
             </aside>
@@ -85,5 +89,25 @@ export default {
         }
     }
 }
-
 </script>
+
+<style module>
+#htmlContainer h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+#htmlContainer p {
+    text-align: center;
+}
+
+#htmlContainer img {
+    margin: 0 auto;
+}
+</style>
