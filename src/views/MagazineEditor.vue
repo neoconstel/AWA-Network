@@ -75,10 +75,10 @@
         </div>
 
         <button @click="submit"
-            class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-5">Submit</button>
+            class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-28">Submit</button>
     </section>
 
-    <h2 class="dark:text-gray-200">Editor content as HTML and JSON</h2>
+    <!-- <h2 class="dark:text-gray-200">Editor content as HTML and JSON</h2>
     <div class="output pb-40 dark:text-gray-200">
         {{ contentHTML }}
         <br><br><br>
@@ -88,7 +88,7 @@
         <br>
         <h2>Raw HTML without CSS</h2>
         {{ this.rawHTML }}
-    </div>
+    </div> -->
 
 </template>
 
@@ -157,7 +157,7 @@ export default {
                     }),
                     Image.configure({
                         HTMLAttributes: {
-                            class: 'w-52 mx-auto',
+                            class: 'mx-auto',
                         },
                     }),
                     Paragraph.configure({
