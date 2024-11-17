@@ -13,8 +13,8 @@
             <!-- if an <aside> is needed, just add a 'grid' class to the
                 container div above -->
             <main class="mr-10">
-                <!-- style module used instead of style scoped -->
-                <div v-html="htmlText" :id="$style.htmlContainer"></div>
+                <!-- style scoped dynamic html with deep selectors applied -->
+                <div v-html="htmlText" id="html-container"></div>
             </main>
             <aside>
             </aside>
@@ -67,6 +67,8 @@ export default {
         },
     },
     mounted() {
+        this.fetchArticle(this.$route.params.id)
+
         this.$nextTick(() => {
             setTimeout(() => {
                 window.scrollTo(0, 0);
@@ -77,7 +79,7 @@ export default {
         // stuffs that should be re-fetched or re-executed if something changes
 
         '$route.params.id': {
-            immediate: true,
+            immediate: false,
             handler(newVal) {
                 // scroll to top
                 setTimeout(() => {
@@ -91,23 +93,24 @@ export default {
 }
 </script>
 
-<style module>
-#htmlContainer h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+<style scoped>
+/* style dynamic html with vue deep selector */
+
+:deep(#html-container h1),
+:deep(#html-container h2),
+:deep(#html-container h3),
+:deep(#html-container h4),
+:deep(#html-container h5),
+:deep(#html-container h6) {
     text-align: center;
     margin-top: 20px;
 }
 
-
-#htmlContainer p {
+:deep(#html-container p) {
     text-align: center;
 }
 
-#htmlContainer img {
+:deep(#html-container img) {
     margin: 0 auto;
 }
 </style>
