@@ -1,6 +1,6 @@
 <template>
-    <div v-if="this.articles.length" class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
-        <header>
+    <div class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
+        <header v-if="this.articles.length">
             <div
                 class="grid grid-cols-4 mt-4 gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-5 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
                 <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Art Skills <span
@@ -17,10 +17,6 @@
 
             <SearchInput class="mt-5" :placeholderText="'Search Articles'" />
 
-            <a v-if="this.dataStore.user.id && (this.dataStore.user.groups.includes('ArticleCreators') | this.dataStore.user.is_superuser)"
-                class="p-3 mt-5 block text-center w-32 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700"
-                href="/magazine_editor" target="_blank">Create Article</a>
-
             <section class="grid mt-10 gap-x-5" style="grid-template-columns: 3fr 1fr;">
                 <!-- highlighted article -->
                 <ArticleCard class="h-full" :article="articles.slice(-1)[0]" :topToBottomRatio="3" />
@@ -32,7 +28,13 @@
                 </section>
             </section>
         </header>
-        <div class="grid" style="grid-template-columns: 3fr 1fr;">
+
+        <a v-if="this.dataStore.user.id && (this.dataStore.user.groups.includes('ArticleCreators') | this.dataStore.user.is_superuser)"
+            class="p-3 mt-5 block text-center w-32 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700"
+            href="/magazine_editor" target="_blank">Create Article</a>
+
+
+        <div v-if="this.articles.length" class="grid" style="grid-template-columns: 3fr 1fr;">
             <main class="mr-10">
                 <section class="grid grid-cols-2 gap-x-10">
                     <!-- article gallery -->
@@ -53,7 +55,7 @@
                                 alt=""></RouterLink>
                         <div class="text-sm ml-2">
                             <p>{{ article.categories }}</p>
-                            <RouterLink>
+                            <RouterLink :to="``">
                                 <p>{{ article.title }}</p>
                             </RouterLink>
                         </div>
@@ -63,10 +65,6 @@
             </aside>
         </div>
     </div>
-    <a v-else
-        class="p-3 mt-5 block text-center w-32 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700"
-        href="/magazine_editor" target="_blank">Create First Article</a>
-
 </template>
 
 <script>
@@ -118,9 +116,9 @@ export default {
         this.fetchArticles()
 
         // TODO: fetch these from backend
-        this.trendingArticles = this.articles.slice(3, 13)
-        this.followUpHighlights = this.articles.slice(1, 3)
-        this.highlightedArticle = this.articles[0]
+        // this.trendingArticles = this.articles.slice(3, 13)
+        // this.followUpHighlights = this.articles.slice(1, 3)
+        // this.highlightedArticle = this.articles[0]
 
 
         this.$nextTick(() => {
