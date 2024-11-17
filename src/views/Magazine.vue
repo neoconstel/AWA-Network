@@ -49,14 +49,15 @@
             <aside>
                 <p class="mt-10 text-center text-2xl font-light">Trending Articles</p>
                 <div class="space-y-5">
-                    <div v-for="(article, index) in this.articles.slice(3, 13)" :key="index" class="grid"
+                    <div v-for="(article, index) in this.articles.slice(3, 13)" :key="index" class="grid h-20"
                         style="grid-template-columns: 1fr 3fr;">
-                        <RouterLink :to="``"><img class="w-full h-full object-cover" :src="article.thumbnail_url"
-                                alt=""></RouterLink>
-                        <div class="text-sm ml-2">
-                            <p>{{ article.categories }}</p>
-                            <RouterLink :to="``">
-                                <p>{{ article.title }}</p>
+                        <RouterLink class="" :to="`/article/${article.id}/`"><img
+                                class="w-full aspect-square object-cover" :src="article.thumbnail_url" alt="">
+                        </RouterLink>
+                        <div class="text-sm ml-2 overflow-hidden whitespace-nowrap text-ellipsis">
+                            <p class="overflow-hidden whitespace-nowrap text-ellipsis">{{ article.categories }}</p>
+                            <RouterLink :to="`/article/${article.id}/`">
+                                <p class="text-blue-500">{{ article.title }}</p>
                             </RouterLink>
                         </div>
                     </div>
