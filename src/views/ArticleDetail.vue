@@ -28,6 +28,9 @@
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
 import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 
+// HTML sanitization
+import DOMPurify from 'dompurify';
+
 export default {
     name: 'ArticleDetail',
     components: {
@@ -59,7 +62,7 @@ export default {
                     return fetch(html_url)
                 })
                 .then(response => response.text())
-                .then(htmlText => this.htmlText = htmlText)
+                .then(htmlText => this.htmlText = DOMPurify.sanitize(htmlText))
                 .catch((error) => {
                     this.errorMessage = error
                     console.log('error', error)
