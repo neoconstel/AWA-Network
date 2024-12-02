@@ -1,5 +1,5 @@
 <template>
-    <div v-if="products.length > 0" class="page-container mx-16">
+    <div v-if="targetCategory" class="page-container mx-16">
         <header>
             <div class="grid grid-cols-2 gap-2">
                 <RouterLink class="h-28 flex justify-center items-center bg-yellow-100" to="">Digital Products
@@ -18,7 +18,7 @@
             </div>
         </header>
         <main>
-            <!-- {{ $route.params.paths }} -->
+            <p v-if="$route.params.paths">{{ $route.params.paths.join('/') }}</p>
         </main>
     </div>
 </template>
@@ -47,14 +47,21 @@ export default {
     },
     methods: {
         async fetchProducts() {
-            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/products/`
+            let subcategoryParams = this.$route.params.paths
+            let subcategoryPath = ''
+            if (subcategoryParams.length)
+                subcategoryPath = `${subcategoryParams.join('/')}/`
+
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/products/${subcategoryPath}`
+
+            console.log("fetched product url:", url)
+            console.log("subcategoryParams:", subcategoryParams)
 
             fetch(url)
                 .then(response => response.json())
                 .then((data) => {
-                    // console.log(data)
-                    this.products.splice(this.products.length, 0, ...(data['results']))
-                    // console.log("products", this.products)
+                    this.products = []
+                    this.products = data['results']
                 }
                 )
                 .catch((error) => {
@@ -78,15 +85,14 @@ export default {
                 })
         },
         getTargetCategory() {
-            /**the category returned is the category corresponding to the last
-             * category in the route parameter (e.g /resources/tutorials/brushes/artworks).
+            /**the category returned is the category with the nested category path matching
+             * the route parameters completely (e.g /resources/tutorials/brushes/artworks).
              * Any subcategories on the page will be based on its children
              * if it has any.
              */
             let routes = this.$route.params.paths // ['tutorials', 'brushes'] etc
 
-            // create deep copy
-            let categoryList = JSON.parse(JSON.stringify(this.productCategories))
+            let categoryList = this.productCategories
             let target = null
             let route
             let routeSum = ""
