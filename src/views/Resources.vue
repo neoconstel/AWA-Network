@@ -1,24 +1,26 @@
 <template>
-    <div v-if="targetCategory" class="page-container mx-16">
+    <div class="page-container mx-16">
         <header>
             <div class="grid grid-cols-2 gap-2">
                 <RouterLink class="h-28 flex justify-center items-center bg-yellow-100" to="">Digital Products
                 </RouterLink>
-                <RouterLink class="h-28 flex justify-center items-center" to="">Digital Bundles</RouterLink>
+                <RouterLink class="h-28 flex justify-center items-center bg-orange-50" to="">Digital Bundles
+                </RouterLink>
             </div>
-            <div class="flex gap-x-2">
+            <div v-if="productCategories" class="flex gap-x-2">
+                <RouterLink class="px-6 py-8 bg-cyan-200" to="/resources">ALL</RouterLink>
                 <RouterLink v-for="(category, index) in productCategories" class="px-6 py-8 bg-cyan-200" :key="index"
                     :to="`/resources${category.path}`">{{
                         category.name }}</RouterLink>
             </div>
-            <div v-if="this.targetCategory" class="flex gap-x-2">
+            <div v-if="targetCategory" class="flex gap-x-2">
                 <RouterLink v-for="(subcategory, index) in targetCategory.children" class="px-6 py-8 bg-pink-400"
                     :key="index" :to="`/resources${subcategory.path}`">{{
                         subcategory.name }}</RouterLink>
             </div>
         </header>
-        <main>
-            <p v-if="$route.params.paths">{{ $route.params.paths.join('/') }}</p>
+        <main class="grid grid-cols-5 mt-10 mb-96 gap-5">
+            <ProductCard v-for="(product, index) in products" :product="product" :key="index" />
         </main>
     </div>
 </template>
@@ -29,10 +31,13 @@
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
 import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 
+import ProductCard from '@/components/ProductCard.vue';
+import { RouterLink } from 'vue-router';
+
 export default {
     name: 'Resources',
     components: {
-
+        ProductCard
     },
     data() {
         return {
