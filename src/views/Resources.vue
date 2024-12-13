@@ -1,21 +1,26 @@
 <template>
-    <div class="page-container mx-16">
+    <div class="page-container mx-16 text-gray-800 dark:text-gray-200">
         <header>
             <div class="grid grid-cols-2 gap-2">
-                <RouterLink class="h-28 flex justify-center items-center bg-yellow-100" to="">Digital Products
+                <RouterLink class="h-28 flex justify-center items-center bg-sky-600 text-gray-200" to="">Digital
+                    Products
                 </RouterLink>
-                <RouterLink class="h-28 flex justify-center items-center bg-orange-50" to="">Digital Bundles
+                <RouterLink class="h-28 flex justify-center items-center bg-indigo-600 text-gray-200" to="">Digital
+                    Bundles
                 </RouterLink>
             </div>
             <div v-if="productCategories" class="flex gap-x-2">
-                <RouterLink class="px-6 py-8 bg-cyan-200" to="/resources">ALL</RouterLink>
-                <RouterLink v-for="(category, index) in productCategories" class="px-6 py-8 bg-cyan-200" :key="index"
+                <RouterLink class="px-6 py-4 bg-gray-700 dark:bg-gray-300 text-gray-200 dark:text-gray-800"
+                    to="/resources">ALL</RouterLink>
+                <RouterLink v-for="(category, index) in productCategories"
+                    class="px-6 py-4 bg-gray-700 dark:bg-gray-300 text-gray-200 dark:text-gray-800" :key="index"
                     :to="`/resources${category.path}`">{{
                         category.name }}</RouterLink>
             </div>
             <div v-if="targetCategory" class="flex gap-x-2">
-                <RouterLink v-for="(subcategory, index) in targetCategory.children" class="px-6 py-8 bg-pink-400"
-                    :key="index" :to="`/resources${subcategory.path}`">{{
+                <RouterLink v-for="(subcategory, index) in targetCategory.children"
+                    class="px-6 py-4 bg-gray-500 dark:bg-gray-400 text-gray-200 dark:text-gray-800" :key="index"
+                    :to="`/resources${subcategory.path}`">{{
                         subcategory.name }}</RouterLink>
             </div>
         </header>
