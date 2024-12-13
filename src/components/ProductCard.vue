@@ -1,13 +1,15 @@
 <template>
-    <div class="">
+    <div class="text-gray-800 dark:text-gray-200">
         <RouterLink>
             <img class="w-full aspect-square object-cover object-top" :src="product.thumbnail_images[0]" alt="">
 
             <div class="relative h-28">
-                <p class="mt-2">{{ product.title }}<span class="text-sm text-green-700"> in {{ product.category.root
+                <p class="mt-2 font-bold">{{ product.title }}<span class="text-sm text-gray-400 dark:text-gray-500"> in
+                        {{
+                            product.category.root
                         }}</span>
                 </p>
-                <p v-if="product.stats.rating_average"><span class="bg-cyan-300 text-sm p-1 mt-2">{{
+                <p v-if="product.stats.rating_average"><span class="bg-cyan-500 text-xs px-1 py-0.5 mt-2 rounded">{{
                     product.stats.rating_average
                         }}</span> based
                     on {{
