@@ -1,3 +1,5 @@
+<!-- for displaying 'Products' from the backend. A 'Resource' as shown in the
+ frontend is actually a 'Product' in the backend -->
 <template>
     <div class="page-container mx-16 text-gray-800 dark:text-gray-200">
         <header>

@@ -125,6 +125,11 @@ const fixedRoutes = [
     name: "resourcesFilter",
     component: () => import("../views/Resources.vue"),
   },
+  {
+    path: "/resource/:id",
+    name: "productDetail",
+    component: () => import("../views/ProductDetail.vue"),
+  },
 ];
 
 const mergedRoutes = fixedRoutes.concat(wagtailPagesRoutes);

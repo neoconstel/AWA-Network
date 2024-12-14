@@ -1,6 +1,6 @@
 <template>
     <div class="text-gray-800 dark:text-gray-200">
-        <RouterLink>
+        <RouterLink :to="`/resource/${product.id}`">
             <img class="w-full aspect-square object-cover object-top" :src="product.thumbnail_images[0]" alt="">
 
             <div class="relative h-28">
