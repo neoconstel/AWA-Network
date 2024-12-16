@@ -39,7 +39,6 @@ import { mapStores } from 'pinia'; // mapStores gives us access to the state
 import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 
 import ProductCard from '@/components/ProductCard.vue';
-import { RouterLink } from 'vue-router';
 
 export default {
     name: 'Resources',

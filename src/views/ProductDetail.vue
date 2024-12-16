@@ -1,11 +1,35 @@
 <template>
-    <div class="mx-16 text-gray-800 dark:text-gray-200">
+    <div v-if="product.id" class="mx-16 text-gray-800 dark:text-gray-200">
         <header></header>
         <div>
-            <main>
-                Product title: {{ product.title }}
-            </main>
-            <section class="cart"></section>
+            <header>
+                <h1 class="mt-10">{{ product.title }}</h1>
+                <img class="w-6 aspect-square rounded-full float-left mr-3"
+                    src="https://cdn.pixabay.com/photo/2024/07/13/08/02/penguin-8891658_1280.jpg" alt="">
+                <p>By <RouterLink :to="``" class="text-cyan-500">{{ product.seller.brand_name }}</RouterLink> in
+                    <RouterLink :to="`/resources/${product.category.root.toLowerCase()}`" class="text-cyan-500">{{
+                        product.category.root
+                    }}</RouterLink>
+                </p>
+            </header>
+            <div class="grid mt-5 mb-72" style="grid-template-columns: 2fr 1fr; grid-template-areas: 'main cart';">
+                <main class="mt-10" style="grid-area: main;">
+                    <img class="w-full aspect-video object-cover"
+                        :src="activeSrc ? activeSrc : product.thumbnail_images[0]" alt="">
+
+                    <div v-if="product.thumbnail_images.length > 1"
+                        class="flex flex-row mt-5 gap-x-2 overflow-x-scroll">
+                        <img @click="handleThumbnailClick"
+                            class="active-thumbnail h-28 aspect-video object-cover border-green-500 border-solid border-4"
+                            :src="product.thumbnail_images[0]" alt="">
+                        <img @click="handleThumbnailClick" v-for="(src, index) in product.thumbnail_images.slice(1)"
+                            class="h-28 aspect-video object-cover border-green-500 border-none border-4" :src="src"
+                            alt="" key="index">
+                    </div>
+                    <article class="product-description">PRODUCT DESCRIPTION FROM HTML CONTENT</article>
+                </main>
+                <section class="" style="grid-area: cart;">CART SECTION</section>
+            </div>
         </div>
     </div>
 </template>
@@ -25,7 +49,8 @@ export default {
     },
     data() {
         return {
-            product: {}
+            product: {},
+            activeSrc: ""
         }
     },
     computed: {
@@ -49,6 +74,17 @@ export default {
                     console.log('error', error)
                 })
         },
+        handleThumbnailClick(event) {
+            let activeThumbnail = document.querySelector(".active-thumbnail")
+            activeThumbnail.classList.remove("border-solid")
+            activeThumbnail.classList.add("border-none")
+            activeThumbnail.classList.remove("active-thumbnail")
+
+            event.target.classList.remove("border-none")
+            event.target.classList.add("border-solid")
+            event.target.classList.add("active-thumbnail")
+            this.activeSrc = event.target.src
+        }
     },
     mounted() {
         this.fetchProduct()
