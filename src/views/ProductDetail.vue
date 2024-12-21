@@ -3,16 +3,23 @@
         <header></header>
         <div>
             <header>
-                <h1 class="mt-10">{{ product.title }}</h1>
+                <p class="mt-10 text-gray-600 dark:text-gray-400">
+                    <RouterLink class="hover:text-cyan-500" to="/Resources">Resources</RouterLink> / <RouterLink
+                        class="hover:text-cyan-500" :to="`/resources/${product.category.root.toLowerCase()}`">{{
+                            product.category.root }}
+                    </RouterLink> / {{ product.title
+                    }}
+                </p>
+                <h1 class="mt-5">{{ product.title }}</h1>
                 <img class="w-6 aspect-square rounded-full float-left mr-3"
                     src="https://cdn.pixabay.com/photo/2024/07/13/08/02/penguin-8891658_1280.jpg" alt="">
                 <p>By <RouterLink :to="``" class="text-cyan-500">{{ product.seller.brand_name }}</RouterLink> in
                     <RouterLink :to="`/resources/${product.category.root.toLowerCase()}`" class="text-cyan-500">{{
                         product.category.root
-                    }}</RouterLink>
+                        }}</RouterLink>
                 </p>
             </header>
-            <div class="grid mt-5 mb-72" style="grid-template-columns: 2fr 1fr; grid-template-areas: 'main cart';">
+            <div class="grid mt-5" style="grid-template-columns: 2fr 1fr; grid-template-areas: 'main cart';">
                 <main class="mt-10" style="grid-area: main;">
                     <img class="w-full aspect-video object-cover"
                         :src="activeSrc ? activeSrc : product.thumbnail_images[0]" alt="">
@@ -26,10 +33,16 @@
                             class="h-28 aspect-video object-cover border-green-500 border-none border-4" :src="src"
                             alt="" key="index">
                     </div>
-                    <article class="product-description">PRODUCT DESCRIPTION FROM HTML CONTENT</article>
+                    <article class="product-description">{{ product.description }}</article>
                 </main>
                 <section class="" style="grid-area: cart;">CART SECTION</section>
             </div>
+            <aside class="mt-28 mb-72">
+                <h3>More by {{ product.seller.brand_name }}</h3>
+                <div v-if="sellerProducts.length && sellerProducts.length > 1" class="grid grid-cols-5 gap-5">
+                    <ProductCard v-for="(product_, index) in sellerProducts" :product="product_" :key="index" />
+                </div>
+            </aside>
         </div>
     </div>
 </template>
@@ -39,18 +52,21 @@
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
 import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 
+import ProductCard from '@/components/ProductCard.vue';
+
 // HTML sanitization
 import DOMPurify from 'dompurify';
 
 export default {
     name: 'ProductDetail',
     components: {
-
+        ProductCard
     },
     data() {
         return {
             product: {},
-            activeSrc: ""
+            activeSrc: "",
+            sellerProducts: []
         }
     },
     computed: {
@@ -68,6 +84,7 @@ export default {
                 .then((data) => {
                     // console.log(data)
                     this.product = data
+                    this.fetchSellerProducts(this.product.seller.alias)
                 })
                 .catch((error) => {
                     this.errorMessage = error
@@ -84,7 +101,22 @@ export default {
             event.target.classList.add("border-solid")
             event.target.classList.add("active-thumbnail")
             this.activeSrc = event.target.src
-        }
+        },
+        async fetchSellerProducts(sellerAlias) {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/products/?seller=${sellerAlias}`
+
+            fetch(url)
+                .then(response => response.json())
+                .then((data) => {
+                    this.sellerProducts = []
+                    this.sellerProducts = data['results']
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
     },
     mounted() {
         this.fetchProduct()
