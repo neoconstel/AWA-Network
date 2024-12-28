@@ -33,9 +33,14 @@
                             class="h-28 aspect-video object-cover border-green-500 border-none border-4" :src="src"
                             alt="" key="index">
                     </div>
-                    <article class="product-description">{{ product.description }}</article>
+                    <article class="product-description">
+                        <!-- style scoped dynamic html with deep selectors applied -->
+                        <div v-html="product.description" id="html-container"></div>
+                    </article>
                 </main>
-                <section class="" style="grid-area: cart;">CART SECTION</section>
+                <section class="cart-section" style="grid-area: cart;">
+                    <ProductCart :product="product" />
+                </section>
             </div>
             <aside class="mt-28 mb-72">
                 <h3>More by {{ product.seller.brand_name }}</h3>
@@ -53,6 +58,7 @@ import { mapStores } from 'pinia'; // mapStores gives us access to the state
 import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 
 import ProductCard from '@/components/ProductCard.vue';
+import ProductCart from '@/components/ProductCart.vue';
 
 // HTML sanitization
 import DOMPurify from 'dompurify';
@@ -60,7 +66,8 @@ import DOMPurify from 'dompurify';
 export default {
     name: 'ProductDetail',
     components: {
-        ProductCard
+        ProductCard,
+        ProductCart
     },
     data() {
         return {
