@@ -121,6 +121,11 @@ const fixedRoutes = [
     component: () => import("../views/ArticleDetail.vue"),
   },
   {
+    path: "/resources/upload",
+    name: "resourceUpload",
+    component: () => import("../views/ResourceUpload.vue"),
+  },
+  {
     path: "/resources/:paths*",
     name: "resourcesFilter",
     component: () => import("../views/Resources.vue"),

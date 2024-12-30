@@ -26,6 +26,9 @@
                         subcategory.name }}</RouterLink>
             </div>
         </header>
+        <a v-if="this.dataStore.user.id && (this.dataStore.user.groups.includes('ArticleCreators') | this.dataStore.user.is_superuser)"
+            class="p-3 mt-5 block text-center w-32 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700"
+            href="/resources/upload" target="_blank">Sell Your Digital Assets</a>
         <main class="grid grid-cols-5 mt-10 mb-96 gap-5">
             <ProductCard v-for="(product, index) in products" :product="product" :key="index" />
         </main>
