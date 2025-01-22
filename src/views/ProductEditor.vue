@@ -1,21 +1,18 @@
 <template>
-    <section v-if="editor" class="mx-16">
-        <div class="categories text-center mt-4">
-            <h3 class="block text-center text-gray-700 dark:text-gray-200">Categories</h3>
-            <!-- class bindings applied to category buttons below -->
-            <button v-for="(value, key, index) in categories" @click="this.categories[key] = !this.categories[key]"
-                class="inline-block rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 motion-reduce:transition-none dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                :class="{
-                    'bg-neutral-300 dark:bg-neutral-700  text-neutral-700 dark:text-neutral-300': !this.categories[key],
-                    'bg-neutral-800 dark:bg-neutral-200  text-neutral-50 dark:text-neutral-900  hover:bg-neutral-700 dark:hover:bg-neutral-400  focus:bg-neutral-700 dark:focus:bg-neutral-300  active:bg-neutral-900 dark:active:bg-neutral-100  dark:shadow-black/30 ': this.categories[key]
-                }" type="button" :key="index">{{ key }}</button>
-        </div>
+    <div class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
+        <h1 class="text-center mt-5">UPLOAD A DIGITAL PRODUCT</h1>
+        <div class="border-gray-500" style="border-top-width: 1px;"></div>
+        <h2 CLASS="mt-5 text-center">Product Title</h2>
+        <p class="text-center mb-10"><input v-model="title"
+                class="w-1/2 bg-transparent px-2 border border-gray-800 dark:border-gray-200 text-center" type="text">
+        </p>
 
+        <h2 CLASS="mt-5 text-center">Product Description</h2>
         <div class="editor-buttons sticky top-24 text-center z-10 space-x-1 mt-10">
             <h3 class="block text-center text-gray-700 dark:text-gray-200">Editor</h3>
-            <button @click="this.editor.commands.toggleHeading({ level: 1 })"
+            <!-- <button @click="this.editor.commands.toggleHeading({ level: 1 })"
                 class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                type="button">Heading</button>
+                type="button">Heading</button> -->
             <button @click="this.editor.commands.toggleHeading({ level: 2 })"
                 class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 type="button">H2</button>
@@ -51,7 +48,7 @@
             <!-- <button
                 class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 @click="this.editor.chain().focus().setImage({ title: 'image testing', src: 'https://magazine.artstation.com/wp-content/uploads/2024/09/TWW_ArtBlast_Thumbnail-1280-x-720.jpg?resize=1024,576', alt: '' }).run()">Image</button> -->
-            <label for="image"
+            <!-- <label for="image"
                 class="w-16 inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"><svg
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path
@@ -59,37 +56,29 @@
                     </path>
                 </svg></label>
 
-            <input class="hidden" @change="onSelectImage" type="file" id="image" accept="image/*" ref="imageInput">
+            <input class="hidden" @change="onSelectImage" type="file" id="image" accept="image/*" ref="imageInput"> -->
 
         </div>
-
-        <hr class="my-5">
-
-        <EditorContent :editor="editor"
-            class="bg-gray-300 text-gray-800 dark:bg-gray-400 dark:text-gray-200 relative top-10 text-center mb-12" />
-
-        <div class="text-center">
-            <input
-                class="outline-double outline-2 outline-gray-500 w-1/3 my-5 bg-transparent px-1 text-gray-800 dark:text-gray-200 py-1"
-                type="text" placeholder="Tags (optional)" ref="tags">
+        <div class="border border-gray-800 dark:border-gray-200">
+            <EditorContent :editor="editor" />
         </div>
 
+        <h2 CLASS="mt-5 text-center">Sample Images</h2>
+        <div id="filepond" class="mb-48">
+            <!-- name MUST be "filepond" for it to be detected by django-drf-filepond -->
+            <!-- tag is a custom property and can only be accessed from the component instance using the $attrs attribute -->
+            <ThumbnailsPond name="filepond" ref="pond" class-name="my-pond" label-idle="Drop files here..."
+                allow-multiple="true" :allowFileTypeValidation="true" accepted-file-types="image/*"
+                v-bind:files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
+                :chunkUploads="true" :chunkSize="1000000" :instantUpload="false" @processfile="handleProcessFile"
+                @processfilestart="handleProcessFileStart" @processfilerevert="handleProcessFileRevert"
+                @processfileabort="handleProcessFileAbort" tag="thumbnail" />
+
+            <button class="p-4 bg-gray-500 text-gray-100" @click="uploadHandler">Upload All</button>
+        </div>
         <button @click="submit"
             class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-28">Submit</button>
-    </section>
-
-    <!-- <h2 class="dark:text-gray-200">Editor content as HTML and JSON</h2>
-    <div class="output pb-40 dark:text-gray-200">
-        {{ contentHTML }}
-        <br><br><br>
-        {{ contentJSON }}
-        <br>
-        <hr>
-        <br>
-        <h2>Raw HTML without CSS</h2>
-        {{ this.rawHTML }}
-    </div> -->
-
+    </div>
 </template>
 
 <script>
@@ -97,38 +86,87 @@
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
 import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 
+
 // tiptap
 import { Editor, EditorContent } from '@tiptap/vue-3'
+// tiptap HTML utility
+import { generateJSON } from '@tiptap/core'
+import { generateHTML } from '@tiptap/core'
 // tiptap extensions
 import StarterKit from '@tiptap/starter-kit' // Document, Paragraph, Text, etc
 import Image from '@tiptap/extension-image'
 import Paragraph from '@tiptap/extension-paragraph'
 
-// HTML utility
-import { generateJSON } from '@tiptap/core'
-import { generateHTML } from '@tiptap/core'
+
+// FilePond
+import vueFilePond from 'vue-filepond';
+// Filepond plugins
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.esm.js';
+import FilePondPluginVideoPreview from 'filepond-plugin-video-preview/dist/filepond-plugin-video-preview.esm.js';
+// Filepond styles
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+// Create FilePond component(s)
+const ThumbnailsPond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
 export default {
-    name: 'MagazineEditor',
+    name: 'ProductEditor',
     components: {
         Editor,
-        EditorContent
+        EditorContent,
+        ThumbnailsPond
     },
     data() {
         return {
+            title: "",
+
+            // tiptap
             editor: null,
-            categories: {
-                'Art Skills': false,
-                'Career': false,
-                'Inspiration': false,
-                'News': false,
-                'Ads': false,
-                'Challenges': false,
-                'Updates': false
-            },
             contentHTML: "",
             contentJSON: "",
             rawHTML: "", // No CSS
+
+            // filepond
+            filepondDefaultFiles: [
+
+            ],
+            filepondServerConfig: {
+                // url: 'http://localhost:8000',
+                process: {
+                    url: '/fp/process/',
+                    method: 'POST',
+                    withCredentials: true,
+                    headers: {},
+                    timeout: 7000,
+                    onload: null,
+                    onerror: null,
+                    ondata: null,
+                },
+                patch: {
+                    url: '/fp/patch/',
+                    method: 'PATCH',
+                    withCredentials: true,
+                    headers: {},
+                    timeout: 7000,
+                    onload: null,
+                    onerror: null,
+                    ondata: null,
+                },
+                revert: {
+                    url: '/fp/revert/',
+                    method: 'DELETE',
+                    withCredentials: true,
+                    headers: {},
+                    timeout: 7000,
+                    onload: null,
+                    onerror: null,
+                    ondata: null,
+                },
+                fetch: '/fp/fetch/',
+                load: '/fp/load/',
+                restore: '/fp/restore/',
+            }
         }
     },
     watch: {
@@ -147,136 +185,21 @@ export default {
         }
     },
     methods: {
-        initializeTiptapEditor() {
-            this.editor = new Editor({
-                // register extensions
-                extensions: [
-                    StarterKit.configure({
-                        paragraph: false,
-                    }),
-                    Image.configure({
-                        HTMLAttributes: {
-                            class: 'mx-auto',
-                        },
-                    }),
-                    Paragraph.configure({
-                        HTMLAttributes: {
-                            class: 'px-10 py-2',
-                        },
-                    })
-                ],
-                // place the cursor in the editor after initialization
-                autofocus: true,
-                // make the text editable (but that’s the default anyway)
-                editable: true,
-                // disable the loading of the default CSS (which is not much anyway)
-                injectCSS: false,
-                // set the initial content
-                content: ``,
-                onUpdate: () => {
-                    // HTML
-                    this.contentHTML = this.editor.getHTML()
-
-                    // JSON
-                    this.contentJSON = this.editor.getJSON()
-                },
-            })
-        },
-        async onSelectImage() {
-            if (this.$refs.imageInput.files.length == 0)
-                return
-
-            // get the File object from the file input
-            const imageFile = this.$refs.imageInput.files[0]
-            // generate blobUrl from the file object, for use as src
-            const blobUrl = URL.createObjectURL(imageFile)
-            // add image in tiptap editor, using blobUrl as its src
-            this.editor.chain().focus().setImage({
-                title: imageFile.name,
-                src: blobUrl,
-                alt: imageFile.name
-            }).run()
-
-            // reset file input
-            this.$refs.imageInput.value = null
-        },
         async submit() {
             // EDITOR VALIDATION
 
-            // check if article is empty
+            // check if product description is empty
             if (this.contentJSON['content'] == undefined) {
-                alert("You can't submit an empty article!")
-                return
-            }
-
-            // ensure there is at least one NON-EMPTY H1 (Article heading/title)
-            const nonEmptyH1Elements = this.contentJSON['content'].filter(
-                element => element.type == 'heading'
-                    && element.attrs.level == 1
-                    && element.content != undefined
-                    && element.content[0].text.trim().length > 0
-            )
-            if (nonEmptyH1Elements.length == 0) {
-                alert("Add an article HEADING!")
-                return
-            }
-
-            // ensure there is at least one image (Article thumbnail)
-            const imageElements = this.contentJSON['content'].filter(
-                element => element.type == 'image')
-            if (imageElements.length == 0) {
-                alert("Add at least one IMAGE!")
-                return
-            }
-
-
-
-            // get the text inside the first non-empty H1 element
-            const title = nonEmptyH1Elements[0].content[0].text
-
-            const tags = this.$refs.tags.value
-            const categories = Object.entries(this.categories)
-                .filter(([key, value]) => value == true)
-                .map(arr => arr[0])
-                .join()
-
-            // categories validation
-            if (!categories) {
-                alert("Select AT LEAST one category!")
+                alert("You must add a product description!")
                 return
             }
 
             // get the raw html without any css
             const html = this.rawHTML
 
+            alert('Title: ' + this.title + '\nContent: ' + html)
 
-            // NEW IMAGE UPLOADS
-
-            // currently this is for only img elements
-            const blobElements = this.contentJSON.content.filter(
-                element => element.type == 'image'
-                    && element.attrs.src.startsWith('blob:'))
-
-            // an array to map file data entries of the form: {blobUrl:file}
-            const fileMappings = []
-
-            // NEVER USE FOREACH (or any other higher-order function) with
-            // ASYNC/AWAIT! Use for..of with ASYNC/AWAIT instead!
-            for (let element of blobElements) {
-                let url = element.attrs.src
-                let title = element.attrs.title
-                let file = await fetch(url)
-                    .then(response => response.blob())
-                    .then((blobObject) => {
-                        let fileObject = new File([blobObject], title, {
-                            type: blobObject.type,
-                        });
-                        return fileObject
-                    })
-                fileMappings.push({
-                    [url]: file
-                })
-            }
+            return
 
 
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/magazine/articles/`
@@ -317,6 +240,88 @@ export default {
                         ;
                 })
                 .catch(error => this.errorMessage = error)
+        },
+
+        // tiptap
+        initializeTiptapEditor() {
+            this.editor = new Editor({
+                // register extensions
+                extensions: [
+                    StarterKit.configure({
+                        paragraph: false,
+                    }),
+                    Image.configure({
+                        HTMLAttributes: {
+                            class: 'mx-auto',
+                        },
+                    }),
+                    Paragraph.configure({
+                        HTMLAttributes: {
+                            class: 'px-10 py-2',
+                        },
+                    })
+                ],
+                // place the cursor in the editor after initialization
+                autofocus: true,
+                // make the text editable (but that’s the default anyway)
+                editable: true,
+                // disable the loading of the default CSS (which is not much anyway)
+                injectCSS: false,
+                // set the initial content
+                content: ``,
+                onUpdate: () => {
+                    // HTML
+                    this.contentHTML = this.editor.getHTML()
+
+                    // JSON
+                    this.contentJSON = this.editor.getJSON()
+                },
+            })
+        },
+
+        // filepond
+        handleFilePondInit: function () {
+            console.log('FilePond has initialized');
+
+            // example of instance method call on pond reference
+            this.$refs.pond.getFiles();
+        },
+        handleProcessFile(error, file) {
+            // execute these after file upload
+
+            if (error) {
+                console.error("File upload error:", error);
+                return;
+            }
+            const filepondElement = this.$refs.pond
+
+            // Access the server's response containing the file ID
+            console.log("Temporary Uploaded file ID:", file.id);
+            console.log("Temporary Uploaded file server ID:", file.serverId);
+            console.log("Temporary Uploaded file tag:", filepondElement.$attrs.tag);
+        },
+        handleProcessFileStart(file) {
+            // execute at beginning of file upload
+
+            console.log("Started uploading file with ID:", file.id);
+        },
+        handleProcessFileRevert(file) {
+            // execute when user deletes uploaded temporary file from server
+
+            console.log(`Reverted temporary upload with ID: ${file.id} and serverID: ${file.serverId}`);
+        },
+        handleProcessFileAbort(file) {
+            // execute when user interrupts the file upload
+
+            console.log("Aborted upload with file ID:", file.id);
+        },
+        uploadHandler() {
+            // this method causes all un-uploaded files to be uploaded
+            this.$refs.pond.processFiles().then((files) => {
+                // files have been processed
+                console.log("Uploaded all files. Files:")
+                console.log(files)
+            });
         }
     },
     computed: {

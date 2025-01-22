@@ -123,7 +123,7 @@ const fixedRoutes = [
   {
     path: "/resources/upload",
     name: "resourceUpload",
-    component: () => import("../views/ResourceUpload.vue"),
+    component: () => import("../views/ProductEditor.vue"),
   },
   {
     path: "/resources/:paths*",
@@ -135,6 +135,11 @@ const fixedRoutes = [
     name: "productDetail",
     component: () => import("../views/ProductDetail.vue"),
   },
+  // {
+  //   path: "/filepond",
+  //   name: "FilePond",
+  //   component: () => import("../views/FilePond.vue"),
+  // },
 ];
 
 const mergedRoutes = fixedRoutes.concat(wagtailPagesRoutes);
