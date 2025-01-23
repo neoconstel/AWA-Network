@@ -120,6 +120,7 @@ export default {
     data() {
         return {
             title: "",
+            productCategories: [],
 
             // tiptap
             editor: null,
@@ -241,6 +242,22 @@ export default {
                 })
                 .catch(error => this.errorMessage = error)
         },
+        async fetchProductCategories() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/categories/`
+
+            fetch(url)
+                .then(response => response.json())
+                .then((data) => {
+                    this.productCategories = JSON.parse(data['product_categories'])
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
+
+
 
         // tiptap
         initializeTiptapEditor() {
@@ -330,6 +347,8 @@ export default {
     mounted() {
         // editor
         this.initializeTiptapEditor()
+
+        this.fetchProductCategories()
 
 
     },
