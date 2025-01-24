@@ -76,6 +76,11 @@
 
             <button class="p-4 bg-gray-500 text-gray-100" @click="uploadHandler">Upload All</button>
         </div>
+
+        <template v-if="this.productCategories.length > 0">
+            <RecursiveMenu :categories="this.productCategories" :depth="1" />
+        </template>
+
         <button @click="submit"
             class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-28">Submit</button>
     </div>
@@ -104,18 +109,23 @@ import vueFilePond from 'vue-filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.esm.js';
 import FilePondPluginVideoPreview from 'filepond-plugin-video-preview/dist/filepond-plugin-video-preview.esm.js';
-// Filepond styles
+// Filepond stylesthis.
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 // Create FilePond component(s)
 const ThumbnailsPond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+
+
+import RecursiveMenu from '@/components/RecursiveMenu.vue';
 
 export default {
     name: 'ProductEditor',
     components: {
         Editor,
         EditorContent,
-        ThumbnailsPond
+        ThumbnailsPond,
+
+        RecursiveMenu,
     },
     data() {
         return {
