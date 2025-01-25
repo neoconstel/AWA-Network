@@ -136,6 +136,7 @@ export default {
         return {
             title: "",
             productCategories: [],
+            licenses: [],
             selectedCategory: null,
 
             // tiptap
@@ -275,8 +276,19 @@ export default {
         setCategory(category) {
             this.selectedCategory = category
         },
-        setCategory(category) {
-            this.selectedCategory = category
+        async fetchLicenses() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/licenses/`
+
+            fetch(url)
+                .then(response => response.json())
+                .then((data) => {
+                    this.licenses = data
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
         },
 
 
@@ -370,6 +382,7 @@ export default {
         this.initializeTiptapEditor()
 
         this.fetchProductCategories()
+        this.fetchLicenses()
 
 
     },
