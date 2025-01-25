@@ -78,7 +78,12 @@
         </div>
 
         <template v-if="this.productCategories.length > 0">
-            <RecursiveMenu :categories="this.productCategories" :depth="1" />
+            <h2 v-if="!this.selectedCategory" class="text-center">Select a product category</h2>
+            <div v-else class="text-center">
+                <h2>Selected Category:</h2>
+                <b>{{ this.selectedCategory.path.slice(1).replaceAll('/', ' -> ') }}</b>
+            </div>
+            <RecursiveMenu @select-category="setCategory" :categories="this.productCategories" :depth="1" />
         </template>
 
         <button @click="submit"
@@ -131,6 +136,7 @@ export default {
         return {
             title: "",
             productCategories: [],
+            selectedCategory: null,
 
             // tiptap
             editor: null,
@@ -266,7 +272,12 @@ export default {
                     console.log('error', error)
                 })
         },
-
+        setCategory(category) {
+            this.selectedCategory = category
+        },
+        setCategory(category) {
+            this.selectedCategory = category
+        },
 
 
         // tiptap
