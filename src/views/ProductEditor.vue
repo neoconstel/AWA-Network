@@ -7,9 +7,18 @@
                 class="w-1/2 bg-transparent px-2 border border-gray-800 dark:border-gray-200 text-center" type="text">
         </p>
 
-        <h2 CLASS="mt-5 text-center">Product Description</h2>
-        <div class="editor-buttons sticky top-24 text-center z-10 space-x-1 mt-10">
-            <h3 class="block text-center text-gray-700 dark:text-gray-200">Editor</h3>
+        <template v-if="this.productCategories.length > 0">
+            <h2 v-if="!this.selectedCategory" class="text-center">Select a product category</h2>
+            <div v-else class="text-center">
+                <h2>Selected Category:</h2>
+                <b>{{ this.selectedCategory.path.slice(1).replaceAll('/', ' -> ') }}</b>
+            </div>
+            <RecursiveMenu @select-category="setCategory" :categories="this.productCategories" :depth="1" />
+        </template>
+
+        <h2 CLASS="mt-10 text-center">Product Description</h2>
+        <div class="editor-buttons sticky top-24 text-center z-10 space-x-1 mt-5">
+            <!-- <h3 class="block text-center text-gray-700 dark:text-gray-200">Editor</h3> -->
             <!-- <button @click="this.editor.commands.toggleHeading({ level: 1 })"
                 class="inline-block rounded-full bg-neutral-800 dark:bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 dark:text-neutral-900 shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 dark:hover:bg-neutral-400 hover:shadow-dark-2 focus:bg-neutral-700 dark:focus:bg-neutral-300 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 dark:active:bg-neutral-100 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                 type="button">Heading</button> -->
@@ -67,24 +76,31 @@
         <div id="filepond" class="mb-48">
             <!-- name MUST be "filepond" for it to be detected by django-drf-filepond -->
             <!-- tag is a custom property and can only be accessed from the component instance using the $attrs attribute -->
-            <ThumbnailsPond name="filepond" ref="pond" class-name="my-pond" label-idle="Drop files here..."
+            <!-- instead of binding the handleProcessFile method directly to the @processfile event via
+              its method name, it is expanded into its inline function form so that a custom argument
+              can be passed into it (which is important to process files based on which filepond component
+              it is [if there are multiple], as specified by the 'ref' argument). So the third argument
+              in handleProcessFile MUST always be the same as the filepond component's ref. -->
+            <ThumbnailPond name="filepond" ref="thumbnailPond" class-name="my-pond" label-idle="Select thumbnail images"
                 allow-multiple="true" :allowFileTypeValidation="true" accepted-file-types="image/*"
-                v-bind:files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
-                :chunkUploads="true" :chunkSize="1000000" :instantUpload="false" @processfile="handleProcessFile"
+                @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
+                :chunkUploads="true" :chunkSize="1000000" :instantUpload="false"
+                @processfile="(error, file) => handleProcessFile(error, file, 'thumbnailPond')"
                 @processfilestart="handleProcessFileStart" @processfilerevert="handleProcessFileRevert"
                 @processfileabort="handleProcessFileAbort" tag="thumbnail" />
 
+
+            <h2 CLASS="mt-5 text-center">Product Files</h2>
+            <FilePond name="filepond" ref="filePond" class-name="my-pond" label-idle="Select product files"
+                allow-multiple="true" :allowFileTypeValidation="false" accepted-file-types="[]"
+                @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
+                :chunkUploads="true" :chunkSize="1000000" :instantUpload="false"
+                @processfile="(error, file) => handleProcessFile(error, file, 'filePond')"
+                @processfilestart="handleProcessFileStart" @processfilerevert="handleProcessFileRevert"
+                @processfileabort="handleProcessFileAbort" tag="productFile" />
+
             <button class="p-4 bg-gray-500 text-gray-100" @click="uploadHandler">Upload All</button>
         </div>
-
-        <template v-if="this.productCategories.length > 0">
-            <h2 v-if="!this.selectedCategory" class="text-center">Select a product category</h2>
-            <div v-else class="text-center">
-                <h2>Selected Category:</h2>
-                <b>{{ this.selectedCategory.path.slice(1).replaceAll('/', ' -> ') }}</b>
-            </div>
-            <RecursiveMenu @select-category="setCategory" :categories="this.productCategories" :depth="1" />
-        </template>
 
         <button @click="submit"
             class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-28">Submit</button>
@@ -118,7 +134,8 @@ import FilePondPluginVideoPreview from 'filepond-plugin-video-preview/dist/filep
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 // Create FilePond component(s)
-const ThumbnailsPond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+const ThumbnailPond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 
 import RecursiveMenu from '@/components/RecursiveMenu.vue';
@@ -128,7 +145,8 @@ export default {
     components: {
         Editor,
         EditorContent,
-        ThumbnailsPond,
+        ThumbnailPond,
+        FilePond,
 
         RecursiveMenu,
     },
@@ -138,6 +156,7 @@ export default {
             productCategories: [],
             licenses: [],
             selectedCategory: null,
+            selectedFiles: {},
 
             // tiptap
             editor: null,
@@ -336,19 +355,23 @@ export default {
             // example of instance method call on pond reference
             this.$refs.pond.getFiles();
         },
-        handleProcessFile(error, file) {
-            // execute these after file upload
+        handleProcessFile(error, file, ref) {
+            // execute these after file upload (ref is a custom arg)
 
             if (error) {
                 console.error("File upload error:", error);
                 return;
             }
-            const filepondElement = this.$refs.pond
+
+            // get the filepond element via its ref
+            const filepondElement = this.$refs[ref]
 
             // Access the server's response containing the file ID
             console.log("Temporary Uploaded file ID:", file.id);
             console.log("Temporary Uploaded file server ID:", file.serverId);
             console.log("Temporary Uploaded file tag:", filepondElement.$attrs.tag);
+            console.log("File name:", file.filename)
+            console.log("ref: ", ref)
         },
         handleProcessFileStart(file) {
             // execute at beginning of file upload
@@ -367,7 +390,7 @@ export default {
         },
         uploadHandler() {
             // this method causes all un-uploaded files to be uploaded
-            this.$refs.pond.processFiles().then((files) => {
+            this.$refs.thumbnailPond.processFiles().then((files) => {
                 // files have been processed
                 console.log("Uploaded all files. Files:")
                 console.log(files)
@@ -383,8 +406,6 @@ export default {
 
         this.fetchProductCategories()
         this.fetchLicenses()
-
-
     },
     beforeUnmount() {
         this.editor.destroy()
