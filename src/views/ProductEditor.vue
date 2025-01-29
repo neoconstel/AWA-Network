@@ -85,7 +85,9 @@
                 allow-multiple="true" :allowFileTypeValidation="true" accepted-file-types="image/*"
                 @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
                 :chunkUploads="true" :chunkSize="1000000" :instantUpload="false"
+                @initfile="(file) => handleInitFile(file, 'thumbnailPond')"
                 @processfile="(error, file) => handleProcessFile(error, file, 'thumbnailPond')"
+                @removefile="(error, file) => handleRemoveFile(error, file, 'thumbnailPond')"
                 @processfilestart="handleProcessFileStart" @processfilerevert="handleProcessFileRevert"
                 @processfileabort="handleProcessFileAbort" tag="thumbnail" />
 
@@ -95,11 +97,49 @@
                 allow-multiple="true" :allowFileTypeValidation="false" accepted-file-types="[]"
                 @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
                 :chunkUploads="true" :chunkSize="1000000" :instantUpload="false"
+                @initfile="(file) => handleInitFile(file, 'filePond')"
                 @processfile="(error, file) => handleProcessFile(error, file, 'filePond')"
+                @removefile="(error, file) => handleRemoveFile(error, file, 'filePond')"
                 @processfilestart="handleProcessFileStart" @processfilerevert="handleProcessFileRevert"
                 @processfileabort="handleProcessFileAbort" tag="productFile" />
 
-            <button class="p-4 bg-gray-500 text-gray-100" @click="uploadHandler">Upload All</button>
+            <h2 class="text-center">File Licenses</h2>
+            <template v-for="(fileData, fileID, index) in this.productFiles" :key="index">
+                <div>
+                    <!-- Tailwind-Element dropdown for selecting file licenses -->
+                    <div class="relative mr-10" data-twe-dropdown-ref>
+                        <button
+                            class="flex items-center rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                            type="button" id="dropdownMenuButton1" data-twe-dropdown-toggle-ref aria-expanded="false"
+                            data-twe-ripple-init data-twe-ripple-color="light">
+                            {{ fileData.file.filename }}
+                            <span class="ms-2 w-2 [&>svg]:h-5 [&>svg]:w-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                        </button>
+                        <ul class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
+                            aria-labelledby="dropdownMenuButton1" data-twe-dropdown-menu-ref>
+                            <li v-for="(license, index) in this.licenses" :key="index">
+                                <a @click="() => { if (!fileData.licenses.includes(license)) fileData.licenses.push(license) }"
+                                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                                    href="JavaScript:void(0)" data-twe-dropdown-item-ref>{{ license.name }} license</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-for="(license, index) in fileData.licenses" :key="index"
+                        class="mr-3 inline-block rounded-full border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-accent-300 hover:bg-primary-50/50 hover:text-primary-accent-300 focus:border-primary-600 focus:bg-primary-50/50 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 motion-reduce:transition-none dark:text-primary-500 dark:hover:bg-blue-950 dark:focus:bg-blue-950"
+                        data-twe-ripple-init>
+                        {{ license.name }} <button @click="fileData.licenses.splice(index, 1)"
+                            class="relative left-2 text-lg font-thin">X</button>
+                    </div>
+                </div>
+            </template>
+
+            <!-- <button class="p-4 bg-gray-500 text-gray-100" @click="uploadHandler">Upload All</button> -->
         </div>
 
         <button @click="submit"
@@ -139,6 +179,13 @@ const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 
 import RecursiveMenu from '@/components/RecursiveMenu.vue';
+
+// Tailwind Elements
+import {
+    Dropdown,
+    Ripple,
+    initTWE,
+} from "tw-elements";
 
 export default {
     name: 'ProductEditor',
@@ -203,6 +250,17 @@ export default {
                 fetch: '/fp/fetch/',
                 load: '/fp/load/',
                 restore: '/fp/restore/',
+            },
+            productFiles: {
+                /** initial placeholder to allow TWE to properly initialize 
+                 * the file licenses drowdown. It is later reset to {} in mounted() */
+                'fileID': {
+                    'file': {
+                        'filename': null
+                    },
+                    'tag': null,
+                    'licenses': []
+                }
             }
         }
     },
@@ -355,6 +413,20 @@ export default {
             // example of instance method call on pond reference
             this.$refs.pond.getFiles();
         },
+        handleInitFile(file, ref) {
+            // execute these immediately file is selected
+
+            const filepondElement = this.$refs[ref]
+            const fileTag = filepondElement.$attrs.tag
+
+            if (fileTag == 'productFile') {
+                this.productFiles[file.id] = {
+                    'file': file,
+                    'tag': fileTag,
+                    'licenses': []
+                }
+            }
+        },
         handleProcessFile(error, file, ref) {
             // execute these after file upload (ref is a custom arg)
 
@@ -365,6 +437,7 @@ export default {
 
             // get the filepond element via its ref
             const filepondElement = this.$refs[ref]
+            const fileTag = filepondElement.$attrs.tag
 
             // Access the server's response containing the file ID
             console.log("Temporary Uploaded file ID:", file.id);
@@ -372,6 +445,10 @@ export default {
             console.log("Temporary Uploaded file tag:", filepondElement.$attrs.tag);
             console.log("File name:", file.filename)
             console.log("ref: ", ref)
+
+            if (fileTag == 'productFile') {
+                this.productFiles[file.id]['file'] = file
+            }
         },
         handleProcessFileStart(file) {
             // execute at beginning of file upload
@@ -388,6 +465,15 @@ export default {
 
             console.log("Aborted upload with file ID:", file.id);
         },
+        handleRemoveFile(error, file, ref) {
+            // execute when user removes the file from selection
+            const filepondElement = this.$refs[ref]
+            const fileTag = filepondElement.$attrs.tag
+
+            if (fileTag == 'productFile') {
+                delete this.productFiles[file.id]
+            }
+        },
         uploadHandler() {
             // this method causes all un-uploaded files to be uploaded
             this.$refs.thumbnailPond.processFiles().then((files) => {
@@ -401,6 +487,15 @@ export default {
         ...mapStores(useDataStore),
     },
     mounted() {
+        initTWE({ Dropdown, Ripple });
+
+        /** reset back to empty after initializing TWE. This is because certain
+         * UI (file licences drowdown) fails to initialize if productFiles is {} initially, so the
+         * workaround was to put an initial value in it and then reset the 
+         * productFiles object after initializing TWE.
+         */
+        this.productFiles = {}
+
         // editor
         this.initializeTiptapEditor()
 
