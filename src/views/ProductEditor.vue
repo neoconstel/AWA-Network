@@ -103,9 +103,9 @@
                 @processfilestart="handleProcessFileStart" @processfilerevert="handleProcessFileRevert"
                 @processfileabort="handleProcessFileAbort" tag="productFile" />
 
-            <h2 class="text-center">File Licenses</h2>
+            <h2 v-if="Object.keys(this.productFiles).length" class="text-center">File Licenses</h2>
             <template v-for="(fileData, fileID, index) in this.productFiles" :key="index">
-                <div>
+                <div class="mb-5">
                     <!-- Tailwind-Element dropdown for selecting file licenses -->
                     <div class="relative mr-10" data-twe-dropdown-ref>
                         <button
