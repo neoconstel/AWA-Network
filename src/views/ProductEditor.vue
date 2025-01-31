@@ -81,7 +81,7 @@
               can be passed into it (which is important to process files based on which filepond component
               it is [if there are multiple], as specified by the 'ref' argument). So the third argument
               in handleProcessFile MUST always be the same as the filepond component's ref. -->
-            <ThumbnailPond name="filepond" ref="thumbnailPond" class-name="my-pond" label-idle="Select thumbnail images"
+            <ThumbnailPond name="filepond" ref="thumbnailPond" class-name="my-pond" label-idle="Add sample images"
                 allow-multiple="true" :allowFileTypeValidation="true" accepted-file-types="image/*"
                 @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
                 :chunkUploads="true" :chunkSize="1000000" :instantUpload="false"
@@ -93,7 +93,7 @@
 
 
             <h2 CLASS="mt-5 text-center">Product Files</h2>
-            <FilePond name="filepond" ref="filePond" class-name="my-pond" label-idle="Select product files"
+            <FilePond name="filepond" ref="filePond" class-name="my-pond" label-idle="Add product files"
                 allow-multiple="true" :allowFileTypeValidation="false" accepted-file-types="[]"
                 @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
                 :chunkUploads="true" :chunkSize="1000000" :instantUpload="false"
@@ -138,6 +138,41 @@
                     </div>
                 </div>
             </template>
+            <h2 class="text-center">License Pricing</h2>
+            <div class="grid grid-cols-2 mt-5 max-w-96 border-2 border-gray-500 mx-auto">
+                <label class="border border-gray-500 mb-3" for="">License Name</label>
+                <label class="border border-gray-500 mb-3" for="">Price ($)</label>
+                <template v-for="(license, index) in this.selectedLicenses" :key="index">
+                    <p>{{ license.name }} license</p>
+                    <input v-if="license.free" class="border border-gray-500 dark:text-gray-200 px-1" type="number"
+                        value="0" disabled>
+                    <input
+                        @change="license.price = $event.target.value; console.log('changed to value: ', $event.target.value)"
+                        v-else class="border border-gray-500 dark:text-gray-800 px-1" placeholder="price ($)"
+                        type="number">
+                </template>
+            </div>
+
+            <h2 class="text-center mt-10">Preview</h2>
+            <div v-for="(license, index) in this.selectedLicenses" :key="index" class="mt-5 border border-gray-500">
+                <p><b>{{ license.name }} license (${{ license.price ? license.price : 0 }})</b></p>
+                <p class="mt-3"><b>Files:</b></p>
+                <template v-for="(fileData, index) in Object.values(this.productFiles)" :key="index">
+                    <p v-if="fileData.licenses.includes(license)" class="space-x-3">
+                        <span>{{ fileData.file.filename }}</span>
+                        <span>({{ fileData.file.fileType }})</span>
+                        <span v-if="fileData.file.fileSize < 1000">({{ fileData.file.fileSize }} bytes)</span>
+                        <span v-else-if="fileData.file.fileSize < 1000000">({{ fileData.file.fileSize / 1000 }}
+                            kb)</span>
+                        <span v-else-if="fileData.file.fileSize < 1000000000">({{ fileData.file.fileSize / 1000000
+                            }}
+                            mb)</span>
+                        <span v-else="fileData.file.fileSize < 1000000000000">({{ fileData.file.fileSize /
+                            1000000000
+                            }} gb)</span>
+                    </p>
+                </template>
+            </div>
 
             <!-- <button class="p-4 bg-gray-500 text-gray-100" @click="uploadHandler">Upload All</button> -->
         </div>
@@ -195,7 +230,7 @@ export default {
         ThumbnailPond,
         FilePond,
 
-        RecursiveMenu,
+        RecursiveMenu
     },
     data() {
         return {
@@ -203,7 +238,6 @@ export default {
             productCategories: [],
             licenses: [],
             selectedCategory: null,
-            selectedFiles: {},
 
             // tiptap
             editor: null,
@@ -255,9 +289,7 @@ export default {
                 /** initial placeholder to allow TWE to properly initialize 
                  * the file licenses drowdown. It is later reset to {} in mounted() */
                 'fileID': {
-                    'file': {
-                        'filename': null
-                    },
+                    'file': Object,
                     'tag': null,
                     'licenses': []
                 }
@@ -421,11 +453,25 @@ export default {
 
             if (fileTag == 'productFile') {
                 this.productFiles[file.id] = {
-                    'file': file,
+                    /** include as much information (filename etc) of the file 
+                     * as would be needed, as I found issues while trying to 
+                     * later update the file variable in this.productFiles
+                     */
+                    'file': {
+                        'id': file.id,
+                        'filename': file.filename,
+                        'fileType': file.fileType,
+                        'fileSize': file.fileSize,
+                        'fileExtension': file.fileExtension
+                    },
                     'tag': fileTag,
                     'licenses': []
                 }
             }
+            console.clear()
+            console.log("file:")
+            console.log(file)
+            console.log(file.file)
         },
         handleProcessFile(error, file, ref) {
             // execute these after file upload (ref is a custom arg)
@@ -485,6 +531,23 @@ export default {
     },
     computed: {
         ...mapStores(useDataStore),
+        selectedLicenses() {
+            /** returns an array of unique licenses of all the selected products */
+            let combinedSelectedLicenses = []
+            Object.values(this.productFiles).forEach(
+                (fileData) => {
+                    combinedSelectedLicenses.push(...fileData.licenses)
+                }
+            )
+            let uniqueSelectedLicenses = new Set(combinedSelectedLicenses)
+            return Array.from(uniqueSelectedLicenses)
+        },
+        // selectedLicensesWithFiles() {
+        //     /** returns an array of unique licenses of all the selected products,
+        //      * each with the files bearing the license
+        //      */
+        //     return this.selectedLicenses
+        // }
     },
     mounted() {
         initTWE({ Dropdown, Ripple });
