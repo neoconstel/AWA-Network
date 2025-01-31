@@ -103,76 +103,84 @@
                 @processfilestart="handleProcessFileStart" @processfilerevert="handleProcessFileRevert"
                 @processfileabort="handleProcessFileAbort" tag="productFile" />
 
-            <h2 v-if="Object.keys(this.productFiles).length" class="text-center">File Licenses</h2>
-            <template v-for="(fileData, fileID, index) in this.productFiles" :key="index">
-                <div class="mb-5">
-                    <!-- Tailwind-Element dropdown for selecting file licenses -->
-                    <div class="relative mr-10" data-twe-dropdown-ref>
-                        <button
-                            class="flex items-center rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                            type="button" id="dropdownMenuButton1" data-twe-dropdown-toggle-ref aria-expanded="false"
-                            data-twe-ripple-init data-twe-ripple-color="light">
-                            {{ fileData.file.filename }}
-                            <span class="ms-2 w-2 [&>svg]:h-5 [&>svg]:w-5">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-                        <ul class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
-                            aria-labelledby="dropdownMenuButton1" data-twe-dropdown-menu-ref>
-                            <li v-for="(license, index) in this.licenses" :key="index">
-                                <a @click="() => { if (!fileData.licenses.includes(license)) fileData.licenses.push(license) }"
-                                    class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                                    href="JavaScript:void(0)" data-twe-dropdown-item-ref>{{ license.name }} license</a>
-                            </li>
-                        </ul>
+            <section class="license-section">
+                <h2 v-if="Object.keys(this.productFiles).length" class="text-center">File Licenses</h2>
+                <template v-for="(fileData, fileID, index) in this.productFiles" :key="index">
+                    <div class="mb-5">
+                        <!-- Tailwind-Element dropdown for selecting file licenses -->
+                        <div class="relative mr-10" data-twe-dropdown-ref>
+                            <button
+                                class="flex items-center rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                                type="button" id="dropdownMenuButton1" data-twe-dropdown-toggle-ref
+                                aria-expanded="false" data-twe-ripple-init data-twe-ripple-color="light">
+                                {{ fileData.file.filename }}
+                                <span class="ms-2 w-2 [&>svg]:h-5 [&>svg]:w-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </span>
+                            </button>
+                            <ul class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
+                                aria-labelledby="dropdownMenuButton1" data-twe-dropdown-menu-ref>
+                                <li v-for="(license, index) in this.licenses" :key="index">
+                                    <a @click="() => { if (!fileData.licenses.includes(license)) fileData.licenses.push(license) }"
+                                        class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                                        href="JavaScript:void(0)" data-twe-dropdown-item-ref>{{ license.name }}
+                                        license</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div v-for="(license, index) in fileData.licenses" :key="index"
+                            class="mr-3 inline-block rounded-full border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-accent-300 hover:bg-primary-50/50 hover:text-primary-accent-300 focus:border-primary-600 focus:bg-primary-50/50 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 motion-reduce:transition-none dark:text-primary-500 dark:hover:bg-blue-950 dark:focus:bg-blue-950"
+                            data-twe-ripple-init>
+                            {{ license.name }} <button @click="fileData.licenses.splice(index, 1)"
+                                class="relative left-2 text-lg font-thin">X</button>
+                        </div>
                     </div>
-                    <div v-for="(license, index) in fileData.licenses" :key="index"
-                        class="mr-3 inline-block rounded-full border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-accent-300 hover:bg-primary-50/50 hover:text-primary-accent-300 focus:border-primary-600 focus:bg-primary-50/50 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 motion-reduce:transition-none dark:text-primary-500 dark:hover:bg-blue-950 dark:focus:bg-blue-950"
-                        data-twe-ripple-init>
-                        {{ license.name }} <button @click="fileData.licenses.splice(index, 1)"
-                            class="relative left-2 text-lg font-thin">X</button>
-                    </div>
+                </template>
+            </section>
+            <section v-if="this.selectedLicenses.length" class="pricing-section">
+                <h2 class="text-center">License Pricing</h2>
+                <div class="grid grid-cols-2 mt-5 max-w-96 border-2 border-gray-500 mx-auto">
+                    <label class="border border-gray-500 mb-3" for="">License Name</label>
+                    <label class="border border-gray-500 mb-3" for="">Price ($)</label>
+                    <template v-for="(license, index) in this.selectedLicenses" :key="index">
+                        <p>{{ license.name }} license</p>
+                        <input v-if="license.free" class="border border-gray-500 dark:text-gray-200 px-1" type="number"
+                            value="0" disabled>
+                        <input
+                            @change="license.price = $event.target.value; console.log('changed to value: ', $event.target.value)"
+                            v-else class="border border-gray-500 dark:text-gray-800 px-1" placeholder="price ($)"
+                            type="number">
+                    </template>
                 </div>
-            </template>
-            <h2 class="text-center">License Pricing</h2>
-            <div class="grid grid-cols-2 mt-5 max-w-96 border-2 border-gray-500 mx-auto">
-                <label class="border border-gray-500 mb-3" for="">License Name</label>
-                <label class="border border-gray-500 mb-3" for="">Price ($)</label>
-                <template v-for="(license, index) in this.selectedLicenses" :key="index">
-                    <p>{{ license.name }} license</p>
-                    <input v-if="license.free" class="border border-gray-500 dark:text-gray-200 px-1" type="number"
-                        value="0" disabled>
-                    <input
-                        @change="license.price = $event.target.value; console.log('changed to value: ', $event.target.value)"
-                        v-else class="border border-gray-500 dark:text-gray-800 px-1" placeholder="price ($)"
-                        type="number">
-                </template>
-            </div>
+            </section>
 
-            <h2 class="text-center mt-10">Preview</h2>
-            <div v-for="(license, index) in this.selectedLicenses" :key="index" class="mt-5 border border-gray-500">
-                <p><b>{{ license.name }} license (${{ license.price ? license.price : 0 }})</b></p>
-                <p class="mt-3"><b>Files:</b></p>
-                <template v-for="(fileData, index) in Object.values(this.productFiles)" :key="index">
-                    <p v-if="fileData.licenses.includes(license)" class="space-x-3">
-                        <span>{{ fileData.file.filename }}</span>
-                        <span>({{ fileData.file.fileType }})</span>
-                        <span v-if="fileData.file.fileSize < 1000">({{ fileData.file.fileSize }} bytes)</span>
-                        <span v-else-if="fileData.file.fileSize < 1000000">({{ fileData.file.fileSize / 1000 }}
-                            kb)</span>
-                        <span v-else-if="fileData.file.fileSize < 1000000000">({{ fileData.file.fileSize / 1000000
-                            }}
-                            mb)</span>
-                        <span v-else="fileData.file.fileSize < 1000000000000">({{ fileData.file.fileSize /
-                            1000000000
-                            }} gb)</span>
-                    </p>
-                </template>
-            </div>
+            <section v-if="this.selectedLicenses.length" class="preview-section">
+                <h2 class="text-center mt-10">Preview</h2>
+                <div v-for="(license, index) in this.selectedLicenses" :key="index" class="mt-5 border border-gray-500">
+                    <p><b>{{ license.name }} license (${{ license.price ? license.price : 0 }})</b></p>
+                    <p class="mt-3"><b>Files:</b></p>
+                    <template v-for="(fileData, index) in Object.values(this.productFiles)" :key="index">
+                        <p v-if="fileData.licenses.includes(license)" class="space-x-3">
+                            <span>{{ fileData.file.filename }}</span>
+                            <span>({{ fileData.file.fileType }})</span>
+                            <span v-if="fileData.file.fileSize < 1000">({{ fileData.file.fileSize }} bytes)</span>
+                            <span v-else-if="fileData.file.fileSize < 1000000">({{ fileData.file.fileSize / 1000 }}
+                                kb)</span>
+                            <span v-else-if="fileData.file.fileSize < 1000000000">({{ fileData.file.fileSize / 1000000
+                                }}
+                                mb)</span>
+                            <span v-else="fileData.file.fileSize < 1000000000000">({{ fileData.file.fileSize /
+                                1000000000
+                                }} gb)</span>
+                        </p>
+                    </template>
+                </div>
+            </section>
+
 
             <!-- <button class="p-4 bg-gray-500 text-gray-100" @click="uploadHandler">Upload All</button> -->
         </div>
@@ -493,18 +501,28 @@ export default {
             console.log("ref: ", ref)
 
             if (fileTag == 'productFile') {
-                this.productFiles[file.id]['file'] = file
+                this.productFiles[file.id]['file'] = {
+                    'id': file.id,
+                    'filename': file.filename,
+                    'fileType': file.fileType,
+                    'fileSize': file.fileSize,
+                    'fileExtension': file.fileExtension,
+                    'serverId': file.serverId
+                }
             }
         },
         handleProcessFileStart(file) {
             // execute at beginning of file upload
-
             console.log("Started uploading file with ID:", file.id);
         },
         handleProcessFileRevert(file) {
             // execute when user deletes uploaded temporary file from server
-
             console.log(`Reverted temporary upload with ID: ${file.id} and serverID: ${file.serverId}`);
+
+            console.clear()
+            console.log(this.productFiles[file.id].file.serverId)
+            this.productFiles[file.id].file.serverId = null
+            console.log(this.productFiles[file.id].file.serverId)
         },
         handleProcessFileAbort(file) {
             // execute when user interrupts the file upload
