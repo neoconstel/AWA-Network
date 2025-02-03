@@ -81,14 +81,15 @@
               can be passed into it (which is important to process files based on which filepond component
               it is [if there are multiple], as specified by the 'ref' argument). So the third argument
               in handleProcessFile MUST always be the same as the filepond component's ref. -->
-            <ThumbnailPond name="filepond" ref="thumbnailPond" class-name="my-pond" label-idle="Add sample images"
+            <FilePond name="filepond" ref="thumbnailPond" class-name="my-pond" label-idle="Add sample images"
                 allow-multiple="true" :allowFileTypeValidation="true" accepted-file-types="image/*"
                 @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
                 :chunkUploads="true" :chunkSize="1000000" :instantUpload="false"
                 @initfile="(file) => handleInitFile(file, 'thumbnailPond')"
                 @processfile="(error, file) => handleProcessFile(error, file, 'thumbnailPond')"
                 @removefile="(error, file) => handleRemoveFile(error, file, 'thumbnailPond')"
-                @processfilestart="handleProcessFileStart" @processfilerevert="handleProcessFileRevert"
+                @processfilestart="handleProcessFileStart"
+                @processfilerevert="(file) => handleProcessFileRevert(file, 'thumbnailPond')"
                 @processfileabort="handleProcessFileAbort" tag="thumbnail" />
 
 
@@ -100,7 +101,8 @@
                 @initfile="(file) => handleInitFile(file, 'filePond')"
                 @processfile="(error, file) => handleProcessFile(error, file, 'filePond')"
                 @removefile="(error, file) => handleRemoveFile(error, file, 'filePond')"
-                @processfilestart="handleProcessFileStart" @processfilerevert="handleProcessFileRevert"
+                @processfilestart="handleProcessFileStart"
+                @processfilerevert="(file) => handleProcessFileRevert(file, 'filePond')"
                 @processfileabort="handleProcessFileAbort" tag="productFile" />
 
             <section class="license-section">
@@ -176,6 +178,7 @@
                             <span v-else="fileData.file.fileSize < 1000000000000">({{ fileData.file.fileSize /
                                 1000000000
                                 }} gb)</span>
+                            <!-- <span>{{ fileData.file.serverId }}</span> -->
                         </p>
                     </template>
                 </div>
@@ -185,7 +188,7 @@
             <!-- <button class="p-4 bg-gray-500 text-gray-100" @click="uploadHandler">Upload All</button> -->
         </div>
 
-        <button @click="submit"
+        <button @click="uploadHandler"
             class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-28">Submit</button>
     </div>
 </template>
@@ -217,7 +220,6 @@ import FilePondPluginVideoPreview from 'filepond-plugin-video-preview/dist/filep
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 // Create FilePond component(s)
-const ThumbnailPond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 
@@ -235,7 +237,6 @@ export default {
     components: {
         Editor,
         EditorContent,
-        ThumbnailPond,
         FilePond,
 
         RecursiveMenu
@@ -246,6 +247,8 @@ export default {
             productCategories: [],
             licenses: [],
             selectedCategory: null,
+            productFilesAreUploaded: false,
+            thumbnailImagesAreUploaded: false,
 
             // tiptap
             editor: null,
@@ -301,6 +304,9 @@ export default {
                     'tag': null,
                     'licenses': []
                 }
+            },
+            thumbnailImages: {
+
             }
         }
     },
@@ -332,34 +338,35 @@ export default {
             // get the raw html without any css
             const html = this.rawHTML
 
-            alert('Title: ' + this.title + '\nContent: ' + html)
-
-            return
+            // return
 
 
-            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/magazine/articles/`
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/products/`
 
             const headers = {
+                'Content-Type': 'application/json',
                 'X-CSRFToken': this.$cookies.get('csrftoken')
             }
 
-            const formData = new FormData()
-            formData.append('title', title)
-            formData.append('tags', tags)
-            formData.append('categories', categories)
-            formData.append('html', html)
+            const data = JSON.stringify({
+                "title": this.title,
+                "category": this.selectedCategory.id,
+                "description": this.description,
+                "product_files": Object.values(this.productFiles),
+                "thumbnail_images": Object.values(this.thumbnailImages),
+                "product_licenses": this.selectedLicenses
+            });
 
-            // add file mappings each of form: [blobUrl, file]
-            for (let mapping of fileMappings) {
-                let blobUrl = Object.keys(mapping)[0]
-                let file = Object.values(mapping)[0]
-                formData.append(blobUrl, file)
-            }
+            // console.clear()
+            // console.log("data:")
+            // console.log(data)
+
+            // return
 
             const requestOptions = {
                 method: 'POST',
                 headers: headers,
-                body: formData,
+                body: data,
                 credentials: 'include',
                 redirect: 'follow'
             };
@@ -368,7 +375,7 @@ export default {
                 .then((response) => {
                     if (response.status < 300) {
                         setTimeout(() => {
-                            alert("Article uploaded successfully")
+                            alert("Product uploaded successfully")
                         }, 1500)
                     }
                     else
@@ -476,6 +483,21 @@ export default {
                     'licenses': []
                 }
             }
+
+            else if (fileTag == 'thumbnail') {
+                this.thumbnailImages[file.id] = {
+                    'file': {
+                        'id': file.id,
+                        'filename': file.filename,
+                        'fileType': file.fileType,
+                        'fileSize': file.fileSize,
+                        'fileExtension': file.fileExtension
+                    },
+                    'tag': fileTag
+                }
+            }
+
+
             console.clear()
             console.log("file:")
             console.log(file)
@@ -510,19 +532,36 @@ export default {
                     'serverId': file.serverId
                 }
             }
+
+            else if (fileTag == 'thumbnail') {
+                this.thumbnailImages[file.id]['file'] = {
+                    'id': file.id,
+                    'filename': file.filename,
+                    'fileType': file.fileType,
+                    'fileSize': file.fileSize,
+                    'fileExtension': file.fileExtension,
+                    'serverId': file.serverId
+                }
+            }
         },
         handleProcessFileStart(file) {
             // execute at beginning of file upload
             console.log("Started uploading file with ID:", file.id);
         },
-        handleProcessFileRevert(file) {
+        handleProcessFileRevert(file, ref) {
             // execute when user deletes uploaded temporary file from server
             console.log(`Reverted temporary upload with ID: ${file.id} and serverID: ${file.serverId}`);
 
-            console.clear()
-            console.log(this.productFiles[file.id].file.serverId)
-            this.productFiles[file.id].file.serverId = null
-            console.log(this.productFiles[file.id].file.serverId)
+            // get the filepond element via its ref
+            const filepondElement = this.$refs[ref]
+            const fileTag = filepondElement.$attrs.tag
+
+            if (fileTag == 'productFile') {
+                this.productFiles[file.id].file.serverId = null
+            }
+            else if (fileTag == 'thumbnail') {
+                this.thumbnailImages[file.id].file.serverId = null
+            }
         },
         handleProcessFileAbort(file) {
             // execute when user interrupts the file upload
@@ -539,10 +578,25 @@ export default {
             }
         },
         uploadHandler() {
+            this.productFilesAreUploaded = false
+            this.thumbnailImagesAreUploaded = false
+
             // this method causes all un-uploaded files to be uploaded
             this.$refs.thumbnailPond.processFiles().then((files) => {
                 // files have been processed
-                console.log("Uploaded all files. Files:")
+                this.thumbnailImagesAreUploaded = true
+                if (this.productFilesAreUploaded)
+                    this.submit()
+                console.log("Uploaded all thumbnail files. Files:")
+                console.log(files)
+            });
+
+            this.$refs.filePond.processFiles().then((files) => {
+                this.productFilesAreUploaded = true
+                if (this.thumbnailImagesAreUploaded)
+                    this.submit()
+                // files have been processed
+                console.log("Uploaded all product files. Files:")
                 console.log(files)
             });
         }
