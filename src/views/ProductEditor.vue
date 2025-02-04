@@ -351,7 +351,7 @@ export default {
             const data = JSON.stringify({
                 "title": this.title,
                 "category": this.selectedCategory.id,
-                "description": this.description,
+                "description": html,
                 "product_files": Object.values(this.productFiles),
                 "thumbnail_images": Object.values(this.thumbnailImages),
                 "product_licenses": this.selectedLicenses
