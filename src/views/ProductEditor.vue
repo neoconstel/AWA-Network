@@ -81,16 +81,16 @@
               can be passed into it (which is important to process files based on which filepond component
               it is [if there are multiple], as specified by the 'ref' argument). So the third argument
               in handleProcessFile MUST always be the same as the filepond component's ref. -->
-            <FilePond name="filepond" ref="thumbnailPond" class-name="my-pond" label-idle="Add sample images"
+            <FilePond name="filepond" ref="samplePond" class-name="my-pond" label-idle="Add sample images"
                 allow-multiple="true" :allowFileTypeValidation="true" accepted-file-types="image/*"
                 @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
                 :chunkUploads="true" :chunkSize="1000000" :instantUpload="false"
-                @initfile="(file) => handleInitFile(file, 'thumbnailPond')"
-                @processfile="(error, file) => handleProcessFile(error, file, 'thumbnailPond')"
-                @removefile="(error, file) => handleRemoveFile(error, file, 'thumbnailPond')"
+                @initfile="(file) => handleInitFile(file, 'samplePond')"
+                @processfile="(error, file) => handleProcessFile(error, file, 'samplePond')"
+                @removefile="(error, file) => handleRemoveFile(error, file, 'samplePond')"
                 @processfilestart="handleProcessFileStart"
-                @processfilerevert="(file) => handleProcessFileRevert(file, 'thumbnailPond')"
-                @processfileabort="handleProcessFileAbort" tag="thumbnail" />
+                @processfilerevert="(file) => handleProcessFileRevert(file, 'samplePond')"
+                @processfileabort="handleProcessFileAbort" tag="sample" />
 
 
             <h2 CLASS="mt-5 text-center">Product Files</h2>
@@ -248,7 +248,7 @@ export default {
             licenses: [],
             selectedCategory: null,
             productFilesAreUploaded: false,
-            thumbnailImagesAreUploaded: false,
+            sampleImagesAreUploaded: false,
 
             // tiptap
             editor: null,
@@ -305,7 +305,7 @@ export default {
                     'licenses': []
                 }
             },
-            thumbnailImages: {
+            sampleImages: {
 
             }
         }
@@ -353,7 +353,7 @@ export default {
                 "category": this.selectedCategory.id,
                 "description": html,
                 "product_files": Object.values(this.productFiles),
-                "thumbnail_images": Object.values(this.thumbnailImages),
+                "sample_images": Object.values(this.sampleImages),
                 "product_licenses": this.selectedLicenses
             });
 
@@ -484,8 +484,8 @@ export default {
                 }
             }
 
-            else if (fileTag == 'thumbnail') {
-                this.thumbnailImages[file.id] = {
+            else if (fileTag == 'sample') {
+                this.sampleImages[file.id] = {
                     'file': {
                         'id': file.id,
                         'filename': file.filename,
@@ -533,8 +533,8 @@ export default {
                 }
             }
 
-            else if (fileTag == 'thumbnail') {
-                this.thumbnailImages[file.id]['file'] = {
+            else if (fileTag == 'sample') {
+                this.sampleImages[file.id]['file'] = {
                     'id': file.id,
                     'filename': file.filename,
                     'fileType': file.fileType,
@@ -559,8 +559,8 @@ export default {
             if (fileTag == 'productFile') {
                 this.productFiles[file.id].file.serverId = null
             }
-            else if (fileTag == 'thumbnail') {
-                this.thumbnailImages[file.id].file.serverId = null
+            else if (fileTag == 'sample') {
+                this.sampleImages[file.id].file.serverId = null
             }
         },
         handleProcessFileAbort(file) {
@@ -579,21 +579,21 @@ export default {
         },
         uploadHandler() {
             this.productFilesAreUploaded = false
-            this.thumbnailImagesAreUploaded = false
+            this.sampleImagesAreUploaded = false
 
             // this method causes all un-uploaded files to be uploaded
-            this.$refs.thumbnailPond.processFiles().then((files) => {
+            this.$refs.samplePond.processFiles().then((files) => {
                 // files have been processed
-                this.thumbnailImagesAreUploaded = true
+                this.sampleImagesAreUploaded = true
                 if (this.productFilesAreUploaded)
                     this.submit()
-                console.log("Uploaded all thumbnail files. Files:")
+                console.log("Uploaded all sample files. Files:")
                 console.log(files)
             });
 
             this.$refs.filePond.processFiles().then((files) => {
                 this.productFilesAreUploaded = true
-                if (this.thumbnailImagesAreUploaded)
+                if (this.sampleImagesAreUploaded)
                     this.submit()
                 // files have been processed
                 console.log("Uploaded all product files. Files:")
