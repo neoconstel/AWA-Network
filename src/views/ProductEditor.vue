@@ -109,8 +109,26 @@
                 <h2 v-if="Object.keys(this.productFiles).length" class="text-center">File Licenses</h2>
                 <template v-for="(fileData, fileID, index) in this.productFiles" :key="index">
                     <div class="mb-5">
+
+                        <!-- Dropdown for selecting file licenses -->
+                        <div>
+                            <button><b>{{
+                                fileData.file.filename }}</b></button>
+                            <div>
+                                <ul>
+                                    <li v-for="(license, index) in this.licenses" :key="index">
+                                        <a @click="() => { if (!fileData.licenses.includes(license)) fileData.licenses.push(license) }"
+                                            class="active:bg-cyan-500 focus:bg-cyan-500 dark:active:bg-cyan-500 dark:focus:bg-cyan-500 block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                                            href="JavaScript:void(0)" data-twe-dropdown-item-ref>{{ license.name }}
+                                            license</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
                         <!-- Tailwind-Element dropdown for selecting file licenses -->
-                        <div class="relative mr-10" data-twe-dropdown-ref>
+                        <!-- <div class="relative mr-10" data-twe-dropdown-ref>
                             <button
                                 class="flex items-center rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                                 type="button" id="dropdownMenuButton1" data-twe-dropdown-toggle-ref
@@ -133,7 +151,7 @@
                                         license</a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                         <div v-for="(license, index) in fileData.licenses" :key="index"
                             class="mr-3 inline-block rounded-full border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-accent-300 hover:bg-primary-50/50 hover:text-primary-accent-300 focus:border-primary-600 focus:bg-primary-50/50 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 motion-reduce:transition-none dark:text-primary-500 dark:hover:bg-blue-950 dark:focus:bg-blue-950"
                             data-twe-ripple-init>
@@ -297,13 +315,7 @@ export default {
                 restore: '/fp/restore/',
             },
             productFiles: {
-                /** initial placeholder to allow TWE to properly initialize 
-                 * the file licenses drowdown. It is later reset to {} in mounted() */
-                'fileID': {
-                    'file': Object,
-                    'tag': null,
-                    'licenses': []
-                }
+
             },
             sampleImages: {
 
