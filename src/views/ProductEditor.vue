@@ -126,32 +126,6 @@
                             </div>
 
                         </div>
-
-                        <!-- Tailwind-Element dropdown for selecting file licenses -->
-                        <!-- <div class="relative mr-10" data-twe-dropdown-ref>
-                            <button
-                                class="flex items-center rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                                type="button" id="dropdownMenuButton1" data-twe-dropdown-toggle-ref
-                                aria-expanded="false" data-twe-ripple-init data-twe-ripple-color="light">
-                                {{ fileData.file.filename }}
-                                <span class="ms-2 w-2 [&>svg]:h-5 [&>svg]:w-5">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </span>
-                            </button>
-                            <ul class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
-                                aria-labelledby="dropdownMenuButton1" data-twe-dropdown-menu-ref>
-                                <li v-for="(license, index) in this.licenses" :key="index">
-                                    <a @click="() => { if (!fileData.licenses.includes(license)) fileData.licenses.push(license) }"
-                                        class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                                        href="JavaScript:void(0)" data-twe-dropdown-item-ref>{{ license.name }}
-                                        license</a>
-                                </li>
-                            </ul>
-                        </div> -->
                         <div v-for="(license, index) in fileData.licenses" :key="index"
                             class="mr-3 inline-block rounded-full border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-accent-300 hover:bg-primary-50/50 hover:text-primary-accent-300 focus:border-primary-600 focus:bg-primary-50/50 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 motion-reduce:transition-none dark:text-primary-500 dark:hover:bg-blue-950 dark:focus:bg-blue-950"
                             data-twe-ripple-init>
@@ -243,12 +217,6 @@ const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 import RecursiveMenu from '@/components/RecursiveMenu.vue';
 
-// Tailwind Elements
-import {
-    Dropdown,
-    Ripple,
-    initTWE,
-} from "tw-elements";
 
 export default {
     name: 'ProductEditor',
@@ -265,8 +233,6 @@ export default {
             productCategories: [],
             licenses: [],
             selectedCategory: null,
-            productFilesAreUploaded: false,
-            sampleImagesAreUploaded: false,
 
             // tiptap
             editor: null,
@@ -369,9 +335,9 @@ export default {
                 "product_licenses": this.selectedLicenses
             });
 
-            // console.clear()
-            // console.log("data:")
-            // console.log(data)
+            console.clear()
+            console.log("data:")
+            console.log(data)
 
             // return
 
@@ -480,16 +446,13 @@ export default {
 
             if (fileTag == 'productFile') {
                 this.productFiles[file.id] = {
-                    /** include as much information (filename etc) of the file 
-                     * as would be needed, as I found issues while trying to 
-                     * later update the file variable in this.productFiles
-                     */
                     'file': {
                         'id': file.id,
                         'filename': file.filename,
                         'fileType': file.fileType,
                         'fileSize': file.fileSize,
-                        'fileExtension': file.fileExtension
+                        'fileExtension': file.fileExtension,
+                        'serverId': file.serverId
                     },
                     'tag': fileTag,
                     'licenses': []
@@ -503,7 +466,8 @@ export default {
                         'filename': file.filename,
                         'fileType': file.fileType,
                         'fileSize': file.fileSize,
-                        'fileExtension': file.fileExtension
+                        'fileExtension': file.fileExtension,
+                        'serverId': file.serverId
                     },
                     'tag': fileTag
                 }
@@ -511,7 +475,7 @@ export default {
 
 
             console.clear()
-            console.log("file:")
+            console.log("file at initFile:")
             console.log(file)
             console.log(file.file)
         },
@@ -528,6 +492,8 @@ export default {
             const fileTag = filepondElement.$attrs.tag
 
             // Access the server's response containing the file ID
+            console.log("File at processFile")
+            console.log(file)
             console.log("Temporary Uploaded file ID:", file.id);
             console.log("Temporary Uploaded file server ID:", file.serverId);
             console.log("Temporary Uploaded file tag:", filepondElement.$attrs.tag);
@@ -569,10 +535,24 @@ export default {
             const fileTag = filepondElement.$attrs.tag
 
             if (fileTag == 'productFile') {
-                this.productFiles[file.id].file.serverId = null
+                this.productFiles[file.id]['file'] = {
+                    'id': file.id,
+                    'filename': file.filename,
+                    'fileType': file.fileType,
+                    'fileSize': file.fileSize,
+                    'fileExtension': file.fileExtension,
+                    'serverId': file.serverId
+                }
             }
             else if (fileTag == 'sample') {
-                this.sampleImages[file.id].file.serverId = null
+                this.sampleImages[file.id]['file'] = {
+                    'id': file.id,
+                    'filename': file.filename,
+                    'fileType': file.fileType,
+                    'fileSize': file.fileSize,
+                    'fileExtension': file.fileExtension,
+                    'serverId': file.serverId
+                }
             }
         },
         handleProcessFileAbort(file) {
@@ -588,29 +568,49 @@ export default {
             if (fileTag == 'productFile') {
                 delete this.productFiles[file.id]
             }
+            else if (fileTag == 'sample') {
+                delete this.sampleImages[file.id]
+            }
+        },
+        sampleImagesUpload(index = 0) {
+            // for now, the sampleImagesUpload function automatically calls
+            // the productFilesUpload function once it is done.
+            const totalCount = Object.keys(this.sampleImages).length
+
+            // upload the file at the given index
+            this.$refs.samplePond.processFile(index)
+                .then((file) => {
+                    index++
+                    if (index < totalCount)
+                        return this.sampleImagesUpload(index)
+                    setTimeout(() => {
+                        this.productFilesUpload()
+                    }, 3000)
+                })
+        },
+        productFilesUpload(index = 0) {
+            // submit is automatically called once this is done
+            const totalCount = Object.keys(this.productFiles).length
+
+            // upload the file at the given index
+            this.$refs.filePond.processFile(index)
+                .then((file) => {
+                    index++
+                    if (index < totalCount)
+                        return this.productFilesUpload(index)
+
+                    /** set a little delay before submitting to prevent
+                     * issue of submitting null serverID
+                     */
+                    setTimeout(() => {
+                        this.submit()
+                    }, 3000)
+                })
         },
         uploadHandler() {
-            this.productFilesAreUploaded = false
-            this.sampleImagesAreUploaded = false
-
-            // this method causes all un-uploaded files to be uploaded
-            this.$refs.samplePond.processFiles().then((files) => {
-                // files have been processed
-                this.sampleImagesAreUploaded = true
-                if (this.productFilesAreUploaded)
-                    this.submit()
-                console.log("Uploaded all sample files. Files:")
-                console.log(files)
-            });
-
-            this.$refs.filePond.processFiles().then((files) => {
-                this.productFilesAreUploaded = true
-                if (this.sampleImagesAreUploaded)
-                    this.submit()
-                // files have been processed
-                console.log("Uploaded all product files. Files:")
-                console.log(files)
-            });
+            // for now, the sampleImagesUpload function automatically calls
+            // the productFilesUpload function once it is done.
+            this.sampleImagesUpload()
         }
     },
     computed: {
@@ -634,15 +634,6 @@ export default {
         // }
     },
     mounted() {
-        initTWE({ Dropdown, Ripple });
-
-        /** reset back to empty after initializing TWE. This is because certain
-         * UI (file licences drowdown) fails to initialize if productFiles is {} initially, so the
-         * workaround was to put an initial value in it and then reset the 
-         * productFiles object after initializing TWE.
-         */
-        this.productFiles = {}
-
         // editor
         this.initializeTiptapEditor()
 
