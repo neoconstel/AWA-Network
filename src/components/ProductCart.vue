@@ -71,19 +71,19 @@ export default {
                 }
                 // get the product's license_data and get the price from there
                 let productLicense = this.product.license_data.find(
-                    pLicence => pLicence.id == license.id)
-                license.price = productLicense.price
+                    pLicence => pLicence.license == license.id)
 
+                license.price = productLicense.price
                 licenses.push(license)
             }
 
-
+            this.licensesHaveBeenComputed = true
             return licenses
         }
     },
     data() {
         return {
-
+            'licensesHaveBeenComputed': false
         }
     },
     methods: {

@@ -84,7 +84,7 @@
             <FilePond name="filepond" ref="samplePond" class-name="my-pond" label-idle="Add sample images"
                 allow-multiple="true" :allowFileTypeValidation="true" accepted-file-types="image/*"
                 @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
-                :chunkUploads="true" :chunkSize="1000000" :instantUpload="false"
+                :chunkUploads="true" :chunkSize="1000000" :instantUpload="false" :allowReorder="false"
                 @initfile="(file) => handleInitFile(file, 'samplePond')"
                 @processfile="(error, file) => handleProcessFile(error, file, 'samplePond')"
                 @removefile="(error, file) => handleRemoveFile(error, file, 'samplePond')"
@@ -97,7 +97,7 @@
             <FilePond name="filepond" ref="filePond" class-name="my-pond" label-idle="Add product files"
                 allow-multiple="true" :allowFileTypeValidation="false" accepted-file-types="[]"
                 @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
-                :chunkUploads="true" :chunkSize="1000000" :instantUpload="false"
+                :chunkUploads="true" :chunkSize="1000000" :instantUpload="false" :allowReorder="false"
                 @initfile="(file) => handleInitFile(file, 'filePond')"
                 @processfile="(error, file) => handleProcessFile(error, file, 'filePond')"
                 @removefile="(error, file) => handleRemoveFile(error, file, 'filePond')"
@@ -117,7 +117,7 @@
                             <div>
                                 <ul>
                                     <li v-for="(license, index) in this.licenses" :key="index">
-                                        <a @click="() => { if (!fileData.licenses.includes(license)) fileData.licenses.push(license) }"
+                                        <a @click="() => { if (!fileData.licenses.includes(license)) { if (license.free) license.price = 0; fileData.licenses.push(license); } }"
                                             class="active:bg-cyan-500 focus:bg-cyan-500 dark:active:bg-cyan-500 dark:focus:bg-cyan-500 block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
                                             href="JavaScript:void(0)" data-twe-dropdown-item-ref>{{ license.name }}
                                             license</a>
@@ -155,7 +155,7 @@
             <section v-if="this.selectedLicenses.length" class="preview-section">
                 <h2 class="text-center mt-10">Preview</h2>
                 <div v-for="(license, index) in this.selectedLicenses" :key="index" class="mt-5 border border-gray-500">
-                    <p><b>{{ license.name }} license (${{ license.price ? license.price : 0 }})</b></p>
+                    <p><b>{{ license.name }} license (${{ license.price }})</b></p>
                     <p class="mt-3"><b>Files:</b></p>
                     <template v-for="(fileData, index) in Object.values(this.productFiles)" :key="index">
                         <p v-if="fileData.licenses.includes(license)" class="space-x-3">
