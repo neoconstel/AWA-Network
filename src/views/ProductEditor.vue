@@ -166,11 +166,11 @@
                             <span v-else-if="fileData.file.fileSize < 1000000">({{ fileData.file.fileSize / 1000 }}
                                 kb)</span>
                             <span v-else-if="fileData.file.fileSize < 1000000000">({{ fileData.file.fileSize / 1000000
-                                }}
+                            }}
                                 mb)</span>
                             <span v-else="fileData.file.fileSize < 1000000000000">({{ fileData.file.fileSize /
                                 1000000000
-                                }} gb)</span>
+                            }} gb)</span>
                             <!-- <span>{{ fileData.file.serverId }}</span> -->
                         </p>
                     </template>
@@ -339,9 +339,35 @@ export default {
                 throw "No product description"
             }
 
-            // console.clear()
-            // console.log(content)
-            // throw 'shown content'
+
+            // ensure that there is at least one sample image added
+            if (Object.keys(this.sampleImages).length == 0) {
+                alert("You must add at least one sample image!")
+                throw "No sample image added"
+            }
+
+
+            /** ensure that there is at least one product file added and that 
+             * each product file has at least one license, and that each
+             * selected license has a valid price
+             */
+            if (Object.keys(this.productFiles).length == 0) {
+                alert("You must add at least one product file!")
+                throw "No product file added"
+            }
+            Object.values(this.productFiles).forEach((fileData) => {
+                if (fileData.licenses.length == 0) {
+                    alert(`Add at least one license for the file: ${fileData.file.filename}!`)
+                    throw `No license added for file: ${fileData.file.filename}`
+                }
+            })
+            this.selectedLicenses.forEach((license) => {
+                if (!license.free && !license.price) {
+                    alert(`Set a price for the ${license.name} license!`)
+                    throw `No price set for ${license.name} license!`
+                }
+            })
+
         },
         async submit() {
             // get the raw html without any css
