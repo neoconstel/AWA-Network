@@ -148,7 +148,7 @@
                         <input
                             @change="license.price = $event.target.value; console.log('changed to value: ', $event.target.value)"
                             v-else class="border border-gray-500 dark:text-gray-800 px-1" placeholder="price ($)"
-                            type="number">
+                            type="number" min="0">
                     </template>
                 </div>
             </section>
@@ -161,7 +161,7 @@
                     <template v-for="(fileData, index) in Object.values(this.productFiles)" :key="index">
                         <p v-if="fileData.licenses.includes(license)" class="space-x-3">
                             <span>{{ fileData.file.filename }}</span>
-                            <span>({{ fileData.file.fileType }})</span>
+                            <span v="fileData.file.fileType">({{ fileData.file.fileType }})</span>
                             <span v-if="fileData.file.fileSize < 1000">({{ fileData.file.fileSize }} bytes)</span>
                             <span v-else-if="fileData.file.fileSize < 1000000">({{ fileData.file.fileSize / 1000 }}
                                 kb)</span>

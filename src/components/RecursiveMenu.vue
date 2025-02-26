@@ -11,7 +11,9 @@
                         type="button" data-twe-collapse-init data-twe-collapse-collapsed
                         :data-twe-target="`#depth${depth}-collapse${index}`" aria-expanded="false"
                         :aria-controls="`depth${depth}-collapse${index}`">
-                        {{ category.name }}
+                        <span @click="selectCategory(category)"
+                            class="hover:bg-cyan-500 dark:hover:bg-cyan-500 p-3 rounded-b-md">{{
+                                category.name }}</span>
                         <span
                             class="-me-1 ms-auto h-5 w-5 shrink-0 rotate-[-180deg] transition-transform duration-200 ease-in-out group-data-[twe-collapse-collapsed]:me-0 group-data-[twe-collapse-collapsed]:rotate-0 motion-reduce:transition-none [&>svg]:h-6 [&>svg]:w-6">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -39,11 +41,15 @@
                 </div>
             </template>
             <template v-else>
-                <button @click="selectCategory(category)"
-                    class="data-[twe-collapse-collapsed] group relative flex w-full items-center border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none data-[twe-collapse-collapsed]:rounded-b-lg dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary  dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10 hover:bg-cyan-500 dark:hover:bg-cyan-500"
-                    type="button" data-twe-collapse-init data-twe-collapse-collapsed
-                    :data-twe-target="`#depth${depth}-collapse${index}`" aria-expanded="false"
-                    :aria-controls="`depth${depth}-collapse${index}`">{{ category.name }}</button>
+                <div>
+                    <button @click="selectCategory(category)"
+                        class="data-[twe-collapse-collapsed] group relative flex items-center border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none data-[twe-collapse-collapsed]:rounded-b-lg dark:bg-body-dark dark:text-white [&:not([data-twe-collapse-collapsed])]:bg-white [&:not([data-twe-collapse-collapsed])]:text-primary [&:not([data-twe-collapse-collapsed])]:shadow-border-b dark:[&:not([data-twe-collapse-collapsed])]:bg-surface-dark dark:[&:not([data-twe-collapse-collapsed])]:text-primary  dark:[&:not([data-twe-collapse-collapsed])]:shadow-white/10"
+                        type="button" data-twe-collapse-init data-twe-collapse-collapsed
+                        :data-twe-target="`#depth${depth}-collapse${index}`" aria-expanded="false"
+                        :aria-controls="`depth${depth}-collapse${index}`"><span @click="selectCategory(category)"
+                            class="hover:bg-cyan-500 dark:hover:bg-cyan-500 p-3 rounded-b-md">{{
+                                category.name }}</span></button>
+                </div>
             </template>
         </div>
     </div>
