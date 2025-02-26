@@ -81,7 +81,8 @@
               can be passed into it (which is important to process files based on which filepond component
               it is [if there are multiple], as specified by the 'ref' argument). So the third argument
               in handleProcessFile MUST always be the same as the filepond component's ref. -->
-            <FilePond name="filepond" ref="samplePond" class-name="my-pond" label-idle="Add sample images"
+            <FilePond name="filepond" ref="samplePond" class-name="my-pond"
+                label-idle="Add sample images (the first image selected will also be used as the thumbnail)"
                 allow-multiple="true" :allowFileTypeValidation="true" accepted-file-types="image/*"
                 @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
                 :chunkUploads="true" :chunkSize="1000000" :instantUpload="false" :allowReorder="false"
@@ -182,6 +183,8 @@
 
         <button @click="uploadHandler"
             class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-28">Submit</button>
+
+        <p>{{ this.contentJSON }}</p>
     </div>
 </template>
 
@@ -304,15 +307,43 @@ export default {
         }
     },
     methods: {
-        async submit() {
+        validateFields() {
             // EDITOR VALIDATION
 
-            // check if product description is empty
-            if (this.contentJSON['content'] == undefined) {
-                alert("You must add a product description!")
-                return
+            // check if there is no title
+            if (this.title == undefined || this.title.trim() == '') {
+                alert("You must add a product title!")
+                throw "No product title"
             }
 
+
+            // check if there is no selected category
+            if (this.selectedCategory == null) {
+                alert("You must select a product category!")
+                throw "No product category selected"
+            }
+
+
+            // check if product description is empty
+            let content = ""
+            try {
+                content = this.rawHTML.replaceAll('&nbsp;', '')
+                    .replaceAll(' ', '')
+                    .replace('<p></p>', '')
+            }
+            catch (error) {
+                console.log("Error:", error.message)
+            }
+            if (content == undefined || content == '') {
+                alert("You must add a product description!")
+                throw "No product description"
+            }
+
+            // console.clear()
+            // console.log(content)
+            // throw 'shown content'
+        },
+        async submit() {
             // get the raw html without any css
             const html = this.rawHTML
 
@@ -585,7 +616,7 @@ export default {
                         return this.sampleImagesUpload(index)
                     setTimeout(() => {
                         this.productFilesUpload()
-                    }, 3000)
+                    }, 1000)
                 })
         },
         productFilesUpload(index = 0) {
@@ -604,10 +635,11 @@ export default {
                      */
                     setTimeout(() => {
                         this.submit()
-                    }, 3000)
+                    }, 1000)
                 })
         },
         uploadHandler() {
+            this.validateFields()
             // for now, the sampleImagesUpload function automatically calls
             // the productFilesUpload function once it is done.
             this.sampleImagesUpload()
