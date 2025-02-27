@@ -135,6 +135,11 @@ const fixedRoutes = [
     name: "productDetail",
     component: () => import("../views/ProductDetail.vue"),
   },
+  {
+    path: "/resources/store/:seller",
+    name: "sellerStore",
+    component: () => import("../views/SellerStore.vue"),
+  },
   // {
   //   path: "/filepond",
   //   name: "FilePond",

@@ -166,11 +166,11 @@
                             <span v-else-if="fileData.file.fileSize < 1000000">({{ fileData.file.fileSize / 1000 }}
                                 kb)</span>
                             <span v-else-if="fileData.file.fileSize < 1000000000">({{ fileData.file.fileSize / 1000000
-                            }}
+                                }}
                                 mb)</span>
                             <span v-else="fileData.file.fileSize < 1000000000000">({{ fileData.file.fileSize /
                                 1000000000
-                            }} gb)</span>
+                                }} gb)</span>
                             <!-- <span>{{ fileData.file.serverId }}</span> -->
                         </p>
                     </template>
@@ -183,8 +183,6 @@
 
         <button @click="uploadHandler"
             class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-28">Submit</button>
-
-        <p>{{ this.contentJSON }}</p>
     </div>
 </template>
 
