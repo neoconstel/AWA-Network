@@ -13,10 +13,11 @@
                 <h1 class="mt-5">{{ product.title }}</h1>
                 <img class="w-6 aspect-square rounded-full float-left mr-3"
                     src="https://cdn.pixabay.com/photo/2024/07/13/08/02/penguin-8891658_1280.jpg" alt="">
-                <p>By <RouterLink :to="``" class="text-cyan-500">{{ product.seller.brand_name }}</RouterLink> in
+                <p>By <RouterLink :to="`/resources/store/${product.seller.alias}`" class="text-cyan-500">{{
+                    product.seller.brand_name }}</RouterLink> in
                     <RouterLink :to="`/resources/${product.category.root.toLowerCase()}`" class="text-cyan-500">{{
                         product.category.root
-                        }}</RouterLink>
+                    }}</RouterLink>
                 </p>
             </header>
             <div class="grid mt-5" style="grid-template-columns: 2fr 1fr; grid-template-areas: 'main cart';">
