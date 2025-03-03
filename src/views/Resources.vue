@@ -4,11 +4,13 @@
     <div class="page-container mx-16 text-gray-800 dark:text-gray-200">
         <header>
             <div class="grid grid-cols-2 gap-2">
-                <RouterLink class="h-28 flex justify-center items-center bg-sky-600 text-gray-200" to="">Digital
+                <RouterLink class="h-28 flex justify-center items-center bg-sky-600 text-gray-200" to="">
+                    Digital
                     Products
                 </RouterLink>
-                <RouterLink class="h-28 flex justify-center items-center bg-indigo-600 text-gray-200" to="">Digital
-                    Bundles
+                <RouterLink class="line-through h-28 flex justify-center items-center bg-indigo-600 text-gray-200"
+                    to="">Digital
+                    Bundles (still in development)
                 </RouterLink>
             </div>
             <div v-if="productCategories" class="flex gap-x-2">

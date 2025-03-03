@@ -1,46 +1,50 @@
 <template>
     <div class="text-gray-800 dark:text-gray-200 mx-16">
-        <!--Tabs navigation-->
-        <ul class="mb-5 flex list-none flex-row flex-wrap border-b-0 ps-0" role="tablist" data-twe-nav-ref>
-            <li role="presentation">
-                <a href="#tabs-products"
-                    class="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
-                    data-twe-toggle="pill" data-twe-target="#tabs-products" data-twe-nav-active role="tab"
-                    aria-controls="tabs-products" aria-selected="true">Products</a>
-            </li>
-            <li role="presentation">
-                <a href="#tabs-bundles"
-                    class="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
-                    data-twe-toggle="pill" data-twe-target="#tabs-bundles" role="tab" aria-controls="tabs-bundles"
-                    aria-selected="false">Bundles</a>
-            </li>
-            <li role="presentation">
-                <a href="#tabs-sellerInfo"
-                    class="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
-                    data-twe-toggle="pill" data-twe-target="#tabs-sellerInfo" role="tab" aria-controls="tabs-sellerInfo"
-                    aria-selected="false">Seller Information</a>
-            </li>
-        </ul>
-
+        <header class="mt-3">
+            <span class="text-3xl font-bold mr-3">Store</span><span>{{ products.length }} items</span>
+        </header>
         <main>
-            <!--Tabs content-->
-            <div class="mb-6">
-                <!-- tab 1 content (place content inside the div) -->
-                <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
-                    id="tabs-products" role="tabpanel" aria-labelledby="tabs-products-tab" data-twe-tab-active>
-                    <div class="grid grid-cols-5 mt-10 mb-96 gap-5">
-                        <ProductCard v-for="(product, index) in products" :product="product" :key="index" />
+            <!--Tabs navigation-->
+            <ul class="mb-5 flex list-none flex-row flex-wrap border-b-0 ps-0" role="tablist" data-twe-nav-ref>
+                <li role="presentation">
+                    <a href="#tabs-products"
+                        class="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
+                        data-twe-toggle="pill" data-twe-target="#tabs-products" data-twe-nav-active role="tab"
+                        aria-controls="tabs-products" aria-selected="true">Products</a>
+                </li>
+                <li role="presentation">
+                    <a href="#tabs-bundles"
+                        class="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
+                        data-twe-toggle="pill" data-twe-target="#tabs-bundles" role="tab" aria-controls="tabs-bundles"
+                        aria-selected="false">Bundles</a>
+                </li>
+                <li role="presentation">
+                    <a href="#tabs-sellerInfo"
+                        class="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
+                        data-twe-toggle="pill" data-twe-target="#tabs-sellerInfo" role="tab"
+                        aria-controls="tabs-sellerInfo" aria-selected="false">Seller Information</a>
+                </li>
+            </ul>
+            <div>
+                <!--Tabs content-->
+                <div class="mb-6">
+                    <!-- tab 1 content (place content inside the div) -->
+                    <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+                        id="tabs-products" role="tabpanel" aria-labelledby="tabs-products-tab" data-twe-tab-active>
+                        <div class="grid grid-cols-5 mt-10 mb-96 gap-5">
+                            <ProductCard v-for="(product, index) in products" :product="product" :key="index" />
+                        </div>
                     </div>
-                </div>
-                <!-- tab 2 content (place content inside the div) -->
-                <div class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
-                    id="tabs-bundles" role="tabpanel" aria-labelledby="tabs-bundles-tab">
-                    Tab 2 content
-                </div>
-                <!-- tab 3 content (place content inside the div) -->
-                <div class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
-                    id="tabs-sellerInfo" role="tabpanel" aria-labelledby="tabs-bundles-tab">
-                    Tab 3 content
+                    <!-- tab 2 content (place content inside the div) -->
+                    <div class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+                        id="tabs-bundles" role="tabpanel" aria-labelledby="tabs-bundles-tab">
+                        Tab 2 content
+                    </div>
+                    <!-- tab 3 content (place content inside the div) -->
+                    <div class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+                        id="tabs-sellerInfo" role="tabpanel" aria-labelledby="tabs-bundles-tab">
+                        Tab 3 content
+                    </div>
                 </div>
             </div>
         </main>
