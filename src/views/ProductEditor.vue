@@ -73,8 +73,8 @@
         </div>
 
         <h2 CLASS="mt-5 text-center">Sample Images</h2>
-        <div id="filepond" class="mb-48">
-            <!-- name MUST be "filepond" for it to be detected by django-drf-filepond -->
+        <div id="filepond">
+            <!-- name of the filepond component MUST be "filepond" for it to be detected by django-drf-filepond -->
             <!-- tag is a custom property and can only be accessed from the component instance using the $attrs attribute -->
             <!-- instead of binding the handleProcessFile method directly to the @processfile event via
               its method name, it is expanded into its inline function form so that a custom argument
@@ -182,7 +182,7 @@
         </div>
 
         <button @click="uploadHandler"
-            class="bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-28">Submit</button>
+            class="mt-12 bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-28">Submit</button>
     </div>
 </template>
 
@@ -632,6 +632,21 @@ export default {
             // the productFilesUpload function once it is done.
             const totalCount = Object.keys(this.sampleImages).length
 
+            /** get the file at given index and skip it if it has already
+             * been successfully uploaded.
+             */
+            let fileInstance = this.$refs.samplePond.getFile(index)
+            if (fileInstance.serverId) {
+                index++
+                if (index < totalCount)
+                    return this.sampleImagesUpload(index)
+                else
+                    setTimeout(() => {
+                        // better if an event is triggered here instead
+                        this.productFilesUpload()
+                    }, 1000)
+            }
+
             // upload the file at the given index
             this.$refs.samplePond.processFile(index)
                 .then((file) => {
@@ -639,6 +654,7 @@ export default {
                     if (index < totalCount)
                         return this.sampleImagesUpload(index)
                     setTimeout(() => {
+                        // better if an event is triggered here instead
                         this.productFilesUpload()
                     }, 1000)
                 })
@@ -646,6 +662,21 @@ export default {
         productFilesUpload(index = 0) {
             // submit is automatically called once this is done
             const totalCount = Object.keys(this.productFiles).length
+
+            /** get the file at given index and skip it if it has already
+             * been successfully uploaded.
+             */
+            let fileInstance = this.$refs.filePond.getFile(index)
+            if (fileInstance.serverId) {
+                index++
+                if (index < totalCount)
+                    return this.productFilesUpload(index)
+                else
+                    setTimeout(() => {
+                        // better if an event is triggered here instead
+                        this.submit()
+                    }, 1000)
+            }
 
             // upload the file at the given index
             this.$refs.filePond.processFile(index)
@@ -658,6 +689,10 @@ export default {
                      * issue of submitting null serverID
                      */
                     setTimeout(() => {
+                        /** better if an event is triggered here instead, and
+                         * then a listener detects it and is used to
+                         * activate the submit()
+                         */
                         this.submit()
                     }, 1000)
                 })
