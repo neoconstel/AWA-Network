@@ -140,6 +140,12 @@ const fixedRoutes = [
     name: "sellerStore",
     component: () => import("../views/SellerStore.vue"),
   },
+  ,
+  {
+    path: "/challenge/:id",
+    name: "challengeDetail",
+    component: () => import("../views/ChallengeDetail.vue"),
+  },
   // {
   //   path: "/filepond",
   //   name: "FilePond",
