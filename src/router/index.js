@@ -142,9 +142,9 @@ const fixedRoutes = [
   },
   ,
   {
-    path: "/challenge/:id",
+    path: "/contest/:id",
     name: "challengeDetail",
-    component: () => import("../views/ChallengeDetail.vue"),
+    component: () => import("../views/ContestDetail.vue"),
   },
   // {
   //   path: "/filepond",
