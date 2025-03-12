@@ -12,7 +12,10 @@
 
             <img class="mt-10" :src="`${contest.thumbnail_image}`" alt="">
             <h1 class="mt-10">{{ contest.title }}</h1>
-            <p class="font-bold">{{ contest.start_date }} - {{ contest.end_date }} : Prizes Worth ${{ contest.reward }}
+            <p class="font-bold">{{ this.methodsStore.formatDate(contest.start_date, includeWeekday = false) }} - {{
+                this.methodsStore.formatDate(contest.end_date, includeWeekday = false) }} : Prizes Worth ${{
+                    contest.reward
+                }}
             </p>
         </header>
 
@@ -28,6 +31,7 @@
 // state management
 import { mapStores } from 'pinia'; // mapStores gives us access to the state
 import useDataStore from '@/stores/states'; // convention: use<storeID>Store
+import useMethodsStore from '@/stores/functions'; // convention: use<storeID>Store
 
 // HTML sanitization
 import DOMPurify from 'dompurify';
@@ -45,7 +49,7 @@ export default {
         }
     },
     computed: {
-        ...mapStores(useDataStore),
+        ...mapStores(useDataStore, useMethodsStore),
     },
     methods: {
         async fetchChallenge(id) {
