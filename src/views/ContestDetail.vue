@@ -1,9 +1,10 @@
 <template>
     <div class="page-container text-gray-800 dark:text-gray-200 mx-16 mt-5 mb-24">
         <header>
-            <RouterLink :to="``">
-                <div v-if="topBanner" class="relative text-center bg-blue-300 dark:bg-blue-600">
-                    <p class="font-bold text-lg">Example other contest – $5550 In Prizes – Ends March 31st</p>
+            <RouterLink v-if="randomContest.id && topBanner" :to="``">
+                <div class="relative text-center bg-blue-300 dark:bg-blue-600">
+                    <p class="font-bold text-lg">{{ randomContest.title }} – ${{ randomContest.reward }} In Prizes –
+                        Ends {{ this.methodsStore.formatDate(randomContest.end_date, includeWeekday = false) }}</p>
                     <button class="absolute right-1 top-1 outline outline-1 rounded-2xl px-1"
                         @click="topBanner = false">close x</button>
                     <p>&gt&gtclick for contest rules and prizes&lt&lt</p>
@@ -45,6 +46,7 @@ export default {
         return {
             htmlText: '',
             contest: {},
+            randomContest: {},
             topBanner: true
         }
     },
@@ -52,7 +54,7 @@ export default {
         ...mapStores(useDataStore, useMethodsStore),
     },
     methods: {
-        async fetchChallenge(id) {
+        async fetchContest(id) {
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/contest/${id}/`
 
             // reset the challenge object to clear any existing challenge data
@@ -64,6 +66,22 @@ export default {
                     // console.log(data)
                     this.contest = data
                     this.contest.details = DOMPurify.sanitize(this.contest.details)
+                })
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
+        async fetchRandomContest() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/contest/random/exclude/${this.$route.params.id}/`
+
+            this.randomContest = {}
+
+            fetch(url)
+                .then(response => response.json())
+                .then((data) => {
+                    // console.log(data)
+                    this.randomContest = data
                 })
                 .catch((error) => {
                     this.errorMessage = error
@@ -89,7 +107,8 @@ export default {
                     window.scrollTo(0, 0);
                 }, 100)
 
-                this.fetchChallenge(this.$route.params.id)
+                this.fetchContest(this.$route.params.id)
+                this.fetchRandomContest()
             }
         }
     }
