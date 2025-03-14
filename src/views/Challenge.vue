@@ -1,7 +1,21 @@
 <template>
-    <div class="page-container mx-16 mt-10 mb-24 text-gray-800 dark:text-gray-200">
+    <div class="page-container mx-16 mt-4 mb-24 text-gray-800 dark:text-gray-200">
         <header>
-            <h1>AWA 3D Art Contests</h1>
+            <div
+                class="grid grid-cols-4 gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-5 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Winners <span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Trending winners</span></RouterLink>
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Topic <span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Topic summary</span></RouterLink>
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Other topic<span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Topic summary</span>
+                </RouterLink>
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Announcements <span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Contest updates</span>
+                </RouterLink>
+            </div>
+
+            <h1 class="mt-4">AWA 3D Art Contests</h1>
             <p class="mt-2">Test your strengths in one of our competitive art contests.</p>
             <div class="h-1 bg-gray-500 my-5 mb-10"></div>
         </header>
