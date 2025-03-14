@@ -1,7 +1,10 @@
 <template>
     <RouterLink :to="`/contest/${contest.id}`">
         <div class="bg-gray-300 dark:bg-gray-700 border-2 border-gray-500">
-            <img class="aspect-video object-cover" :src="contest.thumbnail_image" alt="">
+            <!-- NOTE (browser compatibility): the image below must be set to
+             w-full otherwise the aspect-ratio will fail to take effect in
+             Firefox -->
+            <img class="aspect-video object-cover w-full" :src="contest.thumbnail_image" alt="">
             <div class="p-3 space-y-1 [&>p]:text-gray-600 [&>p]:dark:text-gray-400">
                 <h3 class="">{{ contest.title }}</h3>
                 <p class="" v-if="contest.status == 'upcoming'">Starts: {{
