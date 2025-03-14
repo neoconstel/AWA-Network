@@ -1,8 +1,22 @@
 <template>
     <div class="page-container text-gray-800 dark:text-gray-200 mx-16 mt-5 mb-24">
         <header>
+            <div
+                class="grid grid-cols-4 gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-5 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Winners <span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Trending winners</span></RouterLink>
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Topic <span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Topic summary</span></RouterLink>
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Other topic<span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Topic summary</span>
+                </RouterLink>
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Announcements <span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Contest updates</span>
+                </RouterLink>
+            </div>
+
             <RouterLink v-if="randomContest.id && topBanner" :to="``">
-                <div class="relative text-center bg-blue-300 dark:bg-blue-600">
+                <div class="relative text-center bg-blue-300 dark:bg-blue-600 mt-5">
                     <p class="font-bold text-lg">{{ randomContest.title }} – ${{ randomContest.reward }} In Prizes –
                         Ends {{ this.methodsStore.formatDate(randomContest.end_date, includeWeekday = false) }}</p>
                     <button class="absolute right-1 top-1 outline outline-1 rounded-2xl px-1"
