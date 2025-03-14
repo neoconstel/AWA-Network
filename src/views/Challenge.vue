@@ -5,8 +5,11 @@
             <p class="mt-2">Test your strengths in one of our competitive art contests.</p>
             <div class="h-1 bg-gray-500 my-5 mb-10"></div>
         </header>
+        <a v-if="this.dataStore.user.id && (this.dataStore.user.groups.includes('ContestCreators') | this.dataStore.user.is_superuser)"
+            class="p-3 mt-5 block text-center w-40 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700"
+            href="/contest_editor" target="_blank">Create Contest</a>
         <main>
-            <section class="contests-grid grid grid-cols-4 gap-4">
+            <section class="contests-grid grid grid-cols-4 gap-4 mt-10">
                 <template v-for="(contest, index) in contests" :key="index">
                     <ContestCard :contest="contest" />
                 </template>
