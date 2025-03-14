@@ -6,7 +6,7 @@
             <div class="h-1 bg-gray-500 my-5 mb-10"></div>
         </header>
         <main>
-            <section class="contests-grid grid grid-cols-4">
+            <section class="contests-grid grid grid-cols-4 gap-4">
                 <template v-for="(contest, index) in contests" :key="index">
                     <ContestCard :contest="contest" />
                 </template>
