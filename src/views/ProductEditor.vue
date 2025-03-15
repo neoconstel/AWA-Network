@@ -1,5 +1,5 @@
 <template>
-    <div class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
+    <div class="text-gray-800 dark:text-gray-200 mx-16 pb-40 mb-28">
         <h1 class="text-center mt-5">UPLOAD A DIGITAL PRODUCT</h1>
         <div class="border-gray-500" style="border-top-width: 1px;"></div>
         <h2 CLASS="mt-5 text-center">Product Title</h2>
@@ -182,7 +182,8 @@
         </div>
 
         <button @click="uploadHandler"
-            class="mt-12 bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block mb-28">Submit</button>
+            class="mt-12 bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block">Submit</button>
+        <p class="text-center text-green-500 mt-4" v-if="submitInProgress">Uploading product files. Please wait...</p>
     </div>
 </template>
 
@@ -234,6 +235,7 @@ export default {
             productCategories: [],
             licenses: [],
             selectedCategory: null,
+            submitInProgress: false,
 
             // tiptap
             editor: null,
@@ -366,6 +368,8 @@ export default {
                 }
             })
 
+            // VALIDATION PASSED. Do these next...
+            this.submitInProgress = true
         },
         async submit() {
             // get the raw html without any css
@@ -415,6 +419,9 @@ export default {
                         ;
                 })
                 .catch(error => this.errorMessage = error)
+                .finally(() => {
+                    this.submitInProgress = false
+                });
         },
         async fetchProductCategories() {
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/categories/`
@@ -698,6 +705,12 @@ export default {
                 })
         },
         uploadHandler() {
+            // skip if there is an active submit in progress
+            if (this.submitInProgress) {
+                alert("Submit in progress. Please wait.")
+                return
+            }
+
             this.validateFields()
             // for now, the sampleImagesUpload function automatically calls
             // the productFilesUpload function once it is done.
