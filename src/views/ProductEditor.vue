@@ -414,6 +414,8 @@ export default {
                         setTimeout(() => {
                             alert("Product uploaded successfully")
                         }, 1500)
+
+                        this.clearAllFiles()
                     }
                     else
                         ;
@@ -715,7 +717,13 @@ export default {
             // for now, the sampleImagesUpload function automatically calls
             // the productFilesUpload function once it is done.
             this.sampleImagesUpload()
-        }
+        },
+        clearAllFiles() {
+            this.$refs.samplePond.removeFiles()
+            this.$refs.filePond.removeFiles()
+            this.sampleImages = {}
+            this.productFiles = {}
+        },
     },
     computed: {
         ...mapStores(useDataStore),
