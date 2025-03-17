@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky top-0 z-10 grid grid-cols-2 p-3 bg-gray-500 dark:bg-gray-900"
+  <div class="sticky top-0 z-10 grid grid-cols-2 p-3 bg-gray-500 dark:bg-gray-900 mx-16"
     style="grid-template-columns: 1fr 1fr;">
 
     <!-- test code -->
