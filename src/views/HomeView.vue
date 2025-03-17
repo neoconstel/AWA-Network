@@ -114,7 +114,7 @@
                 <a class="block text-right" href="">More</a>
                 </p>
                 <div class="grid grid-cols-4 gap-4">
-                    <template v-for="    i in 4   ">
+                    <template v-for="i in 4">
                         <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
 
                         </div>
@@ -129,7 +129,7 @@
                 <a class="block text-right" href="">More</a>
                 </p>
                 <div class="grid grid-cols-4 gap-4">
-                    <template v-for="    i in 4   ">
+                    <template v-for="i in 4">
                         <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
 
                         </div>
@@ -144,7 +144,7 @@
                 <a class="block text-right" href="">More</a>
                 </p>
                 <div class="grid grid-cols-4 gap-4">
-                    <template v-for="    i in 4   ">
+                    <template v-for="i in 4">
                         <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
 
                         </div>
@@ -159,10 +159,10 @@
                 <a class="block text-right" href="">All Jobs</a>
                 </p>
                 <div class="grid grid-cols-3 gap-4">
-                    <template v-for="    i in 6   ">
+                    <template v-for="i in 6">
                         <div class="grid bg-gray-300 p-3" style="grid-template-columns: 2fr 7fr; aspect-ratio: 5/1;">
                             <div><img style="width:100%; height:100%;" src="/static/icons/awa_logo.svg" /></div>
-                            <div>
+                            <div class="text-gray-800">
                                 <p>Bungle</p>
                                 <h3 class="mb-4">VFX Lead</h3>
                                 <p>Bellevue, WA, United States</p>
