@@ -19,14 +19,14 @@
         <div class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
             <!--First item-->
             <div class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-                style="aspect-ratio: 16/7;" data-twe-carousel-item data-twe-carousel-active>
-                <img :src="images[0].url" class="block w-full h-full" :alt="images[0].caption" />
+                style="aspect-ratio: 16/7; object-fit: cover;" data-twe-carousel-item data-twe-carousel-active>
+                <img :src="images[0].url" class="block w-full h-full object-cover" :alt="images[0].caption" />
             </div>
             <!--Other items-->
             <div v-if="this.images.length >= 2" v-for="(image, index) in images.slice(1)"
                 class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
                 style="aspect-ratio: 16/7; object-fit: cover;" data-twe-carousel-item :key="index">
-                <img :src="image.url" class="block w-full h-full" :alt="image.caption" />
+                <img :src="image.url" class="block w-full h-full object-cover" :alt="image.caption" />
             </div>
         </div>
 
