@@ -4,7 +4,7 @@
             <section class="header">
                 <div class="caption my-5">
                     <h3 class="text-center">Review:</h3>
-                    <h1 class="text-8xl text-center mb-2">{{ review.title }}</h1>
+                    <h1 class="text-4xl text-center mb-2">{{ review.title }}</h1>
                     <div class="flex flex-row justify-center [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200">
                         <template v-for="i in 5" :key="i">
                             <StarIcon v-if="i > Math.ceil(review.rating)" class="w-16 h-16" />
@@ -27,7 +27,8 @@
                 <div v-if="review.body_media_type != null" class="body-media [&>*]:mx-auto">
                     <img v-if="review.body_media_type == 'image'" class="w-full" :src="review.body_media_url"
                         alt="review caption image">
-                    <video v-else class="aspect-video" width="800" height="470" controls>
+                    <video v-else class="" :style="{ aspectRatio: bodyVideoAspect() }" :height="this.bodyVideoHeight()"
+                        :width="this.bodyVideoWidth()" ref="bodyVideo" controls>
                         <source :src="review.body_media_url" type="video/mp4">
                     </video>
                 </div>
@@ -97,7 +98,7 @@ export default {
     data() {
         return {
             "review": {},
-            "relatedReviews": []
+            "relatedReviews": [],
         }
     },
     computed: {
@@ -107,7 +108,8 @@ export default {
                 return this.review.user.profile_image
             else
                 return this.dataStore.siteConfigs.default_profile_image_url
-        }
+        },
+
     },
     methods: {
         async fetchReview(id) {
@@ -206,6 +208,47 @@ export default {
                     }
                 })
                 .catch(error => this.errorMessage = error)
+        },
+        bodyVideoWidth() {
+            let bodyVideo = this.$refs.bodyVideo
+            if (!bodyVideo)
+                return ''
+
+            let aspect = bodyVideo.videoWidth / bodyVideo.videoHeight
+            if (aspect < 1) // portrait
+                /** This multiplication is done to get a width value from a 
+                 * given desired height and known aspect ratio, as the video 
+                 * element appears to only respond to its width attribute and 
+                 * not the height attribute.
+                 * 
+                 * The constant multiplied with the aspect ratio here is actually
+                 * supposed to be an approximate of 80% of the screen height.
+                 * However, this guessed figure can serve as a reliable constant
+                 * for now until it is replaced with the accurate screen size
+                 * value and 80% of it thereof.
+                 */
+                return `${aspect * 600}`
+            else if (aspect > 1) // landscape
+                return '800'
+        },
+        bodyVideoHeight() {
+            // it appears that video elements only use the width attribute
+            // so this function might be useless.
+            let bodyVideo = this.$refs.bodyVideo
+            if (!bodyVideo)
+                return ''
+
+            let aspect = bodyVideo.videoWidth / bodyVideo.videoHeight
+            if (aspect < 1) // portrait
+                return '470'
+            else if (aspect > 1) // landscape
+                return ''
+        },
+        bodyVideoAspect() {
+            let bodyVideo = this.$refs.bodyVideo
+            if (!bodyVideo)
+                return ''
+            return bodyVideo.videoWidth / bodyVideo.videoHeight
         }
     },
     async mounted() {
