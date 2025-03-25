@@ -546,8 +546,11 @@ export default {
         handleProcessFile(error, file, ref) {
             // execute these after file upload (ref is a custom arg)
 
+            // an error here could be due to network failure during upload
             if (error) {
+                this.submitInProgress = false
                 console.error("File upload error:", error);
+                alert("Upload interrupted. Please check your network connection and resume upload.")
                 return;
             }
 
@@ -592,7 +595,7 @@ export default {
         },
         handleProcessFileRevert(file, ref) {
             // execute when user deletes uploaded temporary file from server
-            console.log(`Reverted temporary upload with ID: ${file.id} and serverID: ${file.serverId}`);
+            this.submitInProgress = false
 
             // get the filepond element via its ref
             const filepondElement = this.$refs[ref]
@@ -618,14 +621,19 @@ export default {
                     'serverId': file.serverId
                 }
             }
+
+            console.log(`Reverted temporary upload with ID: ${file.id} and serverID: ${file.serverId}`);
         },
         handleProcessFileAbort(file) {
             // execute when user interrupts the file upload
+            this.submitInProgress = false
 
             console.log("Aborted upload with file ID:", file.id);
         },
         handleRemoveFile(error, file, ref) {
             // execute when user removes the file from selection
+            this.submitInProgress = false
+
             const filepondElement = this.$refs[ref]
             const fileTag = filepondElement.$attrs.tag
 
@@ -635,10 +643,17 @@ export default {
             else if (fileTag == 'sample') {
                 delete this.sampleImages[file.id]
             }
+            console.log("Removed file selection with file ID:", file.id);
         },
         sampleImagesUpload(index = 0) {
             // for now, the sampleImagesUpload function automatically calls
-            // the productFilesUpload function once it is done.
+            // the productFilesUpload function once it is done. Later, use
+            // an event to trigger the productFilesUpload instead.
+
+            // interrupt if the submission flag has been disabled
+            if (!this.submitInProgress)
+                return
+
             const totalCount = Object.keys(this.sampleImages).length
 
             /** get the file at given index and skip it if it has already
@@ -670,6 +685,11 @@ export default {
         },
         productFilesUpload(index = 0) {
             // submit is automatically called once this is done
+
+            // interrupt if the submission flag has been disabled
+            if (!this.submitInProgress)
+                return
+
             const totalCount = Object.keys(this.productFiles).length
 
             /** get the file at given index and skip it if it has already
