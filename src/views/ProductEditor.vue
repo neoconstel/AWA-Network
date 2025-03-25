@@ -182,7 +182,8 @@
         </div>
 
         <button @click="uploadHandler"
-            class="mt-12 bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block">Submit</button>
+            class="mt-12 bg-gray-800 text-gray-200 dark:bg-gray-200 dark:text-gray-800 rounded-full py-3 px-14 mx-auto block">{{
+            submitButtonText }}</button>
         <p class="text-center text-green-500 mt-4" v-if="submitInProgress">Uploading product files. Please wait...</p>
     </div>
 </template>
@@ -727,9 +728,9 @@ export default {
                 })
         },
         uploadHandler() {
-            // skip if there is an active submit in progress
+            // pause uploads if there is an active submit in progress
             if (this.submitInProgress) {
-                alert("Submit in progress. Please wait.")
+                this.submitInProgress = false
                 return
             }
 
@@ -757,6 +758,12 @@ export default {
             )
             let uniqueSelectedLicenses = new Set(combinedSelectedLicenses)
             return Array.from(uniqueSelectedLicenses)
+        },
+        submitButtonText() {
+            if (!this.submitInProgress)
+                return "Submit"
+            else
+                return "Pause"
         },
         // selectedLicensesWithFiles() {
         //     /** returns an array of unique licenses of all the selected products,
