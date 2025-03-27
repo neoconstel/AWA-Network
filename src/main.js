@@ -1,14 +1,19 @@
 import "./assets/css/main.scss";
 
 import { createApp } from "vue";
-import { createPinia } from "pinia";
-
 import App from "./App.vue";
-import router from "./router";
 
 // import custom packages
+import { createPinia } from "pinia";
+import router from "./router";
+
 import VueDragscroll from "vue-dragscroll";
 import VueCookies from "vue-cookies";
+// custom packages: Vuetify packages
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
 
 // import custom components
 import RippleButton from "@/components/RippleButton.vue";
@@ -30,10 +35,16 @@ import StarfilledIcon from "@/components/icons/StarfilledIcon.vue";
 
 const app = createApp(App);
 
+// create/use components
 app.use(createPinia());
 app.use(router);
 app.use(VueDragscroll);
 app.use(VueCookies);
+const vuetify = createVuetify({
+  components,
+  directives,
+});
+app.use(vuetify);
 
 // register custom components
 app.component("RippleButton", RippleButton);

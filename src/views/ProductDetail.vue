@@ -43,6 +43,51 @@
                     <ProductCart :product="product" />
                 </section>
             </div>
+
+            <section>
+                <!-- dialog to confirm unlist -->
+                <v-dialog v-model="dialogs.unlist" max-width="400">
+                    <v-card class="text-gray-80" title="Unlist product" color="blue" text="This will unlist the 
+                    current product from public view so that only users who already have a link
+                    to the product may discover it.">
+                        <div class="flex flex-initial justify-center">
+                            <v-card-actions>
+                                <v-btn @click="() => { unlist(); dialogs.unlist = false }">Unlist</v-btn>
+                            </v-card-actions>
+                            <v-card-actions>
+                                <v-btn @click="dialogs.unlist = false">Cancel</v-btn>
+                            </v-card-actions>
+                        </div>
+                    </v-card>
+                </v-dialog>
+
+                <!-- dialog to confirm list -->
+                <v-dialog v-model="dialogs.list" max-width="400">
+                    <v-card class="text-gray-80" title="List product" color="blue" text="This will re-list the 
+                    current product into public view so that all users may discover and access it.">
+                        <div class="flex flex-initial justify-center">
+                            <v-card-actions>
+                                <v-btn @click="() => { list(); dialogs.list = false }">List</v-btn>
+                            </v-card-actions>
+                            <v-card-actions>
+                                <v-btn @click="dialogs.list = false">Cancel</v-btn>
+                            </v-card-actions>
+                        </div>
+                    </v-card>
+                </v-dialog>
+
+                <div class="text-center mt-10">
+                    <!-- button to show unlist dialog -->
+                    <v-btn v-if="product.listed" @click="dialogs.unlist = true" variant="outlined" size="large">
+                        Unlist product
+                    </v-btn>
+                    <!-- button to show list dialog -->
+                    <v-btn v-else @click="dialogs.list = true" variant="outlined" size="large">
+                        List product
+                    </v-btn>
+                </div>
+            </section>
+
             <aside class="mt-28 mb-72">
                 <h3>More by {{ product.seller.brand_name }}</h3>
                 <div v-if="sellerProducts.length && sellerProducts.length > 1" class="grid grid-cols-5 gap-5">
@@ -74,7 +119,13 @@ export default {
         return {
             product: {},
             activeSrc: "",
-            sellerProducts: []
+            sellerProducts: [],
+            dialogs: {
+                /** simply controls whether these dialoges are open or not,
+                 * and doesn't show the state of the user response */
+                unlist: false,
+                list: false
+            }
         }
     },
     computed: {
@@ -125,6 +176,69 @@ export default {
                     console.log('error', error)
                 })
         },
+        async unlist() {
+            // unlists this product
+            // TODO: optimize this function to merge list() into it for DRY sake
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/product/unlist/`
+
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+
+            const data = JSON.stringify({
+                "product_id": this.product.id
+            });
+
+            const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: data,
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data)
+                    this.product.listed = false
+                })
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
+        async list() {
+            // unlists this product.
+            // TODO: optimize this function to merge into unlist() for DRY sake
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/product/list/`
+
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+
+            const data = JSON.stringify({
+                "product_id": this.product.id
+            });
+
+            const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: data,
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data)
+                    this.product.listed = true
+                })
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
+
     },
     mounted() {
         this.fetchProduct()
