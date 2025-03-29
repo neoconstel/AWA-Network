@@ -17,7 +17,7 @@
                     product.seller.brand_name }}</RouterLink> in
                     <RouterLink :to="`/resources/${product.category.root.toLowerCase()}`" class="text-cyan-500">{{
                         product.category.root
-                    }}</RouterLink>
+                        }}</RouterLink>
                 </p>
             </header>
             <div class="grid mt-5" style="grid-template-columns: 2fr 1fr; grid-template-areas: 'main cart';">
@@ -49,7 +49,7 @@
                 <v-dialog v-model="dialogs.unlist" max-width="400">
                     <v-card class="text-gray-80" title="Unlist product" color="blue" text="This will unlist the 
                     current product from public view so that only users who already have a link
-                    to the product may discover it.">
+                    to the product may access it.">
                         <div class="flex flex-initial justify-center">
                             <v-card-actions>
                                 <v-btn @click="() => { unlist(); dialogs.unlist = false }">Unlist</v-btn>
@@ -163,7 +163,7 @@ export default {
             this.activeSrc = event.target.src
         },
         async fetchSellerProducts(sellerAlias) {
-            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/products/?seller=${sellerAlias}`
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/products/?seller=${sellerAlias}&exclude_id=${this.$route.params.id}`
 
             fetch(url)
                 .then(response => response.json())
