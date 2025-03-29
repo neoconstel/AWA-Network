@@ -1,8 +1,11 @@
 <template>
-    <div class="text-gray-800 dark:text-gray-200">
+    <div class="relative text-gray-800 dark:text-gray-200">
         <RouterLink :to="`/resource/${product.id}`">
+            <p v-if="(dataStore.user.id === product.seller.user.id || dataStore.user.is_superuser) && !product.listed"
+                class="absolute top-1 right-1 bg-red-500 p-1 rounded-2xl text-gray-200">
+                Unlisted
+            </p>
             <img class="w-full aspect-square object-cover object-top" :src="product.thumbnail_images[0]" alt="">
-
             <div class="relative h-28">
                 <p class="mt-2 font-bold">{{ product.title }}<span class="text-sm text-gray-400 dark:text-gray-500"> in
                         {{

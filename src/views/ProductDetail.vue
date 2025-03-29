@@ -76,7 +76,8 @@
                     </v-card>
                 </v-dialog>
 
-                <div class="text-center mt-10">
+                <div v-if="dataStore.user.id === product.seller.user.id || dataStore.user.is_superuser"
+                    class="text-center mt-10">
                     <!-- button to show unlist dialog -->
                     <v-btn v-if="product.listed" @click="dialogs.unlist = true" variant="outlined" size="large">
                         Unlist product
