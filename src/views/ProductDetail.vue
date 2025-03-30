@@ -20,6 +20,13 @@
                         }}</RouterLink>
                 </p>
             </header>
+
+            <p v-if="!product.listed && (dataStore.user.id === product.seller.user.id || dataStore.user.is_superuser)"
+                class="text-center mt-10 bg-red-600 text-gray-100">
+                This product is currently unlisted and cannot be discovered by the public unless they have the link to
+                it
+            </p>
+
             <div class="grid mt-5" style="grid-template-columns: 2fr 1fr; grid-template-areas: 'main cart';">
                 <main class="mt-10" style="grid-area: main;">
                     <img class="w-full aspect-video object-cover"
