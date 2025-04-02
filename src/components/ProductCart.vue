@@ -26,7 +26,7 @@
             </svg>
             Add to cart
         </v-btn>
-        <v-btn v-else class="mt-5" block variant="outlined">
+        <v-btn v-else @click="libraryAdd(product.id, license.id)" class="mt-5" block variant="outlined">
             <svg class="fill-gray-800 dark:fill-gray-200" width="24" height="24" clip-rule="evenodd" fill-rule="evenodd"
                 stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -104,6 +104,35 @@ export default {
         }
     },
     methods: {
+        async libraryAdd(product_id, license_id) {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/product/library/add/`
+
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+
+            const data = JSON.stringify({
+                "product_id": product_id,
+                "license_id": license_id
+            });
+
+            const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: data,
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then(response => response.json())
+                .then((data) => {
+                    console.log(data)
+                })
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
     },
     async mounted() {
         initTWE({ Collapse, Ripple });
