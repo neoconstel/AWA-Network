@@ -18,7 +18,7 @@
                     class="absolute right-0">{{ file.extension }} /
                     {{ file.size }}</span></p>
         </div>
-        <v-btn v-if="license.added || ownedLicensesIDs.includes(license.id)" class="mt-5" block variant="outlined">
+        <v-btn v-if="license.added" class="mt-5" block variant="outlined">
             Added to Library
         </v-btn>
         <v-btn v-else-if="license.price > 0" class="mt-5" block variant="outlined">
@@ -100,15 +100,10 @@ export default {
             this.licensesHaveBeenComputed = true
             return licenses
         },
-        ownedLicensesIDs() {
-            let ids = this.ownedLicenses.map(x => x.id)
-            return ids
-        }
     },
     data() {
         return {
             'licensesHaveBeenComputed': false,
-            'ownedLicenses': [] // user owned licenses for this product only
         }
     },
     methods: {
@@ -142,21 +137,28 @@ export default {
                     console.log('error', error)
                 })
         },
-        async getOwnedLicenses(productID = null) {
-            /** gets the product licenses owned by this user.
-             * 
-             * if productID is specified, it returns the user's owned licenses
-             * for this product only. ELse it returns the products and their
-             * respective licenses for each product license owned by the user.
+        async updateLicenseOwnership() {
+            /** gets the product licenses owned by this user, and updates the
+             * licenses accordingly to indicate if user has ownership
              */
 
-            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/product/library/list/?product_id=${productID}`
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/product/library/list/?product_id=${this.product.id}`
 
             fetch(url)
                 .then(response => response.json())
                 .then((data) => {
-                    this.ownedLicenses = data
-                    console.log(data)
+                    let ownedLicenses = data
+
+                    /** update licenses to indicate if user has added them
+                     * to library
+                     */
+                    let addedLicensesIDs = ownedLicenses.map(x => x.id)
+                    this.licenses.forEach((license) => {
+                        if (addedLicensesIDs.includes(license.id))
+                            license.added = true
+                    });
+
+                    // console.log(data)
                 })
                 .catch((error) => {
                     this.errorMessage = error
@@ -167,7 +169,7 @@ export default {
     async mounted() {
         initTWE({ Collapse, Ripple });
 
-        this.getOwnedLicenses(this.product.id)
+        this.updateLicenseOwnership()
     },
 }
 </script>
