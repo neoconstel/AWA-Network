@@ -14,9 +14,14 @@
         </button>
 
         <div class="!visible hidden" :id="`licenseCollapse-${index}`" data-twe-collapse-item>
-            <p v-for="(file, nameIndex) in license.files" class="relative" :key="nameIndex">{{ file.name }} <span
-                    class="absolute right-0">{{ file.extension }} /
-                    {{ file.size }}</span></p>
+            <div v-for="(file, nameIndex) in license.files" class="grid gap-x-4 outline-dotted outline-1"
+                style="grid-template-columns: 5fr 3fr;" :key="nameIndex">
+                <p class="ml-2" style="word-wrap: break-word; overflow-wrap: break-word; min-width: 0">{{ file.name }}
+                </p>
+                <p style="word-wrap: break-word; overflow-wrap: break-word; min-width: 0"><span
+                        class="bg-cyan-500 px-2 rounded-md text-gray-100">{{ file.extension }} / {{
+                            file.size }}</span></p>
+            </div>
         </div>
         <v-btn v-if="license.added" class="mt-5" block variant="outlined">
             Added to Library
