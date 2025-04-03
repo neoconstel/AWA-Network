@@ -18,7 +18,10 @@
                     class="absolute right-0">{{ file.extension }} /
                     {{ file.size }}</span></p>
         </div>
-        <v-btn v-if="license.price > 0" class="mt-5" block variant="outlined">
+        <v-btn v-if="license.added || ownedLicensesIDs.includes(license.id)" class="mt-5" block variant="outlined">
+            Added to Library
+        </v-btn>
+        <v-btn v-else-if="license.price > 0" class="mt-5" block variant="outlined">
             <svg class="fill-gray-800 dark:fill-gray-200" width="24" height="24" xmlns="http://www.w3.org/2000/svg"
                 fill-rule="evenodd" clip-rule="evenodd">
                 <path
@@ -26,7 +29,7 @@
             </svg>
             Add to cart
         </v-btn>
-        <v-btn v-else @click="libraryAdd(product.id, license.id)" class="mt-5" block variant="outlined">
+        <v-btn v-else @click="libraryAdd(product, license)" class="mt-5" block variant="outlined">
             <svg class="fill-gray-800 dark:fill-gray-200" width="24" height="24" clip-rule="evenodd" fill-rule="evenodd"
                 stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -96,15 +99,20 @@ export default {
 
             this.licensesHaveBeenComputed = true
             return licenses
+        },
+        ownedLicensesIDs() {
+            let ids = this.ownedLicenses.map(x => x.id)
+            return ids
         }
     },
     data() {
         return {
-            'licensesHaveBeenComputed': false
+            'licensesHaveBeenComputed': false,
+            'ownedLicenses': [] // user owned licenses for this product only
         }
     },
     methods: {
-        async libraryAdd(product_id, license_id) {
+        async libraryAdd(product, license) {
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/product/library/add/`
 
             const headers = {
@@ -112,8 +120,8 @@ export default {
             }
 
             const data = JSON.stringify({
-                "product_id": product_id,
-                "license_id": license_id
+                "product_id": product.id,
+                "license_id": license.id
             });
 
             const requestOptions = {
@@ -126,6 +134,28 @@ export default {
             fetch(url, requestOptions)
                 .then(response => response.json())
                 .then((data) => {
+                    license.added = true
+                    console.log(data)
+                })
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        },
+        async getOwnedLicenses(productID = null) {
+            /** gets the product licenses owned by this user.
+             * 
+             * if productID is specified, it returns the user's owned licenses
+             * for this product only. ELse it returns the products and their
+             * respective licenses for each product license owned by the user.
+             */
+
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/product/library/list/?product_id=${productID}`
+
+            fetch(url)
+                .then(response => response.json())
+                .then((data) => {
+                    this.ownedLicenses = data
                     console.log(data)
                 })
                 .catch((error) => {
@@ -136,6 +166,8 @@ export default {
     },
     async mounted() {
         initTWE({ Collapse, Ripple });
+
+        this.getOwnedLicenses(this.product.id)
     },
 }
 </script>
