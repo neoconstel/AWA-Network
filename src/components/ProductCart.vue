@@ -17,7 +17,7 @@
             <div v-for="(file, nameIndex) in license.files" class="grid gap-x-4 outline-dotted outline-1"
                 style="grid-template-columns: 5fr 3fr;" :key="nameIndex">
                 <p class="ml-2" style="word-wrap: break-word; overflow-wrap: break-word; min-width: 0">
-                    <a :href="`/api/resources/product/${product.id}/license/${license.id}/file/${file.id}/download/`">{{
+                    <a :href="`/resource/download/product/${product.id}/license/${license.id}/file/${file.id}/`">{{
                         file.name }}</a>
                 </p>
                 <p style="word-wrap: break-word; overflow-wrap: break-word; min-width: 0"><span
