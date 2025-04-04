@@ -16,7 +16,9 @@
         <div class="!visible hidden" :id="`licenseCollapse-${index}`" data-twe-collapse-item>
             <div v-for="(file, nameIndex) in license.files" class="grid gap-x-4 outline-dotted outline-1"
                 style="grid-template-columns: 5fr 3fr;" :key="nameIndex">
-                <p class="ml-2" style="word-wrap: break-word; overflow-wrap: break-word; min-width: 0">{{ file.name }}
+                <p class="ml-2" style="word-wrap: break-word; overflow-wrap: break-word; min-width: 0">
+                    <a :href="`/api/resources/product/${product.id}/license/${license.id}/file/${file.id}/download/`">{{
+                        file.name }}</a>
                 </p>
                 <p style="word-wrap: break-word; overflow-wrap: break-word; min-width: 0"><span
                         class="bg-cyan-500 px-2 rounded-md text-gray-100">{{ file.extension }} / {{
