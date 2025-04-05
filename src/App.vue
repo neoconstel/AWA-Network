@@ -89,7 +89,7 @@
         <RouterLink class="text-gray-800 dark:text-gray-200" :to="link.url">{{ link.text }}</RouterLink>
       </div> -->
 
-      <RouterLink v-for="(link, index) in this.navLinks" key="index"
+      <RouterLink v-for="(link, index) in this.orderedNavLinks" key="index"
         class="text-gray-800 dark:text-gray-200 inline-block flex-auto py-14 text-center border-4 bg-gray-300 dark:bg-gray-700 hover:bg-slate-400 dark:hover:bg-slate-800 relative"
         :to="link.url">
         <h1>{{ link.text }}</h1>
@@ -199,6 +199,27 @@ export default {
         return this.dataStore.user.profile_image
       else
         return this.dataStore.siteConfigs.default_profile_image_url
+    },
+    orderedNavLinks() {
+      // nav links will be ordered acording to this array
+      /** this is a quick manual fix to order the NAV links. The problem with
+       * this solution is that any nav link not included in the arrat or
+       * spelled incorrectly will NOT be shown in the NAV, even if the admins
+       * have enabled it from the CMS. TODO: make sure to later order the NAV 
+       * links via a setting in the CMS, so that admins have full control of it.
+       */
+      const pageNames = ['Magazine', 'Reviews', 'Challenges', 'Resources', 'Meetups']
+      let linkDataBuffer = []
+
+      pageNames.forEach((name) => {
+        let linkData = this.navLinks.find(data => data.text == name)
+        if (linkData) {
+          linkDataBuffer.push(linkData)
+        }
+      })
+
+      return linkDataBuffer
+
     }
   },
   methods: {
