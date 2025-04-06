@@ -2,7 +2,7 @@
   <!-- <div class="flex flex-col xl:flex-row">
     <div class="flex-1" v-for="i in 6" :key="i">{{ i }}</div>
   </div>
-  <p class="bg-red-500 text-center text-gray-100 font-bold">experimental firmament</p> -->
+  <p class="bg-green-500 xs:bg-blue-500 sm:bg-red-500 text-center  text-gray-100 font-bold">experimental firmament</p> -->
 
   <!-- Main navigation container -->
   <div class="nav-container sticky top-0 z-10">
