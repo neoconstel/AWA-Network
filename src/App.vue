@@ -104,7 +104,7 @@
    
    still, a possible alternate solution might be to use two different NAVS for
    each screen layout, and toggle them alternately. -->
-  <header id="navbarSupportedContent12" data-twe-collapse-item class="w-full !visible hidden">
+  <header id="navbarSupportedContent12" data-twe-collapse-item class="w-full !visible hidden lg:block">
     <nav
       class="relative [&>div]:inline-block [&>div]:border-4 flex flex-col lg:flex-row flex-wrap justify-evenly mx-16 p-4 gap-1 lg:gap-4 bg-gray-400 dark:bg-gray-600 [&>div]:bg-gray-300 [&>div]:dark:bg-gray-700 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 dark:hover:[&>div]:bg-slate-800 [&>div]:relative">
       <!-- <div v-for="(link, index) in this.navLinks" key="index">
@@ -193,7 +193,7 @@ export default {
     return {
       'showFooter': false,
       'showUserMenu': false,
-      'navLinks': []
+      'navLinks': [],
     }
   },
   computed: {
@@ -311,7 +311,6 @@ export default {
       const html = document.querySelector("html")
       if (this.dataStore.darkTheme)
         html.classList.add('dark')
-
     })
 
     // fetch site navigation links from CMS
