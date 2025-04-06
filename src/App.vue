@@ -5,9 +5,9 @@
   <p class="bg-red-500 text-center text-gray-100 font-bold">experimental firmament</p> -->
 
   <!-- Main navigation container -->
-  <div class="nav-container mx-16 sticky top-0 z-10">
+  <div class="nav-container sticky top-0 z-10">
     <nav
-      class="flex-no-wrap flex w-full items-center justify-between py-2 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4 bg-gray-500 dark:bg-gray-700">
+      class="flex-no-wrap flex w-full items-center justify-between py-2 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4 bg-gray-500 dark:bg-gray-900">
       <div class="flex w-full flex-wrap items-center justify-between px-3">
         <!-- Hamburger button for mobile view -->
         <button
