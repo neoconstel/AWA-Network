@@ -5,8 +5,8 @@
   <p class="bg-green-500 xs:bg-blue-500 sm:bg-red-500 text-center  text-gray-100 font-bold">experimental firmament</p> -->
 
   <!-- Main navigation container -->
-  <div class="nav-container sticky top-0 z-10">
-    <nav
+  <div class="sticky top-0 z-10">
+    <div
       class="flex-no-wrap flex w-full items-center justify-between py-2 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4 bg-gray-500 dark:bg-gray-900">
       <div class="flex w-full flex-wrap items-center justify-between px-3">
         <!-- Hamburger button for mobile view -->
@@ -116,10 +116,10 @@
           </div>
         </div>
       </div>
-    </nav>
+    </div>
   </div>
 
-  <!-- the header has been given an id that makes it controllable by the NAV
+  <!-- the nav container has been given an id that makes it controllable by the NAV
    toggling button, and also given the data-twe attribute to enable it.
    Also, the classes: !visible and hidden should be absent in the beginning and
    then some javascript is to automatically put them in at the first time the
@@ -127,7 +127,8 @@
    
    still, a possible alternate solution might be to use two different NAVS for
    each screen layout, and toggle them alternately. -->
-  <header id="navbarSupportedContent12" data-twe-collapse-item class="w-full !visible hidden lg:block">
+  <div class="nav-container w-full !visible hidden lg:block z-10 lg:z-0 sticky top-32 lg:top-0 lg:relative"
+    id="navbarSupportedContent12" data-twe-collapse-item>
     <nav
       class="relative [&>div]:inline-block [&>div]:border-4 flex flex-col lg:flex-row flex-wrap justify-evenly mx-16 p-4 gap-1 lg:gap-4 bg-gray-400 dark:bg-gray-600 [&>div]:bg-gray-300 [&>div]:dark:bg-gray-700 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 dark:hover:[&>div]:bg-slate-800 [&>div]:relative">
       <!-- <div v-for="(link, index) in this.navLinks" key="index">
@@ -141,7 +142,7 @@
       </RouterLink>
 
     </nav>
-  </header>
+  </div>
 
   <RouterView />
 
