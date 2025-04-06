@@ -1,8 +1,13 @@
 <template>
+  <!-- <div class="flex flex-col xl:flex-row">
+    <div class="flex-1" v-for="i in 6" :key="i">{{ i }}</div>
+  </div>
+  <p class="bg-red-500 text-center text-gray-100 font-bold">experimental firmament</p> -->
+
   <!-- Main navigation container -->
   <div class="nav-container mx-16 sticky top-0 z-10">
     <nav
-      class="flex-no-wrap flex w-full items-center justify-between py-2 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4 bg-gray-500 dark:bg-gray-900">
+      class="flex-no-wrap flex w-full items-center justify-between py-2 shadow-dark-mild lg:flex-wrap lg:justify-start lg:py-4 bg-gray-500 dark:bg-gray-700">
       <div class="flex w-full flex-wrap items-center justify-between px-3">
         <!-- Hamburger button for mobile view -->
         <button
@@ -21,10 +26,11 @@
         <!-- Collapsible navigation container -->
         <div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
           id="navbarSupportedContent12" data-twe-collapse-item>
-          <!-- AWA LOGO -->
+          <!-- AWA LOGO Text -->
           <div>
             <RouterLink to="/">
-              <img style="height:55px;" src="/static/icons/awa_logo.svg" />
+              <!-- <img style="height:55px;" src="/static/icons/awa_logo.svg" /> -->
+              <h1 class="text-gray-200">AWA</h1>
             </RouterLink>
           </div>
 
@@ -100,15 +106,15 @@
    each screen layout, and toggle them alternately. -->
   <header id="navbarSupportedContent12" data-twe-collapse-item class="w-full !visible hidden">
     <nav
-      class="relative [&>div]:inline-block [&>div]:border-4 flex flex-row flex-wrap justify-evenly mx-16 p-4 gap-4 bg-gray-400 dark:bg-gray-600 [&>div]:bg-gray-300 [&>div]:dark:bg-gray-700 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 dark:hover:[&>div]:bg-slate-800 [&>div]:relative">
+      class="relative [&>div]:inline-block [&>div]:border-4 flex flex-col lg:flex-row flex-wrap justify-evenly mx-16 p-4 gap-1 lg:gap-4 bg-gray-400 dark:bg-gray-600 [&>div]:bg-gray-300 [&>div]:dark:bg-gray-700 [&>div]:px-20 [&>div]:py-14 hover:[&>div]:bg-slate-400 dark:hover:[&>div]:bg-slate-800 [&>div]:relative">
       <!-- <div v-for="(link, index) in this.navLinks" key="index">
         <RouterLink class="text-gray-800 dark:text-gray-200" :to="link.url">{{ link.text }}</RouterLink>
       </div> -->
 
       <RouterLink v-for="(link, index) in this.orderedNavLinks" key="index"
-        class="text-gray-800 dark:text-gray-200 inline-block flex-auto py-14 text-center border-4 bg-gray-300 dark:bg-gray-700 hover:bg-slate-400 dark:hover:bg-slate-800 relative"
+        class="text-gray-800 dark:text-gray-200 inline-block flex-auto sm:py-4 lg:py-14 text-center border-4 bg-gray-300 dark:bg-gray-700 hover:bg-slate-400 dark:hover:bg-slate-800 relative"
         :to="link.url">
-        <h1>{{ link.text }}</h1>
+        <h1 class="text-sm lg:text-4xl">{{ link.text }}</h1>
       </RouterLink>
 
     </nav>
