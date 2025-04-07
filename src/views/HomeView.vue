@@ -50,8 +50,9 @@
 
 
         <section class="gallery">
-            <WorksGallery class="grid-cols-6" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0"
-                :stopIndex="12" :maxWorks="12" @bottom-reached="addMoreWorks" />
+            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+                :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="12" :maxWorks="12"
+                @bottom-reached="addMoreWorks" />
         </section>
         <section class="tv">
             <div class="grid grid-cols-2 bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-200 pt-2 pb-2 px-7">
@@ -71,8 +72,9 @@
             </div>
         </section>
         <section class="gallery">
-            <WorksGallery class="grid-cols-6" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'"
-                :startIndex="12" :stopIndex="24" :maxWorks="24" @bottom-reached="addMoreWorks" />
+            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+                :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="12" :stopIndex="24" :maxWorks="24"
+                @bottom-reached="addMoreWorks" />
         </section>
         <section class="reviews mb-10">
             <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
@@ -109,8 +111,9 @@
             </div>
         </section> -->
         <section class="gallery">
-            <WorksGallery class="grid-cols-6" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'"
-                :startIndex="24" :stopIndex="36" :maxWorks="36" @bottom-reached="addMoreWorks" />
+            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+                :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="24" :stopIndex="36" :maxWorks="36"
+                @bottom-reached="addMoreWorks" />
         </section>
         <section class="challenges mb-10">
             <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
@@ -128,8 +131,9 @@
             </div>
         </section>
         <section class="gallery">
-            <WorksGallery class="grid-cols-6" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'"
-                :startIndex="36" :stopIndex="48" :maxWorks="48" @bottom-reached="addMoreWorks" />
+            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+                :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="36" :stopIndex="48" :maxWorks="48"
+                @bottom-reached="addMoreWorks" />
         </section>
         <section class="resources mb-10">
             <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
@@ -147,8 +151,9 @@
             </div>
         </section>
         <section class="gallery">
-            <WorksGallery class="grid-cols-6" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'"
-                :startIndex="48" :stopIndex="60" :maxWorks="60" @bottom-reached="addMoreWorks" />
+            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+                :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="48" :stopIndex="60" :maxWorks="60"
+                @bottom-reached="addMoreWorks" />
         </section>
         <section class="meetups mb-10">
             <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
@@ -166,8 +171,9 @@
             </div>
         </section>
         <section class="gallery">
-            <WorksGallery class="grid-cols-6" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'"
-                :startIndex="60" :stopIndex="72" :maxWorks="72" @bottom-reached="addMoreWorks" />
+            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+                :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="60" :stopIndex="72" :maxWorks="72"
+                @bottom-reached="addMoreWorks" />
         </section>
         <section class="jobs">
             <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
@@ -175,7 +181,7 @@
                 <h3 class="inline">Jobs</h3>
                 <a class="block text-right" href="">All Jobs</a>
                 </p>
-                <div class="grid grid-cols-3 gap-4">
+                <div class="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <template v-for="i in 6">
                         <div class="grid bg-gray-300 p-3" style="grid-template-columns: 2fr 7fr; aspect-ratio: 5/1;">
                             <div><img style="width:100%; height:100%;" src="/static/icons/awa_logo.svg" /></div>
@@ -183,9 +189,15 @@
                                 <p>Bungle</p>
                                 <h3 class="mb-4">VFX Lead</h3>
                                 <p>Bellevue, WA, United States</p>
-                                <p class="flex gap-2">
-                                    <RippleButton class="h-9 text-gray-900" :buttonText="'Permanent'" />
-                                    <RippleButton class="h-9 text-gray-900" :buttonText="'Relocation'" />
+                                <p class="flex xs:flex-col sm:flex-row gap-2">
+                                    <!-- <RippleButton class="h-9 text-gray-900" :buttonText="'Permanent'" />
+                                    <RippleButton class="h-9 text-gray-900" :buttonText="'Relocation'" /> -->
+                                    <v-btn variant="outlined">
+                                        Permanent
+                                    </v-btn>
+                                    <v-btn variant="outlined">
+                                        Relocation
+                                    </v-btn>
                                 </p>
                             </div>
                         </div>
@@ -194,9 +206,9 @@
             </div>
         </section>
         <section class="gallery">
-            <WorksGallery class="grid-cols-6" :works="works" :infoBgCol="'bg-gray-400 dark:bg-gray-700'"
-                :startIndex="72" :stopIndex="this.worksUpperLimit" @bottom-reached="addMoreWorks"
-                :infiniteScroll="true" />
+            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+                :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="72" :stopIndex="this.worksUpperLimit"
+                @bottom-reached="addMoreWorks" :infiniteScroll="true" />
         </section>
     </div>
 </template>
