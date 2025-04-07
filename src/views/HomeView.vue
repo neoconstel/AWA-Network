@@ -1,12 +1,13 @@
 <template>
     <div class="mx-11">
         <div class="grid mt-16 mb-4 gap-x-4 px-4" style="grid-template-columns: 4fr 1fr;">
-            <div>
+            <div class="">
                 <Carousel v-if="this.carouselImages.length > 1" :images="this.carouselImages" />
             </div>
-            <div class="bg-gray-400 dark:bg-gray-600 grid" style="grid-template-rows: 50px 1fr;">
-                <p class="text-center my-auto text-gray-800 dark:text-gray-200 text-2xl">{{ this.spotlightCaption }}</p>
-                <div>
+            <div class="grid bg-gray-400 dark:bg-gray-600" style="grid-template-rows: 30px 1fr;">
+                <p class="text-center my-auto text-gray-800 dark:text-gray-200 text-2xl">{{
+                    this.spotlightCaption }}</p>
+                <div class="h-full w-full">
                     <RouterLink :to="`/artwork/${this.spotlightArt.id}`">
                         <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;"
                             :src="this.spotlightArt.image_url" alt="spotlight art">
