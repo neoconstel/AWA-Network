@@ -1,10 +1,10 @@
 <template>
     <div class="mx-11">
-        <div class="grid mt-16 mb-4 gap-x-4 px-4" style="grid-template-columns: 4fr 1fr;">
+        <div class="block md:grid mt-16 mb-4 gap-x-4 px-4" style="grid-template-columns: 4fr 1fr;">
             <div class="">
                 <Carousel v-if="this.carouselImages.length > 1" :images="this.carouselImages" />
             </div>
-            <div class="grid bg-gray-400 dark:bg-gray-600" style="grid-template-rows: 30px 1fr;">
+            <div class="grid bg-gray-400 dark:bg-gray-600 xs:mt-5 md:mt-0" style="grid-template-rows: 30px 1fr;">
                 <p class="text-center my-auto text-gray-800 dark:text-gray-200 text-2xl">{{
                     this.spotlightCaption }}</p>
                 <div class="h-full w-full">
