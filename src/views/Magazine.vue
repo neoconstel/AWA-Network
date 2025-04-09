@@ -35,9 +35,9 @@
             href="/magazine_editor" target="_blank">Create Article</a>
 
 
-        <div v-if="this.articles.length" class="grid" style="grid-template-columns: 3fr 1fr;">
-            <main class="mr-10">
-                <section class="grid grid-cols-2 gap-x-10">
+        <div v-if="this.articles.length" class="grid lg:grid-cols-[3fr_1fr]">
+            <main class="xs:mr-0 lg:mr-10">
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-10">
                     <!-- article gallery -->
                     <ArticleCard v-for="(article, index) in this.articles" class="mt-10" :article="article"
                         :key="index" />
