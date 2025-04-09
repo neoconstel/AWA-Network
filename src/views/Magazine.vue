@@ -51,7 +51,7 @@
                 <p class="mt-10 text-center text-2xl font-light">Trending Articles</p>
                 <div class="space-y-5">
                     <div v-for="(article, index) in this.articles.slice(3, 13)" :key="index" class="grid h-20"
-                        style="grid-template-columns: 1fr 3fr;">
+                        style="grid-template-columns: 90px 1fr;">
                         <RouterLink class="" :to="`/article/${article.id}/`"><img
                                 class="w-full aspect-square object-cover" :src="article.thumbnail_url" alt="">
                         </RouterLink>
