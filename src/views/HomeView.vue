@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-11">
+    <div class="mx-0 sm:mx-11 text-gray-800 dark:text-gray-200">
         <div class="block md:grid mt-16 mb-4 gap-x-4 px-4" style="grid-template-columns: 4fr 1fr;">
             <div class="">
                 <Carousel v-if="this.carouselImages.length > 1" :images="this.carouselImages" />
@@ -48,19 +48,22 @@
         <!-- collapse end -->
 
 
-
+        <h3 class="text-center text-2xl sm:text-4xl">Art Gallery</h3>
         <section class="gallery">
             <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
                 :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="12" :maxWorks="12"
                 @bottom-reached="addMoreWorks" />
         </section>
         <section class="tv">
-            <div class="grid grid-cols-2 bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-200 pt-2 pb-2 px-7">
-                <h3 class="text-right text-4xl">AWA TV</h3>
-                <a class="block text-right" href="">More</a>
-                <div>
-                    <img class="w-full" src="https://i.imgur.com/SLPdRb2.jpg" />
-                </div>
+            <div class="grid grid-cols-3">
+                <p></p>
+                <h3 class="text-center text-2xl sm:text-4xl">AWA TV</h3>
+                <p class="text-end text-lg sm:text-2xl mr-4"><a href="">More</a></p>
+            </div>
+
+            <div
+                class="grid xs:grid-rows-2 sm:grid-rows-none sm:grid-cols-2 bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-200 pt-2 pb-2 px-7">
+                <img class="w-full" src="https://i.imgur.com/SLPdRb2.jpg" />
                 <div class="grid grid-rows-3 bg-gray-500 p-3 gap-x-8 gap-y-6" style="grid-template-columns: 1fr 2fr;">
                     <div class="bg-pink-500"></div>
                     <div class="bg-cyan-500"></div>
@@ -82,7 +85,7 @@
                 <h3 class="">Reviews</h3>
                 <a class="block text-right" href="">More</a>
                 </p>
-                <div class="grid grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                     <template v-for="(review, index) in reviews.slice(0, 4)">
                         <div class="relative grid bg-yellow-500">
                             <RouterLink class="w-full h-full aspect-video" :to="`/review/${review.id}/`">
@@ -101,7 +104,7 @@
                 <h3 class="">Spotlight</h3>
                 <a class="block text-right" href="">More</a>
                 </p>
-                <div class="grid grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                     <template v-for="    i in 4   ">
                         <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
 
@@ -121,7 +124,7 @@
                 <h3 class="">Challenges</h3>
                 <a class="block text-right" href="">More</a>
                 </p>
-                <div class="grid grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                     <template v-for="i in 4">
                         <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
 
@@ -141,7 +144,7 @@
                 <h3 class="">Resources</h3>
                 <a class="block text-right" href="">More</a>
                 </p>
-                <div class="grid grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                     <template v-for="i in 4">
                         <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
 
@@ -161,7 +164,7 @@
                 <h3 class="">Meetups</h3>
                 <a class="block text-right" href="">More</a>
                 </p>
-                <div class="grid grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                     <template v-for="i in 4">
                         <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
 
