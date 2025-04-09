@@ -1,8 +1,8 @@
 <template>
-    <div class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
+    <div class="text-gray-800 dark:text-gray-200 xs:mx-2 sm:mx-11 pb-40">
         <header v-if="this.articles.length">
             <div
-                class="grid grid-cols-4 mt-4 gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-5 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
+                class="grid grid-cols-2 md:grid-cols-4 mt-4 gap-1 sm:gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-5 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
                 <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Art Skills <span
                         class="block text-xs text-gray-500 dark:text-gray-400">Lean & improve</span></RouterLink>
                 <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Career <span
@@ -17,13 +17,14 @@
 
             <SearchInput class="mt-5" :placeholderText="'Search Articles'" />
 
-            <section class="grid mt-10 gap-x-5" style="grid-template-columns: 3fr 1fr;">
+            <section class="grid mt-10 gap-x-5 lg:grid-cols-[3fr_1fr]">
                 <!-- highlighted article -->
                 <ArticleCard class="h-full" :article="articles.slice(-1)[0]" :topToBottomRatio="3" />
 
-                <section class="space-y-5">
+                <section class="space-y-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-x-5">
+                    <!-- <p class="text-center text-2xl mt-16 block lg:hidden">Highlights</p> -->
                     <!-- follow-up highlights -->
-                    <ArticleCard :article="articles.slice(-2)[0]" />
+                    <ArticleCard class="mt-5 lg:mt-0" :article="articles.slice(-2)[0]" />
                     <ArticleCard :article="articles.slice(-3)[0]" />
                 </section>
             </section>
