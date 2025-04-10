@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-0 sm:mx-11 text-gray-800 dark:text-gray-200">
+    <div class="xs:mx-0 sm:mx-11 text-gray-800 dark:text-gray-200">
         <div class="block md:grid mt-16 mb-4 gap-x-4 px-4" style="grid-template-columns: 4fr 1fr;">
             <div class="">
                 <Carousel v-if="this.carouselImages.length > 1" :images="this.carouselImages" />
@@ -55,10 +55,9 @@
                 @bottom-reached="addMoreWorks" />
         </section>
         <section class="tv">
-            <div class="grid grid-cols-3">
-                <p></p>
-                <h3 class="text-center text-2xl sm:text-4xl">AWA TV</h3>
-                <p class="text-end text-lg sm:text-2xl mr-4"><a href="">More</a></p>
+            <div class="flex">
+                <h3 class="text-2xl sm:text-4xl mx-auto">AWA TV</h3>
+                <p class="text-lg sm:text-2xl mr-4"><a href="">More</a></p>
             </div>
 
             <div
@@ -192,7 +191,7 @@
                                 <p>Bungle</p>
                                 <h3 class="mb-4">VFX Lead</h3>
                                 <p>Bellevue, WA, United States</p>
-                                <p class="flex xs:flex-col sm:flex-row gap-2">
+                                <p class="flex xs:flex-col md:flex-row gap-2">
                                     <!-- <RippleButton class="h-9 text-gray-900" :buttonText="'Permanent'" />
                                     <RippleButton class="h-9 text-gray-900" :buttonText="'Relocation'" /> -->
                                     <v-btn variant="outlined">

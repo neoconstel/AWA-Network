@@ -42,9 +42,9 @@
                     <ArticleCard v-for="(article, index) in this.articles" class="mt-10" :article="article"
                         :key="index" />
                 </section>
-                <div>
+                <div class="flex">
                     <button>Previous</button>
-                    <button>Next</button>
+                    <button class="ml-auto">Next</button>
                 </div>
             </main>
             <aside>
