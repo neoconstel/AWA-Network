@@ -1,5 +1,5 @@
 <template>
-    <section class="mt-10 mx-10">
+    <section class="mt-10 xs:mx-0 md:mx-11">
         <div v-if="this.dataStore.user.id && (this.dataStore.user.groups.includes('Reviewers') | this.dataStore.user.is_superuser)"
             class="sticky inline top-36 z-10 ml-5">
             <a data-twe-toggle="modal" data-twe-target="#addReviewModal" @click.prevent="" href=""><svg
@@ -11,8 +11,10 @@
                         fill-rule="nonzero" />
                 </svg></a>
         </div>
-        <h1 class="text-7xl text-gray-800 dark:text-gray-300 mx-5">Our Exclusive Reviews</h1>
-        <div class="grid grid-cols-5 gap-5 mx-5 mt-5 text-gray-800 dark:text-gray-200 mb-36">
+        <h1 class="text-xl sm:text-3xl md:text-4xl lg:text-7xl text-gray-800 dark:text-gray-300 mx-5">Our Exclusive
+            Reviews</h1>
+        <div
+            class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5 mx-5 mt-5 text-gray-800 dark:text-gray-200 mb-36">
             <div v-for="(review, index) in reviews" class="reviews" :key="index">
                 <ReviewCard :review="review" />
             </div>
