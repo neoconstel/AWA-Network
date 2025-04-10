@@ -1,7 +1,7 @@
 <!-- for displaying 'Products' from the backend. A 'Resource' as shown in the
  frontend is actually a 'Product' in the backend -->
 <template>
-    <div class="page-container mx-16 text-gray-800 dark:text-gray-200">
+    <div class="page-container xs:mx-2 lg:mx-16 text-gray-800 dark:text-gray-200">
         <header>
             <div class="grid grid-cols-2 gap-2">
                 <RouterLink class="h-28 flex justify-center items-center bg-sky-600 text-gray-200" to="">
@@ -13,25 +13,26 @@
                     Bundles (still in development)
                 </RouterLink>
             </div>
-            <div v-if="productCategories" class="flex gap-x-2">
-                <RouterLink class="px-6 py-4 bg-gray-700 dark:bg-gray-300 text-gray-200 dark:text-gray-800"
-                    to="/resources">ALL</RouterLink>
-                <RouterLink v-for="(category, index) in productCategories"
-                    class="px-6 py-4 bg-gray-700 dark:bg-gray-300 text-gray-200 dark:text-gray-800" :key="index"
-                    :to="`/resources${category.path}`">{{
-                        category.name }}</RouterLink>
+            <div v-if="productCategories" class="flex gap-x-2 gap-y-2 flex-wrap">
+                <RouterLink class="text-gray-200 dark:text-gray-800" to="/resources"><v-btn>All</v-btn></RouterLink>
+                <RouterLink v-for="(category, index) in productCategories" class="text-gray-200 dark:text-gray-800"
+                    :key="index" :to="`/resources${category.path}`"><v-btn>
+                        {{
+                            category.name }}
+                    </v-btn></RouterLink>
             </div>
-            <div v-if="targetCategory" class="flex gap-x-2">
+            <div v-if="targetCategory" class="flex gap-x-2 gap-y-2 flex-wrap">
                 <RouterLink v-for="(subcategory, index) in targetCategory.children"
-                    class="px-6 py-4 bg-gray-500 dark:bg-gray-400 text-gray-200 dark:text-gray-800" :key="index"
-                    :to="`/resources${subcategory.path}`">{{
-                        subcategory.name }}</RouterLink>
+                    class="text-gray-200 dark:text-gray-800" :key="index" :to="`/resources${subcategory.path}`"><v-btn>
+                        {{
+                            subcategory.name }}
+                    </v-btn></RouterLink>
             </div>
         </header>
         <a v-if="this.dataStore.user.id && (this.dataStore.user.groups.includes('ArticleCreators') | this.dataStore.user.is_superuser)"
             class="p-3 mt-5 block text-center w-52 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700"
             href="/resources/upload" target="_blank">Sell Your Digital Assets</a>
-        <main class="grid grid-cols-5 mt-10 mb-96 gap-5">
+        <main class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 mt-10 mb-96 gap-5">
             <ProductCard v-for="(product, index) in products" :product="product" :key="index" />
         </main>
     </div>
