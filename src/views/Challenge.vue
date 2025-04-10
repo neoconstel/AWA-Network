@@ -23,11 +23,18 @@
             class="p-3 mt-5 block text-center w-40 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700"
             href="/contest_editor" target="_blank">Create Contest</a>
         <main>
-            <section class="contests-grid grid grid-cols-4 gap-4 mt-10">
+            <!-- UNCOMMENT BELOW CODE TO SHOW CHALLENGES FETCHED FROM SERVER -->
+            <!-- <section class="contests-grid grid grid-cols-4 gap-4 mt-10">
                 <template v-for="(contest, index) in contests" :key="index">
                     <ContestCard :contest="contest" />
                 </template>
-            </section>
+</section> -->
+
+
+            <!-- temporary code block until time to show challenges -->
+            <div class="page-container mx-16 text-gray-800 dark:text-gray-200">
+                <p class="text-lg font-bold text-center mt-10">No challenges at the moment</p>
+            </div>
         </main>
     </div>
 </template>
