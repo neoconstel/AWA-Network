@@ -5,12 +5,12 @@
 
 
         <main class="artwork-display grid" style="grid-area: artwork-display;">
-            <div><img class="xs:px-5 xs:py-2 lg:px-16 lg:py-8 mx-auto" :src="this.work.file_url" alt=""></div>
+            <div><img class="xs:px-5 xs:py-2 lg:px-16 lg:py-8 mx-auto" :src="this.artwork.file_url" alt=""></div>
             <div class="flex flex-col gap-y-5">
                 <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 ">
                     <em class="text-gray-800 dark:text-gray-200">Tags</em>
-                    <span v-if="this.work.tags" class="text-xs p-1 bg-gray-700 rounded-lg"
-                        v-for="(tag, index) in this.work.tags.split(',')" key="index">{{ tag
+                    <span v-if="this.artwork.tags" class="text-xs p-1 bg-gray-700 rounded-lg"
+                        v-for="(tag, index) in this.artwork.tags.split(',')" key="index">{{ tag
                         }}</span>
                 </div>
             </div>
@@ -18,14 +18,14 @@
 
         <section class="comments-section"
             style="border-top-width: 1px; border-color: gray; grid-area: comments-section;">
-            <form v-if="this.dataStore.user.id && this.work.id" class="flex flex-col space-y-2" action="">
+            <form v-if="this.dataStore.user.id && this.artwork.id" class="flex flex-col space-y-2" action="">
                 <label class="text-gray-800 dark:text-gray-200" id="comment" for="comment">Add a new comment</label>
                 <Textarea class="text-gray-800 outline outline-1 outline-gray-500" rows="5" name="comment"
                     ref="commentBox"></Textarea>
                 <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
                     <RippleButton @click.prevent="submitComment" class="w-32 text-yellow-300" for="commentBox"
                         :buttonText="'Comment'" />
-                    <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
+                    <button v-if="this.dataStore.user.id && this.artwork.id" class="ml-10 mr-2" type="button">
                         <ThumbuppaintedIcon @click="unreact('like')"
                             v-if="this.reactionData.user_reactions && this.reactionData.user_reactions.includes('like')"
                             class="inline h-14 w-14 fill-cyan-800 dark:fill-cyan-200" />
@@ -34,11 +34,12 @@
                     </button>
                     <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
                         this.numberFormat(this.reactionData.count)
-                    }}</span>
+                        }}</span>
                     <span
-                        v-if="this.dataStore.user.id && this.work.id && this.work.artist.user.username == this.dataStore.user.username"
+                        v-if="this.dataStore.user.id && this.artwork.id && this.artwork.artist.user.username == this.dataStore.user.username"
                         class="absolute right-0">
-                        <a @click.prevent="storeWork" href="" data-twe-toggle="modal" data-twe-target="#editWorkModal">
+                        <a @click.prevent="storeArtwork" href="" data-twe-toggle="modal"
+                            data-twe-target="#editWorkModal">
                             <PencilIcon class="inline h-12 mr-5 fill-gray-800 dark:fill-gray-200" />
                         </a>
                         <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300" :buttonText="'Delete'"
@@ -59,21 +60,21 @@
 
         <div class="side-panel px-10 bg-gray-500 dark:bg-gray-700" style="grid-area: side-panel;">
             <section class="artwork-info">
-                <div v-if="this.work.id">
+                <div v-if="this.artwork.id">
                     <img class="inline-block w-14 h-14 rounded-full m-4" :src="profileImage" alt="profile_image">
-                    <RouterLink @click="storeWork" :to="`/artistPortfolio/${this.work.artist.user.username}`">
-                        <h3 class="inline text-cyan-500 hover:text-gray-100">{{ this.work.artist.user.name }}</h3>
+                    <RouterLink @click="storeArtwork" :to="`/artistPortfolio/${this.artwork.artist.user.username}`">
+                        <h3 class="inline text-cyan-500 hover:text-gray-100">{{ this.artwork.artist.user.name }}</h3>
                     </RouterLink>
                 </div>
                 <div>
-                    <h3 class="mb-2">{{ this.work.title }}</h3>
-                    <p>{{ this.work.description }}</p>
+                    <h3 class="mb-2">{{ this.artwork.title }}</h3>
+                    <p>{{ this.artwork.description }}</p>
                 </div>
                 <!-- <p class="mt-3">Published September 01, 2023</p> -->
-                <p class="mt-3">Published: {{ new Date(this.work.date_published).toDateString() }}</p>
+                <p class="mt-3">Published: {{ new Date(this.artwork.date_published).toDateString() }}</p>
                 <div class="py-5 mt-5 space-x-4" style="border-top-width: 1px;">
                     <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-eye-lined.svg" alt="">{{
-                        this.numberFormat(this.work.views) }}</span>
+                        this.numberFormat(this.artwork.views) }}</span>
                     <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-thumb-10.svg" alt="">{{
                         this.numberFormat(this.reactionData.count) }}</span>
                     <span><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-speech-bubble-thin.svg" alt="">{{
@@ -81,16 +82,17 @@
                 </div>
             </section>
             <aside class="extras">
-                <h3 v-if="this.work.id && this.otherWorks.length > 0">More from {{ this.work.artist.user.name }}
+                <h3 v-if="this.artwork.id && this.otherArtworks.length > 0">More from {{ this.artwork.artist.user.name
+                }}
                 </h3>
                 <!-- intentionally didn't set a grid-row, so if the images are few, they
                 fit into a single row but if they surpass the width for a single row, the
                 new ones are fitted into a new row visually-->
-                <div v-if="this.otherWorks.length > 0" class="grid grid-cols-2 gap-2 my-5"
-                    :class="{ 'aspect-square': this.otherWorks.length > 2, 'aspect-video': this.otherWorks.length < 3 }">
-                    <template v-for="(otherWork, index) in this.otherWorks" :key="index">
-                        <RouterLink class="relative" :to="`/artwork/${otherWork.id}`">
-                            <img class="absolute w-full h-full object-cover" :src="otherWork.file_url" alt="">
+                <div v-if="this.otherArtworks.length > 0" class="grid grid-cols-2 gap-2 my-5"
+                    :class="{ 'aspect-square': this.otherArtworks.length > 2, 'aspect-video': this.otherArtworks.length < 3 }">
+                    <template v-for="(otherArtwork, index) in this.otherArtworks" :key="index">
+                        <RouterLink class="relative" :to="`/artwork/${otherArtwork.id}`">
+                            <img class="absolute w-full h-full object-cover" :src="otherArtwork.file_url" alt="">
                         </RouterLink>
                     </template>
                 </div>
@@ -118,30 +120,30 @@ import useDataStore from '@/stores/states'; // convention: use<storeID>Store
 
 export default {
 
-    name: 'WorkDetail',
+    name: 'ArtworkDetail',
     components: {
 
     },
     data() {
         return {
-            "work": {},
+            "artwork": {},
             "reactionData": {},
             "commentData": {},
-            "otherWorks": []
+            "otherArtworks": []
         }
     },
     computed: {
         ...mapStores(useDataStore),
         profileImage() {
-            if (this.work.artist.user.profile_image)
-                return this.work.artist.user.profile_image
+            if (this.artwork.artist.user.profile_image)
+                return this.artwork.artist.user.profile_image
             else
                 return this.dataStore.siteConfigs.default_profile_image_url
         }
     },
     methods: {
-        storeWork() {
-            this.dataStore.work = this.work
+        storeArtwork() {
+            this.dataStore.artwork = this.artwork
         },
         async fetchArtwork(id) {
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artwork/${id}/`
@@ -152,11 +154,11 @@ export default {
                 })
                 .then((data) => {
                     // console.log(data)
-                    this.work = data
-                    this.dataStore.work = data
-                    console.log(this.work)
+                    this.artwork = data
+                    this.dataStore.artwork = data
+                    console.log(this.artwork)
 
-                    this.fetchOtherWorks()
+                    this.fetchotherArtworks()
                 }
                 )
                 .catch((error) => {
@@ -295,8 +297,8 @@ export default {
             else
                 return '>trillions'
         },
-        async fetchOtherWorks() {
-            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artworks/?page_size=50&search=${this.work.artist.user.username}&filter=artist&random_sample=true&random_sample_size=4`
+        async fetchotherArtworks() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artworks/?page_size=50&search=${this.artwork.artist.user.username}&filter=artist&random_sample=true&random_sample_size=4`
 
             const headers = {
                 'Content-Type': 'application/json',
@@ -315,7 +317,7 @@ export default {
                     return response.json()
                 })
                 .then((data) => {
-                    this.otherWorks = data['results']
+                    this.otherArtworks = data['results']
                 }
                 )
                 .catch((error) => {
