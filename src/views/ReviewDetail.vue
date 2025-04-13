@@ -1,10 +1,10 @@
 <template>
-    <article v-if="review.id" class="grid" style="grid-template-columns: 5fr 1fr;">
-        <main class="main space-y-5 mx-48 text-gray-800 dark:text-gray-200 mb-36">
+    <article v-if="review.id" class="grid grid-cols-1 lg:grid-cols-[5fr_1fr]">
+        <main class="main space-y-5 mx-2 lg:mx-48 text-gray-800 dark:text-gray-200 mb-36">
             <section class="header">
                 <div class="caption my-5">
-                    <h3 class="text-center">Review:</h3>
-                    <h1 class="text-4xl text-center mb-2">{{ review.title }}</h1>
+                    <h3 class="text-center text-sm">Review:</h3>
+                    <h1 class="text-lg lg:text-4xl text-center mb-2">{{ review.title }}</h1>
                     <div class="flex flex-row justify-center [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200">
                         <template v-for="i in 5" :key="i">
                             <StarIcon v-if="i > Math.ceil(review.rating)" class="w-16 h-16" />
@@ -24,7 +24,7 @@
                 </div>
             </section>
             <section class="body space-y-5">
-                <p class="text-center">{{ review.content }}</p>
+                <p class="text-left">{{ review.content }}</p>
                 <!-- body media -->
                 <div v-if="review.body_media_type != null" class="body-media [&>*]:mx-auto">
                     <img v-if="review.body_media_type == 'image'" class="w-full" :src="review.body_media_url"
@@ -37,8 +37,8 @@
             </section>
 
             <section class="reviewer-bio pt-24">
-                <div class="flex flex-row bg-amber-50 dark:bg-gray-700 p-4">
-                    <div class="flex"><img class="rounded-full h-20 aspect-square block my-auto justify-center mx-5"
+                <div class="flex flex-col lg:flex-row bg-amber-50 dark:bg-gray-700 p-4">
+                    <div class="flex"><img class="rounded-full h-20 aspect-square block my-auto justify-center mx-auto "
                             :src="profileImage" alt="reviewer photo">
                     </div>
                     <div class="p-3 flex-1">
@@ -67,7 +67,8 @@
 
             </section>
         </main>
-        <aside class="border-l-2 border-l-gray-400 dark:border-l-gray-600 space-y-3 text-gray-800 dark:text-gray-200">
+        <aside
+            class="border-l-0 lg:border-l-2 border-l-gray-400 dark:border-l-gray-600 space-y-3 text-gray-800 dark:text-gray-200">
             <!-- related reviews -->
             <h4 class="text-center text-2xl mt-5">Related Reviews</h4>
             <div v-for="(relatedReview, index) in relatedReviews.slice(0, 12)" class="mx-2" :key="index">
