@@ -1,5 +1,5 @@
 <template>
-    <div v-if="product.id" class="mx-16 text-gray-800 dark:text-gray-200">
+    <div v-if="product.id" class="xs:mx-2 lg:mx-16 text-gray-800 dark:text-gray-200">
         <header></header>
         <div>
             <header>
@@ -17,7 +17,7 @@
                     product.seller.brand_name }}</RouterLink> in
                     <RouterLink :to="`/resources/${product.category.root.toLowerCase()}`" class="text-cyan-500">{{
                         product.category.root
-                        }}</RouterLink>
+                    }}</RouterLink>
                 </p>
             </header>
 
@@ -27,8 +27,8 @@
                 it
             </p>
 
-            <div class="grid mt-5" style="grid-template-columns: 2fr 1fr; grid-template-areas: 'main cart';">
-                <main class="mt-10" style="grid-area: main;">
+            <div class="grid mt-5 grid-cols-1 lg:grid-cols-[2fr_1fr]">
+                <main class="mt-10">
                     <img class="w-full aspect-video object-cover"
                         :src="activeSrc ? activeSrc : product.thumbnail_images[0]" alt="">
 
@@ -46,7 +46,7 @@
                         <div v-html="product.description" id="html-container"></div>
                     </article>
                 </main>
-                <section class="cart-section" style="grid-area: cart;">
+                <section class="cart-section">
                     <ProductCart :product="product" />
                 </section>
             </div>
@@ -98,7 +98,8 @@
 
             <aside class="mt-28 mb-72">
                 <h3>More by {{ product.seller.brand_name }}</h3>
-                <div v-if="sellerProducts.length && sellerProducts.length > 1" class="grid grid-cols-5 gap-5">
+                <div v-if="sellerProducts.length && sellerProducts.length > 1"
+                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                     <ProductCard v-for="(product_, index) in sellerProducts" :product="product_" :key="index" />
                 </div>
             </aside>
