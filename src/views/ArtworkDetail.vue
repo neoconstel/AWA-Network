@@ -34,7 +34,7 @@
                     </button>
                     <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
                         this.numberFormat(this.reactionData.count)
-                        }}</span>
+                    }}</span>
                     <span
                         v-if="this.dataStore.user.id && this.artwork.id && this.artwork.artist.user.username == this.dataStore.user.username"
                         class="absolute right-0">
@@ -83,7 +83,7 @@
             </section>
             <aside class="extras">
                 <h3 v-if="this.artwork.id && this.otherArtworks.length > 0">More from {{ this.artwork.artist.user.name
-                }}
+                    }}
                 </h3>
                 <!-- intentionally didn't set a grid-row, so if the images are few, they
                 fit into a single row but if they surpass the width for a single row, the
@@ -457,19 +457,5 @@ export default {
             "comments-section"
     }
 
-}
-
-
-.two-columns {
-    grid-template-areas:
-        "artwork-display artwork-display artwork-display artwork-display artwork-display side-panel side-panel"
-        "comments-section comments-section comments-section comments-section comments-section side-panel side-panel"
-}
-
-.one-column {
-    grid-template-areas:
-        "artwork-display"
-        "side-panel"
-        "comments-section"
 }
 </style>

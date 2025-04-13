@@ -1,12 +1,18 @@
 <template>
-    <div v-if="this.article.id && this.htmlText" class="text-gray-800 dark:text-gray-200 mx-16 pb-40">
+    <div v-if="this.article.id && this.htmlText" class="text-gray-800 dark:text-gray-200 xs:mx-2 sm:mx-11 pb-40">
         <header>
             <div
-                class="grid grid-cols-4 mt-4 gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-2 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
-                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Art Skills</RouterLink>
-                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Career</RouterLink>
-                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Inspiration</RouterLink>
-                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">News</RouterLink>
+                class="grid grid-cols-2 md:grid-cols-4 mt-4 gap-1 sm:gap-4 [&>*]:text-center text-lg font-medium [&>*]:py-5 [&>*]:bg-gray-300 [&>*]:dark:bg-gray-700">
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Art Skills <span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Lean & improve</span></RouterLink>
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Career <span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Guides, Jobs & more</span></RouterLink>
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">Inspiration <span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Discover inspiring talents</span>
+                </RouterLink>
+                <RouterLink :to="``" class="hover:bg-gray-400 dark:hover:bg-gray-600">News <span
+                        class="block text-xs text-gray-500 dark:text-gray-400">Industry news & updates</span>
+                </RouterLink>
             </div>
         </header>
         <div class="" style="grid-template-columns: 3fr 1fr;">
@@ -110,10 +116,25 @@ export default {
 }
 
 :deep(#html-container p) {
-    text-align: center;
+    text-align: left;
 }
 
 :deep(#html-container img) {
     margin: 0 auto;
+}
+
+
+@media (max-width: 767px) {
+
+    :deep(#html-container h1),
+    :deep(#html-container h2),
+    :deep(#html-container h3),
+    :deep(#html-container h4),
+    :deep(#html-container h5),
+    :deep(#html-container h6) {
+        font-size: medium;
+        font-weight: bold;
+    }
+
 }
 </style>
