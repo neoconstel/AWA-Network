@@ -1,56 +1,62 @@
 <template>
-    <div class="entire-page grid text-gray-100" style="grid-template-columns: 5fr 2fr">
-        <div class="main-panel px-12 pb-48 space-y-14">
-            <main class="artwork-display grid">
-                <div><img class="px-16 py-8 mx-auto" :src="this.work.file_url" alt=""></div>
-                <div class="flex flex-col gap-y-5">
-                    <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 [&>span]:p-1 [&>span]:bg-gray-700">
-                        <em class="text-gray-800 dark:text-gray-200">Tags</em>
-                        <span v-if="this.work.tags" v-for="(tag, index) in this.work.tags.split(',')" key="index">{{ tag
-                            }}</span>
-                    </div>
+    <!-- NOTE: regular CSS is used to control the overall layout here, as it makes use
+     of grid-template-areas -->
+    <div class="entire-page grid text-gray-100 mx-16">
+
+
+        <main class="artwork-display grid" style="grid-area: artwork-display;">
+            <div><img class="px-16 py-8 mx-auto" :src="this.work.file_url" alt=""></div>
+            <div class="flex flex-col gap-y-5">
+                <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 [&>span]:p-1 [&>span]:bg-gray-700">
+                    <em class="text-gray-800 dark:text-gray-200">Tags</em>
+                    <span v-if="this.work.tags" v-for="(tag, index) in this.work.tags.split(',')" key="index">{{ tag
+                    }}</span>
                 </div>
-            </main>
-            <section class="comments-section" style="border-top-width: 1px; border-color: gray;">
-                <form v-if="this.dataStore.user.id && this.work.id" class="flex flex-col space-y-2" action="">
-                    <label class="text-gray-800 dark:text-gray-200" id="comment" for="comment">Add a new comment</label>
-                    <Textarea class="text-gray-800" rows="5" name="comment" ref="commentBox"></Textarea>
-                    <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
-                        <RippleButton @click.prevent="submitComment" class="w-32 text-yellow-300" for="commentBox"
-                            :buttonText="'Comment'" />
-                        <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
-                            <ThumbuppaintedIcon @click="unreact('like')"
-                                v-if="this.reactionData.user_reactions && this.reactionData.user_reactions.includes('like')"
-                                class="inline h-14 w-14 fill-cyan-800 dark:fill-cyan-200" />
-                            <ThumbupIcon @click="react('like')" v-else
-                                class="inline h-14 w-14 fill-gray-800 dark:fill-gray-200" />
-                        </button>
-                        <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
-                            this.numberFormat(this.reactionData.count)
-                            }}</span>
-                        <span
-                            v-if="this.dataStore.user.id && this.work.id && this.work.artist.user.username == this.dataStore.user.username"
-                            class="absolute right-0">
-                            <a @click.prevent="storeWork" href="" data-twe-toggle="modal"
-                                data-twe-target="#editWorkModal">
-                                <PencilIcon class="inline h-12 mr-5 fill-gray-800 dark:fill-gray-200" />
-                            </a>
-                            <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300"
-                                :buttonText="'Delete'" data-twe-toggle="modal" data-twe-target="#deleteProjectModal" />
-                        </span>
-                    </div>
-                </form>
-                <div class="comments [&>.comment]:bg-gray-500 [&>.comment]:dark:bg-gray-700 space-y-5 mt-16">
-                    <div v-for="(comment, index) in this.commentData.results" :key="index"
-                        class="comment [&>p]:text-gray-800 [&>p]:dark:text-gray-200 p-3" :id="comment.id"
-                        style="border-radius: 20px;">
-                        <p><b>{{ comment.user.name }}</b></p>
-                        <p>{{ comment.content }}</p>
-                    </div>
+            </div>
+        </main>
+
+        <section class="comments-section"
+            style="border-top-width: 1px; border-color: gray; grid-area: comments-section;">
+            <form v-if="this.dataStore.user.id && this.work.id" class="flex flex-col space-y-2" action="">
+                <label class="text-gray-800 dark:text-gray-200" id="comment" for="comment">Add a new comment</label>
+                <Textarea class="text-gray-800 outline outline-1 outline-gray-500" rows="5" name="comment"
+                    ref="commentBox"></Textarea>
+                <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
+                    <RippleButton @click.prevent="submitComment" class="w-32 text-yellow-300" for="commentBox"
+                        :buttonText="'Comment'" />
+                    <button v-if="this.dataStore.user.id && this.work.id" class="ml-10 mr-2" type="button">
+                        <ThumbuppaintedIcon @click="unreact('like')"
+                            v-if="this.reactionData.user_reactions && this.reactionData.user_reactions.includes('like')"
+                            class="inline h-14 w-14 fill-cyan-800 dark:fill-cyan-200" />
+                        <ThumbupIcon @click="react('like')" v-else
+                            class="inline h-14 w-14 fill-gray-800 dark:fill-gray-200" />
+                    </button>
+                    <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
+                        this.numberFormat(this.reactionData.count)
+                    }}</span>
+                    <span
+                        v-if="this.dataStore.user.id && this.work.id && this.work.artist.user.username == this.dataStore.user.username"
+                        class="absolute right-0">
+                        <a @click.prevent="storeWork" href="" data-twe-toggle="modal" data-twe-target="#editWorkModal">
+                            <PencilIcon class="inline h-12 mr-5 fill-gray-800 dark:fill-gray-200" />
+                        </a>
+                        <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300" :buttonText="'Delete'"
+                            data-twe-toggle="modal" data-twe-target="#deleteProjectModal" />
+                    </span>
                 </div>
-            </section>
-        </div>
-        <div class="side-panel px-10 bg-gray-500 dark:bg-gray-700">
+            </form>
+            <div class="comments [&>.comment]:bg-gray-500 [&>.comment]:dark:bg-gray-700 space-y-5 mt-16">
+                <div v-for="(comment, index) in this.commentData.results" :key="index"
+                    class="comment [&>p]:text-gray-800 [&>p]:dark:text-gray-200 p-3" :id="comment.id"
+                    style="border-radius: 20px;">
+                    <p><b>{{ comment.user.name }}</b></p>
+                    <p>{{ comment.content }}</p>
+                </div>
+            </div>
+        </section>
+
+
+        <div class="side-panel px-10 bg-gray-500 dark:bg-gray-700" style="grid-area: side-panel;">
             <section class="artwork-info">
                 <div v-if="this.work.id">
                     <img class="inline-block w-14 h-14 rounded-full m-4" :src="profileImage" alt="profile_image">
@@ -74,18 +80,20 @@
                 </div>
             </section>
             <aside class="extras">
-                <h3 v-if="this.work.id && this.otherWorks.length > 0">More from {{ this.work.artist.user.name }}</h3>
-
-                <!-- intentionally didn't set a grid-row, so if the images are few, they 
+                <h3 v-if="this.work.id && this.otherWorks.length > 0">More from {{ this.work.artist.user.name }}
+                </h3>
+                <!-- intentionally didn't set a grid-row, so if the images are few, they
                 fit into a single row but if they surpass the width for a single row, the
                 new ones are fitted into a new row visually-->
-                <div v-if="this.otherWorks.length > 0" class="grid grid-cols-2 gap-2 my-5">
+                <div v-if="this.otherWorks.length > 0" class="grid grid-cols-2 gap-2 my-5"
+                    :class="{ 'aspect-square': this.otherWorks.length > 2, 'aspect-video': this.otherWorks.length < 3 }">
                     <template v-for="(otherWork, index) in this.otherWorks" :key="index">
-                        <RouterLink :to="`/artwork/${otherWork.id}`"><img class="aspect-square w-30 object-cover"
-                                :src="otherWork.file_url" alt=""></RouterLink>
+                        <RouterLink class="relative" :to="`/artwork/${otherWork.id}`">
+                            <img class="absolute w-full h-full object-cover" :src="otherWork.file_url" alt="">
+                        </RouterLink>
                     </template>
                 </div>
-                <div class="grid grid-cols-4">
+                <div class="grid grid-cols-4 pb-10">
                     <a href=""><img class="aspect-square w-30 object-cover"
                             src="/static/icons/iconmonstr-facebook-1.svg" alt=""></a>
                     <a href=""><img class="aspect-square w-30 object-cover"
@@ -97,6 +105,7 @@
                 </div>
             </aside>
         </div>
+
     </div>
 </template>
 
@@ -387,7 +396,7 @@ export default {
             if (content.length > 0) {
                 this.commentOnArtwork(event, content, parent_comment_id)
             }
-        }
+        },
 
     },
     async mounted() {
@@ -418,8 +427,46 @@ export default {
                 this.fetchArtworkComments(this.$route.params.id)
 
             }
-        }
+        },
     }
 }
 
 </script>
+
+<style scoped>
+@media (min-width: 768px) {
+
+    .entire-page {
+        grid-template-areas:
+            "artwork-display artwork-display artwork-display artwork-display artwork-display side-panel side-panel"
+            "comments-section comments-section comments-section comments-section comments-section side-panel side-panel"
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .entire-page {
+        grid-template-areas:
+            "artwork-display"
+            "side-panel"
+            "comments-section"
+    }
+
+}
+
+
+.two-columns {
+    grid-template-areas:
+        "artwork-display artwork-display artwork-display artwork-display artwork-display side-panel side-panel"
+        "comments-section comments-section comments-section comments-section comments-section side-panel side-panel"
+}
+
+.one-column {
+    grid-template-areas:
+        "artwork-display"
+        "side-panel"
+        "comments-section"
+}
+</style>
