@@ -1,16 +1,17 @@
 <template>
     <!-- NOTE: regular CSS is used to control the overall layout here, as it makes use
      of grid-template-areas -->
-    <div class="entire-page grid text-gray-100 mx-16">
+    <div class="entire-page xs:mx-5 lg:mx-16 grid gap-x-5 gap-y-20 text-gray-200 ">
 
 
         <main class="artwork-display grid" style="grid-area: artwork-display;">
-            <div><img class="px-16 py-8 mx-auto" :src="this.work.file_url" alt=""></div>
+            <div><img class="xs:px-5 xs:py-2 lg:px-16 lg:py-8 mx-auto" :src="this.work.file_url" alt=""></div>
             <div class="flex flex-col gap-y-5">
-                <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 [&>span]:p-1 [&>span]:bg-gray-700">
+                <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 ">
                     <em class="text-gray-800 dark:text-gray-200">Tags</em>
-                    <span v-if="this.work.tags" v-for="(tag, index) in this.work.tags.split(',')" key="index">{{ tag
-                    }}</span>
+                    <span v-if="this.work.tags" class="text-xs p-1 bg-gray-700 rounded-lg"
+                        v-for="(tag, index) in this.work.tags.split(',')" key="index">{{ tag
+                        }}</span>
                 </div>
             </div>
         </main>

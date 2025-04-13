@@ -80,7 +80,7 @@ const fixedRoutes = [
   {
     path: "/artwork/:id",
     name: "workDetail",
-    component: () => import("../views/WorkDetail.vue"),
+    component: () => import("../views/ArtworkDetail.vue"),
   },
   {
     path: "/artistPortfolio/:username",
