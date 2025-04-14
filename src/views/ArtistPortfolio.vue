@@ -1,4 +1,11 @@
 <template class="bg-gray-800">
+    <div v-if="userOwnsThisArtistProfile()" class="edit-control mx-16">
+        <v-btn v-if="!editMode" @click="editMode = true">Edit Profile</v-btn>
+        <div v-else-if="editMode" class="">
+            <v-btn @click="saveProfileChanges(); editMode = false">Save</v-btn>
+            <v-btn @click="editMode = false" class="ml-2">Cancel</v-btn>
+        </div>
+    </div>
     <section v-if="this.artist.id" class="header dashboard">
         <div class="grid grid-cols-2 pb-16 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200">
             <div class="grid pl-16 pr-24" style="grid-template-rows: 5fr 3fr;">
@@ -7,12 +14,33 @@
                         <img class="w-full h-full rounded-full" :src="profileImage" alt="profile_image">
                     </div>
                     <div class="pl-20 text-gray-800 dark:text-gray-200">
-                        <h3>{{ this.artist.user.name }}</h3>
-                        <p><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-location-19.svg" alt=""><span
-                                class="text-sm text-gray-400">{{ this.artist.location }}</span></p>
-                        <p class="mt-3">{{ this.artist.bio }}</p>
-                        <p class="mt-2 text-yellow-800 dark:text-yellow-200"><a href="http://www.animationwestafrica.com">{{
-                            this.artist.website }}</a></p>
+                        <div>
+                            <h3 v-show="!editMode">{{ this.artist.user.name }}</h3>
+                            <div class="grid grid-cols-2 gap-x-2">
+                                <input v-show="editMode" class="outline outline-1 outline-gray-500" type="text"
+                                    :value="this.artist.user.first_name" placeholder="First Name" ref="firstNameInput">
+                                <input v-show="editMode" class="outline outline-1 outline-gray-500" type="text"
+                                    :value="this.artist.user.last_name" placeholder="Last Name" ref="lastNameInput">
+                            </div>
+                        </div>
+                        <p><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-location-19.svg" alt="">
+                            <span v-show="!editMode" class="text-sm text-gray-400">{{ this.artist.location }}</span>
+                            <input v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1" type="text"
+                                :value="this.artist.location" placeholder="Location" ref="locationInput">
+                        </p>
+                        <div>
+                            <p v-show="!editMode" class="mt-3">{{ this.artist.bio }}</p>
+                            <textarea v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1"
+                                type="text" :value="this.artist.bio" placeholder="Bio" ref="bioInput" name=""
+                                id=""></textarea>
+                        </div>
+                        <div>
+                            <p v-show="!editMode" class="mt-2 text-yellow-800 dark:text-yellow-200"><a
+                                    href="http://www.animationwestafrica.com">{{
+                                        this.artist.website }}</a></p>
+                            <input v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1" type="text"
+                                :value="this.artist.website" placeholder="Website" ref="websiteInput">
+                        </div>
 
                     </div>
                 </div>
@@ -22,7 +50,8 @@
                         class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900"
                         :buttonText="'Unfollow'" />
                     <RippleButton v-else @click="follow"
-                        class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900" :buttonText="'Follow'" />
+                        class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900"
+                        :buttonText="'Follow'" />
                     <RippleButton class="bg-primary-300 hover:bg-primary-600 text-gray-900" :buttonText="'Message'"
                         style="background-image: url('/icons/iconmonstr-mail-thin.svg'); background-repeat: no-repeat; background-position: 34% 50%; background-size: 7%;" />
                 </div>
@@ -74,7 +103,11 @@
                 </div>
                 <div class="flex items-center ali border-t-gray-500 text-gray-800 dark:text-gray-200"
                     style="border-top-width: 1px;">
-                    <p class=""><b>Tools:</b> {{ this.artist.tools }}</p>
+                    <div>
+                        <p v-show="!editMode" class=""><b>Tools:</b> {{ this.artist.tools }}</p>
+                        <textarea v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1" type="text"
+                            :value="this.artist.tools" placeholder="Tools" ref="toolsInput" name="" id=""></textarea>
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,7 +146,7 @@
         <div v-show="this.tab == 'projects'">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
                 :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true" :galleryType="'projects'"
-                :showDelete="this.dataStore.user.id && this.artist.user.username == this.dataStore.user.username" />
+                :showDelete="userOwnsThisArtistProfile()" />
         </div>
         <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
             <template v-for="(followingInstance, index) in this.followers" :key="index">
@@ -128,7 +161,7 @@
         <div v-show="this.tab == 'likes'">
             <WorksGallery :works="likedWorks" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
                 :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true" :galleryType="'likes'"
-                :showDelete="this.dataStore.user.id && this.artist.user.username == this.dataStore.user.username" />
+                :showDelete="userOwnsThisArtistProfile()" />
         </div>
     </section>
 </template>
@@ -173,7 +206,8 @@ export default {
                 "userFollowsArtist": false,
                 "followers": [],
                 "following": [],
-                "artPlaceholder": this.$data.artPlaceholder == null ? {} : this.$data.artPlaceholder
+                "artPlaceholder": this.$data.artPlaceholder == null ? {} : this.$data.artPlaceholder,
+                "editMode": false
             }
         },
         resetData() {
@@ -456,6 +490,57 @@ export default {
                 .then(pages => pages.items[0])
 
             this.artPlaceholder = portfolioPage.art_placeholder
+        },
+        userOwnsThisArtistProfile() {
+            return this.dataStore.user.id && this.artist.user.username == this.dataStore.user.username
+        },
+        async saveProfileChanges() {
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artist/profile/save/`
+
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+
+            const data = JSON.stringify({
+                "firstName": this.$refs.firstNameInput.value,
+                "lastName": this.$refs.lastNameInput.value,
+                "location": this.$refs.locationInput.value,
+                "bio": this.$refs.bioInput.value,
+                "website": this.$refs.websiteInput.value,
+                "tools": this.$refs.toolsInput.value
+            });
+
+            const requestOptions = {
+                method: 'POST',
+                headers: headers,
+                body: data,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then(response => {
+                    if (response.ok) {
+                        // Case 1: Successful response (status 2xx)
+                        return response.json(); // or response.text(), etc.
+                    } else {
+                        // Case 2: Response returned but with non-2xx status
+                        throw new Error(`Server error: ${response.status}`);
+                    }
+                })
+                .then(data => {
+                    // Handle the successful data here
+                    // console.log('Data received:', data);
+                    this.artist = data['artist']
+                    this.dataStore.user = data['user']
+                    alert("Profile Updated")
+                })
+                .catch(error => {
+                    // Case 3: Network failure or thrown error from above
+                    console.error('Fetch error:', error.message);
+                    this.errorMessage = error.message
+                    alert("Failed to update profile. " + error.message)
+                });
         },
     },
     async mounted() {

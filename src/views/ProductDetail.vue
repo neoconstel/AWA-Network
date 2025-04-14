@@ -17,7 +17,7 @@
                     product.seller.brand_name }}</RouterLink> in
                     <RouterLink :to="`/resources/${product.category.root.toLowerCase()}`" class="text-cyan-500">{{
                         product.category.root
-                    }}</RouterLink>
+                        }}</RouterLink>
                 </p>
             </header>
 
@@ -202,6 +202,7 @@ export default {
                 method: 'POST',
                 headers: headers,
                 body: data,
+                credentials: 'include',
                 redirect: 'follow'
             };
 
@@ -233,6 +234,7 @@ export default {
                 method: 'POST',
                 headers: headers,
                 body: data,
+                credentials: 'include',
                 redirect: 'follow'
             };
 
