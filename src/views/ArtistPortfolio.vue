@@ -1,5 +1,5 @@
 <template class="bg-gray-800">
-    <div v-if="userOwnsThisArtistProfile()" class="edit-control mx-16">
+    <div v-if="userOwnsThisArtistProfile()" class="edit-control xs:mx-2 lg:mx-16">
         <v-btn v-if="!editMode" @click="editMode = true">Edit Profile</v-btn>
         <div v-else-if="editMode" class="">
             <v-btn @click="saveProfileChanges(); editMode = false">Save</v-btn>
@@ -7,13 +7,14 @@
         </div>
     </div>
     <section v-if="this.artist.id" class="header dashboard">
-        <div class="grid grid-cols-2 pb-16 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200">
-            <div class="grid pl-16 pr-24" style="grid-template-rows: 5fr 3fr;">
-                <div class="grid pt-10" style="grid-template-columns: 2fr 5fr;">
-                    <div class="" style="aspect-ratio: 1/1;">
-                        <img class="w-full h-full rounded-full object-cover" :src="profileImage" alt="profile_image">
+        <div class="grid xs:grid-cols-1 lg:grid-cols-2 pb-16 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200">
+            <div class="grid xs:px-2 lg:pl-16 lg:pr-24 bg-green-500" style="grid-template-rows: 5fr 3fr;">
+                <div class="grid mt-0 lg:pt-10 bg-red-500 grid-cols-1 lg:grid-cols-[2fr_5fr]">
+                    <div class="lg:aspect-square flex max-h-48">
+                        <img class="mx-auto my-auto w-36 h-36 rounded-full object-cover" :src="profileImage"
+                            alt="profile_image">
                     </div>
-                    <div class="pl-20 text-gray-800 dark:text-gray-200">
+                    <div class="xs-0 lg:pl-20 text-gray-800 dark:text-gray-200">
                         <div>
                             <h3 v-show="!editMode">{{ this.artist.user.name }}</h3>
                             <div class="grid grid-cols-2 gap-x-2">
@@ -58,7 +59,8 @@
                 <!-- profile image input -->
                 <p v-show="editMode"><input type="file" accept="image/*" name="" id="" ref="profileImageInput"></p>
             </div>
-            <div class="grid grid-rows-3 pl-24 pr-16 pt-10 text-gray-300">
+
+            <!-- <div class="grid grid-rows-3 pl-24 pr-16 pt-10 text-gray-300">
                 <div class="grid grid-cols-4 [&>*]:space-y-1 border-b-gray-500 [&>*]:text-gray-800 dark:[&>*]:text-gray-200 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200"
                     style="border-bottom-width: 1px;">
                     <div>
@@ -111,10 +113,11 @@
                             :value="this.artist.tools" placeholder="Tools" ref="toolsInput" name="" id=""></textarea>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
-    <section class="tabs text-gray-300 sticky top-16 z-10">
+
+    <!-- <section class="tabs text-gray-300 sticky top-16 z-10">
         <div class="grid gap-x-1" style="grid-template-columns: 2fr 1fr 1fr 5fr">
             <div class="relative">
                 <a @click.prevent="this.tab = 'projects'"
@@ -141,9 +144,9 @@
                 <p v-show="tab == 'likes'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/4 absolute"></p>
             </div>
         </div>
-    </section>
+    </section> -->
 
-    <section v-if="this.artist.id"
+    <!-- <section v-if="this.artist.id"
         class="gallery stuff bg-gray-400 dark:bg-gray-700 [&>div]:min-h-screen [&>div]:place-content-start">
         <div v-show="this.tab == 'projects'">
             <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
@@ -154,18 +157,18 @@
             <template v-for="(followingInstance, index) in this.followers" :key="index">
                 <ArtistCard :artist="followingInstance.follower" :artPlaceholder="this.artPlaceholder" />
             </template>
-        </div>
-        <div v-show="this.tab == 'following'" class="grid grid-cols-4 gap-4 py-10 px-16">
-            <template v-for="(followingInstance, index) in this.following" :key="index">
+</div>
+<div v-show="this.tab == 'following'" class="grid grid-cols-4 gap-4 py-10 px-16">
+    <template v-for="(followingInstance, index) in this.following" :key="index">
                 <ArtistCard :artist="followingInstance.following" :artPlaceholder="this.artPlaceholder" />
             </template>
-        </div>
-        <div v-show="this.tab == 'likes'">
-            <WorksGallery :works="likedWorks" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
-                :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true" :galleryType="'likes'"
-                :showDelete="userOwnsThisArtistProfile()" />
-        </div>
-    </section>
+</div>
+<div v-show="this.tab == 'likes'">
+    <WorksGallery :works="likedWorks" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
+        :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true" :galleryType="'likes'"
+        :showDelete="userOwnsThisArtistProfile()" />
+</div>
+</section> -->
 </template>
 
 <script>
