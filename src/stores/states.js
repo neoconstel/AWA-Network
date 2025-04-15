@@ -9,5 +9,6 @@ export default defineStore("data", {
     currentView: "",
     darkTheme: useLocalStorage("darkTheme", true),
     siteConfigs: useLocalStorage("siteConfigs", {}),
+    seller: useLocalStorage("seller", {}),
   }),
 });

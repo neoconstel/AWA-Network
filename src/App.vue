@@ -282,15 +282,50 @@ export default {
       fetch(url, requestOptions)
         .then(response => response.json())
         .then((data) => {
-          if (data.user)
+          if (data.user) {
             this.dataStore.user = data.user
-          else
-            this.dataStore.user = []
+
+            // get seller instance of current user profile
+            this.getSeller()
+          }
+          else {
+            this.dataStore.user = {}
+            this.dataStore.seller = {}
+          }
         })
         .catch(error => alert("Check internet connectivity issues"))
+    },
+    async getSeller() {
+      // gets the seller instance of current logged-in user
+      const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/seller/`
 
+      const headers = {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': this.$cookies.get('csrftoken')
+      }
 
+      const requestOptions = {
+        method: 'GET',
+        headers: headers,
+        credentials: 'include',
+      };
 
+      fetch(url, requestOptions)
+        .then((response) => {
+          if (response.ok) {
+            return response.json()
+          }
+          else {
+            throw new Error(`Server error: ${response.status}`)
+          }
+        })
+        .then((data) => {
+          this.dataStore.seller = data
+        })
+        .catch(error => {
+          // Case 3: Network failure or thrown error from above
+          console.error('Fetch error:', error.message);
+        })
     },
     async fetchSiteCMS() {
       const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/v2/pages/?show_in_menus=true`
