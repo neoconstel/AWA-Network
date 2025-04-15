@@ -99,18 +99,24 @@
               </svg>
             </span>
             <div v-if="this.dataStore.user.id && showUserMenu"
-              class="bg-gray-700 opacity-90 text-gray-300 h-72 w-1/3 absolute right-20 top-full px-5">
+              class="bg-gray-700 opacity-90 text-gray-300 h-72 w-52 absolute right-20 top-full px-5">
               <img class="w-1/4 aspect-square rounded-full mx-auto my-5" :src="profileImage" alt="">
               <h3 class="text-center">{{ this.dataStore.user.name }}</h3>
               <p class="text-xs text-center">{{ this.dataStore.user.username }}</p>
               <hr class="my-2" />
-              <div>
-                <RouterLink v-if="this.dataStore.user.id" @click='showUserMenu = false;'
+              <div class="space-y-2">
+                <RouterLink v-if="this.dataStore.user.id" class="block" @click='showUserMenu = false;'
                   :to="`/artistPortfolio/${this.dataStore.user.username}`">
-                  <h5>Your Profile</h5>
+                  <h5>Your Artwork Dashboard</h5>
                 </RouterLink>
-                <h5 @click="showUserMenu = false">Settings</h5>
-                <h5 @click="showUserMenu = false" class="mt-4">Sign Out</h5>
+                <RouterLink v-if="this.dataStore.seller.id" class="block" @click='showUserMenu = false;'
+                  :to="`/resources/store/${this.dataStore.seller.alias}`">
+                  <h5>Your Seller Store</h5>
+                </RouterLink>
+                <RouterLink class="block" @click='showUserMenu = false;' :to="''">
+                  <h5>Jobs</h5>
+                </RouterLink>
+                <!-- <h5 @click="showUserMenu = false" class="">Sign Out</h5> -->
               </div>
             </div>
           </div>
