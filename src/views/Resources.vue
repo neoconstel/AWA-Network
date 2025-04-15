@@ -29,9 +29,36 @@
                     </v-btn></RouterLink>
             </div>
         </header>
-        <a v-if="this.dataStore.user.id && (this.dataStore.user.groups.includes('ArticleCreators') | this.dataStore.user.is_superuser)"
-            class="p-3 mt-5 block text-center w-52 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700"
+        <a v-if="this.dataStore.seller.id"
+            class="p-3 mt-5 block text-center w-52 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700 hover:bg-gray-500 dark:hover:bg-gray-400"
             href="/resources/upload" target="_blank">Sell Your Digital Assets</a>
+        <button v-else @click="showSellerCreateForm = true"
+            class="p-3 mt-5 block text-center w-52 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700 hover:bg-gray-500 dark:hover:bg-gray-400">Create
+            a seller profile</button>
+
+
+        <!-- dialog to present seller create form -->
+        <v-dialog v-model="showSellerCreateForm" max-width="400">
+            <v-card title="Create Your Seller Profile" color="blue" text="">
+                <div class="mx-10 grid grid-cols-[1fr_2fr]" action="">
+                    <label for="alias">Seller Alias: </label>
+                    <input type="text" id="alias" value="" placeholder="e.g blenderguru" name="" ref="aliasInput">
+                    <label for="brandName">Brand Name: </label>
+                    <input type="text" id="brandName" value="" placeholder="e.g Yan Sculpts" name=""
+                        ref="brandNameInput">
+                </div>
+                <div class="flex flex-initial justify-center">
+                    <v-card-actions>
+                        <v-btn @click="() => { saveSellerProfile(); showSellerCreateForm = false }">Create</v-btn>
+                    </v-card-actions>
+                    <v-card-actions>
+                        <v-btn @click="showSellerCreateForm = false">Cancel</v-btn>
+                    </v-card-actions>
+                </div>
+            </v-card>
+        </v-dialog>
+
+
         <main class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 mt-10 mb-96 gap-5">
             <ProductCard v-for="(product, index) in products" :product="product" :key="index" />
         </main>
@@ -56,7 +83,8 @@ export default {
             productCategories: [],
             products: [],
             window: window,
-            targetCategory: null
+            targetCategory: null,
+            showSellerCreateForm: false
         }
     },
     computed: {
@@ -123,6 +151,64 @@ export default {
             }
             this.targetCategory = target
         },
+        async saveSellerProfile() {
+            // for both creating or updating the seller profile of current user
+
+            /**
+             * if user has no seller profile, use the create endpoint as well 
+             * as the POST method. Otherwise use the update endpoint and the 
+             * PUT method.
+             */
+            let url;
+            let requestMethod;
+            if (!this.dataStore.seller.id) {
+                url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/sellers/`
+                requestMethod = 'POST'
+            }
+            else {
+                url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/seller/`
+                requestMethod = 'PUT'
+            }
+
+            const headers = {
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const formData = new FormData()
+            formData.append('alias', this.$refs.aliasInput.value)
+            formData.append('brand_name', this.$refs.brandNameInput.value)
+
+            const requestOptions = {
+                method: requestMethod,
+                headers: headers,
+                body: formData,
+                credentials: 'include',
+                redirect: 'follow'
+            };
+
+            fetch(url, requestOptions)
+                .then(response => {
+                    if (response.ok) {
+                        // Case 1: Successful response (status 2xx)
+                        return response.json(); // or response.text(), etc.
+                    } else {
+                        // Case 2: Response returned but with non-2xx status
+                        throw new Error(`Server error: ${response.status}`);
+                    }
+                })
+                .then(data => {
+                    // Handle the successful data here
+                    // console.log('Data received:', data);
+                    this.dataStore.seller = data
+                    alert("Seller profile saved")
+                })
+                .catch(error => {
+                    // Case 3: Network failure or thrown error from above
+                    console.error('Fetch error:', error.message);
+                    this.errorMessage = error.message
+                    alert("Failed to save profile. " + error.message)
+                });
+        }
     },
     async mounted() {
         this.$nextTick(() => {

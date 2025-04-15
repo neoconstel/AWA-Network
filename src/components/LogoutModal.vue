@@ -87,6 +87,7 @@ export default {
 
                         // clear user data
                         this.dataStore.user = {}
+                        this.dataStore.seller = {}
 
                         // dismiss logout modal automatically
                         this.$refs.logoutModal.close()

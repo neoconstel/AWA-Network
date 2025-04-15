@@ -503,15 +503,6 @@ export default {
                 'X-CSRFToken': this.$cookies.get('csrftoken')
             }
 
-            const data = JSON.stringify({
-                "firstName": this.$refs.firstNameInput.value,
-                "lastName": this.$refs.lastNameInput.value,
-                "location": this.$refs.locationInput.value,
-                "bio": this.$refs.bioInput.value,
-                "website": this.$refs.websiteInput.value,
-                "tools": this.$refs.toolsInput.value
-            });
-
             const formData = new FormData()
             formData.append('firstName', this.$refs.firstNameInput.value)
             formData.append('lastName', this.$refs.lastNameInput.value)
