@@ -11,7 +11,7 @@
             <div class="grid pl-16 pr-24" style="grid-template-rows: 5fr 3fr;">
                 <div class="grid pt-10" style="grid-template-columns: 2fr 5fr;">
                     <div class="" style="aspect-ratio: 1/1;">
-                        <img class="w-full h-full rounded-full" :src="profileImage" alt="profile_image">
+                        <img class="w-full h-full rounded-full object-cover" :src="profileImage" alt="profile_image">
                     </div>
                     <div class="pl-20 text-gray-800 dark:text-gray-200">
                         <div>
@@ -55,6 +55,8 @@
                     <RippleButton class="bg-primary-300 hover:bg-primary-600 text-gray-900" :buttonText="'Message'"
                         style="background-image: url('/icons/iconmonstr-mail-thin.svg'); background-repeat: no-repeat; background-position: 34% 50%; background-size: 7%;" />
                 </div>
+                <!-- profile image input -->
+                <p v-show="editMode"><input type="file" accept="image/*" name="" id="" ref="profileImageInput"></p>
             </div>
             <div class="grid grid-rows-3 pl-24 pr-16 pt-10 text-gray-300">
                 <div class="grid grid-cols-4 [&>*]:space-y-1 border-b-gray-500 [&>*]:text-gray-800 dark:[&>*]:text-gray-200 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200"
@@ -498,7 +500,7 @@ export default {
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artist/profile/save/`
 
             const headers = {
-                'Content-Type': 'application/json'
+                'X-CSRFToken': this.$cookies.get('csrftoken')
             }
 
             const data = JSON.stringify({
@@ -510,10 +512,19 @@ export default {
                 "tools": this.$refs.toolsInput.value
             });
 
+            const formData = new FormData()
+            formData.append('firstName', this.$refs.firstNameInput.value)
+            formData.append('lastName', this.$refs.lastNameInput.value)
+            formData.append('location', this.$refs.locationInput.value)
+            formData.append('bio', this.$refs.bioInput.value)
+            formData.append('website', this.$refs.websiteInput.value)
+            formData.append('tools', this.$refs.toolsInput.value)
+            formData.append('profileImage', this.$refs.profileImageInput.files[0])
+
             const requestOptions = {
                 method: 'POST',
                 headers: headers,
-                body: data,
+                body: formData,
                 credentials: 'include',
                 redirect: 'follow'
             };
@@ -533,6 +544,9 @@ export default {
                     // console.log('Data received:', data);
                     this.artist = data['artist']
                     this.dataStore.user = data['user']
+
+                    // clear profile image input
+                    this.$refs.profileImageInput.value = ''
                     alert("Profile Updated")
                 })
                 .catch(error => {
