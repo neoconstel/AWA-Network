@@ -36,7 +36,7 @@
                         </div>
                         <div>
                             <p v-show="!editMode" class="mt-2 text-yellow-800 dark:text-yellow-200"><a
-                                    href="http://www.animationwestafrica.com">{{
+                                    :href="`https://${this.artist.website}`" target="_blank">{{
                                         this.artist.website }}</a></p>
                             <input v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1" type="text"
                                 :value="this.artist.website" placeholder="Website" ref="websiteInput">
