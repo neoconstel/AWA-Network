@@ -1,167 +1,170 @@
 <template class="bg-gray-800">
-    <div v-if="userOwnsThisArtistProfile()" class="edit-control xs:mx-2 lg:mx-16">
-        <v-btn v-if="!editMode" @click="editMode = true">Edit Profile</v-btn>
-        <div v-else-if="editMode" class="">
-            <v-btn @click="saveProfileChanges(); editMode = false">Save</v-btn>
-            <v-btn @click="editMode = false" class="ml-2">Cancel</v-btn>
+    <div class="page-container xs:px-2 lg:px-16 pb-16">
+        <div v-if="userOwnsThisArtistProfile()" class="edit-control xs:mx-2 lg:mx-16">
+            <v-btn v-if="!editMode" @click="editMode = true">Edit Profile</v-btn>
+            <div v-else-if="editMode" class="">
+                <v-btn @click="saveProfileChanges(); editMode = false">Save</v-btn>
+                <v-btn @click="editMode = false" class="ml-2">Cancel</v-btn>
+            </div>
         </div>
-    </div>
-    <section v-if="this.artist.id" class="header dashboard">
-        <div class="grid xs:grid-cols-1 lg:grid-cols-2 pb-16 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200">
-            <div class="grid xs:px-2 lg:pl-16 lg:pr-24 bg-green-500" style="grid-template-rows: 5fr 3fr;">
-                <div class="grid mt-0 lg:pt-10 bg-red-500 grid-cols-1 lg:grid-cols-[2fr_5fr]">
-                    <div class="lg:aspect-square flex max-h-48">
-                        <img class="mx-auto my-auto w-36 h-36 rounded-full object-cover" :src="profileImage"
-                            alt="profile_image">
-                    </div>
-                    <div class="xs-0 lg:pl-20 text-gray-800 dark:text-gray-200">
-                        <div>
-                            <h3 v-show="!editMode">{{ this.artist.user.name }}</h3>
-                            <div class="grid grid-cols-2 gap-x-2">
-                                <input v-show="editMode" class="outline outline-1 outline-gray-500" type="text"
-                                    :value="this.artist.user.first_name" placeholder="First Name" ref="firstNameInput">
-                                <input v-show="editMode" class="outline outline-1 outline-gray-500" type="text"
-                                    :value="this.artist.user.last_name" placeholder="Last Name" ref="lastNameInput">
+
+
+        <!-- header -->
+        <section v-if="this.artist.id" class="header dashboard">
+            <div class="grid xs:grid-cols-1 lg:grid-cols-2 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200">
+                <!-- header left column/top row (in terms of desktop/mobile layout) -->
+                <div class="grid lg:pl-16 lg:pr-24 lg:grid-rows-[5fr_3fr]">
+                    <div class="grid mt-0 xs:pt-5 lg:pt-10 grid-cols-1 lg:grid-cols-[2fr_5fr]">
+                        <div class="lg:aspect-square flex max-h-48">
+                            <img class="mx-auto my-auto w-36 h-36 rounded-full object-cover" :src="profileImage"
+                                alt="profile_image">
+                        </div>
+                        <div class="xs-0 lg:pl-20 text-gray-800 dark:text-gray-200">
+                            <div>
+                                <h3 v-show="!editMode">{{ this.artist.user.name }}</h3>
+                                <div class="grid grid-cols-2 gap-x-2">
+                                    <input v-show="editMode" class="outline outline-1 outline-gray-500" type="text"
+                                        :value="this.artist.user.first_name" placeholder="First Name"
+                                        ref="firstNameInput">
+                                    <input v-show="editMode" class="outline outline-1 outline-gray-500" type="text"
+                                        :value="this.artist.user.last_name" placeholder="Last Name" ref="lastNameInput">
+                                </div>
+                            </div>
+                            <p><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-location-19.svg" alt="">
+                                <span v-show="!editMode" class="text-sm text-gray-400">{{ this.artist.location }}</span>
+                                <input v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1"
+                                    type="text" :value="this.artist.location" placeholder="Location"
+                                    ref="locationInput">
+                            </p>
+                            <div>
+                                <p v-show="!editMode" class="mt-3">{{ this.artist.bio }}</p>
+                                <textarea v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1"
+                                    type="text" :value="this.artist.bio" placeholder="Bio" ref="bioInput" name=""
+                                    id=""></textarea>
+                            </div>
+                            <div>
+                                <p v-show="!editMode" class="mt-2 text-yellow-800 dark:text-yellow-200"><a
+                                        :href="`https://${this.artist.website}`" target="_blank">{{
+                                            this.artist.website }}</a></p>
+                                <input v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1"
+                                    type="text" :value="this.artist.website" placeholder="Website" ref="websiteInput">
                             </div>
                         </div>
-                        <p><img class="inline w-4 mr-1" src="/static/icons/iconmonstr-location-19.svg" alt="">
-                            <span v-show="!editMode" class="text-sm text-gray-400">{{ this.artist.location }}</span>
-                            <input v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1" type="text"
-                                :value="this.artist.location" placeholder="Location" ref="locationInput">
-                        </p>
+                    </div>
+                    <div v-if="this.dataStore.user.id && this.artist.user.username != this.dataStore.user.username"
+                        class="grid grid-cols-2 gap-x-3 [&>*]:mt-auto">
+                        <RippleButton v-if="userFollowsArtist" @click="unfollow"
+                            class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900"
+                            :buttonText="'Unfollow'" />
+                        <RippleButton v-else @click="follow"
+                            class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900"
+                            :buttonText="'Follow'" />
+                        <RippleButton class="bg-primary-300 hover:bg-primary-600 text-gray-900" :buttonText="'Message'"
+                            style="background-image: url('/icons/iconmonstr-mail-thin.svg'); background-repeat: no-repeat; background-position: 34% 50%; background-size: 7%;" />
+                    </div>
+                    <p v-show="editMode"><input type="file" accept="image/*" name="" id="" ref="profileImageInput"></p>
+                </div>
+
+
+                <!-- header right column/bottom row (in terms of desktop/mobile layout) -->
+                <div class="grid grid-rows-3 xs:px-2 lg:pl-24 lg:pr-16 pt-10 text-gray-300">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 [&>*]:mx-auto [&>*]:space-y-1 border-b-gray-500 [&>*]:text-gray-800 dark:[&>*]:text-gray-200 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200"
+                        style="border-bottom-width: 1px;">
                         <div>
-                            <p v-show="!editMode" class="mt-3">{{ this.artist.bio }}</p>
+                            <p class="text-2xl">{{ this.artist.views }}</p>
+                            <p>
+                                <EyeopenIcon class="inline w-4 mr-1" /><span class="text-xs"><b>VIEWS</b></span>
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-2xl">{{ this.artist.likes }}</p>
+                            <p>
+                                <ThumbupIcon class="inline w-4 mr-1" /> <span class="text-xs"><b>LIKES</b></span>
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-2xl">{{ this.artist.followers }}</p>
+                            <p>
+                                <UserIcon class="inline w-4 mr-1" /><span class="text-xs"><b>FOLLOWERS</b></span>
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-2xl">{{ this.artist.following }}</p>
+                            <p>
+                                <UserIcon class="inline w-4 mr-1" /><span class="text-xs"><b>FOLLOWING</b></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-5 [&>*]:w-8 [&>*]:h-8 [&>*]:mx-auto [&>*]:my-auto">
+                        <MailIcon />
+                        <FacebookIcon />
+                        <InstagramIcon />
+                        <LinkedinIcon />
+                        <TwitterIcon />
+                    </div>
+                    <div class="flex items-center ali border-t-gray-500 text-gray-800 dark:text-gray-200"
+                        style="border-top-width: 1px;">
+                        <div>
+                            <p v-show="!editMode" class=""><b>Tools:</b> {{ this.artist.tools }}</p>
                             <textarea v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1"
-                                type="text" :value="this.artist.bio" placeholder="Bio" ref="bioInput" name=""
+                                type="text" :value="this.artist.tools" placeholder="Tools" ref="toolsInput" name=""
                                 id=""></textarea>
                         </div>
-                        <div>
-                            <p v-show="!editMode" class="mt-2 text-yellow-800 dark:text-yellow-200"><a
-                                    :href="`https://${this.artist.website}`" target="_blank">{{
-                                        this.artist.website }}</a></p>
-                            <input v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1" type="text"
-                                :value="this.artist.website" placeholder="Website" ref="websiteInput">
-                        </div>
-
                     </div>
                 </div>
-                <div v-if="this.dataStore.user.id && this.artist.user.username != this.dataStore.user.username"
-                    class="grid grid-cols-2 gap-x-3 [&>*]:mt-auto">
-                    <RippleButton v-if="userFollowsArtist" @click="unfollow"
-                        class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900"
-                        :buttonText="'Unfollow'" />
-                    <RippleButton v-else @click="follow"
-                        class="bg-yellow-800 dark:bg-yellow-300 hover:bg-yellow-600 text-gray-900"
-                        :buttonText="'Follow'" />
-                    <RippleButton class="bg-primary-300 hover:bg-primary-600 text-gray-900" :buttonText="'Message'"
-                        style="background-image: url('/icons/iconmonstr-mail-thin.svg'); background-repeat: no-repeat; background-position: 34% 50%; background-size: 7%;" />
+            </div>
+        </section>
+
+
+        <!-- tabs -->
+        <!-- <section class="tabs text-gray-300 sticky top-16 z-10">
+            <div class="grid gap-x-1" style="grid-template-columns: 2fr 1fr 1fr 5fr">
+                <div class="relative">
+                    <a @click.prevent="this.tab = 'projects'"
+                        :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-right", projectTabColor("projects")]'
+                        href="">Projects</a>
+                    <p v-show="tab == 'projects'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/2 absolute right-0">
+                    </p>
                 </div>
-                <!-- profile image input -->
-                <p v-show="editMode"><input type="file" accept="image/*" name="" id="" ref="profileImageInput"></p>
-            </div>
-
-            <!-- <div class="grid grid-rows-3 pl-24 pr-16 pt-10 text-gray-300">
-                <div class="grid grid-cols-4 [&>*]:space-y-1 border-b-gray-500 [&>*]:text-gray-800 dark:[&>*]:text-gray-200 [&>*]:fill-gray-800 [&>*]:dark:fill-gray-200"
-                    style="border-bottom-width: 1px;">
-                    <div>
-                        <p class="text-2xl">{{ this.artist.views }}</p>
-                        <p>
-                            <EyeopenIcon class="inline w-4 mr-1" /><span class="text-xs"><b>VIEWS</b></span>
-                        </p>
-                    </div>
-                    <div>
-                        <p class="text-2xl">{{ this.artist.likes }}</p>
-                        <p>
-                            <ThumbupIcon class="inline w-4 mr-1" /> <span class="text-xs"><b>LIKES</b></span>
-                        </p>
-
-
-
-
-
-                    </div>
-                    <div>
-                        <p class="text-2xl">{{ this.artist.followers }}</p>
-                        <p>
-                            <UserIcon class="inline w-4 mr-1" /><span class="text-xs"><b>FOLLOWERS</b></span>
-                        </p>
-
-
-
-
-
-                    </div>
-                    <div>
-                        <p class="text-2xl">{{ this.artist.following }}</p>
-                        <p>
-                            <UserIcon class="inline w-4 mr-1" /><span class="text-xs"><b>FOLLOWING</b></span>
-                        </p>
-                    </div>
+                <div class="relative">
+                    <a @click.prevent="this.tab = 'followers'"
+                        :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("followers")]'
+                        href="">Followers</a>
+                    <p v-show="tab == 'followers'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute"></p>
                 </div>
-                <div class="grid grid-cols-5 [&>*]:w-8 [&>*]:h-8 gap-x-14 [&>*]:my-auto">
-                    <MailIcon />
-                    <FacebookIcon />
-                    <InstagramIcon />
-                    <LinkedinIcon />
-                    <TwitterIcon />
+                <div class="relative">
+                    <a @click.prevent="this.tab = 'following'"
+                        :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("following")]'
+                        href="">Following</a>
+                    <p v-show="tab == 'following'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute"></p>
                 </div>
-                <div class="flex items-center ali border-t-gray-500 text-gray-800 dark:text-gray-200"
-                    style="border-top-width: 1px;">
-                    <div>
-                        <p v-show="!editMode" class=""><b>Tools:</b> {{ this.artist.tools }}</p>
-                        <textarea v-show="editMode" class="outline outline-1 outline-gray-500 w-full mt-1" type="text"
-                            :value="this.artist.tools" placeholder="Tools" ref="toolsInput" name="" id=""></textarea>
-                    </div>
+                <div class="relative">
+                    <a @click.prevent="this.tab = 'likes'"
+                        :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block", projectTabColor("likes")]'
+                        href="">Likes</a>
+                    <p v-show="tab == 'likes'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/4 absolute"></p>
                 </div>
-            </div> -->
-        </div>
-    </section>
+            </div>
+        </section> -->
 
-    <!-- <section class="tabs text-gray-300 sticky top-16 z-10">
-        <div class="grid gap-x-1" style="grid-template-columns: 2fr 1fr 1fr 5fr">
-            <div class="relative">
-                <a @click.prevent="this.tab = 'projects'"
-                    :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-right", projectTabColor("projects")]'
-                    href="">Projects</a>
-                <p v-show="tab == 'projects'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/2 absolute right-0"></p>
-            </div>
-            <div class="relative">
-                <a @click.prevent="this.tab = 'followers'"
-                    :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("followers")]'
-                    href="">Followers</a>
-                <p v-show="tab == 'followers'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute"></p>
-            </div>
-            <div class="relative">
-                <a @click.prevent="this.tab = 'following'"
-                    :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("following")]'
-                    href="">Following</a>
-                <p v-show="tab == 'following'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute"></p>
-            </div>
-            <div class="relative">
-                <a @click.prevent="this.tab = 'likes'"
-                    :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block", projectTabColor("likes")]'
-                    href="">Likes</a>
-                <p v-show="tab == 'likes'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/4 absolute"></p>
-            </div>
-        </div>
-    </section> -->
 
-    <!-- <section v-if="this.artist.id"
-        class="gallery stuff bg-gray-400 dark:bg-gray-700 [&>div]:min-h-screen [&>div]:place-content-start">
-        <div v-show="this.tab == 'projects'">
-            <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
-                :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true" :galleryType="'projects'"
-                :showDelete="userOwnsThisArtistProfile()" />
-        </div>
-        <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
-            <template v-for="(followingInstance, index) in this.followers" :key="index">
-                <ArtistCard :artist="followingInstance.follower" :artPlaceholder="this.artPlaceholder" />
-            </template>
+        <!-- tabs contents -->
+        <!-- <section v-if="this.artist.id"
+            class="gallery stuff bg-gray-400 dark:bg-gray-700 [&>div]:min-h-screen [&>div]:place-content-start">
+            <div v-show="this.tab == 'projects'">
+                <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
+                    :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true"
+                    :galleryType="'projects'" :showDelete="userOwnsThisArtistProfile()" />
+            </div>
+            <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
+                <template v-for="(followingInstance, index) in this.followers" :key="index">
+                    <ArtistCard :artist="followingInstance.follower" :artPlaceholder="this.artPlaceholder" />
+                </template>
 </div>
 <div v-show="this.tab == 'following'" class="grid grid-cols-4 gap-4 py-10 px-16">
     <template v-for="(followingInstance, index) in this.following" :key="index">
-                <ArtistCard :artist="followingInstance.following" :artPlaceholder="this.artPlaceholder" />
-            </template>
+                    <ArtistCard :artist="followingInstance.following" :artPlaceholder="this.artPlaceholder" />
+                </template>
 </div>
 <div v-show="this.tab == 'likes'">
     <WorksGallery :works="likedWorks" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
@@ -169,6 +172,7 @@
         :showDelete="userOwnsThisArtistProfile()" />
 </div>
 </section> -->
+    </div>
 </template>
 
 <script>
