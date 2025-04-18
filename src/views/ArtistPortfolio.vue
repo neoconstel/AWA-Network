@@ -117,10 +117,10 @@
 
 
         <!-- tabs -->
-        <section class="tabs text-gray-300 sticky top-16 z-10">
+        <section class="tabs text-gray-300 sticky top-16 z-10" ref="tabsSection">
             <div class="grid gap-x-1 gap-y-1 grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_5fr]">
                 <div class="relative">
-                    <a @click.prevent="this.tab = 'projects'"
+                    <a @click.prevent="this.tab = 'projects'; this.scrollToRef('tabsSection', offset = 300)"
                         :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block xs:text-center sm:text-right", projectTabColor("projects")]'
                         href="">Projects</a>
                     <p v-show="tab == 'projects'"
@@ -128,21 +128,21 @@
                     </p>
                 </div>
                 <div class="relative">
-                    <a @click.prevent="this.tab = 'followers'"
+                    <a @click.prevent="this.tab = 'followers'; this.scrollToRef('tabsSection', offset = 300)"
                         :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block xs:text-center sm:text-left lg:text-center", projectTabColor("followers")]'
                         href="">Followers</a>
                     <p v-show="tab == 'followers'"
                         class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute hidden lg:block"></p>
                 </div>
                 <div class="relative">
-                    <a @click.prevent="this.tab = 'following'"
+                    <a @click.prevent="this.tab = 'following'; this.scrollToRef('tabsSection', offset = 300)"
                         :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("following")]'
                         href="">Following</a>
                     <p v-show="tab == 'following'"
                         class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute hidden lg:block"></p>
                 </div>
                 <div class="relative">
-                    <a @click.prevent="this.tab = 'likes'"
+                    <a @click.prevent="this.tab = 'likes'; this.scrollToRef('tabsSection', offset = 300)"
                         :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block xs:text-center lg:text-left", projectTabColor("likes")]'
                         href="">Likes</a>
                     <p v-show="tab == 'likes'"
@@ -558,6 +558,13 @@ export default {
                     alert("Failed to update profile. " + error.message)
                 });
         },
+        scrollToRef(ref, offset = 0) {
+            const el = this.$refs[ref]
+            if (el) {
+                const y = el.getBoundingClientRect().top + window.scrollY - offset
+                window.scrollTo({ top: y, behavior: 'smooth' })
+            }
+        }
     },
     async mounted() {
         // stuffs that should be fetched or executed once, at page load
