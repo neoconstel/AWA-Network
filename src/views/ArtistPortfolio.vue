@@ -117,39 +117,43 @@
 
 
         <!-- tabs -->
-        <!-- <section class="tabs text-gray-300 sticky top-16 z-10">
-            <div class="grid gap-x-1" style="grid-template-columns: 2fr 1fr 1fr 5fr">
+        <section class="tabs text-gray-300 sticky top-16 z-10">
+            <div class="grid gap-x-1 gap-y-1 grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_5fr]">
                 <div class="relative">
                     <a @click.prevent="this.tab = 'projects'"
-                        :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-right", projectTabColor("projects")]'
+                        :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block xs:text-center sm:text-right", projectTabColor("projects")]'
                         href="">Projects</a>
-                    <p v-show="tab == 'projects'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/2 absolute right-0">
+                    <p v-show="tab == 'projects'"
+                        class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/2 absolute right-0 hidden lg:block">
                     </p>
                 </div>
                 <div class="relative">
                     <a @click.prevent="this.tab = 'followers'"
-                        :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("followers")]'
+                        :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block xs:text-center sm:text-left lg:text-center", projectTabColor("followers")]'
                         href="">Followers</a>
-                    <p v-show="tab == 'followers'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute"></p>
+                    <p v-show="tab == 'followers'"
+                        class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute hidden lg:block"></p>
                 </div>
                 <div class="relative">
                     <a @click.prevent="this.tab = 'following'"
                         :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block text-center", projectTabColor("following")]'
                         href="">Following</a>
-                    <p v-show="tab == 'following'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute"></p>
+                    <p v-show="tab == 'following'"
+                        class="bg-yellow-800 dark:bg-yellow-300 h-2 w-full absolute hidden lg:block"></p>
                 </div>
                 <div class="relative">
                     <a @click.prevent="this.tab = 'likes'"
-                        :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block", projectTabColor("likes")]'
+                        :class='["px-4 py-6 w-full bg-gray-700 dark:bg-gray-900 hover:bg-gray-800 inline-block xs:text-center lg:text-left", projectTabColor("likes")]'
                         href="">Likes</a>
-                    <p v-show="tab == 'likes'" class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/4 absolute"></p>
+                    <p v-show="tab == 'likes'"
+                        class="bg-yellow-800 dark:bg-yellow-300 h-2 w-1/4 absolute hidden lg:block"></p>
                 </div>
             </div>
-        </section> -->
+        </section>
 
 
         <!-- tabs contents -->
-        <!-- <section v-if="this.artist.id"
+        <section v-if="this.artist.id"
             class="gallery stuff bg-gray-400 dark:bg-gray-700 [&>div]:min-h-screen [&>div]:place-content-start">
             <div v-show="this.tab == 'projects'">
                 <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
@@ -160,18 +164,18 @@
                 <template v-for="(followingInstance, index) in this.followers" :key="index">
                     <ArtistCard :artist="followingInstance.follower" :artPlaceholder="this.artPlaceholder" />
                 </template>
-</div>
-<div v-show="this.tab == 'following'" class="grid grid-cols-4 gap-4 py-10 px-16">
-    <template v-for="(followingInstance, index) in this.following" :key="index">
+            </div>
+            <div v-show="this.tab == 'following'" class="grid grid-cols-4 gap-4 py-10 px-16">
+                <template v-for="(followingInstance, index) in this.following" :key="index">
                     <ArtistCard :artist="followingInstance.following" :artPlaceholder="this.artPlaceholder" />
                 </template>
-</div>
-<div v-show="this.tab == 'likes'">
-    <WorksGallery :works="likedWorks" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
-        :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true" :galleryType="'likes'"
-        :showDelete="userOwnsThisArtistProfile()" />
-</div>
-</section> -->
+            </div>
+            <div v-show="this.tab == 'likes'">
+                <WorksGallery :works="likedWorks" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
+                    :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true" :galleryType="'likes'"
+                    :showDelete="userOwnsThisArtistProfile()" />
+            </div>
+        </section>
     </div>
 </template>
 
