@@ -1,5 +1,5 @@
 <template>
-    <div class="text-gray-800 dark:text-gray-200 mx-16">
+    <div class="text-gray-800 dark:text-gray-200 xs:mx-2 sm:mx-5 md:mx-10 lg:mx-16">
         <header class="mt-3">
             <span class="text-3xl font-bold mr-3">Store</span><span>{{ products.length }} items</span>
         </header>
@@ -31,19 +31,19 @@
                     <!-- tab 1 content (place content inside the div) -->
                     <div class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
                         id="tabs-products" role="tabpanel" aria-labelledby="tabs-products-tab" data-twe-tab-active>
-                        <div class="grid grid-cols-5 mt-10 mb-96 gap-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-10 mb-96 gap-5">
                             <ProductCard v-for="(product, index) in products" :product="product" :key="index" />
                         </div>
                     </div>
                     <!-- tab 2 content (place content inside the div) -->
                     <div class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
                         id="tabs-bundles" role="tabpanel" aria-labelledby="tabs-bundles-tab">
-                        Tab 2 content
+                        Bundles content (still in development)
                     </div>
                     <!-- tab 3 content (place content inside the div) -->
                     <div class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
                         id="tabs-sellerInfo" role="tabpanel" aria-labelledby="tabs-bundles-tab">
-                        Tab 3 content
+                        Seller info (will be updated soon)
                     </div>
                 </div>
             </div>
