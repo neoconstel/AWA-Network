@@ -43,7 +43,8 @@
                     <!-- tab 3 content (place content inside the div) -->
                     <div class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
                         id="tabs-sellerInfo" role="tabpanel" aria-labelledby="tabs-bundles-tab">
-                        Seller info (will be updated soon)
+                        <p>This asset store is owned by <b>{{ this.dataStore.seller.brand_name }}</b>.</p>
+                        More seller info will be updated soon.
                     </div>
                 </div>
             </div>
