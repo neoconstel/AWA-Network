@@ -12,12 +12,13 @@
         <!-- Hamburger button for mobile view -->
         <button
           class="block border-0 bg-transparent px-2 text-black/50 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
-          type="button" data-twe-collapse-init data-twe-target="#navbarSupportedContent12"
-          aria-controls="navbarSupportedContent12" aria-expanded="false" aria-label="Toggle navigation">
+          @click="showingMobileMenu = !showingMobileMenu" type="button" data-twe-collapse-init
+          data-twe-target="#navbarSupportedContent12" aria-controls="navbarSupportedContent12" aria-expanded="false"
+          aria-label="Toggle navigation" ref="hamburgerButton">
           <!-- Hamburger icon -->
           <span class="[&>svg]:w-7 [&>svg]:stroke-black/50 dark:[&>svg]:stroke-neutral-200">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path fill-rule="evenodd"
+            <svg id="hamburgerIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" id="hamburgerPath"
                 d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
                 clip-rule="evenodd" />
             </svg>
@@ -224,6 +225,7 @@ export default {
       'showFooter': false,
       'showUserMenu': false,
       'navLinks': [],
+      'showingMobileMenu': false // just tells us if mobile menu is SHOWING, but does not control it
     }
   },
   computed: {
@@ -389,13 +391,18 @@ export default {
 
     // handle auto-closing of open menus
     window.addEventListener('click', (event) => {
-      // console.clear()
       let target = event.target
-      // console.log('WINDOW HAS BEEN CLICKED', target)
+
+      console.log(event.target)
 
       // if user menu is open and what was clicked isn't the user menu icon, close it
       if (this.showUserMenu && target.id != 'userMenuIcon') {
         this.showUserMenu = false
+      }
+
+      // if mobile menu is showing, click the hamburger button so it closes
+      if (this.showingMobileMenu && target.id != 'hamburgerIcon' && target.id != 'hamburgerPath') {
+        this.$refs.hamburgerButton.click()
       }
     })
 
