@@ -156,23 +156,27 @@
         <section v-if="this.artist.id"
             class="gallery stuff bg-gray-400 dark:bg-gray-700 [&>div]:min-h-screen [&>div]:place-content-start">
             <div v-show="this.tab == 'projects'">
-                <WorksGallery :works="works" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
-                    :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true"
-                    :galleryType="'projects'" :showDelete="userOwnsThisArtistProfile()" />
+                <WorksGallery class="grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5" :works="works"
+                    :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0" :stopIndex="this.worksUpperLimit"
+                    @bottom-reached="" :infiniteScroll="true" :galleryType="'projects'"
+                    :showDelete="userOwnsThisArtistProfile()" />
             </div>
-            <div v-show="this.tab == 'followers'" class="grid grid-cols-4 gap-4 py-10 px-16">
+            <div v-show="this.tab == 'followers'"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-10 xs:px-4 lg:px-16">
                 <template v-for="(followingInstance, index) in this.followers" :key="index">
                     <ArtistCard :artist="followingInstance.follower" :artPlaceholder="this.artPlaceholder" />
                 </template>
             </div>
-            <div v-show="this.tab == 'following'" class="grid grid-cols-4 gap-4 py-10 px-16">
+            <div v-show="this.tab == 'following'"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-10 xs:px-4 lg:px-16">
                 <template v-for="(followingInstance, index) in this.following" :key="index">
                     <ArtistCard :artist="followingInstance.following" :artPlaceholder="this.artPlaceholder" />
                 </template>
             </div>
             <div v-show="this.tab == 'likes'">
-                <WorksGallery :works="likedWorks" :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0"
-                    :stopIndex="this.worksUpperLimit" @bottom-reached="" :infiniteScroll="true" :galleryType="'likes'"
+                <WorksGallery class="grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5" :works="likedWorks"
+                    :infoBgCol="'bg-gray-300 dark:bg-gray-800'" :startIndex="0" :stopIndex="this.worksUpperLimit"
+                    @bottom-reached="" :infiniteScroll="true" :galleryType="'likes'"
                     :showDelete="userOwnsThisArtistProfile()" />
             </div>
         </section>
