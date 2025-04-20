@@ -38,7 +38,8 @@
 
             <section class="reviewer-bio pt-24">
                 <div class="flex flex-col lg:flex-row bg-amber-50 dark:bg-gray-700 p-4">
-                    <div class="flex"><img class="rounded-full h-20 aspect-square block my-auto justify-center mx-auto "
+                    <div class="flex"><img
+                            class="rounded-full h-20 aspect-square object-cover block my-auto justify-center mx-auto "
                             :src="profileImage" alt="reviewer photo">
                     </div>
                     <div class="p-3 flex-1">
