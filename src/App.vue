@@ -114,7 +114,7 @@
                   :to="`/resources/store/${this.dataStore.seller.alias}`">
                   <h5>Your Seller Store</h5>
                 </RouterLink>
-                <RouterLink class="block" @click='showUserMenu = false;' :to="''">
+                <RouterLink class="block" @click='showUserMenu = false;' :to="'/jobs'">
                   <h5>Jobs</h5>
                 </RouterLink>
                 <!-- <h5 @click="showUserMenu = false" class="">Sign Out</h5> -->

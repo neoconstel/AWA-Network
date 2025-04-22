@@ -151,6 +151,11 @@ const fixedRoutes = [
     name: "contestEditor",
     component: () => import("../views/ContestEditor.vue"),
   },
+  {
+    path: "/jobs",
+    name: "jobs",
+    component: () => import("../views/Jobs.vue"),
+  },
   // {
   //   path: "/filepond",
   //   name: "FilePond",
