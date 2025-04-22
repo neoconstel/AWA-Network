@@ -85,7 +85,7 @@
                 <a class="block text-right" href="">More</a>
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                    <template v-for="(review, index) in reviews.slice(0, 4)">
+                    <template v-for="(review, index) in reviews.slice(0, 4)" :key="index">
                         <div class="relative grid bg-yellow-500">
                             <RouterLink class="w-full h-full aspect-video" :to="`/review/${review.id}/`">
                                 <img class="h-full w-full object-cover" :src="review.caption_media_url" alt="">
@@ -144,9 +144,16 @@
                 <a class="block text-right" href="">More</a>
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                    <template v-for="i in 4">
-                        <div class="grid bg-gray-300 p-3" style="aspect-ratio: 16/9;">
-
+                    <template v-for="(product, index) in products.slice(0, 4)" :key="index">
+                        <div class="relative grid bg-yellow-500">
+                            <RouterLink class="w-full h-full aspect-video" :to="`/resource/${product.id}/`">
+                                <img class="h-full w-full object-cover" :src="product.thumbnail_images[0]" alt="">
+                            </RouterLink>
+                            <span
+                                class="absolute left-3 top-3 font-bold bg-gray-500 px-2 py-1 rounded-xl text-yellow-400">{{
+                                    product.title.slice(0, 40)
+                                    +
+                                    (product.title.length > 36 ? '...' : '') }}</span>
                         </div>
                     </template>
                 </div>
@@ -245,7 +252,11 @@ export default {
             "spotlightArt": {}, // {id, url}
             "spotlightCaption": "",
 
-            "reviews": []
+            "reviews": [],
+            "challenges": [],
+            "products": [], // products refers to resources            
+            "meetups": [],
+            "jobs": []
         }
     },
     computed: {
@@ -323,6 +334,28 @@ export default {
                     console.log('error', error)
                 })
         },
+        async fetchProducts() {
+            /** fetch products has been slightly altered from the original
+             * method in the Resources page, as this is only needed for getting
+             * product samples for display in the homepage. So no need for
+             * subcategories or checking the route parameters for categories
+             * etcetera
+             */
+
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/resources/products/`
+
+            fetch(url)
+                .then(response => response.json())
+                .then((data) => {
+                    this.products = []
+                    this.products = data['results']
+                }
+                )
+                .catch((error) => {
+                    this.errorMessage = error
+                    console.log('error', error)
+                })
+        }
 
     },
     async mounted() {
@@ -341,6 +374,7 @@ export default {
         this.fetchPageCMS()
         this.fetchWorks()
         this.fetchReviews()
+        this.fetchProducts()
 
     }
 }
