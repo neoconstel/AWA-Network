@@ -1,10 +1,10 @@
 <template>
-    <div class="page-container mt-5 mx-16 text-gray-800 dark:text-gray-200">
+    <div class="page-container mt-5 mx-2 lg:mx-16 text-gray-800 dark:text-gray-200 mb-40">
         <h1 class="text-center">Studios and Careers</h1>
         <section class="studios">
-            <div class="grid grid-cols-2 gap-5">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
                 <div v-for="(studio, index) in this.studios" class="grid grid-cols-[1fr_2fr]" :key="index">
-                    <img class="p-10" :src="studio.logo" alt="">
+                    <img class="p-5 sm:p-10 my-auto" :src="studio.logo" alt="">
                     <div class="mt-10 space-y-2">
                         <h2>{{ studio.name }}</h2>
                         <p>{{ studio.location }}</p>
