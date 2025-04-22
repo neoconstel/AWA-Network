@@ -55,23 +55,28 @@
                 @bottom-reached="addMoreWorks" />
         </section>
         <section class="tv">
-            <div class="flex">
-                <h3 class="text-2xl sm:text-4xl mx-auto">AWA TV</h3>
-                <p class="text-lg sm:text-2xl mr-4"><a href="">More</a></p>
-            </div>
-
-            <div
-                class="grid xs:grid-rows-2 sm:grid-rows-none sm:grid-cols-2 bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-200 pt-2 pb-2 px-7">
-                <img class="w-full" src="https://i.imgur.com/SLPdRb2.jpg" />
-                <div class="grid grid-rows-3 bg-gray-500 p-3 gap-x-8 gap-y-6" style="grid-template-columns: 1fr 2fr;">
-                    <div class="bg-pink-500"></div>
-                    <div class="bg-cyan-500"></div>
-                    <div class="bg-yellow-500"></div>
-                    <div class="bg-orange-500"></div>
-                    <div class="bg-blue-500"></div>
-                    <div class="bg-violet-500"></div>
+            <div v-if="tvShows.length">
+                <div class="flex">
+                    <h3 class="text-2xl sm:text-4xl mx-auto">AWA TV</h3>
+                    <p class="text-lg sm:text-2xl mr-4"><a href="">More</a></p>
+                </div>
+                <div
+                    class="grid xs:grid-rows-2 sm:grid-rows-none sm:grid-cols-2 bg-gray-400 dark:bg-gray-700 text-gray-700 dark:text-gray-200 pt-2 pb-2 px-7">
+                    <img class="w-full" src="https://i.imgur.com/SLPdRb2.jpg" />
+                    <div class="grid grid-rows-3 bg-gray-500 p-3 gap-x-8 gap-y-6"
+                        style="grid-template-columns: 1fr 2fr;">
+                        <div class="bg-pink-500"></div>
+                        <div class="bg-cyan-500"></div>
+                        <div class="bg-yellow-500"></div>
+                        <div class="bg-orange-500"></div>
+                        <div class="bg-blue-500"></div>
+                        <div class="bg-violet-500"></div>
+                    </div>
                 </div>
             </div>
+            <p v-else class="text-center text-gray-200 bg-gray-500 p-10 rounded-full w-40 mx-auto"><i>TV Shows
+                    coming
+                    soon</i></p>
         </section>
         <section class="gallery">
             <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
@@ -118,7 +123,8 @@
                 @bottom-reached="addMoreWorks" />
         </section>
         <section class="challenges mb-10">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+            <div v-if="this.challenges.length"
+                class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
                 <p class="grid grid-cols-2">
                 <h3 class="">Challenges</h3>
                 <a class="block text-right" href="">More</a>
@@ -131,6 +137,9 @@
                     </template>
                 </div>
             </div>
+            <p v-else class="text-center text-gray-200 bg-gray-500 p-10 rounded-full w-40 mx-auto"><i>Challenges
+                    coming
+                    soon</i></p>
         </section>
         <section class="gallery">
             <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
@@ -165,7 +174,7 @@
                 @bottom-reached="addMoreWorks" />
         </section>
         <section class="meetups mb-10">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+            <div v-if="meetups.length" class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
                 <p class="grid grid-cols-2">
                 <h3 class="">Meetups</h3>
                 <a class="block text-right" href="">More</a>
@@ -178,6 +187,9 @@
                     </template>
                 </div>
             </div>
+            <p v-else class="text-center text-gray-200 bg-gray-500 p-10 rounded-full w-40 mx-auto"><i>Meetups
+                    coming
+                    soon</i></p>
         </section>
         <section class="gallery">
             <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
@@ -185,7 +197,7 @@
                 @bottom-reached="addMoreWorks" />
         </section>
         <section class="jobs">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+            <div v-if="jobs.length" class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
                 <p class="grid grid-cols-2">
                 <h3 class="inline">Jobs</h3>
                 <a class="block text-right" href="">All Jobs</a>
@@ -213,6 +225,9 @@
                     </template>
                 </div>
             </div>
+            <p v-else class="text-center text-gray-200 bg-gray-500 p-10 rounded-full w-44 mx-auto"><i>Job listings
+                    coming
+                    soon</i></p>
         </section>
         <section class="gallery">
             <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
@@ -252,6 +267,7 @@ export default {
             "spotlightArt": {}, // {id, url}
             "spotlightCaption": "",
 
+            "tvShows": [],
             "reviews": [],
             "challenges": [],
             "products": [], // products refers to resources            
