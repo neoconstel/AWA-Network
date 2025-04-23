@@ -6,8 +6,8 @@
 
         <main class="artwork-display grid" style="grid-area: artwork-display;">
             <div><img class="xs:px-5 xs:py-2 lg:px-16 lg:py-8 mx-auto" :src="this.artwork.file_url" alt=""></div>
-            <div class="flex flex-col gap-y-5">
-                <div class="px-10 py-8 bg-gray-400 dark:bg-gray-600 space-x-1 ">
+            <div v-if="this.artwork.tags" class="flex flex-col gap-y-5">
+                <div class="px-3 py-2 bg-gray-400 dark:bg-gray-600 space-x-1 ">
                     <em class="text-gray-800 dark:text-gray-200">Tags</em>
                     <span v-if="this.artwork.tags" class="text-xs p-1 bg-gray-700 rounded-lg"
                         v-for="(tag, index) in this.artwork.tags.split(',')" key="index">{{ tag
@@ -61,7 +61,8 @@
         <div class="side-panel px-10 bg-gray-500 dark:bg-gray-700" style="grid-area: side-panel;">
             <section class="artwork-info">
                 <div v-if="this.artwork.id">
-                    <img class="inline-block w-14 h-14 rounded-full m-4" :src="profileImage" alt="profile_image">
+                    <img class="inline-block w-14 h-14 aspect-square object-cover rounded-full m-4" :src="profileImage"
+                        alt="profile_image">
                     <RouterLink @click="storeArtwork" :to="`/artistPortfolio/${this.artwork.artist.user.username}`">
                         <h3 class="inline text-cyan-500 hover:text-gray-100">{{ this.artwork.artist.user.name }}</h3>
                     </RouterLink>
