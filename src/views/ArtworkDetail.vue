@@ -49,7 +49,7 @@
             </form>
             <div class="comments [&>.comment]:bg-gray-500 [&>.comment]:dark:bg-gray-700 space-y-5 mt-16">
                 <div v-for="(comment, index) in this.commentData.results" :key="index"
-                    class="comment [&>p]:text-gray-800 [&>p]:dark:text-gray-200 p-3" :id="comment.id"
+                    class="comment [&>p]:text-gray-300 [&>p]:dark:text-gray-200 p-3" :id="comment.id"
                     style="border-radius: 20px;">
                     <p><b>{{ comment.user.name }}</b></p>
                     <p>{{ comment.content }}</p>

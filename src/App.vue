@@ -108,11 +108,11 @@
               <div class="space-y-2">
                 <RouterLink v-if="this.dataStore.user.id" class="block" @click='showUserMenu = false;'
                   :to="`/artistPortfolio/${this.dataStore.user.username}`">
-                  <h5>Your Artwork Dashboard</h5>
+                  <h5>Your Profile</h5>
                 </RouterLink>
                 <RouterLink v-if="this.dataStore.seller.id" class="block" @click='showUserMenu = false;'
                   :to="`/resources/store/${this.dataStore.seller.alias}`">
-                  <h5>Your Seller Store</h5>
+                  <h5>Your Assets Store</h5>
                 </RouterLink>
                 <RouterLink class="block" @click='showUserMenu = false;' :to="'/jobs'">
                   <h5>Jobs</h5>
