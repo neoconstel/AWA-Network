@@ -84,7 +84,7 @@
                 @bottom-reached="addMoreWorks" />
         </section>
         <section class="reviews mb-10">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+            <div v-if="this.reviews.length" class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
                 <p class="grid grid-cols-2">
                 <h3 class="">Reviews</h3>
                 <a class="block text-right" href="">More</a>
@@ -101,6 +101,9 @@
                     </template>
                 </div>
             </div>
+            <p v-else class="text-center text-gray-200 bg-gray-500 p-10 rounded-full w-40 mx-auto"><i>Reviews
+                    coming
+                    soon</i></p>
         </section>
         <!-- <section class="spotlight mb-10">
             <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
@@ -147,7 +150,7 @@
                 @bottom-reached="addMoreWorks" />
         </section>
         <section class="resources mb-10">
-            <div class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
+            <div v-if="this.products.length" class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-4">
                 <p class="grid grid-cols-2">
                 <h3 class="">Resources</h3>
                 <a class="block text-right" href="">More</a>
@@ -167,6 +170,9 @@
                     </template>
                 </div>
             </div>
+            <p v-else class="text-center text-gray-200 bg-gray-500 p-10 rounded-full w-40 mx-auto"><i>Resources
+                    coming
+                    soon</i></p>
         </section>
         <section class="gallery">
             <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
