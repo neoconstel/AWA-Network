@@ -1,7 +1,7 @@
 <template>
     <!-- NOTE: regular CSS is used to control the overall layout here, as it makes use
      of grid-template-areas -->
-    <div class="entire-page xs:mx-5 lg:mx-16 grid gap-x-5 gap-y-20 text-gray-200 ">
+    <div class="entire-page xs:mx-5 lg:mx-16 grid gap-x-5 gap-y-20 text-gray-200 mb-40">
 
 
         <main class="artwork-display grid" style="grid-area: artwork-display;">
@@ -336,7 +336,7 @@ export default {
              * to the UI element what to do after the request is successful.
              */
 
-            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/comments/artwork/1544/?parent_comment=${parent_comment_id}&content=${content}`
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/comments/artwork/${this.$route.params.id}/?parent_comment=${parent_comment_id}&content=${content}`
 
             const headers = {
                 'Content-Type': 'application/json',
