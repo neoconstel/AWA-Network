@@ -23,8 +23,7 @@
                 <Textarea class="text-gray-800 outline outline-1 outline-gray-500" rows="5" name="comment"
                     ref="commentBox"></Textarea>
                 <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
-                    <RippleButton @click.prevent="submitComment" class="w-32 text-yellow-300" for="commentBox"
-                        :buttonText="'Comment'" />
+                    <v-btn @click="submitComment" for="commentBox">Comment</v-btn>
                     <button v-if="this.dataStore.user.id && this.artwork.id" class="ml-10 mr-2" type="button">
                         <ThumbuppaintedIcon @click="unreact('like')"
                             v-if="this.reactionData.user_reactions && this.reactionData.user_reactions.includes('like')"
@@ -34,7 +33,7 @@
                     </button>
                     <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
                         this.numberFormat(this.reactionData.count)
-                    }}</span>
+                        }}</span>
                     <span
                         v-if="this.dataStore.user.id && this.artwork.id && this.artwork.artist.user.username == this.dataStore.user.username"
                         class="absolute right-0">
@@ -42,8 +41,22 @@
                             data-twe-target="#editWorkModal">
                             <PencilIcon class="inline h-12 mr-5 fill-gray-800 dark:fill-gray-200" />
                         </a>
-                        <RippleButton class="w-32 bg-red-600 hover:bg-red-700 text-yellow-300" :buttonText="'Delete'"
-                            data-twe-toggle="modal" data-twe-target="#deleteProjectModal" />
+                        <v-btn @click="showDeleteDialog = true">Delete</v-btn>
+
+                        <!-- Dialog for artwork delete -->
+                        <v-dialog v-model="showDeleteDialog" max-width="400">
+                            <v-card title="Delete this artwork?" color="blue" text="">
+                                <div class="flex flex-initial justify-center">
+                                    <v-card-actions>
+                                        <v-btn
+                                            @click="() => { deleteThisArtwork(); showDeleteDialog = false }">Delete</v-btn>
+                                    </v-card-actions>
+                                    <v-card-actions>
+                                        <v-btn @click="showDeleteDialog = false">Cancel</v-btn>
+                                    </v-card-actions>
+                                </div>
+                            </v-card>
+                        </v-dialog>
                     </span>
                 </div>
             </form>
@@ -84,7 +97,7 @@
             </section>
             <aside class="extras">
                 <h3 v-if="this.artwork.id && this.otherArtworks.length > 0">More from {{ this.artwork.artist.user.name
-                    }}
+                }}
                 </h3>
                 <!-- intentionally didn't set a grid-row, so if the images are few, they
                 fit into a single row but if they surpass the width for a single row, the
@@ -130,7 +143,9 @@ export default {
             "artwork": {},
             "reactionData": {},
             "commentData": {},
-            "otherArtworks": []
+            "otherArtworks": [],
+
+            "showDeleteDialog": false
         }
     },
     computed: {
@@ -401,6 +416,45 @@ export default {
                 this.commentOnArtwork(event, content, parent_comment_id)
             }
         },
+        async deleteThisArtwork() {
+            /** modified from the respective function in DeleteprojectModal,
+             * which deletes from the artistportfolio whereas this deletes
+             * directly from the art detail page.
+             */
+            const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artwork/${this.artwork.id}/`
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': this.$cookies.get('csrftoken')
+            }
+
+            const requestOptions = {
+                method: 'DELETE',
+                headers: headers,
+                credentials: 'include'
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    if (response.ok) {
+                        /** Delete the related work component if on screen
+                         * <only used in the original version of this function>                         * 
+                         */
+                        const workComponent = document.getElementById("work-" + this.artwork.id)
+                        if (workComponent)
+                            workComponent.parentElement.remove()
+                        // else we are be in work detail view, so go to home
+                        else
+                            this.$router.push('/')
+                    }
+                    else
+                        throw new Error('delete failed')
+                })
+                .catch((error) => {
+                    alert(`Failed to delete artwork. Perhaps your internet is disconnected.`)
+                    // alert(error)
+                })
+        }
 
     },
     async mounted() {

@@ -38,6 +38,12 @@ export default {
     },
     methods: {
         deleteWork() {
+            /** while this function is only currently used to delete artworks
+             * from the artist portfolio page, a modified version of this
+             * function now exists in the ArtworkDetail page for deleting the
+             * artwork directly from its detail page, and uses vuetify dialog
+             * instead of this modal.
+             */
             const workID = this.work.id
             const url = `${import.meta.env.VITE_BACKEND_DOMAIN}/api/artwork/${workID}/`
 
