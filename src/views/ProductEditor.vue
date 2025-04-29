@@ -12,7 +12,7 @@
             <h2 v-if="!this.selectedCategory" class="text-center text-lg lg:text-2xl">Select a product category</h2>
             <div v-else class="text-center">
                 <h2 class="text-lg lg:text-2xl">Selected Category:</h2>
-                <span class="bg-green-300 px-2 py-1 rounded-3xl"><b>{{
+                <span class="bg-green-300 text-gray-800 px-2 py-1 rounded-3xl"><b>{{
                     this.selectedCategory.path.slice(1).replaceAll('/', ' -> ')
                         }}</b></span>
             </div>
@@ -119,13 +119,15 @@
 
                         <!-- Dropdown for selecting file licenses -->
                         <div>
-                            <button><b>{{
-                                fileData.file.filename }}</b></button>
+                            <button><span class="text-sm lg:text-md">
+                                    <b>{{
+                                        fileData.file.filename }}</b>
+                                </span></button>
                             <div>
                                 <ul>
                                     <li v-for="(license, index) in this.licenses" :key="index">
                                         <a @click="() => { if (!fileData.licenses.includes(license)) { if (license.free) license.price = 0; fileData.licenses.push(license); } }"
-                                            class="active:bg-cyan-500 focus:bg-cyan-500 dark:active:bg-cyan-500 dark:focus:bg-cyan-500 block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+                                            class="text-gray-200 dark:text-gray-800 bg-gray-700 dark:bg-gray-300 hover:bg-yellow-500 dark:hover:bg-yellow-300 rounded-2xl block w-3/5 lg:w-96 px-2 py-2"
                                             href="JavaScript:void(0)" data-twe-dropdown-item-ref>{{ license.name }}
                                             license</a>
                                     </li>
@@ -133,8 +135,10 @@
                             </div>
 
                         </div>
+
+                        <!-- license chip -->
                         <div v-for="(license, index) in fileData.licenses" :key="index"
-                            class="mr-3 inline-block rounded-full border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-accent-300 hover:bg-primary-50/50 hover:text-primary-accent-300 focus:border-primary-600 focus:bg-primary-50/50 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 motion-reduce:transition-none dark:text-primary-500 dark:hover:bg-blue-950 dark:focus:bg-blue-950"
+                            class="text-gray-800 dark:text-gray-200 mr-3 inline-block rounded-full border-2 border-gray-500 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:border-primary-accent-300 hover:bg-primary-50/50 focus:border-primary-600 focus:bg-primary-50/50 focus:ring-0 motion-reduce:transition-none dark:hover:bg-blue-950 dark:focus:bg-blue-950"
                             data-twe-ripple-init>
                             {{ license.name }} <button @click="fileData.licenses.splice(index, 1)"
                                 class="relative left-2 text-lg font-thin">X</button>
@@ -162,21 +166,23 @@
             <section v-if="this.selectedLicenses.length" class="preview-section">
                 <h2 class="text-center mt-10">Preview</h2>
                 <div v-for="(license, index) in this.selectedLicenses" :key="index" class="mt-5 border border-gray-500">
-                    <p><b>{{ license.name }} license (${{ license.price }})</b></p>
+                    <p><b>{{ license.name }} license (${{ license.price
+                            }})</b></p>
                     <p class="mt-3"><b>Files:</b></p>
                     <template v-for="(fileData, index) in Object.values(this.productFiles)" :key="index">
-                        <p v-if="fileData.licenses.includes(license)" class="space-x-3">
+                        <p v-if="fileData.licenses.includes(license)"
+                            class="space-x-3 outline-dashed outline-1 outline-gray-500 mb-2">
                             <span>{{ fileData.file.filename }}</span>
                             <span v="fileData.file.fileType">({{ fileData.file.fileType }})</span>
                             <span v-if="fileData.file.fileSize < 1000">({{ fileData.file.fileSize }} bytes)</span>
                             <span v-else-if="fileData.file.fileSize < 1000000">({{ fileData.file.fileSize / 1000 }}
                                 kb)</span>
                             <span v-else-if="fileData.file.fileSize < 1000000000">({{ fileData.file.fileSize / 1000000
-                                }}
+                            }}
                                 mb)</span>
                             <span v-else="fileData.file.fileSize < 1000000000000">({{ fileData.file.fileSize /
                                 1000000000
-                                }} gb)</span>
+                            }} gb)</span>
                             <!-- <span>{{ fileData.file.serverId }}</span> -->
                         </p>
                     </template>
