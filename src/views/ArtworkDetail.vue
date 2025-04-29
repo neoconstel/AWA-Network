@@ -20,10 +20,11 @@
             style="border-top-width: 1px; border-color: gray; grid-area: comments-section;">
             <form v-if="this.dataStore.user.id && this.artwork.id" class="flex flex-col space-y-2" action="">
                 <label class="text-gray-800 dark:text-gray-200" id="comment" for="comment">Add a new comment</label>
-                <Textarea class="text-gray-800 outline outline-1 outline-gray-500" rows="5" name="comment"
-                    ref="commentBox"></Textarea>
+                <Textarea class="text-gray-800 dark:text-gray-200 px-1 outline outline-1 outline-gray-500" rows="5"
+                    name="comment" ref="commentBox"></Textarea>
                 <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
-                    <v-btn @click="submitComment" for="commentBox">Comment</v-btn>
+                    <RippleButton @click.prevent="submitComment" class="w-32 text-yellow-300" for="commentBox"
+                        :buttonText="'Comment'" />
                     <button v-if="this.dataStore.user.id && this.artwork.id" class="ml-10 mr-2" type="button">
                         <ThumbuppaintedIcon @click="unreact('like')"
                             v-if="this.reactionData.user_reactions && this.reactionData.user_reactions.includes('like')"
@@ -41,7 +42,8 @@
                             data-twe-target="#editWorkModal">
                             <PencilIcon class="inline h-12 mr-5 fill-gray-800 dark:fill-gray-200" />
                         </a>
-                        <v-btn @click="showDeleteDialog = true">Delete</v-btn>
+                        <!-- <v-btn @click="showDeleteDialog = true">Delete</v-btn> -->
+                        <RippleButton @click="showDeleteDialog = true" class="w-32" :buttonText="'Delete'" />
 
                         <!-- Dialog for artwork delete -->
                         <v-dialog v-model="showDeleteDialog" max-width="400">
