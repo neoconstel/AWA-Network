@@ -23,7 +23,7 @@
                     <PencilIcon class="inline h-12 mr-10 fill-gray-800 dark:fill-gray-200" />
                 </a>
                 <!-- <v-btn @click="showDeleteDialog = true">Delete</v-btn> -->
-                <RippleButton @click="showDeleteDialog = true" class="w-32" :buttonText="'Delete'" />
+                <RippleButton @click="showDeleteDialog = true" class="w-32" :buttonText="'Delete Artwork'" />
                 <!-- Dialog for artwork delete -->
                 <v-dialog v-model="showDeleteDialog" max-width="400">
                     <v-card title="Delete this artwork?" color="blue" text="">
@@ -58,7 +58,7 @@
                     </button>
                     <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
                         this.numberFormat(this.reactionData.count)
-                    }}</span>
+                        }}</span>
                 </div>
             </form>
             <div class="comments [&>.comment]:bg-gray-500 [&>.comment]:dark:bg-gray-700 space-y-5 mt-16">
@@ -98,7 +98,7 @@
             </section>
             <aside class="extras">
                 <h3 v-if="this.artwork.id && this.otherArtworks.length > 0">More from {{ this.artwork.artist.user.name
-                }}
+                    }}
                 </h3>
                 <!-- intentionally didn't set a grid-row, so if the images are few, they
                 fit into a single row but if they surpass the width for a single row, the

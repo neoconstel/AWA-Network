@@ -13,7 +13,8 @@
             <div v-if="this.artCategories.length && this.artCategory && this.artCategory.id">
                 <fieldset class="border-2 p-1 border-gray-800 dark:border-gray-200">
                     <legend class="text-xs">Categories</legend>
-                    <input class="outline-none w-full bg-transparent focus:outline-none" :value="this.artCategory.name"
+                    <input @click="this.$refs.categories.value = ''"
+                        class="outline-none w-full bg-transparent focus:outline-none" :value="this.artCategory.name"
                         type="text" list="sub-topics" id="categories" placeholder="" ref="categories" />
                 </fieldset>
                 <datalist id="sub-topics">
