@@ -268,8 +268,9 @@ export default {
                         this.$refs.signupModal.close()
 
                         setTimeout(() => {
-                            alert("Registration Successful. Check your email for "
-                                + "a verification link to activate your account.")
+                            // alert("Registration Successful. Check your email for "
+                            //     + "a verification link to activate your account.")
+                            alert("Registration Successful. You may login now.")
                         }, 2000)
 
                         // refresh page
