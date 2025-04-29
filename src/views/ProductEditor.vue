@@ -1,23 +1,25 @@
 <template>
-    <div class="text-gray-800 dark:text-gray-200 mx-16 pb-40 mb-28">
-        <h1 class="text-center mt-5">UPLOAD A DIGITAL PRODUCT</h1>
+    <div class="text-gray-800 dark:text-gray-200 mx-2 lg:mx-16 pb-40 mb-28">
+        <h1 class="text-center mt-5 text-xl lg:text-3xl">UPLOAD A DIGITAL PRODUCT</h1>
         <div class="border-gray-500" style="border-top-width: 1px;"></div>
-        <h2 CLASS="mt-5 text-center">Product Title</h2>
+        <h2 CLASS="mt-5 text-center text-lg lg:text-2xl">Product Title</h2>
         <p class="text-center mb-10"><input v-model="title"
                 class="w-1/2 bg-transparent px-2 outline outline-gray-800 dark:outline-gray-200 text-center"
                 type="text">
         </p>
 
         <template v-if="this.productCategories.length > 0">
-            <h2 v-if="!this.selectedCategory" class="text-center">Select a product category</h2>
+            <h2 v-if="!this.selectedCategory" class="text-center text-lg lg:text-2xl">Select a product category</h2>
             <div v-else class="text-center">
-                <h2>Selected Category:</h2>
-                <b>{{ this.selectedCategory.path.slice(1).replaceAll('/', ' -> ') }}</b>
+                <h2 class="text-lg lg:text-2xl">Selected Category:</h2>
+                <span class="bg-green-300 px-2 py-1 rounded-3xl"><b>{{
+                    this.selectedCategory.path.slice(1).replaceAll('/', ' -> ')
+                        }}</b></span>
             </div>
             <RecursiveMenu @select-category="setCategory" :categories="this.productCategories" :depth="1" />
         </template>
 
-        <h2 CLASS="mt-10 text-center">Product Description</h2>
+        <h2 CLASS="mt-10 text-center text-lg lg:text-2xl">Product Description</h2>
         <div class="editor-buttons sticky top-24 text-center z-10 space-x-1 mt-5">
             <!-- <h3 class="block text-center text-gray-700 dark:text-gray-200">Editor</h3> -->
             <!-- <button @click="this.editor.commands.toggleHeading({ level: 1 })"
@@ -75,7 +77,7 @@
             <EditorContent :editor="editor" />
         </div>
 
-        <h2 CLASS="mt-5 text-center">Sample Images</h2>
+        <h2 CLASS="mt-5 text-center text-lg lg:text-2xl">Sample Images</h2>
         <div id="filepond">
             <!-- name of the filepond component MUST be "filepond" for it to be detected by django-drf-filepond -->
             <!-- tag is a custom property and can only be accessed from the component instance using the $attrs attribute -->
@@ -97,7 +99,7 @@
                 @processfileabort="handleProcessFileAbort" tag="sample" />
 
 
-            <h2 CLASS="mt-5 text-center">Product Files</h2>
+            <h2 CLASS="mt-5 text-center text-lg lg:text-2xl">Product Files</h2>
             <FilePond name="filepond" ref="filePond" class-name="my-pond" label-idle="Add product files"
                 allow-multiple="true" :allowFileTypeValidation="false" accepted-file-types="[]"
                 @files="filepondDefaultFiles" @:init="handleFilePondInit" :server="filepondServerConfig"
@@ -110,7 +112,8 @@
                 @processfileabort="handleProcessFileAbort" tag="productFile" />
 
             <section class="license-section">
-                <h2 v-if="Object.keys(this.productFiles).length" class="text-center">File Licenses</h2>
+                <h2 v-if="Object.keys(this.productFiles).length" class="text-center text-lg lg:text-2xl">File Licenses
+                </h2>
                 <template v-for="(fileData, fileID, index) in this.productFiles" :key="index">
                     <div class="mb-5">
 
@@ -140,7 +143,7 @@
                 </template>
             </section>
             <section v-if="this.selectedLicenses.length" class="pricing-section">
-                <h2 class="text-center">License Pricing</h2>
+                <h2 class="text-center text-lg lg:text-2xl">License Pricing</h2>
                 <div class="grid grid-cols-2 mt-5 max-w-96 border-2 border-gray-500 mx-auto">
                     <label class="border border-gray-500 mb-3" for="">License Name</label>
                     <label class="border border-gray-500 mb-3" for="">Price ($)</label>
