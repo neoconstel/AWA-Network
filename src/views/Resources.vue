@@ -32,7 +32,7 @@
         <a v-if="this.dataStore.seller.id"
             class="p-3 mt-5 block text-center w-52 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700 hover:bg-gray-500 dark:hover:bg-gray-400"
             href="/resources/upload" target="_blank">Sell Your Digital Assets</a>
-        <button v-else @click="showSellerCreateForm = true"
+        <button v-else-if="this.dataStore.user.id" @click="showSellerCreateForm = true"
             class="p-3 mt-5 block text-center w-52 rounded-3xl mx-auto bg-gray-700 dark:bg-gray-300 text-gray-300 dark:text-gray-700 hover:bg-gray-500 dark:hover:bg-gray-400">Create
             a seller profile</button>
 
