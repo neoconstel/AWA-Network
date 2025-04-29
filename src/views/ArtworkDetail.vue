@@ -14,6 +14,30 @@
                         }}</span>
                 </div>
             </div>
+
+            <!-- edit/delete controls (only available if this artwork is owned by current user) -->
+            <div v-if="this.dataStore.user.id && this.artwork.id && this.artwork.artist.user.username == this.dataStore.user.username"
+                class="mt-10 text-center">
+
+                <a @click.prevent="storeArtwork" href="" data-twe-toggle="modal" data-twe-target="#editWorkModal">
+                    <PencilIcon class="inline h-12 mr-10 fill-gray-800 dark:fill-gray-200" />
+                </a>
+                <!-- <v-btn @click="showDeleteDialog = true">Delete</v-btn> -->
+                <RippleButton @click="showDeleteDialog = true" class="w-32" :buttonText="'Delete'" />
+                <!-- Dialog for artwork delete -->
+                <v-dialog v-model="showDeleteDialog" max-width="400">
+                    <v-card title="Delete this artwork?" color="blue" text="">
+                        <div class="flex flex-initial justify-center">
+                            <v-card-actions>
+                                <v-btn @click="() => { deleteThisArtwork(); showDeleteDialog = false }">Delete</v-btn>
+                            </v-card-actions>
+                            <v-card-actions>
+                                <v-btn @click="showDeleteDialog = false">Cancel</v-btn>
+                            </v-card-actions>
+                        </div>
+                    </v-card>
+                </v-dialog>
+            </div>
         </main>
 
         <section class="comments-section"
@@ -22,7 +46,7 @@
                 <label class="text-gray-800 dark:text-gray-200" id="comment" for="comment">Add a new comment</label>
                 <Textarea class="text-gray-800 dark:text-gray-200 px-1 outline outline-1 outline-gray-500" rows="5"
                     name="comment" ref="commentBox"></Textarea>
-                <div class="relative [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
+                <div class="relative gap-y-10 [&>span]:text-gray-800 [&>span]:dark:text-gray-200">
                     <RippleButton @click.prevent="submitComment" class="w-32 text-yellow-300" for="commentBox"
                         :buttonText="'Comment'" />
                     <button v-if="this.dataStore.user.id && this.artwork.id" class="ml-10 mr-2" type="button">
@@ -34,32 +58,7 @@
                     </button>
                     <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
                         this.numberFormat(this.reactionData.count)
-                        }}</span>
-                    <span
-                        v-if="this.dataStore.user.id && this.artwork.id && this.artwork.artist.user.username == this.dataStore.user.username"
-                        class="absolute right-0">
-                        <a @click.prevent="storeArtwork" href="" data-twe-toggle="modal"
-                            data-twe-target="#editWorkModal">
-                            <PencilIcon class="inline h-12 mr-5 fill-gray-800 dark:fill-gray-200" />
-                        </a>
-                        <!-- <v-btn @click="showDeleteDialog = true">Delete</v-btn> -->
-                        <RippleButton @click="showDeleteDialog = true" class="w-32" :buttonText="'Delete'" />
-
-                        <!-- Dialog for artwork delete -->
-                        <v-dialog v-model="showDeleteDialog" max-width="400">
-                            <v-card title="Delete this artwork?" color="blue" text="">
-                                <div class="flex flex-initial justify-center">
-                                    <v-card-actions>
-                                        <v-btn
-                                            @click="() => { deleteThisArtwork(); showDeleteDialog = false }">Delete</v-btn>
-                                    </v-card-actions>
-                                    <v-card-actions>
-                                        <v-btn @click="showDeleteDialog = false">Cancel</v-btn>
-                                    </v-card-actions>
-                                </div>
-                            </v-card>
-                        </v-dialog>
-                    </span>
+                    }}</span>
                 </div>
             </form>
             <div class="comments [&>.comment]:bg-gray-500 [&>.comment]:dark:bg-gray-700 space-y-5 mt-16">
