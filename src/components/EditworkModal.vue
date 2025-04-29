@@ -76,6 +76,13 @@ export default {
             this.artCategories = categories
         },
         async submit() {
+            /** first ensure that if category field was cleared and accidentally
+             * left blank, it should be filled with existing category name
+             */
+            if (this.$refs.categories.value.trim() == '')
+                this.$refs.categories.value = this.artCategory.name
+
+            // proceed to process fields
             const title = this.$refs.title.value
             const artCategory = this.artCategories.find(
                 category => category.name == this.$refs.categories.value)
