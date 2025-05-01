@@ -57,7 +57,7 @@
         <section class="tv">
             <div v-if="tvShows.length">
                 <div class="flex">
-                    <h3 class="text-2xl sm:text-4xl mx-auto">AWA TV</h3>
+                    <h3 class="text-2xl sm:text-4xl mx-auto">Channel TV</h3>
                     <p class="text-lg sm:text-2xl mr-4"><a href="">More</a></p>
                 </div>
                 <div
@@ -211,7 +211,7 @@
                 <div class="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <template v-for="i in 6">
                         <div class="grid bg-gray-300 p-3" style="grid-template-columns: 2fr 7fr; aspect-ratio: 5/1;">
-                            <div><img style="width:100%; height:100%;" src="/static/icons/awa_logo.svg" /></div>
+                            <div><span class="text-2xl font-bold">Job</span></div>
                             <div class="text-gray-800">
                                 <p>Bungle</p>
                                 <h3 class="mb-4">VFX Lead</h3>
@@ -231,9 +231,13 @@
                     </template>
                 </div>
             </div>
-            <p v-else class="text-center text-gray-200 bg-gray-500 p-10 rounded-full w-44 mx-auto"><i>Job listings
+            <!-- <p v-else class="text-center text-gray-200 bg-gray-500 p-10 rounded-full w-44 mx-auto"><i>Job listings
                     coming
-                    soon</i></p>
+                    soon</i></p> -->
+            <p v-else>
+            <p class="text-center"><i>Job listings coming soon</i></p>
+            <img class="w-48 mx-auto" src="/static/icons/jobs_placeholder.jpg" alt="">
+            </p>
         </section>
         <section class="gallery">
             <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"

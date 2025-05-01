@@ -30,8 +30,7 @@
           <!-- AWA LOGO Text -->
           <div>
             <RouterLink to="/">
-              <!-- <img style="height:55px;" src="/static/icons/awa_logo.svg" /> -->
-              <h1 class="text-gray-200">AWA</h1>
+              <img class="xs:ml-2 sm:ml-16" style="height:55px;" src="/static/icons/logo.png" />
             </RouterLink>
           </div>
 

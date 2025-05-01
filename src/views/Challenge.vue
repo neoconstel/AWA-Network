@@ -15,7 +15,7 @@
                 </RouterLink>
             </div>
 
-            <h1 class="mt-4">AWA 3D Art Contests</h1>
+            <h1 class="mt-4">Competition</h1>
             <p class="mt-2">Test your strengths in one of our competitive art contests.</p>
             <div class="h-1 bg-gray-500 my-5 mb-10"></div>
         </header>
