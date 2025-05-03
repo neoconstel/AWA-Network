@@ -50,7 +50,7 @@
 
         <h3 class="text-center text-2xl sm:text-4xl">Art Gallery</h3>
         <section class="gallery">
-            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+            <WorksGallery class="xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6" :works="works"
                 :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="0" :stopIndex="12" :maxWorks="12"
                 @bottom-reached="addMoreWorks" />
         </section>
@@ -79,7 +79,7 @@
                     soon</i></p>
         </section>
         <section class="gallery">
-            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+            <WorksGallery class="xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6" :works="works"
                 :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="12" :stopIndex="24" :maxWorks="24"
                 @bottom-reached="addMoreWorks" />
         </section>
@@ -121,7 +121,7 @@
             </div>
         </section> -->
         <section class="gallery">
-            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+            <WorksGallery class="xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6" :works="works"
                 :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="24" :stopIndex="36" :maxWorks="36"
                 @bottom-reached="addMoreWorks" />
         </section>
@@ -145,7 +145,7 @@
                     soon</i></p>
         </section>
         <section class="gallery">
-            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+            <WorksGallery class="xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6" :works="works"
                 :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="36" :stopIndex="48" :maxWorks="48"
                 @bottom-reached="addMoreWorks" />
         </section>
@@ -175,7 +175,7 @@
                     soon</i></p>
         </section>
         <section class="gallery">
-            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+            <WorksGallery class="xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6" :works="works"
                 :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="48" :stopIndex="60" :maxWorks="60"
                 @bottom-reached="addMoreWorks" />
         </section>
@@ -198,7 +198,7 @@
                     soon</i></p>
         </section>
         <section class="gallery">
-            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+            <WorksGallery class="xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6" :works="works"
                 :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="60" :stopIndex="72" :maxWorks="72"
                 @bottom-reached="addMoreWorks" />
         </section>
@@ -231,16 +231,16 @@
                     </template>
                 </div>
             </div>
-            <!-- <p v-else class="text-center text-gray-200 bg-gray-500 p-10 rounded-full w-44 mx-auto"><i>Job listings
+            <p v-else class="text-center text-gray-200 bg-gray-500 p-10 rounded-full w-44 mx-auto"><i>Job listings
                     coming
-                    soon</i></p> -->
-            <p v-else>
+                    soon</i></p>
+            <!-- <p v-else>
             <p class="text-center"><i>Job listings coming soon</i></p>
             <img class="w-48 mx-auto" src="/static/icons/jobs_placeholder.jpg" alt="">
-            </p>
+            </p> -->
         </section>
         <section class="gallery">
-            <WorksGallery class="xs:grid-cols-1 sm:grid-cols-3 lg:grid-cols-6" :works="works"
+            <WorksGallery class="xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6" :works="works"
                 :infoBgCol="'bg-gray-400 dark:bg-gray-700'" :startIndex="72" :stopIndex="this.worksUpperLimit"
                 @bottom-reached="addMoreWorks" :infiniteScroll="true" />
         </section>
