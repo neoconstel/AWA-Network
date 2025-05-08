@@ -1,6 +1,7 @@
-# awa-network
+# awa-network (frontend)
 
-This template should help get you started developing with Vue 3 in Vite.
+## Link to temporary site:
+https://neoconstel.pythonanywhere.com/
 
 ## Recommended IDE Setup
 
