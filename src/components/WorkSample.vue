@@ -12,7 +12,7 @@
                     alt="" data-twe-toggle="modal" data-twe-target="#removeLikeModal">
             </a>
             <RouterLink :to="`/artwork/${work.id}`">
-                <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.file_url"
+                <img class="h-full w-full" style="object-fit: cover; object-position: 0% 5%;" :src="work.thumbnail_url"
                     :alt="work.title">
             </RouterLink>
         </div>
