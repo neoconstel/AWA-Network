@@ -9,14 +9,19 @@
                 type="text" id="title" placeholder="Title" ref="title" />
 
             <div v-if="this.artCategories.length">
-                <input class="text-gray-800 dark:text-gray-200  outline-gray-300 outline-none outline-2" type="text"
+                <!-- <input class="text-gray-800 dark:text-gray-200  outline-gray-300 outline-none outline-2" type="text"
                     list="sub-topics" id="categories" placeholder="Category" ref="categories" />
                 <datalist id="sub-topics">
                     <template v-for="category in this.artCategories">
                         <option :value="category.name"></option>
                     </template>
-                </datalist>
+</datalist> -->
+
+                <v-autocomplete v-model="selectedCategoryName" class="text-gray-800 dark:text-gray-200" clearable
+                    label="Category" id="categories" ref="categories"
+                    :items="this.artCategories.map(option => option.name)"></v-autocomplete>
             </div>
+
 
             <textarea class="text-gray-800 dark:text-gray-200 outline-gray-300 outline-none outline-2" rows="3"
                 columns="5" placeholder="Describe the cool idea behind this stuff" ref="description"></textarea>
@@ -48,7 +53,8 @@ export default {
     data() {
         return {
             'artCategories': [],
-            'errorMessage': ''
+            'errorMessage': '',
+            'selectedCategoryName': null
         }
     },
     methods: {
@@ -61,8 +67,9 @@ export default {
         },
         async submit() {
             const title = this.$refs.title.value
-            const artCategory = this.artCategories.find(
-                category => category.name == this.$refs.categories.value)
+            // const artCategory = this.artCategories.find(
+            //     category => category.name == this.$refs.categories.value) // depreciated (using v-autocomplete now)
+            const artCategory = this.artCategories.find(category => category.name == this.selectedCategoryName)
             const artCategoryID = artCategory.id
             const description = this.$refs.description.value
             const tags = this.$refs.tags.value
