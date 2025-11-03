@@ -17,7 +17,7 @@
                     product.seller.brand_name }}</RouterLink> in
                     <RouterLink :to="`/resources/${product.category.root.toLowerCase()}`" class="text-cyan-500">{{
                         product.category.root
-                        }}</RouterLink>
+                    }}</RouterLink>
                 </p>
             </header>
 
@@ -30,14 +30,14 @@
             <div class="grid mt-5 grid-cols-1 lg:grid-cols-[2fr_1fr]">
                 <main class="mt-10">
                     <img class="w-full aspect-video object-cover"
-                        :src="activeSrc ? activeSrc : product.thumbnail_images[0]" alt="">
+                        :src="activeSrc ? activeSrc : product.raw_thumbnail_images[0]" alt="">
 
                     <div v-if="product.thumbnail_images.length > 1"
                         class="flex flex-row mt-5 gap-x-2 overflow-x-scroll">
                         <img @click="handleThumbnailClick"
                             class="active-thumbnail h-28 aspect-video object-cover border-green-500 border-solid border-4"
-                            :src="product.thumbnail_images[0]" alt="">
-                        <img @click="handleThumbnailClick" v-for="(src, index) in product.thumbnail_images.slice(1)"
+                            :src="product.raw_thumbnail_images[0]" alt="">
+                        <img @click="handleThumbnailClick" v-for="(src, index) in product.raw_thumbnail_images.slice(1)"
                             class="h-28 aspect-video object-cover border-green-500 border-none border-4" :src="src"
                             alt="" key="index">
                     </div>
