@@ -19,7 +19,8 @@
 
             <section class="grid mt-10 gap-x-5 lg:grid-cols-[3fr_1fr]">
                 <!-- highlighted article -->
-                <ArticleCard class="h-full" :article="articles.slice(-1)[0]" :topToBottomRatio="3" />
+                <ArticleCard class="h-full" :article="articles.slice(-1)[0]" :topToBottomRatio="3"
+                    :rawThumbnail="true" />
 
                 <section class="space-y-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-x-5">
                     <!-- <p class="text-center text-2xl mt-16 block lg:hidden">Highlights</p> -->

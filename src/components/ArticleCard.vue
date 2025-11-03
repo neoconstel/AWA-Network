@@ -1,7 +1,7 @@
 <template>
     <div v-if="article" class="">
         <RouterLink class="" :to="`/article/${article.id}/`"><img class="aspect-video object-cover w-full"
-                :src="article.thumbnail_url" alt="">
+                :src="this.rawThumbnail ? article.raw_thumbnail_url : article.thumbnail_url" alt="">
         </RouterLink>
         <div class="grid grid-rows-3 px-3 max-h-24 bg-yellow-500 dark:bg-yellow-700">
             <p class="overflow-hidden whitespace-nowrap text-ellipsis">{{ article.categories.split(',').join(' ') }}
@@ -26,6 +26,10 @@ export default {
     props: {
         'article': Object,
         'topToBottomRatio': Number,
+        rawThumbnail: {
+            type: Boolean,
+            default: false
+        } // if true, original thumbnail image is used instead of the compressed one
     },
     computed: {
         ...mapStores(useDataStore),
