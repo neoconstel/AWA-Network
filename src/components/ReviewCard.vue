@@ -5,7 +5,7 @@
          otherwise it's child div using absolute position will fail to display 
          properly on FireFox-->
         <RouterLink class="relative inline-block" :to="`/review/${review.id}/`">
-            <img class="aspect-square w-full object-cover object-top" :src="review.caption_media_url" alt="">
+            <img class="aspect-square w-full object-cover object-top" :src="review.caption_media_thumbnail_url" alt="">
             <div class="absolute flex w-full h-1/5 bottom-0 bg-gray-900 bg-opacity-50 justify-center px-2">
                 <h2 class="text-xl my-auto overflow-hidden whitespace-nowrap text-ellipsis text-gray-200">
                     {{
