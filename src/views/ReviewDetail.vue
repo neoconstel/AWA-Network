@@ -76,7 +76,7 @@
                 <div v-if="relatedReview.id != this.review.id" class="grid gap-x-1"
                     style="grid-template-columns: 1fr 4fr;">
                     <RouterLink class="" :to="`/review/${relatedReview.id}/`"><img class="aspect-square object-cover"
-                            :src="relatedReview.caption_media_url" alt="">
+                            :src="relatedReview.caption_media_thumbnail_url" alt="">
                     </RouterLink>
                     <RouterLink class="overflow-hidden whitespace-nowrap text-ellipsis"
                         :to="`/review/${relatedReview.id}/`">
