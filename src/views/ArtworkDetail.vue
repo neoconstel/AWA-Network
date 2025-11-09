@@ -15,6 +15,15 @@
                 </div>
             </div>
 
+            <!-- extra images showing variations of this artwork -->
+            <h3 class="text-center mt-10">Variations</h3>
+
+            <div class="grid xs:grid-cols-1 md:grid-cols-3 gap-4">
+                <img class="xs:px-5 xs:py-2 lg:px-16 lg:py-8 mx-auto" :src="this.artwork.file_url" alt="">
+                <img class="xs:px-5 xs:py-2 lg:px-16 lg:py-8 mx-auto" :src="this.artwork.file_url" alt="">
+                <img class="xs:px-5 xs:py-2 lg:px-16 lg:py-8 mx-auto" :src="this.artwork.file_url" alt="">
+            </div>
+
             <!-- edit/delete controls (only available if this artwork is owned by current user) -->
             <div v-if="this.dataStore.user.id && this.artwork.id && this.artwork.artist.user.username == this.dataStore.user.username"
                 class="mt-10 text-center">
