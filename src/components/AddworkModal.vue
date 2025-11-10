@@ -2,7 +2,7 @@
     <Modal :tag="'addWorkModal'" ref="addworkModal">
         <!-- content inside addWork modal -->
         <form class="flex flex-col gap-5 mb-3 p-10">
-            <h3 class="text-gray-700 dark:text-gray-300">Upload new Artwork</h3>
+            <h3 class="text-gray-700 text-center dark:text-gray-300">Upload Artwork</h3>
 
             <input class="relative text-gray-800 dark:text-gray-200 outline-gray-300 outline-none outline-2" type="text"
                 id="title" placeholder="Title" ref="title" />
