@@ -16,7 +16,8 @@
             </div>
 
 
-            <h3 class="text-center mt-10 text-gray-800 dark:text-gray-200">Variations</h3>
+            <h3 v-if="this.artwork.variants.length" class="text-center mt-10 text-gray-800 dark:text-gray-200">
+                Variations</h3>
 
             <!-- extra images showing variations of this artwork -->
             <div class="grid xs:grid-cols-1 lg:grid-cols-3 gap-4">
@@ -66,7 +67,7 @@
                     </button>
                     <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
                         this.numberFormat(this.reactionData.count)
-                    }}</span>
+                        }}</span>
                 </div>
             </form>
             <div class="comments [&>.comment]:bg-gray-500 [&>.comment]:dark:bg-gray-700 space-y-5 mt-16">
@@ -106,7 +107,7 @@
             </section>
             <aside class="extras">
                 <h3 v-if="this.artwork.id && this.otherArtworks.length > 0">More from {{ this.artwork.artist.user.name
-                }}
+                    }}
                 </h3>
                 <!-- intentionally didn't set a grid-row, so if the images are few, they
                 fit into a single row but if they surpass the width for a single row, the
