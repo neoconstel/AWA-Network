@@ -20,9 +20,7 @@
 
             <!-- extra images showing variations of this artwork -->
             <div class="grid xs:grid-cols-1 lg:grid-cols-3 gap-4">
-                <template v-for="variant in this.artwork.variants">
-                    <img class="mx-auto" :src="variant" alt="">
-                </template>
+                <img v-for="variant in this.artwork.variants" class="mx-auto" :src="variant" alt="">
             </div>
 
             <!-- edit/delete controls (only available if this artwork is owned by current user) -->
@@ -68,7 +66,7 @@
                     </button>
                     <span v-if="this.reactionData.count < 1000" class="absolute bottom-0">{{
                         this.numberFormat(this.reactionData.count)
-                    }}</span>
+                        }}</span>
                 </div>
             </form>
             <div class="comments [&>.comment]:bg-gray-500 [&>.comment]:dark:bg-gray-700 space-y-5 mt-16">
@@ -108,7 +106,7 @@
             </section>
             <aside class="extras">
                 <h3 v-if="this.artwork.id && this.otherArtworks.length > 0">More from {{ this.artwork.artist.user.name
-                }}
+                    }}
                 </h3>
                 <!-- intentionally didn't set a grid-row, so if the images are few, they
                 fit into a single row but if they surpass the width for a single row, the
